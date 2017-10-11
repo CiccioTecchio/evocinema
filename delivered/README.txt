@@ -1,1 +1,1 @@
-In questa directory vanno inseriti i file che consegnerte al prof.
+In questa directory vanno inseriti i documenti che consegnerte al prof.
