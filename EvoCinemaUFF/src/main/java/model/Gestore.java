@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package java.model;
+
+package model;
 
 import java.util.GregorianCalendar;
 
-/**
- *
- * @author francescodefeo
- */
 public class Gestore extends UtenteRegistrato{
 
     public Gestore(String nomeUtente, String password, String nome, String cognome, String email, String cellulare, String indirizzo, GregorianCalendar dataNascita, String sesso) {

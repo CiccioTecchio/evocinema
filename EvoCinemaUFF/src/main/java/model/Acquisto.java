@@ -1,14 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package java.model;
 
-/**
- *
- * @author francescodefeo
- */
+package model;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public class Acquisto {
+    private String idAcquisto;
+    private Float sconto;
+    private GregorianCalendar data;
+
+    public Acquisto(String idAcquisto, Float sconto, GregorianCalendar data) {
+        this.idAcquisto = idAcquisto;
+        this.sconto = sconto;
+        this.data = data;
+    }
+
+    public String getIdAcquisto() {
+        return idAcquisto;
+    }
+
+    public Float getSconto() {
+        return sconto;
+    }
+
+    public GregorianCalendar getData() {
+        return data;
+    }
+
+    public void setIdAcquisto(String idAcquisto) {
+        this.idAcquisto = idAcquisto;
+    }
+
+    public void setSconto(Float sconto) {
+        this.sconto = sconto;
+    }
+
+    public void setData(GregorianCalendar data) {
+        this.data = data;
+    }
     
+     
 }
