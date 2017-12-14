@@ -70,7 +70,7 @@ public class Spettacolo {
 
     @Override
     public String toString() {
-        return this.getClass()+"{" + "idSpettacolo=" + idSpettacolo + ", orario=" + orario + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", sala=" + sala + '}';
+        return (this.getClass().getName()+"{" + "idSpettacolo=" + idSpettacolo + ", orario=" + orario + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", sala=" + sala + '}');
     }
             
     
