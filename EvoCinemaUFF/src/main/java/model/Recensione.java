@@ -1,6 +1,7 @@
 
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Recensione {
@@ -48,5 +49,10 @@ public class Recensione {
         this.dataImmissione = dataImmissione;
     }
     
-    
+    @Override
+    public String toString(){
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+
+        return(getClass().getName()+"{id recensione="+idRecensione+", valutazione="+String.format("%1$.1f",valutazione)+", testo="+testo+", data immissione="+fmt.format(dataImmissione.getTime()));
+    }
 }

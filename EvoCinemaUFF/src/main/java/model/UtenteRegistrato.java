@@ -1,6 +1,7 @@
 
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 
@@ -102,8 +103,9 @@ public abstract class UtenteRegistrato {
     
     @Override
     public String toString(){
-        return (getClass().getName()+":\n"
-                + "Nome utente - "+nomeUtente+"; Nome - "+nome+"; Cognome - "+cognome+"; Email - "+email+"; Cellulare - "+cellulare+"; Indirizzo - "+indirizzo+"; Data di nascita - "+dataNascita.toString()+"; Sesso - "+sesso);
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+
+        return (getClass().getName()+"{nome utente="+nomeUtente+", nome="+nome+", cognome="+cognome+", email="+email+", cellulare="+cellulare+", indirizzo="+indirizzo+", data di nascita="+fmt.format(dataNascita.getTime())+", sesso="+sesso);
     }
 
 }

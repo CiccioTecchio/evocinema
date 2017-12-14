@@ -46,5 +46,9 @@ public class Posto {
         this.statoPosto = statoPosto;
     }
    
-    
+     @Override
+    public String toString(){
+        
+        return(getClass().getName()+"{id posto="+idPosto+", fila="+fila+", numero="+numero+", stato posto="+statoPosto);
+    } 
 }

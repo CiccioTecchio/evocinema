@@ -1,6 +1,7 @@
 
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Film {
@@ -68,6 +69,11 @@ public class Film {
         this.locandina = locandina;
     }
     
-    
+    @Override
+    public String toString(){
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy");
+        
+        return(getClass().getName()+"{"+"id film="+idFilm+", titolo="+titolo+", descrizione="+descrizione+", genere="+genere+", anno uscita="+fmt.format(annoUscita.getTime())+", locandina="+locandina);
+    } 
     
 }

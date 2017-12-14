@@ -1,14 +1,15 @@
 
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Acquisto {
     private String idAcquisto;
-    private Float sconto;
+    private Sconto sconto;
     private GregorianCalendar data;
 
-    public Acquisto(String idAcquisto, Float sconto, GregorianCalendar data) {
+    public Acquisto(String idAcquisto, Sconto sconto, GregorianCalendar data) {
         this.idAcquisto = idAcquisto;
         this.sconto = sconto;
         this.data = data;
@@ -18,7 +19,7 @@ public class Acquisto {
         return idAcquisto;
     }
 
-    public Float getSconto() {
+    public Sconto getSconto() {
         return sconto;
     }
 
@@ -30,7 +31,7 @@ public class Acquisto {
         this.idAcquisto = idAcquisto;
     }
 
-    public void setSconto(Float sconto) {
+    public void setSconto(Sconto sconto) {
         this.sconto = sconto;
     }
 
@@ -38,5 +39,10 @@ public class Acquisto {
         this.data = data;
     }
     
-     
+    @Override
+    public String toString(){
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+        
+        return(getClass().getName()+"{"+"id acquisto="+idAcquisto+", "+sconto.toString()+", data="+fmt.format(data.getTime()));
+    } 
 }

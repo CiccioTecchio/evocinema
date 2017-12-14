@@ -24,6 +24,6 @@ public class UtenteBase  extends UtenteRegistrato{
     
     @Override
     public String toString(){
-        return(super.toString()+"; Saldo corrente - "+saldo);
+        return(super.toString()+", saldo corrente="+String.format("%1$.2f",saldo));
     }
 }

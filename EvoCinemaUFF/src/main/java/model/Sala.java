@@ -36,5 +36,9 @@ public class Sala {
         this.statoSala = statoSala;
     }
     
+    @Override
+    public String toString(){
+        return(getClass().getName()+"{nome sala="+sala+", numero posti="+numeroPosti+", stato sala="+statoSala);
+    }
     
 }

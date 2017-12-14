@@ -1,6 +1,7 @@
 
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class Spettacolo {
@@ -70,7 +71,11 @@ public class Spettacolo {
 
     @Override
     public String toString() {
-        return (this.getClass().getName()+"{" + "idSpettacolo=" + idSpettacolo + ", orario=" + orario + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", sala=" + sala + '}');
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat fmt1 = new SimpleDateFormat("HH:mm");
+
+
+        return (this.getClass().getName()+"{" + "id spettacolo=" + idSpettacolo + ", orario=" + fmt1.format(orario.getTime()) + ", data inizio=" + fmt.format(dataInizio.getTime()) + ", data fine=" + fmt.format(dataFine.getTime()) + ", prezzo=" + String.format("%1$.2f",prezzo) + ", sala=" + sala.toString() + '}');
     }
             
     

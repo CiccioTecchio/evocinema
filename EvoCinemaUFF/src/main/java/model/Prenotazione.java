@@ -27,5 +27,9 @@ public class Prenotazione {
         this.caparra = caparra;
     }
     
+    @Override
+    public String toString(){
+        return(getClass().getName()+"{id prenotazione="+idPrenotazione+", caparra="+String.format("%1$.2f",caparra));
+    }
     
 }
