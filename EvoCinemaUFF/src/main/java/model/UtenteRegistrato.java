@@ -99,5 +99,11 @@ public abstract class UtenteRegistrato {
     public String getSesso() {
         return sesso;
     }
+    
+    @Override
+    public String toString(){
+        return (getClass().getName()+":\n"
+                + "Nome utente - "+nomeUtente+"; Nome - "+nome+"; Cognome - "+cognome+"; Email - "+email+"; Cellulare - "+cellulare+"; Indirizzo - "+indirizzo+"; Data di nascita - "+dataNascita.toString()+"; Sesso - "+sesso);
+    }
 
 }

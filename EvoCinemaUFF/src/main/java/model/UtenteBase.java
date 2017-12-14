@@ -22,7 +22,8 @@ public class UtenteBase  extends UtenteRegistrato{
         return saldo;
     }
     
+    @Override
     public String toString(){
-        return("");
+        return(super.toString()+"; Saldo corrente - "+saldo);
     }
 }
