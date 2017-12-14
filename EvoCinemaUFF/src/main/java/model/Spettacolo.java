@@ -9,13 +9,15 @@ public class Spettacolo {
     private GregorianCalendar dataInizio;
     private GregorianCalendar dataFine;
     private float prezzo;
+    private Sala sala;
 
-    public Spettacolo(String idSpettacolo, GregorianCalendar orario, GregorianCalendar dataInizio, GregorianCalendar dataFine, float prezzo) {
+    public Spettacolo(String idSpettacolo, GregorianCalendar orario, GregorianCalendar dataInizio, GregorianCalendar dataFine, float prezzo, Sala sala) {
         this.idSpettacolo = idSpettacolo;
         this.orario = orario;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.prezzo = prezzo;
+        this.sala=sala;
     }
 
     public String getIdSpettacolo() {
@@ -37,6 +39,10 @@ public class Spettacolo {
     public float getPrezzo() {
         return prezzo;
     }
+    
+    public Sala getSala(){
+        return sala;
+    }
 
     public void setIdSpettacolo(String idSpettacolo) {
         this.idSpettacolo = idSpettacolo;
@@ -57,6 +63,11 @@ public class Spettacolo {
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
     }
+    
+    public void setSala(Sala sala){
+        this.sala = sala;
+    }
+            
     
     
 }
