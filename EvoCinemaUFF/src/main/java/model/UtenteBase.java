@@ -21,4 +21,8 @@ public class UtenteBase  extends UtenteRegistrato{
     public float getSaldo() {
         return saldo;
     }
+    
+    public String toString(){
+        return("");
+    }
 }
