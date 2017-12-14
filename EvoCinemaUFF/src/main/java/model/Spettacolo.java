@@ -67,6 +67,11 @@ public class Spettacolo {
     public void setSala(Sala sala){
         this.sala = sala;
     }
+
+    @Override
+    public String toString() {
+        return this.getClass()+"{" + "idSpettacolo=" + idSpettacolo + ", orario=" + orario + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", sala=" + sala + '}';
+    }
             
     
     
