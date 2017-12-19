@@ -10,13 +10,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        <link rel="stylesheet" href="template/full-slider.css"
+        <link rel="stylesheet" href="HomeSlider/css/full-slider.css"
 	type="text/css"/>
         
-        <link href="template/bootstrap.min.css" rel="stylesheet">
+        <link href="HomeSlider/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         
-        <script src="template/jquery.min.js"></script>
-        <script src="template/bootstrap.bundle.min.js"></script>
         
         <title>Home</title>
     </head>
@@ -65,4 +63,5 @@
         
         
     </body>
+    <%@ include file="footer.jsp"%>
 </html>
