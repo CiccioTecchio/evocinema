@@ -2,11 +2,12 @@
 package model;
 
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-
+import java.util.Calendar;
 
 public abstract class UtenteRegistrato {
 
+    public enum ruolo{UTENTE,OPERATORE,GESTORE};
+    public enum sesso{M,F};
     private String nomeUtente;
     private String password;
     private String nome;
@@ -14,10 +15,11 @@ public abstract class UtenteRegistrato {
     private String email;
     private String cellulare;
     private String indirizzo;
-    private GregorianCalendar dataNascita;
-    private String sesso;
+    private Calendar dataNascita;
+    private ruolo ruolo;
+    private sesso sesso;
 
-    public UtenteRegistrato(String nomeUtente, String password, String nome, String cognome, String email, String cellulare, String indirizzo, GregorianCalendar dataNascita, String sesso) {
+    public UtenteRegistrato(String nomeUtente, String password, String nome, String cognome, String email, String cellulare, String indirizzo, Calendar dataNascita, ruolo ruolo,sesso sesso) {
         this.nomeUtente = nomeUtente;
         this.password = password;
         this.nome = nome;
@@ -26,7 +28,11 @@ public abstract class UtenteRegistrato {
         this.cellulare = cellulare;
         this.indirizzo = indirizzo;
         this.dataNascita = dataNascita;
-        this.sesso = sesso;
+        this.ruolo=ruolo;
+        this.sesso=sesso;
+    }
+    
+    public UtenteRegistrato(){
     }
 
     public void setNomeUtente(String nomeUtente) {
@@ -57,12 +63,8 @@ public abstract class UtenteRegistrato {
         this.indirizzo = indirizzo;
     }
 
-    public void setDataNascita(GregorianCalendar dataNascita) {
+    public void setDataNascita(Calendar dataNascita) {
         this.dataNascita = dataNascita;
-    }
-
-    public void setSesso(String sesso) {
-        this.sesso = sesso;
     }
 
     public String getNomeUtente() {
@@ -93,19 +95,29 @@ public abstract class UtenteRegistrato {
         return indirizzo;
     }
 
-    public GregorianCalendar getDataNascita() {
+    public Calendar getDataNascita() {
         return dataNascita;
     }
 
-    public String getSesso() {
+    public ruolo getRuolo() {
+        return ruolo;
+    }
+
+    public sesso getSesso() {
         return sesso;
     }
-    
-    @Override
-    public String toString(){
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 
-        return (getClass().getName()+"{nome utente="+nomeUtente+", nome="+nome+", cognome="+cognome+", email="+email+", cellulare="+cellulare+", indirizzo="+indirizzo+", data di nascita="+fmt.format(dataNascita.getTime())+", sesso="+sesso);
+    public void setRuolo(ruolo ruolo) {
+        this.ruolo = ruolo;
     }
 
+    public void setSesso(sesso sesso) {
+        this.sesso = sesso;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName()+"{" + "nomeUtente=" + nomeUtente + ", password=" + password + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", cellulare=" + cellulare + ", indirizzo=" + indirizzo + ", dataNascita=" + dataNascita + ", ruolo=" + ruolo + ", sesso=" + sesso + '}';
+    }
+    
 }

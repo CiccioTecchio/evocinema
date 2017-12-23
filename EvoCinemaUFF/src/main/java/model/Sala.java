@@ -2,43 +2,49 @@
 package model;
 
 public class Sala {
-    private String sala;
+    private int idSala;
     private int numeroPosti;
-    private String statoSala;
+    private String configPosti;
 
-    public Sala(String sala, int numeroPosti, String statoSala) {
-        this.sala = sala;
+    public Sala(int idSala, int numeroPosti, String configPosti) {
+        this.idSala = idSala;
         this.numeroPosti = numeroPosti;
-        this.statoSala = statoSala;
+        this.configPosti = configPosti;
+    }
+    
+    public Sala(){
+    
     }
 
-    public String getSala() {
-        return sala;
+    public int getIdSala() {
+        return idSala;
     }
 
     public int getNumeroPosti() {
         return numeroPosti;
     }
 
-    public String getStatoSala() {
-        return statoSala;
+    public String getConfigPosti() {
+        return configPosti;
     }
 
-    public void setSala(String sala) {
-        this.sala = sala;
+    public void setIdSala(int idSala) {
+        this.idSala = idSala;
     }
 
     public void setNumeroPosti(int numeroPosti) {
         this.numeroPosti = numeroPosti;
     }
 
-    public void setStatoSala(String statoSala) {
-        this.statoSala = statoSala;
+    public void setConfigPosti(String configPosti) {
+        this.configPosti = configPosti;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName()+"{" + "idSala=" + idSala + ", numeroPosti=" + numeroPosti + ", configPosti=" + configPosti + '}';
     }
     
-    @Override
-    public String toString(){
-        return(getClass().getName()+"{nome sala="+sala+", numero posti="+numeroPosti+", stato sala="+statoSala);
-    }
+    
     
 }

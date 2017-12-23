@@ -2,22 +2,30 @@
 package model;
 
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class Recensione {
-    private String idRecensione;
+    private int idRecensione;
+    private String emailUtente;
+    private int idFilm;
     private float valutazione;
     private String testo;
-    private GregorianCalendar dataImmissione;
+    private Calendar dataImmissione;
 
-    public Recensione(String idRecensione, float valutazione, String testo, GregorianCalendar dataImmissione) {
+    public Recensione(int idRecensione,String emailUtente, int idOpera, float valutazione, String testo, Calendar dataImmissione) {
         this.idRecensione = idRecensione;
+        this.emailUtente= emailUtente;
+        this.idFilm= idOpera;
         this.valutazione = valutazione;
         this.testo = testo;
         this.dataImmissione = dataImmissione;
     }
 
-    public String getIdRecensione() {
+    public Recensione(){
+        
+    }
+    
+    public int getIdRecensione() {
         return idRecensione;
     }
 
@@ -29,11 +37,23 @@ public class Recensione {
         return testo;
     }
 
-    public GregorianCalendar getDataImmissione() {
+    public void setIdFilm(int idFilm) {
+        this.idFilm = idFilm;
+    }
+
+    public String getEmailUtente() {
+        return emailUtente;
+    }
+
+    public int getIdFilm() {
+        return idFilm;
+    }
+
+    public Calendar getDataImmissione() {
         return dataImmissione;
     }
 
-    public void setIdRecensione(String idRecensione) {
+    public void setIdRecensione(int idRecensione) {
         this.idRecensione = idRecensione;
     }
 
@@ -45,14 +65,18 @@ public class Recensione {
         this.testo = testo;
     }
 
-    public void setDataImmissione(GregorianCalendar dataImmissione) {
+    public void setEmailUtente(String emailUtente) {
+        this.emailUtente = emailUtente;
+    }
+
+    public void setDataImmissione(Calendar dataImmissione) {
         this.dataImmissione = dataImmissione;
     }
-    
-    @Override
-    public String toString(){
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 
-        return(getClass().getName()+"{id recensione="+idRecensione+", valutazione="+String.format("%1$.1f",valutazione)+", testo="+testo+", data immissione="+fmt.format(dataImmissione.getTime()));
+    @Override
+    public String toString() {
+        return getClass().getName()+"{" + "idRecensione=" + idRecensione + ", emailUtente=" + emailUtente + ", idFilm=" + idFilm + ", valutazione=" + valutazione + ", testo=" + testo + ", dataImmissione=" + dataImmissione + '}';
     }
+
+    
 }

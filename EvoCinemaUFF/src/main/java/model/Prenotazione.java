@@ -1,35 +1,12 @@
 
 package model;
 
+import java.util.Calendar;
 
-public class Prenotazione {
-    private String idPrenotazione;
-    private float caparra;
 
-    public Prenotazione(String idPrenotazione, float caparra) {
-        this.idPrenotazione = idPrenotazione;
-        this.caparra = caparra;
-    }
-
-    public String getIdPrenotazione() {
-        return idPrenotazione;
-    }
-
-    public float getCaparra() {
-        return caparra;
-    }
-
-    public void setIdPrenotazione(String idPrenotazione) {
-        this.idPrenotazione = idPrenotazione;
-    }
-
-    public void setCaparra(float caparra) {
-        this.caparra = caparra;
-    }
+public class Prenotazione extends Operazione{
     
-    @Override
-    public String toString(){
-        return(getClass().getName()+"{id prenotazione="+idPrenotazione+", caparra="+String.format("%1$.2f",caparra));
+    public Prenotazione(int idOperazione, String email, int idSpettacolo, int postoColonna, int postoRiga, int sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, int sconto) {
+        super(idOperazione, email, idSpettacolo, postoColonna, postoRiga, sala, myPrenotato, myAcquistato, prezzoFinale, data, sconto);
     }
-    
 }

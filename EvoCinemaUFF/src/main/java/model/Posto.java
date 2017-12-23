@@ -2,53 +2,46 @@
 package model;
 
 public class Posto {
-   private String idPosto;
-   private String fila;
-   private String numero;
-   private String statoPosto;
+   private int riga;
+   private int colonna;
+   private int sala;
+   private enum stato{ libero, occupato};
 
-    public Posto(String idPosto, String fila, String numero, String statoPosto) {
-        this.idPosto = idPosto;
-        this.fila = fila;
-        this.numero = numero;
-        this.statoPosto = statoPosto;
+    public Posto(int riga, int colona, int sala, stato myStato, stato stato) {
+        this.riga = riga;
+        this.colonna = colonna;
+        this.sala = sala;
+        stato = myStato;
     }
 
-    public String getIdPosto() {
-        return idPosto;
+    public int getRiga() {
+        return riga;
     }
 
-    public String getFila() {
-        return fila;
+    public int getColonna() {
+        return colonna;
     }
 
-    public String getNumero() {
-        return numero;
+    public int getSala() {
+        return sala;
     }
 
-    public String getStatoPosto() {
-        return statoPosto;
+    public void setRiga(int riga) {
+        this.riga = riga;
     }
 
-    public void setIdPosto(String idPosto) {
-        this.idPosto = idPosto;
+    public void setColonna(int colonna) {
+        this.colonna = colonna;
     }
 
-    public void setFila(String fila) {
-        this.fila = fila;
+    public void setSala(int sala) {
+        this.sala = sala;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    @Override
+    public String toString() {
+        return this.getClass().getName()+"{" + "riga=" + riga + ", colonna=" + colonna + ", sala=" + sala + '}';
     }
 
-    public void setStatoPosto(String statoPosto) {
-        this.statoPosto = statoPosto;
-    }
-   
-     @Override
-    public String toString(){
-        
-        return(getClass().getName()+"{id posto="+idPosto+", fila="+fila+", numero="+numero+", stato posto="+statoPosto);
-    } 
+    
 }

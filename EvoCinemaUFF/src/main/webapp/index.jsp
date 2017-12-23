@@ -21,6 +21,10 @@
     <body>
         <h1>Questa è la home</h1>
         
+        <form action="http://localhost:8080/EvoCinemaUFF/ConfigServlet" method="GET">
+        <input type="submit" value="Vedi acquisti" name="vediacquisti"> 
+    </form>
+        
         
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -63,5 +67,5 @@
         
         
     </body>
-    <%@ include file="footer.jsp"%>
+    
 </html>

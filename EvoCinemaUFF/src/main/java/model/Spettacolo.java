@@ -1,83 +1,101 @@
 
 package model;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class Spettacolo {
-    private String idSpettacolo;
-    private GregorianCalendar orario;
-    private GregorianCalendar dataInizio;
-    private GregorianCalendar dataFine;
+    private int idSpettacolo;
+    private int idSala;
+    private int idFilm;
+    private Calendar dataInizio;
+    private Calendar dataFine;
     private float prezzo;
-    private Sala sala;
+    private Calendar oraInizio;
+    private Calendar oraFine;
 
-    public Spettacolo(String idSpettacolo, GregorianCalendar orario, GregorianCalendar dataInizio, GregorianCalendar dataFine, float prezzo, Sala sala) {
+    public Spettacolo(int idSpettacolo, int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
         this.idSpettacolo = idSpettacolo;
-        this.orario = orario;
-        this.dataInizio = dataInizio;
-        this.dataFine = dataFine;
-        this.prezzo = prezzo;
-        this.sala=sala;
+        this.idSala= sala;
+        this.idFilm= idFilm;
+        this.dataInizio= dataInizio;
+        this.dataFine= dataFine;
+        this.prezzo= prezzo;
+        this.oraInizio= oraInizio;
+        this.oraFine= oraFine;
+    }       
+    
+    public Spettacolo(){
+        
     }
 
-    public String getIdSpettacolo() {
+    public int getIdSpettacolo() {
         return idSpettacolo;
     }
 
-    public GregorianCalendar getOrario() {
-        return orario;
+    public int getIdSala() {
+        return idSala;
     }
 
-    public GregorianCalendar getDataInizio() {
+    public int getIdFilm() {
+        return idFilm;
+    }
+
+    public Calendar getDataInizio() {
         return dataInizio;
     }
 
-    public GregorianCalendar getDataFine() {
+    public Calendar getDataFine() {
         return dataFine;
     }
 
     public float getPrezzo() {
         return prezzo;
     }
-    
-    public Sala getSala(){
-        return sala;
+
+    public Calendar getOraInizio() {
+        return oraInizio;
     }
 
-    public void setIdSpettacolo(String idSpettacolo) {
+    public Calendar getOraFine() {
+        return oraFine;
+    }
+
+    public void setIdSpettacolo(int idSpettacolo) {
         this.idSpettacolo = idSpettacolo;
     }
 
-    public void setOrario(GregorianCalendar orario) {
-        this.orario = orario;
+    public void setIdSala(int idSala) {
+        this.idSala = idSala;
     }
 
-    public void setDataInizio(GregorianCalendar dataInizio) {
+    public void setIdFilm(int idFilm) {
+        this.idFilm = idFilm;
+    }
+
+    public void setDataInizio(Calendar dataInizio) {
         this.dataInizio = dataInizio;
     }
 
-    public void setDataFine(GregorianCalendar dataFine) {
+    public void setDataFine(Calendar dataFine) {
         this.dataFine = dataFine;
     }
 
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
     }
-    
-    public void setSala(Sala sala){
-        this.sala = sala;
+
+    public void setOraInizio(Calendar oraInizio) {
+        this.oraInizio = oraInizio;
+    }
+
+    public void setOraFine(Calendar oraFine) {
+        this.oraFine = oraFine;
     }
 
     @Override
     public String toString() {
-        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat fmt1 = new SimpleDateFormat("HH:mm");
-
-
-        return (this.getClass().getName()+"{" + "id spettacolo=" + idSpettacolo + ", orario=" + fmt1.format(orario.getTime()) + ", data inizio=" + fmt.format(dataInizio.getTime()) + ", data fine=" + fmt.format(dataFine.getTime()) + ", prezzo=" + String.format("%1$.2f",prezzo) + ", sala=" + sala.toString() + '}');
+        return getClass().getName()+"{" + "idSpettacolo=" + idSpettacolo + ", idSala=" + idSala + ", idFilm=" + idFilm + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", oraInizio=" + oraInizio + ", oraFine=" + oraFine + '}';
     }
-            
-    
-    
 }
