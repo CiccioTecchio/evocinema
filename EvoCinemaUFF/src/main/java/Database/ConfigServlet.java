@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Acquisto;
+import model.Operazione;
 
  
 @WebServlet ("/TryServlet")
@@ -25,9 +26,9 @@ public class ConfigServlet extends HttpServlet{
       try {
           logger.info("pongo");
           
-          AcquistoDAO acquisto= new AcquistoDAO();
-          List<Acquisto> listaAcquisti = (List<Acquisto>) acquisto.getAllAcquisti();
-          for(Acquisto la : listaAcquisti){
+          OperazioneDAO operazione= new OperazioneDAO();
+          List<Operazione> listaOperazioni = (List<Operazione>) operazione.getAllOperazioni();
+          for(Operazione la : listaOperazioni){
               System.out.println(la);
           }
       } catch (NamingException | SQLException | ParseException ex) {

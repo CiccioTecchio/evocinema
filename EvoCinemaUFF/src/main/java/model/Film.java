@@ -3,10 +3,11 @@ package model;
 
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Film {
     public enum tipo{film, teatro, altro};
-    private enum vistoCensura{ T, VM14, VM16, VM18};
+    public enum vistoCensura{ T, VM14, VM16, VM18};
     
     private int idFilm;
     private tipo tipo;

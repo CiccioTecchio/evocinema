@@ -2,17 +2,22 @@
 package model;
 
 public class Posto {
+   public enum stato{ libero, occupato};
+    
    private int riga;
    private int colonna;
-   private int sala;
-   private enum stato{ libero, occupato};
+   private Sala sala;
+   private stato stato;
+   
 
-    public Posto(int riga, int colona, int sala, stato myStato, stato stato) {
+    public Posto(int riga, int colonna, Sala sala, stato myStato) {
         this.riga = riga;
         this.colonna = colonna;
         this.sala = sala;
         stato = myStato;
     }
+    
+    public Posto(){}
 
     public int getRiga() {
         return riga;
@@ -22,8 +27,12 @@ public class Posto {
         return colonna;
     }
 
-    public int getSala() {
+    public Sala getSala() {
         return sala;
+    }
+
+    public stato getStato() {
+        return stato;
     }
 
     public void setRiga(int riga) {
@@ -34,14 +43,20 @@ public class Posto {
         this.colonna = colonna;
     }
 
-    public void setSala(int sala) {
+    public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public void setStato(stato stato) {
+        this.stato = stato;
     }
 
     @Override
     public String toString() {
-        return this.getClass().getName()+"{" + "riga=" + riga + ", colonna=" + colonna + ", sala=" + sala + '}';
+        return this.getClass().getName()+"{" + "riga=" + riga + ", colonna=" + colonna + ", sala=" + sala + ", stato=" + stato + '}';
     }
+
+   
 
     
 }

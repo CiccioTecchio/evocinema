@@ -14,16 +14,16 @@ public abstract class Operazione {
     private int idSpettacolo;
     private int postoColonna;
     private int postoRiga;
-    private int sala;
+    private Sala sala;
     private prenotato prenotato;
     private acquistato acquistato;
     private float prezzoFinale;
     private Calendar data;
-    private int sconto;
+    private Sconto sconto;
     
     
 
-    public Operazione(int idOperazione, String email, int idSpettacolo, int postoColonna, int postoRiga, int sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, int sconto) {
+    public Operazione(int idOperazione, String email, int idSpettacolo, int postoColonna, int postoRiga, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
         this.idOperazione = idOperazione;
         this.email= email;
         this.idSpettacolo= idSpettacolo;
@@ -59,7 +59,7 @@ public abstract class Operazione {
         return postoRiga;
     }
 
-    public int getSala() {
+    public Sala getSala() {
         return sala;
     }
 
@@ -79,7 +79,7 @@ public abstract class Operazione {
         return data;
     }
 
-    public int getSconto() {
+    public Sconto getSconto() {
         return sconto;
     }
 
@@ -103,7 +103,7 @@ public abstract class Operazione {
         this.postoRiga = postoRiga;
     }
 
-    public void setSala(int sala) {
+    public void setSala(Sala sala) {
         this.sala = sala;
     }
 
@@ -123,7 +123,7 @@ public abstract class Operazione {
         this.data = data;
     }
 
-    public void setSconto(int sconto) {
+    public void setSconto(Sconto sconto) {
         this.sconto = sconto;
     }
 
