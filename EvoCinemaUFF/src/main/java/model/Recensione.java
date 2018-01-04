@@ -7,15 +7,15 @@ import java.util.Calendar;
 public class Recensione {
     private int idRecensione;
     private String emailUtente;
-    private int idFilm;
+    private Film film;
     private float valutazione;
     private String testo;
     private Calendar dataImmissione;
 
-    public Recensione(int idRecensione,String emailUtente, int idOpera, float valutazione, String testo, Calendar dataImmissione) {
+    public Recensione(int idRecensione,String emailUtente, Film film, float valutazione, String testo, Calendar dataImmissione) {
         this.idRecensione = idRecensione;
         this.emailUtente= emailUtente;
-        this.idFilm= idOpera;
+        this.film= film;
         this.valutazione = valutazione;
         this.testo = testo;
         this.dataImmissione = dataImmissione;
@@ -37,16 +37,16 @@ public class Recensione {
         return testo;
     }
 
-    public void setIdFilm(int idFilm) {
-        this.idFilm = idFilm;
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
     public String getEmailUtente() {
         return emailUtente;
     }
 
-    public int getIdFilm() {
-        return idFilm;
+    public Film getFilm() {
+        return film;
     }
 
     public Calendar getDataImmissione() {
@@ -75,7 +75,7 @@ public class Recensione {
 
     @Override
     public String toString() {
-        return getClass().getName()+"{" + "idRecensione=" + idRecensione + ", emailUtente=" + emailUtente + ", idFilm=" + idFilm + ", valutazione=" + valutazione + ", testo=" + testo + ", dataImmissione=" + dataImmissione + '}';
+        return getClass().getName()+"{" + "idRecensione=" + idRecensione + ", emailUtente=" + emailUtente + ", film=" + film + ", valutazione=" + valutazione + ", testo=" + testo + ", dataImmissione=" + dataImmissione + '}';
     }
 
     

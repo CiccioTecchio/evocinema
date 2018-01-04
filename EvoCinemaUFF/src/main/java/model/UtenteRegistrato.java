@@ -1,7 +1,6 @@
 
 package model;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public abstract class UtenteRegistrato {
@@ -14,12 +13,13 @@ public abstract class UtenteRegistrato {
     private String cognome;
     private String email;
     private String cellulare;
+    private String città;
     private String indirizzo;
     private Calendar dataNascita;
     private ruolo ruolo;
     private sesso sesso;
 
-    public UtenteRegistrato(String nomeUtente, String password, String nome, String cognome, String email, String cellulare, String indirizzo, Calendar dataNascita, ruolo ruolo,sesso sesso) {
+    public UtenteRegistrato(String email,String nomeUtente,String password,ruolo ruolo,String nome, String cognome, Calendar dataNascita, sesso sesso, String cellulare, String città, String indirizzo) {
         this.nomeUtente = nomeUtente;
         this.password = password;
         this.nome = nome;
@@ -27,6 +27,7 @@ public abstract class UtenteRegistrato {
         this.email = email;
         this.cellulare = cellulare;
         this.indirizzo = indirizzo;
+        this.città= città;
         this.dataNascita = dataNascita;
         this.ruolo=ruolo;
         this.sesso=sesso;
@@ -115,9 +116,17 @@ public abstract class UtenteRegistrato {
         this.sesso = sesso;
     }
 
+    public String getCittà() {
+        return città;
+    }
+
+    public void setCittà(String città) {
+        this.città = città;
+    }
+
     @Override
     public String toString() {
-        return getClass().getName()+"{" + "nomeUtente=" + nomeUtente + ", password=" + password + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", cellulare=" + cellulare + ", indirizzo=" + indirizzo + ", dataNascita=" + dataNascita + ", ruolo=" + ruolo + ", sesso=" + sesso + '}';
+        return getClass().getName()+"{" + "nomeUtente=" + nomeUtente + ", password=" + password + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", cellulare=" + cellulare + ", indirizzo=" + indirizzo + ", dataNascita=" + dataNascita + ", ruolo=" + ruolo + ", sesso=" + sesso+ ", città=" + città +"}";
     }
     
 }
