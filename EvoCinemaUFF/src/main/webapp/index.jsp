@@ -6,66 +6,145 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+ 
+        <title>Evo Cinema</title>
         
-        <link rel="stylesheet" href="HomeSlider/css/full-slider.css"
-	type="text/css"/>
-        
+        <!-- Bootstrap core CSS -->
         <link href="HomeSlider/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="HomeSlider/css/swiper.min.css" rel="stylesheet">
+      
+        <link href="HomeSlider/css/datepicker.css" rel="stylesheet">
+        <link href="HomeSlider/css/datepicker.less" rel="stylesheet/less">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">   
+          <link href="HomeSlider/css/mycss.css" rel="stylesheet">
+        <style>
+           
+  
+           
+        </style>
         
-        
-        <title>Home</title>
     </head>
+
     <body>
-        <h1>Questa è la home</h1>
-        
-        <form action="http://localhost:8080/EvoCinemaUFF/ConfigServlet" method="GET">
-        <input type="submit" value="Vedi acquisti" name="vediacquisti"> 
-    </form>
-        
-        
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-          <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>First Slide</h3>
-              <p>This is a description for the first slide.</p>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Evo Cinema</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Login
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        
+
+                    </ul>
+                </div>
             </div>
-          </div>
-          <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>Second Slide</h3>
-              <p>This is a description for the second slide.</p>
+        </nav>
+
+        <header>
+            
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                </div>       
             </div>
-          </div>
-          <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>Third Slide</h3>
-              <p>This is a description for the third slide.</p>
+        </header>
+        <div id="date">
+            <div align="center">
+                <strong><label for="from" >Dal</label></strong>
+                <input type="text" id="from" name="from" style="width:100px">
+                <strong><label for="to">al</label>
+                <input type="text" id="to" name="to"style="width:100px">
+               
             </div>
-          </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
         
         
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="HomeSlider/vendor/jquery/jquery.min.js"></script>
+        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="swiper.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        <script>
+      var swiper = new Swiper('.swiper-container', {
+          effect: 'coverflow',
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+          },
+          pagination: {
+              el: '.swiper-pagination',
+          },
+      });
+      </script>
+   <script>
+         $( function() {
+    var dateFormat = "mm/dd/yy",
+      from = $( "#from" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 1
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
     </body>
-    
+
 </html>
+
