@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
     <welcome-file-list>
-	<welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
-    
     <servlet>
         <servlet-name>ConfigServlet</servlet-name>
-        <servlet-class>Database.ConfigServlet</servlet-class>
-        
+        <servlet-class>database.ConfigServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfigServlet</servlet-name>
         <url-pattern>/ConfigServlet</url-pattern>
     </servlet-mapping>
-    
-    
     <resource-ref>
         <description>JNDI reference to a data source</description>
         <res-ref-name>jdbc/evo_cinema</res-ref-name>

@@ -1,5 +1,5 @@
 
-package Database;
+package database;
 
 import java.sql.SQLException;
 import java.text.ParseException;
