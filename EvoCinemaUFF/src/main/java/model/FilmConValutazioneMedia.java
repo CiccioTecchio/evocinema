@@ -3,9 +3,9 @@ package model;
 
 public class FilmConValutazioneMedia {
     Film film;
-    int valutazioneMedia;
+    float valutazioneMedia;
     
-    public FilmConValutazioneMedia(Film film, int valutazione){
+    public FilmConValutazioneMedia(Film film, float valutazione){
         this.film=film;
         valutazioneMedia=valutazione;
     }
@@ -18,7 +18,7 @@ public class FilmConValutazioneMedia {
         this.film = film;
     }
 
-    public int getValutazioneMedia() {
+    public float getValutazioneMedia() {
         return valutazioneMedia;
     }
 
