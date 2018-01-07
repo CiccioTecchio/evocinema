@@ -68,12 +68,13 @@ public class RecensioneDAO {
     /**
      * Metodo per la ricerca nel DB delle recensioni di un utente.
      * @param emailUtente identificativo dell'utente
+     * @param order stabilisce ordimaneto della collection
      * @return Una collezione delle recensioni effettuate dall'utente passato come parametro
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Recensione> foundByEmail(String emailUtente) throws SQLException, ParseException, NamingException{
+    public synchronized Collection<Recensione> foundByEmail(String emailUtente , String order) throws SQLException, ParseException, NamingException{
         
        Connection connection=null;
        PreparedStatement stmt=null;
@@ -81,7 +82,7 @@ public class RecensioneDAO {
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE email= '"+ emailUtente +"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE email= '"+ emailUtente +"' AND data_recensione != NULL AND testo != NULL ORDER BY "+order);
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -111,12 +112,13 @@ public class RecensioneDAO {
     /**
      * Consente di ricavare tutte le recensioni del film specificato.
      * @param idFilm Codice del Film
+     * @param order stabilisce ordimaneto della collection
      * @return Lista delle recensioni associate all'id passato
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Recensione> foundByFilm(String idFilm) throws SQLException, ParseException, NamingException{
+    public synchronized Collection<Recensione> foundByFilm(String idFilm , String order) throws SQLException, ParseException, NamingException{
         
        Connection connection=null;
        PreparedStatement stmt=null;
@@ -124,7 +126,7 @@ public class RecensioneDAO {
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE id_opera= '"+ idFilm +"' ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE id_opera= '"+ idFilm +"' AND data_recensione != NULL AND testo != NULL ORDER BY "+order);
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
