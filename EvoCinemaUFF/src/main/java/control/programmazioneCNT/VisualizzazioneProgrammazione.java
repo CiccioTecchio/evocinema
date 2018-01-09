@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.*;
 import java.util.stream.Collectors;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,7 @@ public class VisualizzazioneProgrammazione extends HttpServlet {
                     && s.getDataFine().compareTo(today) >= 0
                 ).collect(Collectors.toList());
             request.setAttribute("spettacoli", spettacoli);
-        } catch (Exception e){
+        } catch (SQLException | ParseException | NamingException e){
             e.printStackTrace();
         }
     }
