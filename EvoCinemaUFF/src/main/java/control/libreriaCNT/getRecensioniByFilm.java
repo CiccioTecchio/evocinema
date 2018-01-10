@@ -54,7 +54,7 @@ public class getRecensioniByFilm extends HttpServlet {
        
         try{
         
-       recensioni = daoRec.foundByFilm(film, order);
+       recensioni = daoRec.foundByFilm(film);
        
        } catch (SQLException ex) {
             
