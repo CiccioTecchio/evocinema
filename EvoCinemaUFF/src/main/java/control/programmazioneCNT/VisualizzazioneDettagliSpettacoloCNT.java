@@ -5,12 +5,19 @@
  */
 package control.programmazioneCNT;
 
+import database.SpettacoloDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Spettacolo;
 
 /**
  *
@@ -30,6 +37,15 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        try {
+            int id = Integer.parseInt(request.getParameter("idSpettacolo"));
+            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+            Spettacolo spettacolo = spettacoloDao.foundByID(id);
+            request.setAttribute("spettacolo", spettacolo);
+        } catch (SQLException | ParseException | NamingException e){
+            Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
+        }    
         
     }
 

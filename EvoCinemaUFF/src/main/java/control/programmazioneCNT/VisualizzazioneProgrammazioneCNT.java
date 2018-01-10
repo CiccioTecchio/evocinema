@@ -11,7 +11,8 @@ import java.util.*;
 import java.io.IOException;
 import java.sql.*;
 import java.text.*;
-import java.util.stream.Collectors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,17 +40,14 @@ public class VisualizzazioneProgrammazioneCNT extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            Calendar today = new GregorianCalendar();
+            Calendar today = Calendar.getInstance();
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
-            Collection<Spettacolo> spettacoli = spettacoloDao.getAllSpettacoli();
-            spettacoli = spettacoli.stream().filter(
-                    s -> s.getDataInizio().compareTo(today) <= 0
-                    && s.getDataFine().compareTo(today) >= 0
-                ).collect(Collectors.toList());
+            Collection<Spettacolo> spettacoli = spettacoloDao.foundByDate(today);
+            spettacoli = spettacoli.stream().sorted(Integer::compare);
             request.setAttribute("spettacoli", spettacoli);
         } catch (SQLException | ParseException | NamingException e){
-            e.printStackTrace();
-        }
+            Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
+        }    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

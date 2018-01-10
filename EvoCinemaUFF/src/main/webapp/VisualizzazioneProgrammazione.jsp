@@ -4,6 +4,8 @@
     Author     : luca
 --%>
 
+<%@page import="model.Spettacolo"%>
+<%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +15,13 @@
     </head>
     <body>
         <jsp:include page="VisualizzazioneProgrammazione" />
-        <%-- Da completare con la stampa degli spettacoli ottenuti dalla servlet--%>        
+        <%
+            Collection<Spettacolo> spettacoli = (Collection<Spettacolo>) request.getAttribute("spettacoli");
+            
+            
+            
+            
+        %>
     </body>
+    
 </html>

@@ -14,8 +14,7 @@ public class Spettacolo {
     private Calendar oraInizio;
     private Calendar oraFine;
 
-    public Spettacolo(int idSpettacolo, int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
-        this.idSpettacolo = idSpettacolo;
+    public Spettacolo(int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
         this.idSala= sala;
         this.idFilm= idFilm;
         this.dataInizio= dataInizio;
