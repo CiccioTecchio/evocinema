@@ -48,6 +48,11 @@ public class RecensioneDAO {
                     r.setFilm(film);
                     r.setValutazione(rs.getFloat("valutazione"));
                     r.setTesto(rs.getString("testo"));
+                    
+                    Calendar data = Calendar.getInstance();
+                    data.setTime(rs.getDate("data_recensione"));
+                    r.setDataImmissione(data);
+                        
                     recensioni.add(r);
                     }
                     
@@ -92,6 +97,11 @@ public class RecensioneDAO {
                     r.setFilm(film);
                     r.setValutazione(rs.getFloat("valutazione"));
                     r.setTesto(rs.getString("testo"));
+                    
+                    Calendar data = Calendar.getInstance();
+                    data.setTime(rs.getDate("data_recensione"));
+                    r.setDataImmissione(data);
+                    
                     recensioni.add(r);
                     }
 		} finally {
@@ -135,6 +145,11 @@ public class RecensioneDAO {
                     r.setFilm(film);
                     r.setValutazione(rs.getFloat("valutazione"));
                     r.setTesto(rs.getString("testo"));
+                    
+                    Calendar data = Calendar.getInstance();
+                    data.setTime(rs.getDate("data_recensione"));
+                    r.setDataImmissione(data);
+                    
                     recensioni.add(r);
                     }
 		} finally {
@@ -167,7 +182,7 @@ public class RecensioneDAO {
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.recensioni (email, id_opera, valutazione, testo) VALUES ('"+ r.getEmailUtente() +"', '"+ r.getFilm().getIdFilm()+"', '"+ r.getValutazione() +"', '"+ r.getTesto()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.recensioni (email, id_opera, valutazione, testo, data_recensione) VALUES ('"+ r.getEmailUtente() +"', '"+ r.getFilm().getIdFilm()+"', '"+ r.getValutazione() +"', '"+ r.getTesto()+"', '"+ r.getDataImmissione().getTime() +"')");
             stmt.executeUpdate();
             inserita = true;
         } 
@@ -201,7 +216,7 @@ public class RecensioneDAO {
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.recensioni SET valutazione='"+ r.getValutazione() +"', testo='"+ r.getTesto()+"' WHERE ( email='"+ r.getEmailUtente()+"' AND id_opera='"+ r.getFilm().getIdFilm() + "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.recensioni SET valutazione='"+ r.getValutazione() +"', testo='"+ r.getTesto()+"', data_recensione='"+ r.getDataImmissione().getTime() +"' WHERE ( email='"+ r.getEmailUtente()+"' AND id_opera='"+ r.getFilm().getIdFilm() + "');");
             stmt.executeUpdate();
             update = true;
         } 
