@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control.libreria;
+package control.libreriaCNT;
 
 import database.FilmValutazioneDAO;
 import java.io.IOException;

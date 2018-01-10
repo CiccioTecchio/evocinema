@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control.libreria;
+package control.libreriaCNT;
 
+import control.libreriaCNT.getAllFilmEval;
 import database.RecensioneDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
