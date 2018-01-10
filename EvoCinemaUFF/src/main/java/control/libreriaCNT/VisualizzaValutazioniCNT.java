@@ -27,7 +27,7 @@ import model.FilmConValutazioneMedia;
  * @author GiuseppeDelGaudio
  */
 @WebServlet(name = "getAllFilmEval", urlPatterns = {"/getAllFilmEval"})
-public class getAllFilmEval extends HttpServlet {
+public class VisualizzaValutazioniCNT extends HttpServlet {
 
    
     /**
@@ -56,15 +56,15 @@ public class getAllFilmEval extends HttpServlet {
         
         } catch (SQLException ex) {
             
-            Logger.getLogger(getAllFilmEval.class.getName()).log(Level.SEVERE, "Sql Exception " );
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Sql Exception " );
         
         } catch (ParseException ex) {
             
-            Logger.getLogger(getAllFilmEval.class.getName()).log(Level.SEVERE, " Parse Exception ");
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, " Parse Exception ");
         
         } catch (NamingException ex) {
             
-            Logger.getLogger(getAllFilmEval.class.getName()).log(Level.SEVERE, "Naming Exception ");
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Naming Exception ");
         }
         
         request.setAttribute("listaFilmValutazioni", collection); // attributo di ritorno

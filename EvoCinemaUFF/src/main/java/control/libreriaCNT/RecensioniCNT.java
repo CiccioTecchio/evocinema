@@ -5,71 +5,85 @@
  */
 package control.libreriaCNT;
 
+import database.RecensioneDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Recensione;
 
 /**
  *
- * @author Michele
+ * @author GiuseppeDelGaudio
  */
 public class RecensioniCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Gestione metodo HTTP <code>GET</code>
+     * il metodo esegue il forward verso la pagina dettaglioFilm.jsp e carica nella request una Collection di {@link Recensione }
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se la servlet lancia errori generici
+     * @throws IOException se vengono lanciati errori IO
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      
+        String film = request.getParameter("idFilm");
+        
+        RecensioneDAO daoRec = new RecensioneDAO(); 
+        
+        Collection<Recensione> recensioni = null; 
+       
+        try{
+        
+       recensioni = daoRec.foundByFilm(film);
+       
+       } catch (SQLException ex) {
+            
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Sql Exception " );
+        
+        } catch (ParseException ex) {
+            
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, " Parse Exception ");
+        
+        } catch (NamingException ex) {
+            
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Naming Exception ");
+        }
+        
+        
+        request.setAttribute("recensioni", recensioni); // attributo di ritorno
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/dettaglioFilm.jsp");
+        dispatcher.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
+ /**
+     * Gestione metodo HTTP <code>POST</code>
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se la servlet lancia errori generici
+     * @throws IOException se vengono lanciati errori IO
+     * 
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        doGet(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }
