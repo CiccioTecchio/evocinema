@@ -5,25 +5,18 @@
  */
 package control.programmazioneCNT;
 
-import database.SpettacoloDAO;
-import model.Spettacolo;
-import java.util.*;
 import java.io.IOException;
-import java.sql.*;
-import java.text.*;
-import java.util.stream.Collectors;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author luca
+ * @author Michele
  */
-@WebServlet(name = "VisualizzazioneProgrammazione", urlPatterns = {"/VisualizzazioneProgrammazione"})
-public class VisualizzazioneProgrammazione extends HttpServlet {
+public class EliminaSpettacoloCNT extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,18 +30,6 @@ public class VisualizzazioneProgrammazione extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            Calendar today = new GregorianCalendar();
-            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
-            Collection<Spettacolo> spettacoli = spettacoloDao.getAllSpettacoli();
-            spettacoli = spettacoli.stream().filter(
-                    s -> s.getDataInizio().compareTo(today) <= 0
-                    && s.getDataFine().compareTo(today) >= 0
-                ).collect(Collectors.toList());
-            request.setAttribute("spettacoli", spettacoli);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,7 +68,7 @@ public class VisualizzazioneProgrammazione extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Preleva tutti gli spettacoli della data specificata dal database.";
+        return "Short description";
     }// </editor-fold>
 
 }

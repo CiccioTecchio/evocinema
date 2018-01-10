@@ -173,6 +173,60 @@ public class SpettacoloDAO {
     }
     
     /**
+     * Metodo per la ricerca di oggetti di tipo {@link Spettacolo} per cui la data passata come parametro è compresa tra quella di inizio e quella di fine.
+     * @param date La data per la quale cercare gli spettacoli
+     * @return Lista di oggetti di tipo {@link Spettacolo}
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+    public synchronized Collection<Spettacolo> foundByDate(Calendar date) throws SQLException, ParseException, NamingException {
+      
+       Connection connection=null;
+       PreparedStatement stmt=null;
+       Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
+       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       
+       try {
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE data_inizio <= ? AND data_fine >= ?");
+           stmt.setDate(1, new java.sql.Date(date.getTimeInMillis()));
+           stmt.setDate(2, new java.sql.Date(date.getTimeInMillis()));
+           ResultSet rs = stmt.executeQuery();
+           
+           while (rs.next()) {
+                Spettacolo s=new Spettacolo();
+                
+                s.setIdSpettacolo(rs.getInt("idSpettacolo"));
+                s.setIdSala(rs.getInt("id_sala"));
+                s.setIdFilm(rs.getInt("idOpera"));
+                Calendar dataInizio = Calendar.getInstance();
+                dataInizio.setTime(rs.getDate("data_inizio"));
+                s.setDataInizio(dataInizio);
+                Calendar dataFine = Calendar.getInstance();
+                dataFine.setTime(rs.getDate("data_fine"));
+                s.setDataFine(dataFine);
+                s.setPrezzo(rs.getFloat("prezzo"));
+                Calendar oraInizio= Calendar.getInstance();
+                oraInizio.setTime(rs.getTime("ora_inizio"));
+                s.setOraInizio(oraInizio);
+                Calendar oraFine= Calendar.getInstance();
+                oraInizio.setTime(rs.getTime("ora_fine"));
+                s.setOraFine(oraFine);
+                spettacoli.add(s);
+                }
+           } finally{
+                try {
+                    if (stmt != null)
+                        stmt.close();
+                    } finally {
+                        if (connection != null)
+                            connection.close();
+                       }
+           }
+    return spettacoli;
+    }
+    
+    /**
      * Metodo per la ricerca di oggetti di tipo {@link Spettacolo} aventi l'ID dell'attributo {@link Spettacolo.idFilm} uguale al parametro passato.
      * @param idOpera Identificativo del {@link Film}
      * @return  Lista di oggetti di tipo {@link Spettacolo}
