@@ -43,9 +43,7 @@ public class getAllFilmEval extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        String order = request.getParameter("order");
-            
-        if( order == null ) order = "titolo";
+    
             
         FilmValutazioneDAO query = new FilmValutazioneDAO();
         Collection<FilmConValutazioneMedia> collection = null; 
@@ -53,7 +51,7 @@ public class getAllFilmEval extends HttpServlet {
         try {
             
             
-            collection =  query.getAllFilmValutazioni(order);
+            collection =  query.getAllFilmValutazioni();
         
         
         } catch (SQLException ex) {

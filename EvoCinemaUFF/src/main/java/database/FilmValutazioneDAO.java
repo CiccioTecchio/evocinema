@@ -21,13 +21,12 @@ public class FilmValutazioneDAO {
     
      /**
      * Permette di estrarre le tuple di tipo {@link FilmConValutazioneMedia} dal DB.
-     * @param order tipo di ordinamento desiderato per l'output dal DB
      * @return Lista delle Opere di tipo "film" presenti nel DB con tanto di valutazione media degli utenti .
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<FilmConValutazioneMedia> getAllFilmValutazioni(String order ) throws SQLException, ParseException, NamingException {
+    public synchronized Collection<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
       
        Connection connection=null;
        PreparedStatement stmt=null;
@@ -37,7 +36,7 @@ public class FilmValutazioneDAO {
        try {
            
             stmt = (PreparedStatement) connection.prepareStatement(" SELECT opera.* , AVG( valutazione ) AS valutazione FROM recensioni,opera "
-                    + "                                                 WHERE opera.idOpera = recensioni.id_opera GROUP BY idOpera ORDER BY "+order);
+                    + "                                                 WHERE opera.idOpera = recensioni.id_opera GROUP BY idOpera");
 
             ResultSet rs = stmt.executeQuery();
 
