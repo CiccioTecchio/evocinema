@@ -46,6 +46,7 @@ public class UtenteBaseDAO {
                
                ut.setEmail(rs.getString("email"));
                ut.setNomeUtente(rs.getString("nome_utente"));
+               ut.setPassword(rs.getString("password"));
                ut.setRuolo(ruolo.valueOf(rs.getString("ruolo")));
                ut.setNome(rs.getString("nome"));
                Calendar dataNascita = Calendar.getInstance();
@@ -90,6 +91,7 @@ public class UtenteBaseDAO {
            ResultSet rs = stmt.executeQuery();
            utenteFound.setEmail(rs.getString("email"));
            utenteFound.setNomeUtente(rs.getString("nome_utente"));
+           utenteFound.setPassword(rs.getString("password"));
            utenteFound.setRuolo(ruolo.valueOf(rs.getString("ruolo")));
            utenteFound.setNome(rs.getString("nome"));
            Calendar dataNascita = Calendar.getInstance();
@@ -120,7 +122,7 @@ public class UtenteBaseDAO {
     * @throws ParseException
     * @throws NamingException 
     */
-   public synchronized boolean updateSconto(UtenteBase ut) throws SQLException, ParseException, NamingException{
+   public synchronized boolean updateUtenteBase(UtenteBase ut) throws SQLException, ParseException, NamingException{
         
        Connection connection=null;
        PreparedStatement stmt=null;
@@ -128,7 +130,7 @@ public class UtenteBaseDAO {
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.utente SET nome_utente='"+ ut.getNomeUtente()+"', ruolo='"+ ut.getRuolo()+"', nome='"+ut.getNome()+"', cognome='"+ut.getCognome()+"', data_nascita='"+ut.getDataNascita()+"', sesso='"+ut.getSesso()+"', cellulare='"+ut.getCellulare()+"', città='"+ut.getCittà()+"', indirizzo='"+ut.getIndirizzo()+"', saldo='"+ut.getSaldo()+"' WHERE ( email='"+ ut.getEmail()+ "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.utente SET nome_utente='"+ ut.getNomeUtente()+"', password='"+ ut.getPassword() +"', ruolo='"+ ut.getRuolo()+"', nome='"+ut.getNome()+"', cognome='"+ut.getCognome()+"', data_nascita='"+ut.getDataNascita()+"', sesso='"+ut.getSesso()+"', cellulare='"+ut.getCellulare()+"', città='"+ut.getCittà()+"', indirizzo='"+ut.getIndirizzo()+"', saldo='"+ut.getSaldo()+"' WHERE ( email='"+ ut.getEmail()+ "');");
             stmt.executeUpdate();
             update = true;
         } 

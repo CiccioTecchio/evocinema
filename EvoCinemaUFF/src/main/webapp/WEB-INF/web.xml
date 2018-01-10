@@ -53,10 +53,6 @@
         <url-pattern>/RicercaCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ValutazioniCNT</servlet-name>
-        <url-pattern>/ValutazioniCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RecensioniCNT</servlet-name>
         <url-pattern>/RecensioniCNT</url-pattern>
     </servlet-mapping>

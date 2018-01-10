@@ -5,9 +5,8 @@
  */
 package control.libreriaCNT;
 
-import database.FilmValutazioneDAO;
+import database.RecensioneDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Collection;
@@ -20,19 +19,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.FilmConValutazioneMedia;
+import model.Recensione;
 
 /**
  *
  * @author GiuseppeDelGaudio
  */
-@WebServlet(name = "visualizzaValutazioni", urlPatterns = {"/visualizzaValutazioni"})
-public class VisualizzaValutazioniCNT extends HttpServlet {
+@WebServlet(name = "recensioniFilm", urlPatterns = {"/recensioniFilm"})
+public class RecensioniFilmCNT extends HttpServlet {
 
-   
     /**
      * Gestione metodo HTTP <code>GET</code>
-     * il metodo esegue il forward verso la pagina libreria.jsp e carica nella request una Collection di {@link FilmConValutazioneMedia}
+     * il metodo esegue il forward verso la pagina dettaglioFilm.jsp e carica nella request una Collection di {@link Recensione }
      *
      * @param request servlet request
      * @param response servlet response
@@ -43,37 +41,40 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-    
+        String film = request.getParameter("idFilm");
+        String order = request.getParameter("order");
             
-        FilmValutazioneDAO query = new FilmValutazioneDAO();
-        Collection<FilmConValutazioneMedia> collection = null; 
+        if( order == null ) order = "data_recensione";
         
-        try {
-            
-            
-            collection =  query.getAllFilmValutazioni();
+        RecensioneDAO daoRec = new RecensioneDAO(); 
         
+        Collection<Recensione> recensioni = null; 
+       
+        try{
         
-        } catch (SQLException ex) {
+       recensioni = daoRec.foundByFilm(film);
+       
+       } catch (SQLException ex) {
             
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Sql Exception " );
+            Logger.getLogger(RecensioneDAO.class.getName()).log(Level.SEVERE, "Sql Exception " );
         
         } catch (ParseException ex) {
             
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, " Parse Exception ");
+            Logger.getLogger(RecensioneDAO.class.getName()).log(Level.SEVERE, " Parse Exception ");
         
         } catch (NamingException ex) {
             
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Naming Exception ");
+            Logger.getLogger(RecensioneDAO.class.getName()).log(Level.SEVERE, "Naming Exception ");
         }
         
-        request.setAttribute("listaFilmValutazioni", collection); // attributo di ritorno
         
-        RequestDispatcher res = getServletContext().getRequestDispatcher("/libreria.jsp");
-        res.forward(request, response);
+        request.setAttribute("recensioni", recensioni); // attributo di ritorno
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/dettaglioFilm.jsp");
+        dispatcher.forward(request, response);
     }
 
-    /**
+ /**
      * Gestione metodo HTTP <code>POST</code>
      * 
      * @param request servlet request
@@ -89,5 +90,6 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
         doGet(request, response);
     }
 
-
+  
+    
 }
