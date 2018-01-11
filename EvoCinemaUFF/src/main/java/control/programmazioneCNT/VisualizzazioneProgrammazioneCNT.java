@@ -13,6 +13,7 @@ import java.sql.*;
 import java.text.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +44,7 @@ public class VisualizzazioneProgrammazioneCNT extends HttpServlet {
             Calendar today = Calendar.getInstance();
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
             Collection<Spettacolo> spettacoli = spettacoloDao.foundByDate(today);
-            spettacoli = spettacoli.stream().sorted(Integer::compare);
+            spettacoli = spettacoli.stream().sorted((s1, s2) -> Integer.compare(s1.getIdFilm(), s2.getIdFilm())).collect(Collectors.toList());
             request.setAttribute("spettacoli", spettacoli);
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);

@@ -212,6 +212,7 @@ public class SpettacoloDAO {
                 Calendar oraFine= Calendar.getInstance();
                 oraInizio.setTime(rs.getTime("ora_fine"));
                 s.setOraFine(oraFine);
+                s.setMatricePosti(rs.getString("matrice_posti"));
                 spettacoli.add(s);
                 }
            } finally{
@@ -231,7 +232,7 @@ public class SpettacoloDAO {
      * @param idOpera Identificativo del {@link Film}
      * @return  Lista di oggetti di tipo {@link Spettacolo}
      * @throws SQLException
-     * @throws ParseException
+     * @throws ParseExceptionstring
      * @throws NamingException 
      */
     public synchronized Collection<Spettacolo> foundByOpera(int idOpera) throws SQLException, ParseException, NamingException {
