@@ -5,12 +5,19 @@
  */
 package control.programmazioneCNT;
 
+import database.SpettacoloDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Spettacolo;
 
 /**
  *
@@ -19,8 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ModificaSpettacoloCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     *Servlet che prende lo spettacolo in base all'id passato dalla visualizzazione dettagli spettacolo e lo passa alla jsp per modificarlo
      *
      * @param request servlet request
      * @param response servlet response
@@ -30,6 +36,17 @@ public class ModificaSpettacoloCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        try {
+            SpettacoloDAO spettacoloDao = new SpettacoloDAO();            
+            int id = Integer.parseInt(request.getParameter("idSpettacolo"));            
+            Spettacolo spettacolo = spettacoloDao.foundByID(id);
+            request.setAttribute("spettacolo", spettacolo);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/modificaProdotto.jsp");
+            dispatcher.forward(request, response);
+        } catch (SQLException | ParseException | NamingException e) {
+            Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
