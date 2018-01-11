@@ -10,5 +10,9 @@ public class Acquisto extends Operazione{
         super(idOperazione, email, idSpettacolo, postoColonna, postoRiga, sala, myPrenotato, myAcquistato, prezzoFinale, data, sconto);
     }
     
+    public Acquisto( String email, int idSpettacolo, int postoColonna, int postoRiga, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
+        super( email, idSpettacolo, postoColonna, postoRiga, sala, myPrenotato, myAcquistato, prezzoFinale, data, sconto);
+    }
+    
     public Acquisto(){}
 }

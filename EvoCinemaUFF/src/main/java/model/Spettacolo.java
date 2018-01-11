@@ -26,7 +26,7 @@ public class Spettacolo {
         this.matricePosti = matricePosti;
     }       
     
-    public Spettacolo(int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
+    public Spettacolo(int sala,int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
         this.idSala= sala;
         this.idFilm= idFilm;
         this.dataInizio= dataInizio;
@@ -35,6 +35,28 @@ public class Spettacolo {
         this.oraInizio= oraInizio;
         this.oraFine= oraFine;
     }       
+    
+    public Spettacolo( int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
+        
+        this.idFilm= idFilm;
+        this.dataInizio= dataInizio;
+        this.dataFine= dataFine;
+        this.prezzo= prezzo;
+        this.oraInizio= oraInizio;
+        this.oraFine= oraFine;
+    }   
+
+    public Spettacolo( int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine, String matricePosti) {
+        
+        this.idFilm= idFilm;
+        this.dataInizio= dataInizio;
+        this.dataFine= dataFine;
+        this.prezzo= prezzo;
+        this.oraInizio= oraInizio;
+        this.oraFine= oraFine;
+        this.matricePosti = matricePosti;
+    }       
+        
     
     public Spettacolo(){
         
