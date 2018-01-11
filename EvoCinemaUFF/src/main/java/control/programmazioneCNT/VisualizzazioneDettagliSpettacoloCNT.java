@@ -5,6 +5,7 @@
  */
 package control.programmazioneCNT;
 
+import database.SalaDAO;
 import database.SpettacoloDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Sala;
 import model.Spettacolo;
 
 /**
@@ -41,8 +43,12 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("idSpettacolo"));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+            SalaDAO salaDao = new SalaDAO();
             Spettacolo spettacolo = spettacoloDao.foundByID(id);
+            Sala sala = salaDao.foundByID(spettacolo.getIdSala());
             request.setAttribute("spettacolo", spettacolo);
+            request.setAttribute("sala", sala);
+            request.setAttribute("title", "Programmazione");
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
         }    
