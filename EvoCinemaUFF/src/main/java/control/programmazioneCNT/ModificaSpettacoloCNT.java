@@ -5,7 +5,6 @@
  */
 package control.programmazioneCNT;
 
-import database.SpettacoloDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -17,7 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Spettacolo;
+import model.*;
+import database.*;
 
 /**
  *
@@ -39,9 +39,13 @@ public class ModificaSpettacoloCNT extends HttpServlet {
 
         try {
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();            
-            int id = Integer.parseInt(request.getParameter("idSpettacolo"));            
-            Spettacolo spettacolo = spettacoloDao.foundByID(id);
+            int idS = Integer.parseInt(request.getParameter("idSpettacolo"));            
+            Spettacolo spettacolo = spettacoloDao.foundByID(idS);
+            FilmDAO filmDao = new FilmDAO();
+            int idF = spettacolo.getIdFilm();
+            Film film = filmDao.foundByID(idF);
             request.setAttribute("spettacolo", spettacolo);
+            request.setAttribute("film", film);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/modificaProdotto.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException | ParseException | NamingException e) {
