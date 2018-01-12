@@ -3,6 +3,22 @@
     Author     : luca
 */
 
-.posto-disponibile {
-    background-image: url("http://localhost:8080/ServletProve/images/poltrona_disponibile_v2.png");
+.vds-posto {
+    
+}
+
+.vds-posto-non-disponibile {
+    
+}
+
+.vds-posto-disponibile {
+    
+}
+
+.vds-posto-prenotato {
+    
+}
+
+.vds-posto-occupato {
+    
 }
