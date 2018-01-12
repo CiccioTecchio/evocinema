@@ -2,7 +2,7 @@
 package model;
 
 public class Posto {
-   public enum stato{ libero, occupato};
+   public enum stato{OCCUPATO, NON_DISPONIBILE, PRENOTATO, DISPONIBILE};
     
    private int riga;
    private int colonna;

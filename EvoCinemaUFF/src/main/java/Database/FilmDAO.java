@@ -3,7 +3,7 @@ package Database;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -23,6 +23,15 @@ import model.Film.vistoCensura;
  */
 public class FilmDAO {
     private static Logger logger= Logger.getLogger("global");
+    private Connection connection;
+     
+    public FilmDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     
     /**
      * Permette di estrarre le tuple di tipo {@link Film} dal DB.
@@ -33,10 +42,8 @@ public class FilmDAO {
      */
     public synchronized Collection<Film> getAllOpere() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Film> film = new LinkedList<Film>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            
@@ -70,18 +77,10 @@ public class FilmDAO {
                     
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       
-       logger.info(film+"");
-       
-		return film;
+	return film;
    }
     
     /**
@@ -93,14 +92,11 @@ public class FilmDAO {
      */
     public synchronized Collection<Film> getAllFilm() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Film> film = new LinkedList<Film>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-           
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera where tipo= 'film' ");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera where tipo= 'film' ");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -117,7 +113,8 @@ public class FilmDAO {
                         f.setDurata(rs.getTime("durata"));
                         
                         Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data"));
+                        Date newDate = rs.getTimestamp("data_uscita");
+                        dataUscita.setTime(newDate);
                         f.setDataUscita(dataUscita);
                         
                         f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
@@ -130,17 +127,9 @@ public class FilmDAO {
                     
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       
-       logger.info(film+"");
-       
 		return film;
    }
     
@@ -153,13 +142,10 @@ public class FilmDAO {
      */
     public synchronized Collection<Film> getAllTeatro() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Film> film = new LinkedList<Film>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera where tipo= 'teatro' ");
 
             ResultSet rs = stmt.executeQuery();
@@ -190,18 +176,10 @@ public class FilmDAO {
                     
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       
-       logger.info(film+"");
-       
-		return film;
+	return film;
    }
     
     /**
@@ -214,13 +192,10 @@ public class FilmDAO {
      */
     public synchronized Film foundByID(int idFilm) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        Film film = new Film();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera WHERE idOpera= '"+ idFilm +"' ");
 
             ResultSet rs = stmt.executeQuery();
@@ -251,19 +226,10 @@ public class FilmDAO {
                     
 
 		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
+			if (stmt != null)
+                            stmt.close();
 			}
-		}
-       
-       logger.info(film+"");
-       
-		return film;
-        
+	return film;
     }
     
     /**
@@ -277,11 +243,7 @@ public class FilmDAO {
     public synchronized boolean createFilm(Film f) throws SQLException, ParseException, NamingException{
         
        boolean inserito= false;
-       Connection connection=null;
        PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -290,14 +252,9 @@ public class FilmDAO {
             
             inserito = true;
             } finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
 		return inserito;
 	}
     
@@ -313,11 +270,7 @@ public class FilmDAO {
     public synchronized boolean updateFilm(Film f) throws SQLException, ParseException, NamingException{
        
        boolean modificato= false;
-       Connection connection=null;
        PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -326,14 +279,9 @@ public class FilmDAO {
             
             modificato = true;
             } finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
 		return modificato;
 	}
     
@@ -348,11 +296,7 @@ public class FilmDAO {
      public synchronized boolean deleteFilm(int idOpera) throws SQLException, ParseException, NamingException{
        
        boolean eliminato= false;
-       Connection connection=null;
        PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -361,14 +305,9 @@ public class FilmDAO {
             
             eliminato = true;
             } finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
+			if (stmt != null)
+                            stmt.close();
 			}
-		}
 		return eliminato;
 	}
 }

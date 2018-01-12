@@ -24,19 +24,48 @@ public class SalaDAO {
     
     private static Logger logger= Logger.getLogger("global");
     
+    private Connection connection;
+    private PreparedStatement stmt = null;
+    private Sala salaFound = new Sala();
+    
+    public SalaDAO() throws NamingException, SQLException {
+        connection=(com.mysql.jdbc.Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     /**
      * Permette di estrarre tuple di Sala dal DB.
      * @return Lista delle Sale presenti all'interno del DB.
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
+     * 
+     * 
      */
+    
+    public synchronized Sala foundByID(int idSala) throws SQLException, ParseException, NamingException {
+       
+       try {
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sala WHERE id_sala="+idSala+"");
+           ResultSet rs = stmt.executeQuery();
+           rs.next();
+           salaFound.setIdSala(rs.getInt("id_sala"));
+           salaFound.setNumeroPosti(rs.getInt("numero_posti"));
+           salaFound.setConfigPosti(rs.getString("configurazione_posti"));
+       }
+       finally{
+           if (stmt != null)
+                        stmt.close();
+           }
+    return salaFound;
+    }
+    
     public synchronized Collection<Sala> getAllSale() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Sala> sale = new LinkedList<Sala>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sala");
@@ -50,13 +79,9 @@ public class SalaDAO {
                sale.add(s);
            }
        } finally{
-            try {
                 if (stmt != null)
                     stmt.close();
-		} finally {
-                    if (connection != null)
-			connection.close();
-                  }
+		
 	}
        
     return sale;
@@ -70,31 +95,6 @@ public class SalaDAO {
     * @throws ParseException
     * @throws NamingException 
     */
-   public synchronized Sala foundByID(int idSala) throws SQLException, ParseException, NamingException {
-      
-       Connection connection=null;
-       PreparedStatement stmt=null;
-       Sala salaFound = new Sala();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-       try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sala WHERE id_sala='"+idSala+"'");
-           ResultSet rs = stmt.executeQuery();
-           salaFound.setIdSala(rs.getInt("id_sala"));
-           salaFound.setNumeroPosti(rs.getInt("numero_posti"));
-           salaFound.setConfigPosti(rs.getString("configurazione_posti"));
-           
-           } finally{
-                try {
-                    if (stmt != null)
-                        stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
-           }
-    return salaFound;
-    }
    
    /**
     * Metodo per l'inserimento di una {@link Sala} all'interno del DB.
@@ -106,10 +106,9 @@ public class SalaDAO {
     */
     public synchronized boolean createSala(Sala s) throws SQLException, ParseException, NamingException{
         
-        Connection connection=null;
+        
         PreparedStatement stmt=null;
         boolean inserita= false;
-        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
 
         try {
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.sala (id_sala, numero_posti, configurazione_posti) VALUES ('"+ s.getIdSala() +"', '"+ s.getNumeroPosti()+"', '"+ s.getConfigPosti()+"')");
@@ -117,14 +116,8 @@ public class SalaDAO {
             inserita = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                      stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
 
         return inserita;
@@ -140,25 +133,17 @@ public class SalaDAO {
      */
     public synchronized boolean updateSala(Sala s) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
-       PreparedStatement stmt=null;
-       boolean update= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
+       PreparedStatement stmt=null;
+       boolean update= false;       
        try {
             stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.sala SET numero_posti='"+ s.getNumeroPosti()+"', configurazione_posti='"+ s.getConfigPosti()+"' WHERE ( id_sala='"+ s.getIdSala()+ "');");
             stmt.executeUpdate();
             update = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
         return update;
     }
@@ -173,26 +158,18 @@ public class SalaDAO {
      */
     public synchronized boolean deleteSale(int idSala) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
+      
        PreparedStatement stmt=null;
-       boolean delete= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
+       boolean delete= false;       
        try {
             stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.sala WHERE ( id_sala='"+ idSala +"');");
             stmt.executeUpdate();
             delete = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
             } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
-            }
         return delete;
     }
     

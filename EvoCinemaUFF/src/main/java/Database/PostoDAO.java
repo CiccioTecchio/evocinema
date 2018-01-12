@@ -14,6 +14,7 @@ import model.Posto;
 import model.Posto.stato;
 import model.Sala;
 
+
 /**
  * Classe di accesso al DB per il prelievo dei dati di tipo {@link Posto}
  * @author micheledellipaoli
@@ -21,7 +22,15 @@ import model.Sala;
 public class PostoDAO {
     private static Logger logger= Logger.getLogger("global");
     private SalaDAO salaDAO = new SalaDAO();
-    
+    private Connection connection;
+     
+    public PostoDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     /**
      * Permette di estrarre le tuple di tipo {@link Posto} dal DB.
      * @return Lista dei Posti di tipo {@link Posto} presenti all'interno del DB.
@@ -31,13 +40,9 @@ public class PostoDAO {
      */
     public synchronized Collection<Posto> getAllPosti() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Posto> posti = new LinkedList<>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
-       
+      
        try {
            
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.posto");
@@ -51,8 +56,8 @@ public class PostoDAO {
                         p.setColonna(rs.getInt("colonna"));
                         
                         int idSala = rs.getInt("idSala");
-                        Sala sala = salaDAO.foundByID(idSala);
-                        p.setSala(sala);
+                        //Sala sala = salaDAO.foundByID(idSala);
+                        //p.setSala(sala);
                         
                         p.setStato(stato.valueOf(rs.getString("stato")));
 
@@ -61,17 +66,9 @@ public class PostoDAO {
                     
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       
-       logger.info(posti+"");
-       
 		return posti;
    }
     
@@ -86,13 +83,8 @@ public class PostoDAO {
      */
     public synchronized Posto foundByID(int riga, int colonna) throws SQLException, ParseException, NamingException{
        
-        
-       Connection connection=null;
        PreparedStatement stmt=null;
        Posto p = new Posto();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -108,8 +100,8 @@ public class PostoDAO {
                         
                         int idSala = rs.getInt("idSala");
                         Sala sala;
-                        sala = salaDAO.foundByID(idSala);
-                        p.setSala(sala);
+                        //sala = salaDAO.foundByID(idSala);
+                        //p.setSala(sala);
                         
                         p.setStato(stato.valueOf(rs.getString("stato")));
                         
@@ -117,17 +109,9 @@ public class PostoDAO {
                     
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       
-       logger.info(p+"");
-       
 		return p;
    }
     
@@ -142,11 +126,7 @@ public class PostoDAO {
     public synchronized boolean createPosto(Posto p) throws SQLException, ParseException, NamingException{
         
        boolean inserito= false;
-       Connection connection=null;
        PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -155,14 +135,9 @@ public class PostoDAO {
             
             inserito = true;
             } finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
+			if (stmt != null)
+                            stmt.close();
 			}
-		}
 		return inserito;
 	}
     
@@ -178,11 +153,7 @@ public class PostoDAO {
     public synchronized boolean updatePosto(Posto p) throws SQLException, ParseException, NamingException{
        
        boolean modificato= false;
-       Connection connection=null;
        PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -191,16 +162,11 @@ public class PostoDAO {
             
             modificato = true;
             } finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
+			if (stmt != null)
+                            stmt.close();
 			}
-		}
-		return modificato;
-	}
+	return modificato;
+}
     
     /**
      * Metodo per la cancellazione di un {@link Posto} all'interno del DB.
@@ -214,11 +180,7 @@ public class PostoDAO {
     public synchronized boolean deletePosto(int riga, int colonna) throws SQLException, ParseException, NamingException{
        
        boolean eliminato= false;
-       Connection connection=null;
        PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
-        
        
        try {
            
@@ -227,15 +189,10 @@ public class PostoDAO {
             
             eliminato = true;
             } finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-		return eliminato;
-	}
+	return eliminato;
+    }
     
 }

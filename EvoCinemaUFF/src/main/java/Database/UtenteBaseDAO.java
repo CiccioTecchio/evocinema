@@ -23,7 +23,15 @@ import model.UtenteRegistrato.sesso;
 public class UtenteBaseDAO {
     
     private static Logger logger= Logger.getLogger("global");
-    
+    private Connection connection;
+     
+    public UtenteBaseDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     /**
      * Metodo per la ricerca di oggetti di tipo {@link UtenteBase} nel DB
      * @return Lista di oggetti di tipo {@link UtenteBase}
@@ -33,10 +41,8 @@ public class UtenteBaseDAO {
      */
     public synchronized Collection<UtenteBase> getAllUtentiBase() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<UtenteBase> utentiBase = new LinkedList<UtenteBase>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE ruolo='"+UTENTE+"'");
@@ -59,14 +65,9 @@ public class UtenteBaseDAO {
                utentiBase.add(ut);
            }
        } finally{
-            try {
                 if (stmt != null)
                     stmt.close();
-		} finally {
-                    if (connection != null)
-			connection.close();
-                  }
-	}
+		}
     return utentiBase;
    }
     
@@ -80,10 +81,8 @@ public class UtenteBaseDAO {
      */
    public synchronized UtenteBase foundByEmail(String email) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        UtenteBase utenteFound = new UtenteBase();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE email='"+email+"'");
@@ -101,14 +100,9 @@ public class UtenteBaseDAO {
            utenteFound.setIndirizzo(rs.getString("indirizzo"));
            utenteFound.setSaldo(rs.getFloat("saldo"));
            } finally{
-                try {
                     if (stmt != null)
                         stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
-           }
+                    }
     return utenteFound;
     }
    
@@ -120,12 +114,10 @@ public class UtenteBaseDAO {
     * @throws ParseException
     * @throws NamingException 
     */
-   public synchronized boolean updateSconto(UtenteBase ut) throws SQLException, ParseException, NamingException{
+   public synchronized boolean updateUtenteBase(UtenteBase ut) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean update= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.utente SET nome_utente='"+ ut.getNomeUtente()+"', ruolo='"+ ut.getRuolo()+"', nome='"+ut.getNome()+"', cognome='"+ut.getCognome()+"', data_nascita='"+ut.getDataNascita()+"', sesso='"+ut.getSesso()+"', cellulare='"+ut.getCellulare()+"', città='"+ut.getCittà()+"', indirizzo='"+ut.getIndirizzo()+"', saldo='"+ut.getSaldo()+"' WHERE ( email='"+ ut.getEmail()+ "');");
@@ -133,15 +125,9 @@ public class UtenteBaseDAO {
             update = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
             }
-        }
     return update;
     }
    
@@ -154,11 +140,9 @@ public class UtenteBaseDAO {
     * @throws NamingException 
     */
     public synchronized boolean createUtenteBase(UtenteBase u) throws SQLException, ParseException, NamingException{
-        
-       Connection connection=null;
+       
        PreparedStatement stmt=null;
        boolean inserito= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('"+ u.getEmail() +"', '"+ u.getNomeUtente()+"', '"+u.getPassword()+"', '"+u.getRuolo()+"', '"+u.getNome()+"', '"+u.getCognome()+"', '"+u.getDataNascita()+"', '"+ u.getSesso()+"', '"+ u.getCellulare()+"', '"+u.getCittà()+"', '"+u.getIndirizzo()+"', '"+u.getSaldo()+"')");
@@ -166,14 +150,8 @@ public class UtenteBaseDAO {
             inserito = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-            }
         }
     return inserito;
     }
@@ -187,11 +165,9 @@ public class UtenteBaseDAO {
      * @throws NamingException 
      */
      public synchronized boolean deleteUtenteBase(String email) throws SQLException, ParseException, NamingException{
-        
-       Connection connection=null;
+       
        PreparedStatement stmt=null;
        boolean delete= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.utente WHERE ( email='"+ email +"');");
@@ -199,14 +175,8 @@ public class UtenteBaseDAO {
             delete = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
     return delete;
     }

@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Film;
 import model.Operazione;
+import model.Prenotazione;
 
  
 @WebServlet ("/TryServlet")
@@ -25,10 +27,18 @@ public class ConfigServlet extends HttpServlet{
       try {
           logger.info("pongo");
           
-          OperazioneDAO operazione= new OperazioneDAO();
-          List<Operazione> listaOperazioni = (List<Operazione>) operazione.getAllOperazioni();
-          for(Operazione la : listaOperazioni){
+          /*OperazioneDAO operazione= new OperazioneDAO();
+          List<Prenotazione> listaPrenotazioni = (List<Prenotazione>) operazione.getPrenotazioni();
+          operazione.getDAOConnection().close();
+          for(Operazione la : listaPrenotazioni){
               System.out.println(la);
+          }*/
+          
+          FilmDAO film= new FilmDAO();
+          List<Film> listaFilm= (List<Film>) film.getAllFilm();
+          film.getDAOConnection().close();
+          for(Film fm : listaFilm){
+              System.out.println(fm);
           }
       } catch (NamingException | SQLException | ParseException ex) {
           Logger.getLogger(ConfigServlet.class.getName()).log(Level.SEVERE, null, ex);

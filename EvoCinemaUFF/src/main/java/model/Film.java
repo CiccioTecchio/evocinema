@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Film {
-    public enum tipo{film, teatro, altro};
+    public enum tipo{FILM, TEATRO, ALTRO};
     public enum vistoCensura{ T, VM14, VM16, VM18};
     
     private int idFilm;

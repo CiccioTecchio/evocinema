@@ -1,8 +1,10 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-import javax.ejb.Singleton;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -25,11 +27,18 @@ public class SingletonDBConnection {
         dataSource       = (DataSource) envContext.lookup("jdbc/evo_cinema");
 
         try{
-          dbConnect  = dataSource.getConnection();
+        Class.forName("com.mysql.jdbc.Driver"); 
+        String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=root&password=1234";
+        dbConnect = DriverManager.getConnection(url2);
+        if (dbConnect != null) {
+            System.out.println("Connected to the database evocinema");
+        }
         }
         catch(SQLException e){
           e.printStackTrace();
-        }  
+        } catch (ClassNotFoundException ex) {  
+              Logger.getLogger(SingletonDBConnection.class.getName()).log(Level.SEVERE, null, ex);
+          }  
       }
       catch (NamingException e)
       {
@@ -54,31 +63,29 @@ public class SingletonDBConnection {
   }
    
   public static Connection getConnInst() throws SQLException{
-    try{
-      dbConnect = dataSource.getConnection();
-    }
-    catch (SQLException e1){
-      e1.printStackTrace();
-    }
-     
+ 
     if(dbConnect == null){
       try{
         Context initContext = new InitialContext();
         Context envContext  = (Context) initContext.lookup("java:/comp/env");
-        dataSource        = (DataSource) envContext.lookup("jdbc/evo_cinema");
+        dataSource        =  (DataSource) envContext.lookup("jdbc/evo_cinema");
          
         try{
-          dbConnect  = dataSource.getConnection();
+        Class.forName("com.mysql.jdbc.Driver"); 
+         String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=root&password=1234";
+        dbConnect = DriverManager.getConnection(url2);
+
         }
         catch (SQLException e){
           e.printStackTrace();
-        }  
+        } catch (ClassNotFoundException ex) {  
+              Logger.getLogger(SingletonDBConnection.class.getName()).log(Level.SEVERE, null, ex);
+          }  
       }
       catch (NamingException e){
         e.printStackTrace();
       }
     }
-     
     return dbConnect;   
   }
 }
