@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Utente` (
   `email` VARCHAR(50) NOT NULL,
   `nome_utente` VARCHAR(45) NOT NULL,
   `password` VARCHAR(200) NOT NULL,
-  `ruolo` ENUM('utente', 'operatore', 'gestore') CHARACTER SET 'big5' NOT NULL,
+  `ruolo` ENUM('UTENTE', 'OPERATORE', 'GESTORE') CHARACTER SET 'big5' NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `cognome` VARCHAR(45) NOT NULL,
   `data_nascita` DATE NOT NULL,
@@ -62,12 +62,12 @@ DROP TABLE IF EXISTS `evo_cinema`.`Sconto` ;
 CREATE TABLE IF NOT EXISTS `evo_cinema`.`Sconto` (
   `idSconto` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
-  `tipo` ENUM('percentuale', 'fisso') NOT NULL DEFAULT 'percentuale',
+  `tipo` ENUM('PERCENTUALE', 'FISSO') NOT NULL DEFAULT 'PERCENTUALE',
   `percentuale` TINYINT(3) NULL,
   `prezzo` DECIMAL(5,2) NULL,
-  `verificabile` ENUM('true', 'false') NOT NULL,
-  `disponibile` ENUM('true', 'false') NOT NULL,
-  `tipologia` ENUM('cat_Persone', 'giorno_settimana', 'termine', 'data') NOT NULL,
+  `verificabile` ENUM('TRUE', 'FALSE') NOT NULL,
+  `disponibile` ENUM('TRUE', 'FALSE') NOT NULL,
+  `tipologia` ENUM('CAT_PERSONE', 'GIORNO_SETTIMANA', 'TERMINE', 'DATA') NOT NULL,
   `parametro_tipologia` VARCHAR(255) NULL,
   PRIMARY KEY (`idSconto`),
   UNIQUE INDEX `nome_UNIQUE` (`nome` ASC))
@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `evo_cinema`.`Opera` ;
 
 CREATE TABLE IF NOT EXISTS `evo_cinema`.`Opera` (
   `idOpera` INT NOT NULL AUTO_INCREMENT,
-  `tipo` ENUM('film', 'teatro', 'altro') NOT NULL,
+  `tipo` ENUM('FILM', 'TEATRO', 'ALTRO') NOT NULL,
   `titolo` VARCHAR(255) NOT NULL,
   `locandina` VARCHAR(255) NULL,
   `regia` VARCHAR(255) NULL,
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Posto` (
   `riga` TINYINT(2) NOT NULL,
   `colonna` TINYINT(2) NOT NULL,
   `idSala` INT NOT NULL,
-  `stato` ENUM('Occupato', 'NonDisponibile', 'Prenotato', 'Disponibile') NOT NULL,
+  `stato` ENUM('OCCUPATO', 'NON_DISPONIBILE', 'PRENOTATO', 'DISPONIBILE') NOT NULL,
   PRIMARY KEY (`riga`, `colonna`, `idSala`),
   INDEX `fk_idSala` (`idSala` ASC),
   CONSTRAINT `fk1_idSala`
