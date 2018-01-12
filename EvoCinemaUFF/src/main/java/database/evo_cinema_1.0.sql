@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Spettacolo` (
   `idSpettacolo` INT NOT NULL AUTO_INCREMENT,
   `id_sala` INT NOT NULL,
   `idOpera` INT NULL,
+  `titolo` VARCHAR(255) NOT NULL,
   `data_inizio` DATE NOT NULL,
   `data_fine` DATE NOT NULL,
   `prezzo` DECIMAL(5,2) NOT NULL,
