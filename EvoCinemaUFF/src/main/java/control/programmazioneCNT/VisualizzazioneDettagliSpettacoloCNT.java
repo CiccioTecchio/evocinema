@@ -5,11 +5,14 @@
  */
 package control.programmazioneCNT;
 
+import database.SalaDAO;
 import database.SpettacoloDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -17,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Sala;
 import model.Spettacolo;
 
 /**
@@ -41,8 +45,19 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
         try {
             int id = Integer.parseInt(request.getParameter("idSpettacolo"));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+            SalaDAO salaDao = new SalaDAO();
             Spettacolo spettacolo = spettacoloDao.foundByID(id);
+            Sala sala = salaDao.foundByID(spettacolo.getIdSala());
+            Calendar now = new GregorianCalendar();
+            now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            Calendar start = spettacolo.getDataInizio();
+            int offset = (int) (now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24);
+            
+            
             request.setAttribute("spettacolo", spettacolo);
+            request.setAttribute("sala", sala);
+            request.setAttribute("offset", offset);
+            request.setAttribute("title", "Programmazione");
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
         }    

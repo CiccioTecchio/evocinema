@@ -21,6 +21,15 @@ import model.Spettacolo;
 public class SpettacoloDAO {
     
     private static Logger logger= Logger.getLogger("global");
+    private Connection connection;
+     
+    public SpettacoloDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     
     /**
      * Metodo per la ricerca di Spettacoli presenti nel DB.
@@ -31,10 +40,8 @@ public class SpettacoloDAO {
      */
     public synchronized Collection<Spettacolo> getAllSpettacoli() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo");
@@ -61,14 +68,9 @@ public class SpettacoloDAO {
                spettacoli.add(s);
            }
        } finally{
-            try {
                 if (stmt != null)
                     stmt.close();
-		} finally {
-                    if (connection != null)
-			connection.close();
-                  }
-	}
+		}
     return spettacoli;
    }
     
@@ -82,10 +84,8 @@ public class SpettacoloDAO {
      */
     public synchronized Spettacolo foundByID(int idSpettacolo) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Spettacolo spettacoloFound = new Spettacolo();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE idSpettacolo='"+idSpettacolo+"'");
@@ -109,14 +109,9 @@ public class SpettacoloDAO {
            spettacoloFound.setOraFine(oraFine);
            
            } finally{
-                try {
                     if (stmt != null)
                         stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
-           }
+                    }
     return spettacoloFound;
     }
     
@@ -130,10 +125,8 @@ public class SpettacoloDAO {
      */
     public synchronized Collection<Spettacolo> foundBySala(int idSala) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE id_sala='"+idSala+"'");
@@ -161,14 +154,9 @@ public class SpettacoloDAO {
                 spettacoli.add(s);
                 }
            } finally{
-                try {
                     if (stmt != null)
                         stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
-           }
+                    }
     return spettacoli;
     }
     
@@ -237,10 +225,8 @@ public class SpettacoloDAO {
      */
     public synchronized Collection<Spettacolo> foundByOpera(int idOpera) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE idOpera='"+idOpera+"'");
@@ -268,14 +254,9 @@ public class SpettacoloDAO {
                 spettacoli.add(s);
                 }
            } finally{
-                try {
                     if (stmt != null)
                         stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
-           }
+                    }
     return spettacoli;
     }
     
@@ -289,10 +270,8 @@ public class SpettacoloDAO {
      */
     public synchronized boolean createSpettacolo(Spettacolo s) throws SQLException, ParseException, NamingException{
         
-        Connection connection=null;
         PreparedStatement stmt=null;
         boolean inserito= false;
-        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
 
         try {
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.spettacolo (idSpettacolo, id_sala, idOpera, data_inizio, data_finr, prezzo, ora_inizio, ora_fine) VALUES ('"+ s.getIdSpettacolo() +"', '"+ s.getIdSala()+"', '"+ s.getIdFilm()+"', '"+ s.getDataInizio()+"', '"+ s.getDataFine()+"', '"+ s.getPrezzo()+"', '"+ s.getOraInizio()+"', '"+ s.getOraFine()+"')");
@@ -300,16 +279,9 @@ public class SpettacoloDAO {
             inserito= true;
         } 
         finally {
-            try {
                 if (stmt != null)
                      stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
-
         return inserito;
     }
     
@@ -323,10 +295,8 @@ public class SpettacoloDAO {
      */
     public synchronized boolean updateSpettacolo(Spettacolo s) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean update= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.spettacolo SET id_sala='"+ s.getIdSala()+"', idOpera='"+ s.getIdFilm()+"', data_inizio='"+s.getDataInizio()+"', data_fine='"+s.getDataFine()+"', prezzo='"+s.getPrezzo()+"', ora_inizio='"+s.getOraInizio()+"', ora_fine='"+s.getOraFine()+"' WHERE ( idSpettacolo='"+ s.getIdSpettacolo()+ "');");
@@ -334,14 +304,8 @@ public class SpettacoloDAO {
             update = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-            }
         }
     return update;
     }
@@ -356,10 +320,8 @@ public class SpettacoloDAO {
      */
     public synchronized boolean deleteSpettacolo(int idSpettacolo) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean delete= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.spettacolo WHERE ( idSpettacolo='"+ idSpettacolo +"');");
@@ -367,14 +329,8 @@ public class SpettacoloDAO {
             delete = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
     return delete;
     }

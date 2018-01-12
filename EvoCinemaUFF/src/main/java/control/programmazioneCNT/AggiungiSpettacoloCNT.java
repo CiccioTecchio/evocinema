@@ -46,11 +46,11 @@ public class AggiungiSpettacoloCNT extends HttpServlet {
             
             int sala = Integer.parseInt(request.getParameter("id_sala"));
             int opera = Integer.parseInt(request.getParameter("idOpera"));
-            Calendar dataInizio = this.toCalendar(sdf.parse(request.getParameter("data_inizio")));
-            Calendar dataFine = this.toCalendar(sdf.parse(request.getParameter("data_fine")));
+            Calendar dataInizio = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("data_inizio")));
+            Calendar dataFine = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("data_fine")));
             float prezzo = Float.parseFloat(request.getParameter("prezzo"));
-            Calendar oraInizio = this.toCalendar(sdf.parse(request.getParameter("ora_inizio")));
-            Calendar oraFine = this.toCalendar(sdf.parse(request.getParameter("ora_fine")));
+            Calendar oraInizio = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("ora_inizio")));
+            Calendar oraFine = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("ora_fine")));
             spettacoloDao.createSpettacolo(new Spettacolo(sala, opera, dataInizio, dataFine, prezzo, oraInizio, oraFine));
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);

@@ -62,7 +62,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InserisciFilmCNT</servlet-name>
-        <url-pattern>/InserisciFilmCNT</url-pattern>
+        <url-pattern>/admin/InserisciFilmCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RimozioneFilmCNT</servlet-name>
@@ -311,6 +311,14 @@
         <servlet-name>ConfigServlet</servlet-name>
         <url-pattern>/ConfigServlet</url-pattern>
     </servlet-mapping>
+    <filter>
+        <filter-name>FiltroAdmin</filter-name>
+        <filter-class>control.libreriaCNT.FiltroAdmin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAdmin</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
     <resource-ref>
         <description>JNDI reference to a data source</description>
         <res-ref-name>jdbc/evo_cinema</res-ref-name>

@@ -7,6 +7,7 @@ package control.libreriaCNT;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Michele
+ * @author GiuseppeDelGaudio
+ *
  */
 public class InserisciFilmCNT extends HttpServlet {
 
@@ -45,7 +47,12 @@ public class InserisciFilmCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        System.out.println("Sonon nella servlet---->");
+        RequestDispatcher res = getServletContext().getRequestDispatcher("/index.jsp");
+        res.forward(request, response);
+       
+        
     }
 
     /**

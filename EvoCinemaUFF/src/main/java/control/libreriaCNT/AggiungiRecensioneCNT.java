@@ -58,11 +58,11 @@ public class AggiungiRecensioneCNT extends HttpServlet {
         
            
                 Recensione recensione = ( Recensione ) obj;
-                RecensioneDAO dao = new RecensioneDAO();
-                
+                RecensioneDAO dao = null;
                 
              try {    
-                 
+                dao = new RecensioneDAO();
+
                 dao.updateRecensione(recensione);
                 
             } catch (SQLException ex) {

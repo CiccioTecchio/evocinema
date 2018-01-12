@@ -7,14 +7,22 @@
 <%@page import="model.Spettacolo"%>
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-        
-<jsp:include page="VisualizzazioneProgrammazioneCNT" />
+    
+<jsp:include page="VisualizzazioneProgrammazioneCNT"   --> 
 <jsp:include page="Header.jsp" />
-    <%
-            Collection<Spettacolo> spettacoli = (Collection<Spettacolo>) request.getAttribute("spettacoli");
+    
+<%
+  Collection<Spettacolo> spettacoli = (Collection<Spettacolo>) request.getAttribute("spettacoli");
             
             
             
             
     %>
+    
+    <body>
+        
+        <div> QUi non ci sta niente</div>
+        
+    </body>
+    
 <jsp:include page="Footer.jsp" />

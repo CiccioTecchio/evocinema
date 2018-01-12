@@ -22,6 +22,15 @@ public class RecensioneDAO {
     
     private static Logger logger= Logger.getLogger("global");
     private FilmDAO filmDAO = new FilmDAO();
+    private Connection connection;
+     
+    public RecensioneDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     /**
      * Permette di estrarre le tuple di Recensione dal DB.
      * @return Lista delle Recensioni presenti all'interno del DB.
@@ -31,10 +40,8 @@ public class RecensioneDAO {
      */
     public synchronized Collection<Recensione> getAllRecensioni() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Recensione> recensioni = new LinkedList<Recensione>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni");
@@ -58,14 +65,9 @@ public class RecensioneDAO {
                     
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
        
 		return recensioni;
    }
@@ -80,10 +82,8 @@ public class RecensioneDAO {
      */
     public synchronized Collection<Recensione> foundByEmail(String emailUtente) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Recensione> recensioni = new LinkedList<Recensione>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE email= '"+ emailUtente +"' AND data_recensione != NULL AND testo != NULL");
@@ -105,16 +105,9 @@ public class RecensioneDAO {
                     recensioni.add(r);
                     }
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       logger.info(recensioni+"");
-       
     return recensioni;
     }
     
@@ -128,10 +121,8 @@ public class RecensioneDAO {
      */
     public synchronized Collection<Recensione> foundByFilm(String idFilm) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Recensione> recensioni = new LinkedList<Recensione>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE id_opera= '"+ idFilm +"' AND data_recensione != NULL AND testo != NULL");
@@ -153,16 +144,9 @@ public class RecensioneDAO {
                     recensioni.add(r);
                     }
 		} finally {
-			try {
-				if (stmt != null)
+                        if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
-       logger.info(recensioni+"");
-       
     return recensioni;
     }
     
@@ -175,11 +159,9 @@ public class RecensioneDAO {
      * @throws NamingException 
      */
     public synchronized boolean createRecensione(Recensione r) throws SQLException, ParseException, NamingException{
-        
-       Connection connection=null;
+       
        PreparedStatement stmt=null;
        boolean inserita= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.recensioni (email, id_opera, valutazione, testo, data_recensione) VALUES ('"+ r.getEmailUtente() +"', '"+ r.getFilm().getIdFilm()+"', '"+ r.getValutazione() +"', '"+ r.getTesto()+"', '"+ r.getDataImmissione().getTime() +"')");
@@ -187,16 +169,9 @@ public class RecensioneDAO {
             inserita = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
-        
         return inserita;
 	}
     
@@ -210,10 +185,8 @@ public class RecensioneDAO {
      */
     public synchronized boolean updateRecensione(Recensione r) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean update= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.recensioni SET valutazione='"+ r.getValutazione() +"', testo='"+ r.getTesto()+"', data_recensione='"+ r.getDataImmissione().getTime() +"' WHERE ( email='"+ r.getEmailUtente()+"' AND id_opera='"+ r.getFilm().getIdFilm() + "');");
@@ -221,16 +194,9 @@ public class RecensioneDAO {
             update = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
-        
         return update;
 	}
     
@@ -243,11 +209,9 @@ public class RecensioneDAO {
      * @throws NamingException 
      */
     public synchronized boolean deleteRecensione(Recensione r) throws SQLException, ParseException, NamingException{
-        
-       Connection connection=null;
+       
        PreparedStatement stmt=null;
        boolean delete= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.recensioni WHERE ( email='" +r.getEmailUtente()+ "' AND id_opera='"+ r.getFilm().getIdFilm() +"');");
@@ -255,16 +219,9 @@ public class RecensioneDAO {
             delete = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
-        
         return delete;
 	}
     

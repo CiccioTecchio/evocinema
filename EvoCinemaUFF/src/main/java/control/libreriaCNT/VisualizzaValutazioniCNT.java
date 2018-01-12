@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Film;
 import model.FilmConValutazioneMedia;
 
 /**
@@ -46,12 +48,13 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
     
             
         FilmValutazioneDAO query = new FilmValutazioneDAO();
-        Collection<FilmConValutazioneMedia> collection = null; 
-        
+        Collection<FilmConValutazioneMedia> collection = new ArrayList<FilmConValutazioneMedia>(); 
+        /*
         try {
             
             
             collection =  query.getAllFilmValutazioni();
+        
         
         
         } catch (SQLException ex) {
@@ -66,10 +69,12 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
             
             Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Naming Exception ");
         }
+        */
+        
         
         request.setAttribute("listaFilmValutazioni", collection); // attributo di ritorno
         
-        RequestDispatcher res = getServletContext().getRequestDispatcher("/libreria.jsp");
+        RequestDispatcher res = getServletContext().getRequestDispatcher("/index.jsp");
         res.forward(request, response);
     }
 
