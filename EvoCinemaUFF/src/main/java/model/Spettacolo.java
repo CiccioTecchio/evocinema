@@ -13,8 +13,20 @@ public class Spettacolo {
     private float prezzo;
     private Calendar oraInizio;
     private Calendar oraFine;
+    private String matricePosti;
 
-    public Spettacolo(int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
+    public Spettacolo(int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine, String matricePosti) {
+        this.idSala= sala;
+        this.idFilm= idFilm;
+        this.dataInizio= dataInizio;
+        this.dataFine= dataFine;
+        this.prezzo= prezzo;
+        this.oraInizio= oraInizio;
+        this.oraFine= oraFine;
+        this.matricePosti = matricePosti;
+    }       
+    
+    public Spettacolo(int sala,int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
         this.idSala= sala;
         this.idFilm= idFilm;
         this.dataInizio= dataInizio;
@@ -23,6 +35,28 @@ public class Spettacolo {
         this.oraInizio= oraInizio;
         this.oraFine= oraFine;
     }       
+    
+    public Spettacolo( int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine) {
+        
+        this.idFilm= idFilm;
+        this.dataInizio= dataInizio;
+        this.dataFine= dataFine;
+        this.prezzo= prezzo;
+        this.oraInizio= oraInizio;
+        this.oraFine= oraFine;
+    }   
+
+    public Spettacolo( int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine, String matricePosti) {
+        
+        this.idFilm= idFilm;
+        this.dataInizio= dataInizio;
+        this.dataFine= dataFine;
+        this.prezzo= prezzo;
+        this.oraInizio= oraInizio;
+        this.oraFine= oraFine;
+        this.matricePosti = matricePosti;
+    }       
+        
     
     public Spettacolo(){
         
@@ -59,6 +93,10 @@ public class Spettacolo {
     public Calendar getOraFine() {
         return oraFine;
     }
+    
+    public String getMatricePosti(){
+        return matricePosti;
+    }
 
     public void setIdSpettacolo(int idSpettacolo) {
         this.idSpettacolo = idSpettacolo;
@@ -90,6 +128,10 @@ public class Spettacolo {
 
     public void setOraFine(Calendar oraFine) {
         this.oraFine = oraFine;
+    }
+    
+    public void setMatricePosti(String matricePosti){
+        this.matricePosti = matricePosti;
     }
 
     @Override

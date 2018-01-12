@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Evo Cinema</title>
+        <title><%= request.getAttribute("title") %></title>
 
         <!-- Bootstrap core CSS -->
         <link href="HomeSlider/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +20,8 @@
         <link href="HomeSlider/css/datepicker.less" rel="stylesheet/less">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">   
         <link href="HomeSlider/css/mycss.css" rel="stylesheet">
+        <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
+
         <style>
 
         </style>
