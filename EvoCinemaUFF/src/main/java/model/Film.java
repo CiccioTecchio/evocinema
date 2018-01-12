@@ -44,6 +44,25 @@ public class Film {
         this.trailer=trailer;
         
     }
+    
+    public Film( tipo myTipo, String titolo, String locandina, String regia, String cast, String genere, Time durata, Calendar dataUscita, vistoCensura myVistoCensura, String distribuzione, String produzione, String trama, String trailer) {
+        
+     
+        tipo = myTipo;
+        this.titolo= titolo;
+        this.locandina = locandina;
+        this.regia=regia;
+        this.cast=cast;
+        this.genere=genere;
+        this.durata=durata;
+        this.dataUscita=dataUscita;
+        vistoCensura= myVistoCensura;
+        this.distribuzione=distribuzione;
+        this.produzione=produzione;
+        this.trama=trama;
+        this.trailer=trailer;
+        
+    }
 
     public int getIdFilm() {
         return idFilm;

@@ -37,6 +37,20 @@ public abstract class Operazione {
         this.sconto = sconto;
     }
     
+    public Operazione( String email, int idSpettacolo, int postoColonna, int postoRiga, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
+        
+        this.email= email;
+        this.idSpettacolo= idSpettacolo;
+        this.postoColonna= postoColonna;
+        this.postoRiga= postoRiga;
+        this.sala= sala;
+        this.prenotato = myPrenotato;
+        this.acquistato= myAcquistato;
+        this.prezzoFinale= prezzoFinale;
+        this.data = data;
+        this.sconto = sconto;
+    }
+    
     public Operazione(){}
 
     public int getIdOperazione() {

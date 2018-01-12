@@ -1,71 +1,49 @@
-<%-- 
-    Document   : index
-    Created on : 18-dic-2017, 12.39.44
-    Author     : Michele
---%>
+<jsp:include page="Header.jsp" />
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <link rel="stylesheet" href="HomeSlider/css/full-slider.css"
-	type="text/css"/>
-        
-        <link href="HomeSlider/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        
-        
-        <title>Home</title>
-    </head>
-    <body>
-        <h1>Questa è la home</h1>
-        
-        <form action="http://localhost:8080/EvoCinemaUFF/ConfigServlet" method="GET">
-        <input type="submit" value="Vedi acquisti" name="vediacquisti"> 
-    </form>
-        
-        
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-          <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>First Slide</h3>
-              <p>This is a description for the first slide.</p>
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Evo Cinema</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Login
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </div>
             </div>
-          </div>
-          <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>Second Slide</h3>
-              <p>This is a description for the second slide.</p>
+        </nav>
+
+        <header>
+            
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                    <div class="swiper-slide" style="background-image:url(images/image1.jpg)"></div>
+                </div>       
             </div>
-          </div>
-          <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
-            <div class="carousel-caption d-none d-md-block">
-              <h3>Third Slide</h3>
-              <p>This is a description for the third slide.</p>
+        </header>
+        <div id="date">
+            <div align="center">
+                <strong><label for="from" >Dal</label></strong>
+                <input type="text" id="from" name="from" style="width:100px">
+                <strong><label for="to">al</label>
+                <input type="text" id="to" name="to"style="width:100px">
+               
             </div>
-          </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
         
         
-    </body>
-    
-</html>
+<jsp:include page="Footer.jsp" />
+       
+

@@ -33,6 +33,19 @@ public class Sconto {
         
     }
     
+    public Sconto( String nome, int percentuale, float prezzo, String parametroTipologia,verificabile verificabile,tipo tipo,disponibile disponibile, tipologia tipologia ) {
+        
+        this.nome=nome;
+        this.percentuale=percentuale;
+        this.prezzo=prezzo;
+        this.parametroTipologia=parametroTipologia;
+        this.verificabile=verificabile;
+        this.tipo=tipo;
+        this.disponibile=disponibile;
+        this.tipologia=tipologia;
+        
+    }
+    
     public Sconto(){
         
     }
