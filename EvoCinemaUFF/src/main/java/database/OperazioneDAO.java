@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Logger;
-import Database.SingletonDBConnection;
 import java.util.Date;
 import javax.naming.NamingException;
 import model.Acquisto;

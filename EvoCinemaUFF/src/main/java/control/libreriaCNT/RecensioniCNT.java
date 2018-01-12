@@ -41,27 +41,30 @@ public class RecensioniCNT extends HttpServlet {
             throws ServletException, IOException {
       
         String film = request.getParameter("idFilm");
+        Collection<Recensione> recensioni = null;
         
-        RecensioneDAO daoRec = new RecensioneDAO(); 
-        
-        Collection<Recensione> recensioni = null; 
-       
-        try{
-        
-       recensioni = daoRec.foundByFilm(film);
-       
-       } catch (SQLException ex) {
+        RecensioneDAO daoRec; 
+        try {
+            daoRec = new RecensioneDAO();
             
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Sql Exception " );
-        
-        } catch (ParseException ex) {
+            recensioni = daoRec.foundByFilm(film);
             
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, " Parse Exception ");
-        
         } catch (NamingException ex) {
+            Logger.getLogger(RecensioniCNT.class.getName()).log(Level.SEVERE, null, ex);
             
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Naming Exception ");
+            
+        } catch (SQLException ex) {
+            
+            Logger.getLogger(RecensioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+            
+            
+        }catch (ParseException ex){
+        
+             Logger.getLogger(RecensioniCNT.class.getName()).log(Level.SEVERE, null , ex);
         }
+
+       
+       
         
         
         request.setAttribute("recensioni", recensioni); // attributo di ritorno
