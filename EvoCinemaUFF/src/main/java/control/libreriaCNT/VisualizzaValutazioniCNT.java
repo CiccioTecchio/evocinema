@@ -12,16 +12,17 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Film;
+
+
 import model.FilmConValutazioneMedia;
 
 /**
@@ -48,34 +49,33 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
     
             
         FilmValutazioneDAO query = new FilmValutazioneDAO();
-        Collection<FilmConValutazioneMedia> collection = new ArrayList<FilmConValutazioneMedia>(); 
-        /*
-        try {
-            
-            
-            collection =  query.getAllFilmValutazioni();
-        
-        
-        
+        ArrayList<FilmConValutazioneMedia> arrayList = new ArrayList<FilmConValutazioneMedia>(); 
+
+        try { 
+            arrayList = query.getAllFilmValutazioni();
         } catch (SQLException ex) {
-            
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Sql Exception " );
-        
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, " Parse Exception ");
-        
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
-            
-            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, "Naming Exception ");
+            Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+
+        System.out.println(arrayList.size());
+        
+        request.setAttribute("listaFilmValutazione", arrayList );
+        
+
         
         
-        request.setAttribute("listaFilmValutazioni", collection); // attributo di ritorno
         
-        RequestDispatcher res = getServletContext().getRequestDispatcher("/index.jsp");
-        res.forward(request, response);
+        
+        
+        
+        
+        
+        
+        
     }
 
     /**

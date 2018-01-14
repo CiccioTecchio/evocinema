@@ -5,8 +5,8 @@ import java.util.Calendar;
 
 public abstract class UtenteRegistrato {
 
-    public enum ruolo{UTENTE,OPERATORE,GESTORE};
-    public enum sesso{M,F};
+    public enum ruolo{ UTENTE,OPERATORE,GESTORE};// metti maiuscoli 
+    public enum sesso{M,F};// metti maiuscoli 
     private String nomeUtente;
     private String password;
     private String nome;

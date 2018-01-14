@@ -1,31 +1,43 @@
+<%-- 
+    Document   : VisualizzaLibreria
+    Created on : 13-gen-2018, 18.42.05
+    Author     : GiuseppeDelGaudio
+--%>
+<%@page import="java.util.ArrayList"%>
 <% request.setAttribute("title", "Scheda Film"); %>
 <jsp:include page="Header.jsp" />
 <%@ page import="model.FilmConValutazioneMedia"%>
 
 <%         
-    FilmConValutazioneMedia film=null;
-    film = (FilmConValutazioneMedia) request.getAttribute("Film");
+   
+    String idFilmAr =  request.getParameter("film");
+     ArrayList array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
+     
     
-    System.out.println(film);
     
-    if( null == film ){ %>
+    if( null == array ){ %>
     <div class="container">
         <div class="text-center">
+            <% System.out.println( "Grandezza array" + array ); %>
        Impossibile visualizzare la scheda del film, ci dispiace.
     </div>
     </div>
  <%
     }else{
+
+    FilmConValutazioneMedia film ; 
+    film = (FilmConValutazioneMedia) array.get(Integer.parseInt(idFilmAr)); 
+
  %>
  <div>
      <div>
-         <img src="<% film.getFilm().getLocandina();%>">
+         <%= film.getLocandina() %>
      </div>
      <div>
-         <H3><% film.getFilm().getTitolo(); %></H3> printValutazione(film.getValutazioneMedia()); %><br>
-         <strong>Genere</strong><% film.getFilm().getGenere(); %> <strong>Distribusione</strong><% film.getFilm().getDistribuzione(); %>
+         <H3><%= film.getTitolo() %></H3> <%= film.getValutazioneMedia() %><br>
+         <strong>Genere</strong><%=film.getGenere() %> <strong>Distribusione</strong><%= film.getDistribuzione() %>
          <strong>Trama</strong>
-         <% film.getFilm().getTrama(); %>
+         <%= film.getTrama() %>
          
      </div> 
  </div>

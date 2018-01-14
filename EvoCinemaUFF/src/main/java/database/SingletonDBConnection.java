@@ -28,7 +28,7 @@ public class SingletonDBConnection {
 
         try{
         Class.forName("com.mysql.jdbc.Driver"); 
-        String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=root&password=1234";
+        String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=user&password=1234";
         dbConnect = DriverManager.getConnection(url2);
         if (dbConnect != null) {
             System.out.println("Connected to the database evocinema");
