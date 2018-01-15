@@ -22,9 +22,7 @@
         <link href="HomeSlider/css/mycss.css" rel="stylesheet">
         <link href="HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
-
-
-
+       
 
         <link rel="icon" href="images/logoGIF.gif" type="image/gif" sizes="160x160">
 
