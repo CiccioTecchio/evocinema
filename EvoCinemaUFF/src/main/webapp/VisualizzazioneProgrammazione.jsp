@@ -8,7 +8,7 @@
 <%@page import="java.util.Collection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     
-<jsp:include page="VisualizzazioneProgrammazioneCNT"   --> 
+<jsp:include page="VisualizzazioneProgrammazioneCNT" /> 
 <jsp:include page="Header.jsp" />
     
 <%
@@ -21,7 +21,7 @@
     
     <body>
         
-        <div> QUi non ci sta niente</div>
+        <div> Qui non ci sta niente</div>
         
     </body>
     
