@@ -23,6 +23,7 @@
         <link href="HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
 
+
         <style>
 
         </style>

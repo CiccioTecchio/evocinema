@@ -13,7 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% request.setAttribute("title", "Visualizza Libreria"); %>
 <jsp:include page="Header.jsp"/>
-
+<jsp:include page= "/visualizzaValutazioni"/>
 <!DOCTYPE html>
 
 <%
@@ -23,16 +23,15 @@
     
    
 %>
-<html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" >
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
          
     </head>
-    <body>
-    <jsp:include page= "/visualizzaValutazioni"/>
+   
+    
 
         <%            
             
@@ -63,7 +62,8 @@
         </div>
         
         <% }else{ %>
-        
+                <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
         <script>
             
             
@@ -83,7 +83,7 @@
                     	<table id="listaFilm" class="table table-bordered" cellspacing="0" width="100%">
 				<thead>
                                     <tr>
-                                                <th></th>>
+                                                <th></th>
 						<th>Titolo</th>
 						<th>Genere</th>
 						<th>Trama</th>
@@ -109,7 +109,7 @@
 						<td><%= film.getValutazioneMedia() %></td>
 					</tr>
                                         
-                                        <% } %>
+                                        <% } // visualizza pure film non votati   %>
 					
 				</tbody>
 			</table>
@@ -121,11 +121,8 @@
 
 
         <% }}  %>
-        <jsp:include page="Footer.jsp"/>  
+     
     
-        </body>
+       <jsp:include page= "/Footer.jsp"/>
       
-    
-
-
-</html>
+   

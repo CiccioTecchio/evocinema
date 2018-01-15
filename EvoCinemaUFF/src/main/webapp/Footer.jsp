@@ -11,7 +11,8 @@
         <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="swiper.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        
+                        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
         <script>
       var swiper = new Swiper('.swiper-container', {
           effect: 'coverflow',
