@@ -9,8 +9,9 @@
         <!-- Bootstrap core JavaScript -->
         <script src="HomeSlider/vendor/jquery/jquery.min.js"></script>
         <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="swiper.js"></script>
+        <script src="javascript/swiper.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<<<<<<< HEAD
                         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
         <script>
@@ -64,6 +65,9 @@
     }
   } );
   </script>
+=======
+      
+>>>>>>> b32cedcdec513fc791c781606105a26cdd3aad2c
     </body>
 
 </html>
