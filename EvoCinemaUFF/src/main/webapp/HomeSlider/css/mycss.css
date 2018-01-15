@@ -21,11 +21,30 @@ body {
     padding-bottom: 30px;
 }
 
-#from{
-    margin-right: 50px; 
-}
+
 
 .pb-5, .py-5{
     padding-bottom: 2rem!important;
     padding-top: 2rem!important;
+}
+
+.calendar-icon{
+    margin-right: 30px;
+    margin-left: 2px;
+}
+
+.label{
+    font-weight: bold;
+}
+
+#from{
+    height: 24px;
+}
+
+#to{
+    height: 24px;
+}
+
+#date{
+    margin-top:100px;
 }
