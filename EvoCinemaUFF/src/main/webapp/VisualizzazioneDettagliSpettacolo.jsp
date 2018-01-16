@@ -8,7 +8,7 @@
 <%@page import="model.Spettacolo"%>
 <%@page import="model.Sala"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="VisualizzazioneDettagliSpettacoloCNT" />
+<jsp:include page="/VisualizzazioneDettagliSpettacoloCNT" />
 <jsp:include page="Header.jsp" />
 <%
     Spettacolo spettacolo = (Spettacolo) request.getAttribute("spettacolo");

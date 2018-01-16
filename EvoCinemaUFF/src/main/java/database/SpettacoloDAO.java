@@ -88,7 +88,8 @@ public class SpettacoloDAO {
        Spettacolo spettacoloFound = new Spettacolo();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE idSpettacolo='"+idSpettacolo+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE idSpettacolo = ?");
+           stmt.setInt(1, idSpettacolo);
            ResultSet rs = stmt.executeQuery();
            
            spettacoloFound.setIdSpettacolo(rs.getInt("idSpettacolo"));
@@ -107,6 +108,7 @@ public class SpettacoloDAO {
            Calendar oraFine= Calendar.getInstance();
            oraInizio.setTime(rs.getTime("ora_fine"));
            spettacoloFound.setOraFine(oraFine);
+           spettacoloFound.setMatricePosti(rs.getString("matrice_posti"));
            
            } finally{
                     if (stmt != null)
@@ -204,14 +206,10 @@ public class SpettacoloDAO {
                 spettacoli.add(s);
                 }
            } finally{
-                try {
                     if (stmt != null)
                         stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
-           }
+                    }
+           
     return spettacoli;
     }
     

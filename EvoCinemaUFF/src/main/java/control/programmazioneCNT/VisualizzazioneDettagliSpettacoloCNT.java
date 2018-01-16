@@ -41,7 +41,7 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        Logger logger = Logger.getLogger("global");
         try {
             int id = Integer.parseInt(request.getParameter("idSpettacolo"));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
@@ -51,7 +51,7 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
             Calendar now = new GregorianCalendar();
             now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
             Calendar start = spettacolo.getDataInizio();
-            int offset = (int) (now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24);
+            int offset = (int) ((now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24));
             
             
             request.setAttribute("spettacolo", spettacolo);
