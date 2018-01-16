@@ -22,9 +22,26 @@
         <link href="HomeSlider/css/mycss.css" rel="stylesheet">
         <link href="HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
+        
+        <!-- Custom fonts for this template-->
+        <link href="Template%20Sb%20Admin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Page level plugin CSS-->
+        <link href="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+        <!-- Custom styles for this template-->
+        <link href="Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
        
 
         <link rel="icon" href="images/logoGIF.gif" type="image/gif" sizes="160x160">
+                <script src="HomeSlider/vendor/jquery/jquery.min.js"></script>
+        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="javascript/swiper.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
+         <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
+         <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
 
         <style>
 

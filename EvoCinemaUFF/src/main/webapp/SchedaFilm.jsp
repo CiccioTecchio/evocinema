@@ -3,43 +3,48 @@
     Created on : 13-gen-2018, 18.42.05
     Author     : GiuseppeDelGaudio
 --%>
+<%@page import="model.Film"%>
 <%@page import="java.util.ArrayList"%>
 <% request.setAttribute("title", "Scheda Film"); %>
 <jsp:include page="Header.jsp" />
 <%@ page import="model.FilmConValutazioneMedia"%>
 
-<%         
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+    <%         
    
     String idFilmAr =  request.getParameter("film");
-     ArrayList array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
-     
+    ArrayList<FilmConValutazioneMedia> array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
     
+    if( array == null || idFilmAr == null || idFilmAr == " "){ %>
     
-    if( null == array ){ %>
-    <div class="container">
-        <div class="text-center">
-            <% System.out.println( "Grandezza array" + array ); %>
-       Impossibile visualizzare la scheda del film, ci dispiace.
-    </div>
-    </div>
- <%
+
+     <div class="content-wrapper">
+    <div class="container-fluid">
+      
+        <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+        </div>
+      
+      
+    
+    <%
+    
     }else{
+    
+    %>
+     
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">My Dashboard</li>
+      </ol>
+    
 
-    FilmConValutazioneMedia film ; 
-    film = (FilmConValutazioneMedia) array.get(Integer.parseInt(idFilmAr)); 
-
- %>
- <div>
-     <div>
-         <%= film.getLocandina() %>
+    <%} %> 
+    </div>
      </div>
-     <div>
-         <H3><%= film.getTitolo() %></H3> <%= film.getValutazioneMedia() %><br>
-         <strong>Genere</strong><%=film.getGenere() %> <strong>Distribusione</strong><%= film.getDistribuzione() %>
-         <strong>Trama</strong>
-         <%= film.getTrama() %>
-         
-     </div> 
- </div>
-    <% }%> 
 <jsp:include page="Footer.jsp" />

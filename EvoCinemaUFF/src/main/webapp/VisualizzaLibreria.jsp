@@ -23,14 +23,9 @@
     
    
 %>
-    <head>
-       
-         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" >
-         
-    </head>
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     
 
         <%            
@@ -62,7 +57,7 @@
         </div>
         
         <% }else{ %>
-                <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+                
 
         <script>
             
@@ -76,7 +71,7 @@
             
         </script>
          <div class="card-header">
-          <i class="fa fa-table"></i> Lista Film VAlutazioni</div>
+          <i class="fa fa-table"></i> Lista Film Valutazioni</div>
         <div class="card-body">
         
                     <div class="table-responsive">
@@ -93,26 +88,70 @@
 				</thead>
                                 <tbody>
                                 <% 
+                                String valutazione ; 
                                 
                                 for( int i = 0 ; i<array.size() ; i++ ){
                                     
                                     film = (FilmConValutazioneMedia) array.get(i); 
+                                
+                                    if( film.getValutazioneMedia() == 0.0 ) {
                                     
+                                        valutazione = "Non Disponibile"; // -1 default errore 
+                                        
+                                    
+                                    }else {
+                                    
+                                        valutazione = film.getValutazioneMedia()+""; 
+                                    
+                                    }
                                 
                                 %>
                                 <tr  onclick="window.location.href='SchedaFilm.jsp?film=<%= i %>'" >
-                                                <td><img class="img-fluid" width="30%" src="images/locandine/locandina.jpg" ></td>
+                                                <td><img class="img-fluid" src="<%= film.getLocandina() %>" ></td>
 						<td><%= film.getTitolo()  %></td>
 						<td><%= film.getGenere()  %></td>
 						<td><%= film.getTrama() %></td>
 						<td><%= film.getDurata() %></td>
-						<td><%= film.getValutazioneMedia() %></td>
+                                                <td class="rateYo" ><%= valutazione %></td>
 					</tr>
                                         
-                                        <% } // visualizza pure film non votati   %>
+                                        <% }  %>
 					
 				</tbody>
 			</table>
+                                        <script>
+                                           
+                                         
+                                        $(".rateYo").each( function (e) {
+                                             
+                                              valore = $(this).text(); 
+
+                                              if( ! (valore === "Non Disponibile")){
+        
+                                             $(this).rateYo({
+                                                 
+                                                 rating : valore,
+                                                 readOnly: true,
+                                                 precision: 4
+                                                 
+                                             });
+                                 
+                                                }
+                                             
+                                             
+                                         });
+                                         
+                                     
+          
+                                            
+                                            
+                                          
+ 
+                                              
+                                            
+                                            
+                                            
+                                        </script>
                     
                     </div>
         </div>

@@ -9,8 +9,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
 import model.Film.tipo;
@@ -36,11 +35,16 @@ public class FilmValutazioneDAO {
        PreparedStatement stmt=null;
        ArrayList<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>();
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       String sql = "SELECT * " +
+                        "FROM("
+                            + "(select opera.* , avg( valutazione ) as valutazione from recensioni,opera where opera.idOpera = recensioni.id_opera group by idOpera order by titolo) " +
+                                "UNION" +
+                                "(select * , (null) as 'Valutazione' from opera) ) as t GROUP BY t.idOpera";
+       
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement(" SELECT opera.* , AVG( valutazione ) AS valutazione FROM recensioni,opera "
-                    + "                                                 WHERE opera.idOpera = recensioni.id_opera GROUP BY idOpera");
+            stmt = (PreparedStatement) connection.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -55,7 +59,7 @@ public class FilmValutazioneDAO {
             String trama ;
             String trailer ; 
             float valutazione; 
-            
+            int i = 0;
 		while (rs.next()) {
                    
                         
@@ -83,7 +87,8 @@ public class FilmValutazioneDAO {
                         FilmConValutazioneMedia filmValMedia = new FilmConValutazioneMedia(idOpera , tipo , titolo , locandina , regia , cast , genere , durata , dataUscita , vistocensura , distribuzione,produzione,trama,trailer,valutazione);
                         
                         filmConValutazione.add(filmValMedia);
-                        
+                         Logger.getLogger("global").info("\n IL FILM è ---->" +filmValMedia.getIdFilm() + "   ----  i  == " + i );
+                         i++; 
                         
                     }
                     
@@ -95,7 +100,7 @@ public class FilmValutazioneDAO {
        }
        
        
-       
+                Logger.getLogger("global").info("\nL'array è grande ---->" +filmConValutazione.size() );
 		return filmConValutazione;
    }
     
