@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Operazione` (
     ON UPDATE CASCADE,
   CONSTRAINT `FK_sconto`
     FOREIGN KEY (`sconto_applicato`)
-    REFERENCES `evo_cinema`.`Sconto` (`nome`)
+    REFERENCES `evo_cinema`.`Sconto` (`idSconto`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
