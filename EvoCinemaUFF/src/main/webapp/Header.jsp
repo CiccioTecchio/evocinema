@@ -42,6 +42,10 @@
          <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
          <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
          <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
+         
+         <!-- Libreria Rating  -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
         <style>
 
@@ -67,3 +71,4 @@
     </div>
 </nav>
     <body>
+        

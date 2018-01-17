@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -61,8 +62,7 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
             Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println(arrayList.size());
-        
+       
         request.setAttribute("listaFilmValutazione", arrayList );
         
 

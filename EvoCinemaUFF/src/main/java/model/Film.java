@@ -25,6 +25,7 @@ public class Film {
     private String trailer;
     
     
+    
     public Film(){}
     
     public Film(int idFilm, tipo myTipo, String titolo, String locandina, String regia, String cast, String genere, Time durata, Calendar dataUscita, vistoCensura myVistoCensura, String distribuzione, String produzione, String trama, String trailer) {
@@ -42,6 +43,7 @@ public class Film {
         this.produzione=produzione;
         this.trama=trama;
         this.trailer=trailer;
+        
         
     }
     

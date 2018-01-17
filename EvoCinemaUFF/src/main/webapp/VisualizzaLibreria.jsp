@@ -23,9 +23,7 @@
     
    
 %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
-<!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+   
     
 
         <%            
@@ -78,7 +76,7 @@
                     	<table id="listaFilm" class="table table-bordered" cellspacing="0" width="100%">
 				<thead>
                                     <tr>
-                                                <th></th>
+                                                <th>Locandina</th>
 						<th>Titolo</th>
 						<th>Genere</th>
 						<th>Trama</th>
@@ -96,7 +94,8 @@
                                 
                                     if( film.getValutazioneMedia() == 0.0 ) {
                                     
-                                        valutazione = "Non Disponibile"; // -1 default errore 
+                                        valutazione = "Non Disponibile"; 
+                                        
                                         
                                     
                                     }else {
@@ -106,7 +105,7 @@
                                     }
                                 
                                 %>
-                                <tr  onclick="window.location.href='SchedaFilm.jsp?film=<%= i %>'" >
+                                <tr   ondblclick="window.location.href='SchedaFilm.jsp?film=<%= i %>'" >
                                                 <td><img class="img-fluid" src="<%= film.getLocandina() %>" ></td>
 						<td><%= film.getTitolo()  %></td>
 						<td><%= film.getGenere()  %></td>
@@ -120,14 +119,15 @@
 				</tbody>
 			</table>
                                         <script>
-                                           
                                          
-                                        $(".rateYo").each( function (e) {
-                                             
+                                          var valore;
+                                         
+                                        /*$(".rateYo").each( function (e) {
+                                            
                                               valore = $(this).text(); 
-
+                                              
                                               if( ! (valore === "Non Disponibile")){
-        
+                                            
                                              $(this).rateYo({
                                                  
                                                  rating : valore,
@@ -135,12 +135,15 @@
                                                  precision: 4
                                                  
                                              });
-                                 
+                                             
+                                            
                                                 }
                                              
                                              
-                                         });
+                                         }); */
                                          
+                                         
+                                        
                                      
           
                                             
