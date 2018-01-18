@@ -72,23 +72,25 @@ public class Login extends HttpServlet {
         
         boolean utenteIsNull = true;
         HttpSession s = request.getSession();
-
+        request.setAttribute("title", "Login");
+        
         String username = filter(request.getParameter("userLogin"));
         String password = filter(request.getParameter("passwordLogin"));
 
         UtenteRegistrato utente = model.controllaLogin(username, password);
+
         if (!utente.getNomeUtente().equals("")) {
             utenteIsNull = false;
             s.setAttribute("user", utente);
-
         }
+
         if (utenteIsNull) {
             s.setAttribute("loginErrato", true);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/Login.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
             dispatcher.forward(request, response);
         } else {
             s.removeAttribute("loginErrato");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/index.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
     }
