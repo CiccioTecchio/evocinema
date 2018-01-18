@@ -5,12 +5,15 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
+import model.Film.tipo;
+import model.Film.vistoCensura;
 import model.FilmConValutazioneMedia;
 
 /**
@@ -26,65 +29,78 @@ public class FilmValutazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
+    public synchronized ArrayList<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
       
        Connection connection=null;
        PreparedStatement stmt=null;
-       Collection<FilmConValutazioneMedia> filmConValutazione = new LinkedList<FilmConValutazioneMedia>();
+       ArrayList<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>();
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       String sql = "SELECT * " +
+                        "FROM("
+                            + "(select opera.* , avg( valutazione ) as valutazione from recensioni,opera where opera.idOpera = recensioni.id_opera group by idOpera order by titolo) " +
+                                "UNION" +
+                                "(select * , (null) as 'Valutazione' from opera) ) as t GROUP BY t.idOpera";
+       
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement(" SELECT opera.* , AVG( valutazione ) AS valutazione FROM recensioni,opera "
-                    + "                                                 WHERE opera.idOpera = recensioni.id_opera GROUP BY idOpera");
+            stmt = (PreparedStatement) connection.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();
 
-            
-            
-            
+            int idOpera;
+            String  titolo , locandina , regia , cast ,genere ;
+            Time durata;
+            Calendar dataUscita;
+            vistoCensura vistocensura; 
+            tipo tipo;
+            String distribuzione; 
+            String produzione; 
+            String trama ;
+            String trailer ; 
+            float valutazione; 
+            int i = 0;
 		while (rs.next()) {
                    
-                        Film f = new Film();
-                        f.setIdFilm(rs.getInt("idOpera"));
-                        f.setTipo(Film.tipo.valueOf(rs.getString("tipo")));
-                        f.setTitolo(rs.getString("titolo"));
-			f.setLocandina(rs.getString("locandina"));
-                        f.setRegia(rs.getString("regia"));
-                        f.setCast(rs.getString("cast"));
-                        f.setGenere(rs.getString("genere"));
-                        f.setDurata(rs.getTime("durata"));
                         
-                        Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data"));
-                        f.setDataUscita(dataUscita);
+                        idOpera = rs.getInt("idOpera");
+                        tipo = Film.tipo.valueOf(rs.getString("tipo")); 
+                        titolo = rs.getString("titolo");
+			locandina = rs.getString("locandina");
+                        regia = rs.getString("regia");
+                        cast = rs.getString("cast");
+                        genere = rs.getString("genere");
+                        durata = rs.getTime("durata");
                         
-                        f.setVistoCensura(Film.vistoCensura.valueOf(rs.getString("visto_censura")));
-                        f.setDistribuzione(rs.getString("distribuzione"));
-                        f.setProduzione(rs.getString("produzione"));
-                        f.setTrama(rs.getString("trama"));
-                        f.setTrailer(rs.getString("trailer"));
+                        dataUscita = Calendar.getInstance();
+                        dataUscita.setTime(rs.getDate("data_uscita"));
                         
-                        FilmConValutazioneMedia filmValMedia = new FilmConValutazioneMedia(f , rs.getFloat("valutazione") );
+                        
+                        vistocensura = Film.vistoCensura.valueOf(rs.getString("visto_censura"));
+                        distribuzione = rs.getString("distribuzione");
+                        produzione = rs.getString("produzione");
+                        trama = rs.getString("trama");
+                        trailer = rs.getString("trailer");
+                        
+                        valutazione = rs.getFloat("valutazione"); 
+                        
+                        FilmConValutazioneMedia filmValMedia = new FilmConValutazioneMedia(idOpera , tipo , titolo , locandina , regia , cast , genere , durata , dataUscita , vistocensura , distribuzione,produzione,trama,trailer,valutazione);
                         
                         filmConValutazione.add(filmValMedia);
-                        
+                         Logger.getLogger("global").info("\n IL FILM è ---->" +filmValMedia.getIdFilm() + "   ----  i  == " + i );
+                         i++; 
                         
                     }
                     
 
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
+		}finally{
+       
+                    if( stmt != null  ) stmt.close();
+       
+       }
        
        
-       
+                Logger.getLogger("global").info("\nL'array è grande ---->" +filmConValutazione.size() );
 		return filmConValutazione;
    }
     

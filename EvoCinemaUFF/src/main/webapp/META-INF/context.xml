@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/EvoCinemaUFF">
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" name="jdbc/evo_cinema" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://127.0.0.1:3306/evo_cinema" username="root"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" name="jdbc/evo_cinema" password="1234" type="javax.sql.DataSource" url="jdbc:mysql://127.0.0.1:3306/evo_cinema" username="user"/>
 </Context>

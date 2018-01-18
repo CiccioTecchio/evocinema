@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -39,15 +41,22 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        Logger logger = Logger.getLogger("global");
         try {
             int id = Integer.parseInt(request.getParameter("idSpettacolo"));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
             SalaDAO salaDao = new SalaDAO();
             Spettacolo spettacolo = spettacoloDao.foundByID(id);
             Sala sala = salaDao.foundByID(spettacolo.getIdSala());
+            Calendar now = new GregorianCalendar();
+            now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+            Calendar start = spettacolo.getDataInizio();
+            int offset = (int) ((now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24));
+            
+            
             request.setAttribute("spettacolo", spettacolo);
             request.setAttribute("sala", sala);
+            request.setAttribute("offset", offset);
             request.setAttribute("title", "Programmazione");
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);

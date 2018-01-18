@@ -20,7 +20,32 @@
         <link href="HomeSlider/css/datepicker.less" rel="stylesheet/less">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">   
         <link href="HomeSlider/css/mycss.css" rel="stylesheet">
+        <link href="HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
+        
+        <!-- Custom fonts for this template-->
+        <link href="Template%20Sb%20Admin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <!-- Page level plugin CSS-->
+        <link href="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+        <!-- Custom styles for this template-->
+        <link href="Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
+       
+
+        <link rel="icon" href="images/logoGIF.gif" type="image/gif" sizes="160x160">
+                <script src="HomeSlider/vendor/jquery/jquery.min.js"></script>
+        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="javascript/swiper.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
+         <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
+         <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
+         
+         <!-- Libreria Rating  -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 
         <style>
 
@@ -28,7 +53,7 @@
 
     </head>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <div class="container">
         <a class="navbar-brand" href="#">Evo Cinema</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,3 +71,4 @@
     </div>
 </nav>
     <body>
+        

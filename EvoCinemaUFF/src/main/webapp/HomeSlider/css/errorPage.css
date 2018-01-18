@@ -1,0 +1,13 @@
+.Error{
+    color: #5B5963;
+    margin-bottom: 40px;
+}
+
+h1.Error{
+    font-size: 10em;
+}
+
+p.Error{
+    font-size: 1.5em;
+}
+

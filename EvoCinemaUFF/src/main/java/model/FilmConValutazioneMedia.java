@@ -1,22 +1,19 @@
 
 package model;
 
-public class FilmConValutazioneMedia {
-    Film film;
+import java.sql.Time;
+import java.util.Calendar;
+
+public class FilmConValutazioneMedia extends Film {
     float valutazioneMedia;
     
-    public FilmConValutazioneMedia(Film film, float valutazione){
-        this.film=film;
-        valutazioneMedia=valutazione;
+    public FilmConValutazioneMedia( int idFilm, tipo myTipo, String titolo, String locandina, String regia, String cast, String genere, Time durata, Calendar dataUscita, vistoCensura myVistoCensura, String distribuzione, String produzione, String trama, String trailer, float valutazione){
+        
+        super( idFilm , myTipo , titolo , locandina , regia , cast , genere , durata , dataUscita , myVistoCensura , distribuzione , produzione , trama , trailer  ); 
+        
+        this.valutazioneMedia=valutazione;
     }
 
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
 
     public float getValutazioneMedia() {
         return valutazioneMedia;
@@ -28,7 +25,7 @@ public class FilmConValutazioneMedia {
     
     @Override
     public String toString() {
-        return getClass().getName()+"{" + film.toString() + valutazioneMedia + "}";
+        return getClass().getName()+"{" + this.toString()  + valutazioneMedia + "}";
     }
     
 }

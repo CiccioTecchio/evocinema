@@ -22,6 +22,15 @@ import model.Sconto.verificabile;
  */
 public class ScontoDAO {
     private static Logger logger= Logger.getLogger("global");
+    private Connection connection;
+     
+    public ScontoDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     
     /**
      * Metodo per la ricerca degli Sconti presenti nel DB.
@@ -32,10 +41,8 @@ public class ScontoDAO {
      */
     public synchronized Collection<Sconto> getAllSconti() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Sconto> sconti = new LinkedList<Sconto>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sconto");
@@ -55,16 +62,9 @@ public class ScontoDAO {
                 sconti.add(s);
             }		
         }finally {
-		try {
                     if (stmt != null)
 			stmt.close();
-		} finally {
-			if (connection != null)
-                            connection.close();
-                  }
-	}
-       logger.info(sconti+"");
-       
+		}
     return sconti;
    }
     
@@ -76,16 +76,16 @@ public class ScontoDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized Sconto foundByID(int idSconto) throws SQLException, ParseException, NamingException {
+   public synchronized Sconto foundByID(String idSconto) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Sconto scontoFound = new Sconto();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sconto WHERE idSconto='"+idSconto+"'");
            ResultSet rs = stmt.executeQuery();
+           
+           while (rs.next()) {
            scontoFound.setIdSconto(rs.getInt("idSconto"));
            scontoFound.setNome(rs.getString("nome"));
            scontoFound.setTipo(tipo.valueOf(rs.getString("tipo")));
@@ -95,18 +95,42 @@ public class ScontoDAO {
            scontoFound.setDisponibile(disponibile.valueOf(rs.getString("disponibile")));
            scontoFound.setTipologia(tipologia.valueOf(rs.getString("tipologia")));
            scontoFound.setParametroTipologia(rs.getString("parametro_tipologia"));
-           } finally{
-                try {
-                    if (stmt != null)
-                        stmt.close();
-                    } finally {
-                        if (connection != null)
-                            connection.close();
-                       }
            }
+           } finally{
+           if (stmt != null)
+                        stmt.close();
+       }        
     return scontoFound;
     }
     
+   public synchronized Sconto foundByNome(String nomeSconto) throws SQLException, ParseException, NamingException {
+      
+       PreparedStatement stmt=null;
+       Sconto scontoFound = new Sconto();
+       
+       
+       try {
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sconto WHERE nome='"+nomeSconto+"'");
+           ResultSet rs = stmt.executeQuery();
+           
+           while (rs.next()) {
+           scontoFound.setIdSconto(rs.getInt("idSconto"));
+           scontoFound.setNome(rs.getString("nome"));
+           scontoFound.setTipo(tipo.valueOf(rs.getString("tipo")));
+           scontoFound.setPercentuale(rs.getInt("percentuale"));
+           scontoFound.setPrezzo(rs.getFloat("prezzo"));
+           scontoFound.setVerificabile(verificabile.valueOf(rs.getString("verificabile")));
+           scontoFound.setDisponibile(disponibile.valueOf(rs.getString("disponibile")));
+           scontoFound.setTipologia(tipologia.valueOf(rs.getString("tipologia")));
+           scontoFound.setParametroTipologia(rs.getString("parametro_tipologia"));
+           }
+           } finally{
+           if (stmt != null)
+                        stmt.close();
+       }        
+    return scontoFound;
+    }
+   
    /**
     * Metodo per la ricerca all'interno del DB di oggetti di tipo {@link Sconto} disponibili.
     * @return Lista di oggetti di tipo {@link Sconto}
@@ -116,10 +140,8 @@ public class ScontoDAO {
     */
    public synchronized Collection<Sconto> foundByDisponibilità() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Sconto> sconti = new LinkedList<Sconto>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sconto WHERE disponibile='" + true +"'");
@@ -139,15 +161,9 @@ public class ScontoDAO {
                 sconti.add(s);
             }		
         }finally {
-		try {
                     if (stmt != null)
 			stmt.close();
-		} finally {
-			if (connection != null)
-                            connection.close();
-                  }
-	}
-       logger.info(sconti+"");
+		}
     return sconti;
     }
    
@@ -161,10 +177,8 @@ public class ScontoDAO {
     */
    public synchronized Collection<Sconto> foundByTipo(String tipoSelezionato) throws SQLException, ParseException, NamingException {
        
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Sconto> sconti = new LinkedList<Sconto>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sconto WHERE tipo='" + tipoSelezionato +"'");
@@ -184,15 +198,9 @@ public class ScontoDAO {
                 sconti.add(s);
             }		
         }finally {
-		try {
                     if (stmt != null)
 			stmt.close();
-		} finally {
-			if (connection != null)
-                            connection.close();
-                }
-	}
-       logger.info(sconti+"");
+		}
     return sconti;
     }
    
@@ -206,10 +214,8 @@ public class ScontoDAO {
     */
    public synchronized Collection<Sconto> foundByTipologia(String tipologiaSelezionata) throws SQLException, ParseException, NamingException {
        
-       Connection connection=null;
        PreparedStatement stmt=null;
        Collection<Sconto> sconti = new LinkedList<Sconto>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sconto WHERE tipologia='" + tipologiaSelezionata +"'");
@@ -229,15 +235,9 @@ public class ScontoDAO {
                 sconti.add(s);
             }		
         }finally {
-		try {
                     if (stmt != null)
 			stmt.close();
-		} finally {
-			if (connection != null)
-                            connection.close();
-                }
-	}
-       logger.info(sconti+"");
+		}
     return sconti;
     }
    
@@ -251,10 +251,8 @@ public class ScontoDAO {
     */
    public synchronized boolean updateSconto(Sconto s) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean update= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.sconto SET nome='"+ s.getNome()+"', tipo='"+ s.getTipo()+"', percentuale='"+s.getPercentuale()+"', prezzo='"+s.getPrezzo()+"', verificabile='"+s.getVerificabile()+"', disponibile='"+s.getDisponibile()+"', tipologia='"+s.getTipologia()+"', parametro_tipologia='"+s.getParametroTipologia()+"' WHERE ( idSconto='"+ s.getIdSconto()+ "');");
@@ -262,15 +260,9 @@ public class ScontoDAO {
             update = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
             }
-        }
     return update;
     }
    
@@ -284,10 +276,8 @@ public class ScontoDAO {
     */
    public synchronized boolean createSconto(Sconto s) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean inserita= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.sconto (idSconto,nome,tipo,percentuale, prezzo, verificabile,disponibile,tipologia,parametro_tipologia)VALUES ('"+ s.getIdSconto() +"', '"+ s.getNome()+"', '"+s.getTipo()+"', '"+s.getPercentuale()+"', '"+s.getPrezzo()+"', '"+s.getVerificabile()+"', '"+s.getDisponibile()+"', '"+ s.getTipologia()+"', '"+ s.getParametroTipologia()+"')");
@@ -295,15 +285,9 @@ public class ScontoDAO {
             inserita = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
             }
-        }
     return inserita;
     }
    
@@ -317,10 +301,8 @@ public class ScontoDAO {
     */
    public synchronized boolean deleteSconto(int idSconto) throws SQLException, ParseException, NamingException{
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean delete= false;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.sconto WHERE ( idSconto='"+ idSconto +"');");
@@ -328,14 +310,8 @@ public class ScontoDAO {
             delete = true;
         } 
         finally {
-            try {
                 if (stmt != null)
                     stmt.close();
-            } 
-            finally {
-                if (connection != null)
-                    connection.close();
-                }
             }
     return delete;
     }

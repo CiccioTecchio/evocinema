@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Logger;
+import java.util.Date;
 import javax.naming.NamingException;
 import model.Acquisto;
 import model.Operazione;
@@ -28,7 +29,18 @@ public class OperazioneDAO {
    private SalaDAO salaDAO = new SalaDAO();
    private ScontoDAO scontoDAO = new ScontoDAO();
    
+   private Connection connection;
+   private PreparedStatement stmt=null;
+   private Collection<Prenotazione> prenotazioni = new LinkedList<>();
    
+    public OperazioneDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+   
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
+    
    /**
      * Permette di estrarre le tuple di tipo {@link Operazione} dal DB.
      * @return Lista delle Operazioni di tipo {@link Acquisto} e {@link Prenotazione} presenti all'interno del DB.
@@ -38,48 +50,41 @@ public class OperazioneDAO {
      */
    public synchronized Collection<Operazione> getAllOperazioni() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
-       Collection<Operazione> operazioni = new LinkedList<>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
+       Collection<Operazione> operazioni = new LinkedList<>();       
        try {
            
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.operazione");
-
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
                     prenotato x = prenotato.valueOf(rs.getString("prenotato"));
                     acquistato y = acquistato.valueOf(rs.getString("acquistato"));
                     
-                    if((x.equals(true))){
+                    if((x.equals(prenotato.TRUE))){
                         Prenotazione p = new Prenotazione();
                         p.setIdOperazione(rs.getInt("id_Operazione"));
                         p.setEmail(rs.getString("email"));
                         p.setIdSpettacolo(rs.getInt("idSpettacolo"));
 			p.setPostoColonna(rs.getInt("posto_colonna"));
                         p.setPostoRiga(rs.getInt("posto_riga"));
-                        
-                        int idSala = rs.getInt("idSala");
-                        Sala sala = salaDAO.foundByID(idSala);
-                        p.setSala(sala);
-                        
-                        p.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
-                        p.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
+                        p.setPrenotato(x);
+                        p.setAcquistato(y);
                         p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
-                        
                         Calendar data = Calendar.getInstance();
                         data.setTime(rs.getDate("data"));
                         p.setData(data);
-                        
-                        int idSconto = rs.getInt("sconto_applicato");
+                        int idSala = rs.getInt("idSala");
+                        Sala sala = salaDAO.foundByID(idSala);
+                        p.setSala(sala);
+                        String idSconto = rs.getString("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         p.setSconto(sconto);
                         
                         operazioni.add(p);
+                        System.out.println(p.toString());
                     }
-                    if (y.equals(true)){
+                    if (y.equals(prenotato.TRUE)){
 			Acquisto a = new Acquisto();
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
@@ -91,19 +96,20 @@ public class OperazioneDAO {
                         Sala sala = salaDAO.foundByID(idSala);
                         a.setSala(sala);
                         
-                        a.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
-                        a.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
+                        //a.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
+                        //a.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
                         a.setPrezzoFinale(rs.getFloat("prezzo_finale"));
                         
                         Calendar data = Calendar.getInstance();
                         data.setTime(rs.getDate("data"));
                         a.setData(data);
                         
-                        int idSconto = rs.getInt("sconto_applicato");
+                        String idSconto = rs.getString("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         a.setSconto(sconto);
                         
                     operazioni.add(a);
+                    logger.info(a.toString());
                     }
 				
                                 
@@ -111,18 +117,11 @@ public class OperazioneDAO {
 			}
 
 		} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
+			
 		}
-       
-       logger.info(operazioni+"");
-       
-		return operazioni;
+	return operazioni;
    }
    
    /**
@@ -132,15 +131,10 @@ public class OperazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized Collection<Prenotazione> getPrenotazioni() throws SQLException, ParseException, NamingException {
+   public Collection<Prenotazione> getPrenotazioni() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
-       PreparedStatement stmt=null;
        Collection<Prenotazione> prenotazioni = new LinkedList<>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.operazione WHERE prenotato= '" + true +"'");
 
             ResultSet rs = stmt.executeQuery();
@@ -153,40 +147,29 @@ public class OperazioneDAO {
                         p.setIdSpettacolo(rs.getInt("idSpettacolo"));
 			p.setPostoColonna(rs.getInt("posto_colonna"));
                         p.setPostoRiga(rs.getInt("posto_riga"));
-                        
-                        int idSala = rs.getInt("idSala");
-                        Sala sala = salaDAO.foundByID(idSala);
-                        p.setSala(sala);
-                        
                         p.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
                         p.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
                         p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
-                        
                         Calendar data = Calendar.getInstance();
-                        data.setTime(rs.getDate("data"));
+                        Date newDate = rs.getTimestamp("data");
+                        data.setTime(newDate);
                         p.setData(data);
-                        
-                        int idSconto = rs.getInt("sconto_applicato");
-                        Sconto sconto = scontoDAO.foundByID(idSconto);
-                        p.setSconto(sconto);	
+                        int idSala = rs.getInt("idSala");
+                        String idSconto = rs.getString("sconto_applicato");
+                        Sala sala = salaDAO.foundByID(idSala);
+                        p.setSala(sala);
+                        Sconto sconto = scontoDAO.foundByNome(idSconto);
+                        p.setSconto(sconto);
                         
                         prenotazioni.add(p);
                     }
-                    
-
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
 		}
-       
-       logger.info(prenotazioni+"");
-       
-		return prenotazioni;
+    return prenotazioni;
    }
    
    /**
@@ -231,7 +214,7 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         a.setData(data);
                         
-                        int idSconto = rs.getInt("sconto_applicato");
+                        String idSconto = rs.getString("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         a.setSconto(sconto);
                         
@@ -239,15 +222,11 @@ public class OperazioneDAO {
                     }
                     
 
-		} finally {
-			try {
+		} finally{
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
+		
        
        logger.info(acquisti+"");
        
@@ -265,13 +244,11 @@ public class OperazioneDAO {
    public synchronized Operazione foundByID(int idOperazione) throws SQLException, ParseException, NamingException{
        
         
-       Connection connection=null;
        PreparedStatement stmt=null;
        boolean prenotazione=false;
        Prenotazione p = new Prenotazione();
        Acquisto a = new Acquisto();
        Operazione o = new Operazione(){};
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
         
        
@@ -306,7 +283,7 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         p.setData(data);
                         
-                        int idSconto = rs.getInt("sconto_applicato");
+                        String idSconto = rs.getString("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         p.setSconto(sconto);
                         
@@ -332,7 +309,7 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         a.setData(data);
                         
-                        int idSconto = rs.getInt("sconto_applicato");
+                        String idSconto = rs.getString("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         a.setSconto(sconto);
                         
@@ -340,13 +317,9 @@ public class OperazioneDAO {
                     
 
 		}} finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
+			
 		}
        if(prenotazione==true){
             return p;
@@ -367,10 +340,7 @@ public class OperazioneDAO {
    public synchronized boolean createOperazione(Operazione p) throws SQLException, ParseException, NamingException{
         
        boolean inserito= false;
-       Connection connection=null;
-       PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
+       PreparedStatement stmt=null;       
         
        
        try {
@@ -380,13 +350,9 @@ public class OperazioneDAO {
             
             inserito = true;
             } finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
+			
 		}
 		return inserito;
 	}
@@ -402,10 +368,7 @@ public class OperazioneDAO {
    public synchronized boolean updateOperazione(Operazione p) throws SQLException, ParseException, NamingException{
        
        boolean modificato= false;
-       Connection connection=null;
-       PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
+       PreparedStatement stmt=null;       
         
        
        try {
@@ -415,14 +378,9 @@ public class OperazioneDAO {
             
             modificato = true;
             } finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
 			}
-		}
 		return modificato;
 	}
    
@@ -437,10 +395,7 @@ public class OperazioneDAO {
    public synchronized boolean deleteOperazione(int idOperazione) throws SQLException, ParseException, NamingException{
        
        boolean eliminato= false;
-       Connection connection=null;
-       PreparedStatement stmt=null;
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       
+       PreparedStatement stmt=null;       
         
        
        try {
@@ -450,13 +405,9 @@ public class OperazioneDAO {
             
             eliminato = true;
             } finally {
-			try {
 				if (stmt != null)
 					stmt.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
+			
 		}
 		return eliminato;
 	}
