@@ -37,9 +37,9 @@ public class FilmValutazioneDAO {
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        String sql = "SELECT * " +
                         "FROM("
-                            + "(select opera.* , avg( valutazione ) as valutazione from recensioni,opera where opera.idOpera = recensioni.id_opera group by idOpera order by titolo) " +
+                            + "(select Opera.* , avg( valutazione ) as valutazione from Recensioni,Opera where Opera.idOpera = Recensioni.id_opera group by idOpera order by titolo) " +
                                 "UNION" +
-                                "(select * , (null) as 'Valutazione' from opera) ) as t GROUP BY t.idOpera";
+                                "(select * , (null) as 'Valutazione' from Opera) ) as t GROUP BY t.idOpera";
        
        
        try {

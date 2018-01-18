@@ -11,6 +11,7 @@
 <%@page import="java.util.ArrayList"%>
 <% request.setAttribute("title", "Scheda Film"); %>
 <jsp:include page="Header.jsp" />
+
 <%@ page import="model.FilmConValutazioneMedia"%>
 
 
@@ -49,9 +50,9 @@
         String data = simple.format(cal.getTime()); 
         
     %>
-    <div class="row ml-5" >
+    <div class="row" >
         
-        <div class="card mb-3 ml-5">
+        <div class="card mb-3">
                 
         
             
@@ -69,53 +70,58 @@
         <div class="card mb-3 ml-5">
             <span class="card-header" > Informazioni Film </span>
             <div class="row"> 
-                    <div class="card-body pt-5 mt-4" >
+                    <div class="card-body pt-1 mt-4" >
                         <table>
                             <tr>
-                                <td>Titolo :</td><td> <strong><%= film.getTitolo() %></strong></td></tr>
+                                <td class="text-right"> <H3>Voto :</H3></td><td><p id="valutazioneFilm" class="card-body mr-2"> <%= film.getValutazioneMedia() %></p> </td>
+                                
+                            </tr>
                             <tr>
-                                <td> Genere :</td><td> <%= film.getGenere() %></td></tr>
+                                <td class="text-right"><H5><strong> Titolo :</strong></H5></td><td> <H2><%= film.getTitolo() %></H2></td></tr>
                             <tr>
-                                <td>Durata :</td><td> <%= film.getDurata() %></td></tr>
+                                <td class="text-right"><H5><strong> Genere :</strong></H5></td><td><H5> <%= film.getGenere() %></H5></td></tr>
                             <tr>
-                                <td>Regia :</td><td> <%= film.getRegia() %></td></tr>
+                                <td class="text-right"><strong> Durata :</strong></td><td> <%= film.getDurata() %></td></tr>
                             <tr>
-                                <td>Cast :</td><td> <%= film.getCast() %></td></tr>
+                                <td class="text-right"><strong> Regia :</strong></td><td> <%= film.getRegia() %></td></tr>
                             <tr>
-                                <td>Produzione :</td><td> <%= film.getProduzione() %></td></tr>
+                                <td class="text-right"><strong> Cast :</strong></td><td> <%= film.getCast() %></td></tr>
+                            <tr>
+                                <td class="text-right"><strong> Produzione :</strong></td><td> <%= film.getProduzione() %></td></tr>
                         </table>
                     
-                </div>
-                    <div class="card-body pt-5 mt-4" >
-                        <strong>Valutazione Utenti</strong>
-                        <p id="valutazioneFilm" class="card-body mr-2"> <%= film.getValutazioneMedia() %></p>  
-                        
-                    </div>
+                </div> 
+                       
             </div>
-        
-            
         </div>
+                
     </div>
     <div class="row">
-     
+       
+      
         <div class="card mb-3"  >
             
             
-            <span class="card-header"> Trama </span>
+            <span class="card-header">Trama</span>
             
-            <p class="card-body">
+            <div class="row" >
+            
+            <p class="card-body col-sm-6 text-left pt-5 mt-5 ">
                     
                     <%= film.getTrama() %>
                     
                 </p>
             
-     
-            
-            
+           <div class="card-body col-sm-6 text-right">
+         <iframe width="420" height="315"src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>      
+         </div>
+              
+            </div>
         </div>
         
+         
     
-    
+                   
     </div>
     
         <div class="card mb-3">

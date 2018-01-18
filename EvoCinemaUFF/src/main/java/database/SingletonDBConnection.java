@@ -15,6 +15,33 @@ import javax.sql.DataSource;
  * @author sarad
  */
 public class SingletonDBConnection {
+    
+    
+    /*
+    private static Connection getRemoteConnection() {
+        
+    Logger logger = Logger.getLogger("global");
+    
+    if (System.getenv("RDS_HOSTNAME") != null) {
+      try {
+      Class.forName("org.mysql.Driver");
+      String dbName = System.getenv("evo_cinema");
+      String userName = System.getenv("user");
+      String password = System.getenv("pippofranco");
+      String hostname = System.getenv("evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com");
+      String port = System.getenv("3306");
+      String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
+      logger.trace("Getting remote connection with connection string from environment variables.");
+      Connection con = DriverManager.getConnection(jdbcUrl);
+      logger.info("Remote connection successful.");
+      return con;
+    }
+    catch (ClassNotFoundException e) { e.printStackTrace(); System.out.println("Class non found ");  }
+    catch (SQLException e) { System.out.println("Sql Exception  ");}
+    }
+    return null;
+  }
+    */
     private static SingletonDBConnection singleInstance;
     private static DataSource dataSource;
     private static Connection dbConnect;
@@ -28,7 +55,7 @@ public class SingletonDBConnection {
 
         try{
         Class.forName("com.mysql.jdbc.Driver"); 
-        String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=user&password=1234";
+        String url2 = "jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco";
         dbConnect = DriverManager.getConnection(url2);
         if (dbConnect != null) {
             System.out.println("Connected to the database evocinema");
@@ -72,7 +99,7 @@ public class SingletonDBConnection {
          
         try{
         Class.forName("com.mysql.jdbc.Driver"); 
-         String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=root&password=1234";
+        String url2 = "jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco";
         dbConnect = DriverManager.getConnection(url2);
 
         }

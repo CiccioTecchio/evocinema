@@ -14,6 +14,7 @@
 <% request.setAttribute("title", "Visualizza Libreria"); %>
 <jsp:include page="Header.jsp"/>
 <jsp:include page= "/visualizzaValutazioni"/>
+
 <!DOCTYPE html>
 
 <%
@@ -57,31 +58,27 @@
         <% }else{ %>
                 
 
-        <script>
-            
-            
-            $(document).ready(function () {
-
-                $("#listaFilm").DataTable();
-
-            });
-
-            
-        </script>
+        
          <div class="card-header">
           <i class="fa fa-table"></i> Lista Film Valutazioni</div>
         <div class="card-body">
         
                     <div class="table-responsive">
-                    	<table id="listaFilm" class="table table-bordered" cellspacing="0" width="100%">
+                        <table id="listaFilm" style="border-" class="table table-bordered" cellspacing="0" width="100%">
 				<thead>
                                     <tr>
+                                        
                                                 <th>Locandina</th>
 						<th>Titolo</th>
 						<th>Genere</th>
 						<th>Trama</th>
 						<th>Durata</th>
-						<th>Valutazione</th>
+                                
+                                                <th id="ValBott" >Valutazione</th>
+                                                <th id="ValBottLeft"></th>
+						
+                                                
+        
 					</tr>
 				</thead>
                                 <tbody>
@@ -94,7 +91,7 @@
                                 
                                     if( film.getValutazioneMedia() == 0.0 ) {
                                     
-                                        valutazione = "Non Disponibile"; 
+                                        valutazione = "0"; 
                                         
                                         
                                     
@@ -111,7 +108,10 @@
 						<td><%= film.getGenere()  %></td>
 						<td><%= film.getTrama() %></td>
 						<td><%= film.getDurata() %></td>
-                                                <td class="rateYo" ><%= valutazione %></td>
+                               
+                                               
+                                                <td class="rigaVal"><%= valutazione %></td>
+                                                 <td class="rateYo rigaValLeft" ><%= valutazione %></td>
 					</tr>
                                         
                                         <% }  %>
@@ -119,10 +119,46 @@
 				</tbody>
 			</table>
                                         <script>
+            
+            
+            $(document).ready(function () {
+
+                $("#listaFilm").DataTable({
+                    
+                   "order" : [[1, "asc"]],
+                    
+                    "columns": [
+                           
+                                {"orderable": false},
+                               null,
+                               null,
+                               { "orderable": false },
+                               null,
+                               null,
+                              { "orderable": false }]
+                          
+                          
+                                        
+                    
+                });
+                
+                
+            });
+            
+            
+
+            
+        </script>
+                                        
+                                        
+                                        
+                                        <script>
+                                            
+                                            
                                          
                                           var valore;
                                          
-                                        /*$(".rateYo").each( function (e) {
+                                        $(".rateYo").each( function (e) {
                                             
                                               valore = $(this).text(); 
                                               
@@ -136,11 +172,17 @@
                                                  
                                              });
                                              
+                                             $("#ValBott").css("border-bottom-width", "2px"); 
+                                             $("#ValBott").css("border-right-width", "0px");
+                                             $("#ValBottLeft").css("border-left-width", "0px");
+                                             $(".rigaVal").css("border-right-width", "0px");
+                                             $(".rigaValLeft").css("border-left-width", "0px");
+                                             
                                             
                                                 }
                                              
                                              
-                                         }); */
+                                         }); 
                                          
                                          
                                         
