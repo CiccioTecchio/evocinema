@@ -58,7 +58,7 @@
 
     </head>
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-<<<<<<< HEAD
+
     
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
     <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
@@ -108,23 +108,8 @@
   </nav>
 <div class="content-wrapper">
    <div class="container-fluid">
-        <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="javascript/swiper.js"></script> 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-         <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
-         <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
-         <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-         <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
-         <script src="Template%20Sb%20Admin/vendor/chart.js/Chart.min.js"></script>
-          <script src="Template%20Sb%20Admin/js/sb-admin-charts.min.js"></script>
         
    
-    <!-- Custom scripts for this page-->
-   
-=======
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
             <a class="navbar-brand" style="color: white" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
@@ -172,25 +157,25 @@
                 </ul>
             </div>
         </nav>
-        <div class="content-wrapper">
-            <div class="container-fluid">
-                <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-                <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <script src="javascript/swiper.js"></script> 
-                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-                <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
-                <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-                <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/chart.js/Chart.min.js"></script>
-                <script src="Template%20Sb%20Admin/js/sb-admin-charts.min.js"></script>
+       
+       <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
+        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="javascript/swiper.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
+         <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
+         <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
+         <script src="Template%20Sb%20Admin/vendor/chart.js/Chart.min.js"></script>
+          <script src="Template%20Sb%20Admin/js/sb-admin-charts.min.js"></script>
+        
+   
+    <!-- Custom scripts for this page-->
+        
 
 
-                <!-- Custom scripts for this page-->
-
->>>>>>> 6947c2510bffc65820838d15c6b04a6e589ff260
 
 
 
