@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Operazione` (
   `acquistato` ENUM('TRUE', 'FALSE') NOT NULL,
   `prezzo_finale` DECIMAL(5,2) NULL,
   `data` DATE NOT NULL,
-  `sconto_applicato` VARCHAR(45) NULL,
+  `sconto_applicato` INT NOT NULL,
   PRIMARY KEY (`id_Operazione`),
   INDEX `FK_id Spettacolo_idx` (`idSpettacolo` ASC),
   INDEX `FK_posto_idx` (`posto_colonna` ASC, `posto_riga` ASC, `idSala` ASC),

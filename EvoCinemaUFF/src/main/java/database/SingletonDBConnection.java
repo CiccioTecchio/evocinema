@@ -17,31 +17,7 @@ import javax.sql.DataSource;
 public class SingletonDBConnection {
     
     
-    /*
-    private static Connection getRemoteConnection() {
-        
-    Logger logger = Logger.getLogger("global");
     
-    if (System.getenv("RDS_HOSTNAME") != null) {
-      try {
-      Class.forName("org.mysql.Driver");
-      String dbName = System.getenv("evo_cinema");
-      String userName = System.getenv("user");
-      String password = System.getenv("pippofranco");
-      String hostname = System.getenv("evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com");
-      String port = System.getenv("3306");
-      String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
-      logger.trace("Getting remote connection with connection string from environment variables.");
-      Connection con = DriverManager.getConnection(jdbcUrl);
-      logger.info("Remote connection successful.");
-      return con;
-    }
-    catch (ClassNotFoundException e) { e.printStackTrace(); System.out.println("Class non found ");  }
-    catch (SQLException e) { System.out.println("Sql Exception  ");}
-    }
-    return null;
-  }
-    */
     private static SingletonDBConnection singleInstance;
     private static DataSource dataSource;
     private static Connection dbConnect;
