@@ -32,9 +32,9 @@ public class ModificaSpettacoloInvioCNT {
             HttpSession s = request.getSession();
             Spettacolo sp = (Spettacolo) s.getAttribute("spettacolo");
             sp.setPrezzo(Integer.parseInt((String)request.getParameter("prezzo")));
-            sp.setOraInizio((Calendar) request.getParameter("orario"));
-            sp.setDataInizio((Calendar) request.getParameter("orario"));
-            sp.setDataFine((Calendar) request.getParameter("orario"));
+            //sp.setOraInizio((Calendar) request.getParameter("orario"));
+            //sp.setDataInizio((Calendar) request.getParameter("orario"));
+            //sp.setDataFine((Calendar) request.getParameter("orario"));
             sp.setIdSala(Integer.parseInt((String)request.getParameter("sala")));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
             spettacoloDao.updateSpettacolo(sp);
@@ -52,7 +52,7 @@ public class ModificaSpettacoloInvioCNT {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -66,7 +66,7 @@ public class ModificaSpettacoloInvioCNT {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -77,7 +77,7 @@ public class ModificaSpettacoloInvioCNT {
      *
      * @return a String containing servlet description
      */
-    @Override
+
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

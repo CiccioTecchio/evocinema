@@ -20,16 +20,18 @@ import model.*;
 import database.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 
-@WebServlet("/Login")
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    UtenteBaseDAO model = null;
+    UtenteRegistratoDAO model = null;
+    UtenteRegistrato utente = null;
 
     public Login() {
         super();
@@ -64,12 +66,6 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        try {
-            model = new UtenteBaseDAO();
-        } catch (NamingException | SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         boolean utenteIsNull = true;
         HttpSession s = request.getSession();
         request.setAttribute("title", "Login");
@@ -77,8 +73,13 @@ public class Login extends HttpServlet {
         String username = filter(request.getParameter("userLogin"));
         String password = filter(request.getParameter("passwordLogin"));
 
-        UtenteRegistrato utente = model.controllaLogin(username, password);
-
+        try {
+            model = new UtenteRegistratoDAO();
+            utente = model.controllaLogin(username, password);
+        } catch (NamingException | SQLException | ParseException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         if (!utente.getNomeUtente().equals("")) {
             utenteIsNull = false;
             s.setAttribute("user", utente);

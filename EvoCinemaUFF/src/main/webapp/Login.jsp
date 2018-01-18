@@ -36,14 +36,14 @@
         <p>Inserisci i dati accedere al tuo account</p>
 
         <form method="post"
-              action="/Login">
+              action="Login">
             <label class="labelRegistrazione">Username: </label> <input
                 type="text" id="userLogin" name="userLogin"> <br> <label
                 class="labelRegistrazione">Password: </label> <input type="password"
                 id="passwordLogin" name="passwordLogin"> <br> <input
                 type="submit" name="bottoneLogin" value="Login">
         </form>
-        <a href="/Registrazione.jsp">Non sei registrato? Registrati ora.</a>
+        <a href="Registrazione.jsp">Non sei registrato? Registrati ora.</a>
         <%
         } else {
         %>
