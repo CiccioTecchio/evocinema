@@ -251,14 +251,14 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
-    public synchronized UtenteRegistrato controllaLogin(String username, String password) throws SQLException, ParseException, NamingException {
+    public synchronized UtenteRegistrato controllaLogin(String email, String password) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
         UtenteRegistrato utente = null;
         
         try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE"
-                    + " nome_utente=" + username + "AND password =" + password);
+                    + " email=" + email + "AND password =" + password);
             ResultSet rs = stmt.executeQuery();
             String tipo = rs.getString("ruolo");
             

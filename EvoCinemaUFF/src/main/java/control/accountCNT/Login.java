@@ -70,12 +70,12 @@ public class Login extends HttpServlet {
         HttpSession s = request.getSession();
         request.setAttribute("title", "Login");
         
-        String username = filter(request.getParameter("userLogin"));
+        String email = filter(request.getParameter("emailLogin"));
         String password = filter(request.getParameter("passwordLogin"));
 
         try {
             model = new UtenteRegistratoDAO();
-            utente = model.controllaLogin(username, password);
+            utente = model.controllaLogin(email, password);
         } catch (NamingException | SQLException | ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }

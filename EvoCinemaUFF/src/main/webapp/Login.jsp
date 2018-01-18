@@ -37,8 +37,8 @@
 
         <form method="post"
               action="Login">
-            <label class="labelRegistrazione">Username: </label> <input
-                type="text" id="userLogin" name="userLogin"> <br> <label
+            <label class="labelRegistrazione">E-Mail: </label> <input
+                type="text" id="emailLogin" name="emailLogin"> <br> <label
                 class="labelRegistrazione">Password: </label> <input type="password"
                 id="passwordLogin" name="passwordLogin"> <br> <input
                 type="submit" name="bottoneLogin" value="Login">
