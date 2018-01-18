@@ -171,6 +171,7 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
+    /*
     public synchronized boolean updateUtenteRegistrato(UtenteRegistrato ut) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
@@ -188,7 +189,8 @@ public class UtenteRegistratoDAO {
         }
         return update;
     }
-
+    /*
+    
     /**
      * Metodo per l'inserimento di un oggetto di tipo {@link Spettacolo}
      * all'interno del DB.
@@ -199,6 +201,7 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
+    /*
     public synchronized boolean createUtente(UtenteRegistrato u) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
@@ -216,7 +219,8 @@ public class UtenteRegistratoDAO {
         }
         return inserito;
     }
-
+    */
+    
     /**
      * Metodo per la cancellazione di un oggetto di tipo {@link Spettacolo}.
      *
@@ -258,7 +262,7 @@ public class UtenteRegistratoDAO {
         
         try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE"
-                    + " email=" + email + "AND password =" + password);
+                    + " email = '" + email + " ' AND password = '" + password + "' ");
             ResultSet rs = stmt.executeQuery();
             String tipo = rs.getString("ruolo");
             

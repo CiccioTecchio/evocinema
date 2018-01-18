@@ -80,7 +80,7 @@ public class Login extends HttpServlet {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (!utente.getNomeUtente().equals("")) {
+        if (!utente.getEmail().equals("")) {
             utenteIsNull = false;
             s.setAttribute("user", utente);
         }
