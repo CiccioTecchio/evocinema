@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-gen-2018, 10.59.24
+    Author     : pietr
+*/
+
+fieldset.fieldsetCustom{
+    border-style: solid;
+    border-width: 1px;
+    margin: 3%;
+    padding: 2%;
+}
+legend.legendCustom{
+    width:auto;
+}

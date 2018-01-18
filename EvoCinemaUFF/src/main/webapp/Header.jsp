@@ -22,6 +22,7 @@
         <link href="HomeSlider/css/mycss.css" rel="stylesheet">
         <link href="HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
+        <link rel="stylesheet" href="Gestione_operazione_sala.css">
         
         <!-- Custom fonts for this template-->
         <link href="Template%20Sb%20Admin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
