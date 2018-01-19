@@ -5,6 +5,7 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -33,10 +34,19 @@ public class OperazioneDAO {
    private PreparedStatement stmt=null;
    private Collection<Prenotazione> prenotazioni = new LinkedList<>();
    
+    /*
+     * Metodo costruttore della classe.
+     * @throws SQLException
+     * @throws NamingException
+     */
     public OperazioneDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
    
+    /*
+     * Metodo che restituisce la connessione di tipo {@link Connection}.
+     * @return oggetto connessione di tipo {@link Connection}
+     */
     public Connection getDAOConnection(){
         return this.connection;
     }
@@ -51,17 +61,18 @@ public class OperazioneDAO {
    public synchronized Collection<Operazione> getAllOperazioni() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Operazione> operazioni = new LinkedList<>();       
+       Collection<Operazione> operazioni = new LinkedList<>();
+       boolean prenotazione=false;
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.operazione");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione;");
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
                     prenotato x = prenotato.valueOf(rs.getString("prenotato"));
                     acquistato y = acquistato.valueOf(rs.getString("acquistato"));
                     
-                    if((x.equals(prenotato.TRUE))){
+                    if((x.name().equals("TRUE"))&&(y.name().equals("FALSE"))){
                         Prenotazione p = new Prenotazione();
                         p.setIdOperazione(rs.getInt("id_Operazione"));
                         p.setEmail(rs.getString("email"));
@@ -82,9 +93,9 @@ public class OperazioneDAO {
                         p.setSconto(sconto);
                         
                         operazioni.add(p);
-                        System.out.println(p.toString());
+                        
                     }
-                    if (y.equals(prenotato.TRUE)){
+                    if (y.name().equals("TRUE")){
 			Acquisto a = new Acquisto();
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
@@ -96,8 +107,8 @@ public class OperazioneDAO {
                         Sala sala = salaDAO.foundByID(idSala);
                         a.setSala(sala);
                         
-                        //a.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
-                        //a.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
+                        a.setPrenotato(x);
+                        a.setAcquistato(y);
                         a.setPrezzoFinale(rs.getFloat("prezzo_finale"));
                         
                         Calendar data = Calendar.getInstance();
@@ -109,7 +120,7 @@ public class OperazioneDAO {
                         a.setSconto(sconto);
                         
                     operazioni.add(a);
-                    logger.info(a.toString());
+                    
                     }
 				
                                 
@@ -135,7 +146,7 @@ public class OperazioneDAO {
       
        Collection<Prenotazione> prenotazioni = new LinkedList<>();
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.operazione WHERE prenotato= '" + true +"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE prenotato= 'TRUE' AND acquistato='FALSE'");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -158,7 +169,7 @@ public class OperazioneDAO {
                         String idSconto = rs.getString("sconto_applicato");
                         Sala sala = salaDAO.foundByID(idSala);
                         p.setSala(sala);
-                        Sconto sconto = scontoDAO.foundByNome(idSconto);
+                        Sconto sconto = scontoDAO.foundByID(idSconto);
                         p.setSconto(sconto);
                         
                         prenotazioni.add(p);
@@ -188,7 +199,7 @@ public class OperazioneDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.operazione WHERE acquistato= '" + true +"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE acquistato= 'TRUE'");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -254,7 +265,7 @@ public class OperazioneDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.operazione WHERE id_Operazione='"+ idOperazione +"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE id_Operazione='"+ idOperazione +"'");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -263,7 +274,7 @@ public class OperazioneDAO {
                     prenotato x = prenotato.valueOf(rs.getString("prenotato"));
                     acquistato y = acquistato.valueOf(rs.getString("acquistato"));
                     
-                    if((x.equals(true))&&(y.equals(false))){
+                    if((x.name().equals("TRUE"))&&(y.name().equals("FALSE"))){
                         
                         p.setIdOperazione(rs.getInt("id_Operazione"));
                         p.setEmail(rs.getString("email"));
@@ -289,7 +300,7 @@ public class OperazioneDAO {
                         
                         prenotazione=true;
                     }
-                    if (y.equals(true)){
+                    if (y.name().equals("TRUE")){
 			
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
@@ -341,11 +352,11 @@ public class OperazioneDAO {
         
        boolean inserito= false;
        PreparedStatement stmt=null;       
-        
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.operazione (id_Operazione, email, idSpettacolo, posto_colonna, posto_riga, idSala, prenotato, acquistato, prezzo_finale, data, sconto_applicato) VALUES ('"+ p.getIdOperazione() +"', '"+ p.getEmail()+"', '"+ p.getIdSpettacolo() +"', '"+ p.getPostoColonna()+"', '"+p.getPostoRiga()+"', '"+p.getSala().getIdSala()+"', '"+p.getPrenotato()+"', '"+p.getAcquistato()+"', '"+p.getPrezzoFinale()+"', '"+p.getData().getTime()+"', '"+p.getSconto().getIdSconto()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Operazione (id_Operazione, email, idSpettacolo, posto_colonna, posto_riga, idSala, prenotato, acquistato, prezzo_finale, data, sconto_applicato) VALUES ('"+ p.getIdOperazione() +"', '"+ p.getEmail()+"', '"+ p.getIdSpettacolo() +"', '"+ p.getPostoColonna()+"', '"+p.getPostoRiga()+"', '"+p.getSala().getIdSala()+"', '"+p.getPrenotato()+"', '"+p.getAcquistato()+"', '"+p.getPrezzoFinale()+"', '"+sdf.format(p.getData().getTime())+"', '"+p.getSconto().getIdSconto()+"')");
             stmt.executeUpdate();
             
             inserito = true;
@@ -369,11 +380,11 @@ public class OperazioneDAO {
        
        boolean modificato= false;
        PreparedStatement stmt=null;       
-        
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.operazione SET id_Operazione='"+ p.getIdOperazione() +"', email='"+ p.getEmail()+"', idSpettacolo='"+ p.getIdSpettacolo() +"', posto_colonna='"+ p.getPostoColonna()+"', posto_riga='"+ p.getPostoRiga()+"', idSala='"+ p.getSala().getIdSala()+"', prenotato='"+ p.getPrenotato()+"', acquistato='"+ p.getAcquistato() +"', prezzo_finale='"+ p.getPrezzoFinale()+"', data='"+ p.getData().getTime()+"', sconto_applicato='"+ p.getSconto().getIdSconto()+" WHERE ( id_Operazione='"+ p.getIdOperazione() +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Operazione SET email='"+ p.getEmail()+"', idSpettacolo='"+ p.getIdSpettacolo() +"', posto_colonna='"+ p.getPostoColonna()+"', posto_riga='"+ p.getPostoRiga()+"', idSala='"+ p.getSala().getIdSala()+"', prenotato='"+ p.getPrenotato()+"', acquistato='"+ p.getAcquistato() +"', prezzo_finale='"+ p.getPrezzoFinale()+"', data='"+ sdf.format(p.getData().getTime())+"', sconto_applicato='"+ p.getSconto().getIdSconto()+"' WHERE id_Operazione='"+p.getIdOperazione()+"';");
             stmt.executeUpdate();
             
             modificato = true;
@@ -400,7 +411,7 @@ public class OperazioneDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.operazione WHERE (id_Operazione='"+ idOperazione +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Operazione WHERE (id_Operazione='"+ idOperazione +"');");
             stmt.executeUpdate();
             
             eliminato = true;

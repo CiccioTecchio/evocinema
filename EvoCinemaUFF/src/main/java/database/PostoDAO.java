@@ -23,14 +23,24 @@ public class PostoDAO {
     private static Logger logger= Logger.getLogger("global");
     private SalaDAO salaDAO = new SalaDAO();
     private Connection connection;
-     
+    
+    /*
+     * Metodo costruttore della classe.
+     * @throws SQLException
+     * @throws NamingException
+     */
     public PostoDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
-   
+    
+    /*
+     * Metodo che restituisce la connessione di tipo {@link Connection}.
+     * @return oggetto connessione di tipo {@link Connection}
+     */
     public Connection getDAOConnection(){
         return this.connection;
     }
+    
     /**
      * Permette di estrarre le tuple di tipo {@link Posto} dal DB.
      * @return Lista dei Posti di tipo {@link Posto} presenti all'interno del DB.
@@ -45,7 +55,7 @@ public class PostoDAO {
       
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.posto");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Posto");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -56,8 +66,8 @@ public class PostoDAO {
                         p.setColonna(rs.getInt("colonna"));
                         
                         int idSala = rs.getInt("idSala");
-                        //Sala sala = salaDAO.foundByID(idSala);
-                        //p.setSala(sala);
+                        Sala sala = salaDAO.foundByID(idSala);
+                        p.setSala(sala);
                         
                         p.setStato(stato.valueOf(rs.getString("stato")));
 
@@ -76,19 +86,20 @@ public class PostoDAO {
      * Metodo per la ricerca nel DB di un {@link Posto}.
      * @param riga identificativo della riga di tipo intero all'interno della {@link Sala}.
      * @param colonna identificativo della colonna di tipo intero all'interno della {@link Sala}.
+     * @param sala identificativo della sala di tipo intero.
      * @return Oggetto di Posto [@link Posto} identificato dai parametri passati.
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Posto foundByID(int riga, int colonna) throws SQLException, ParseException, NamingException{
+    public synchronized Posto foundByID(int riga, int colonna, int sala) throws SQLException, ParseException, NamingException{
        
        PreparedStatement stmt=null;
        Posto p = new Posto();
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.posto WHERE riga='"+ riga +"' AND colonna='"+ colonna +"' ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Posto WHERE riga='"+ riga +"' AND colonna='"+ colonna +"' AND idSala='"+ sala +"' ");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -99,9 +110,9 @@ public class PostoDAO {
                         p.setColonna(rs.getInt("colonna"));
                         
                         int idSala = rs.getInt("idSala");
-                        Sala sala;
-                        //sala = salaDAO.foundByID(idSala);
-                        //p.setSala(sala);
+                        Sala salaFound;
+                        salaFound = salaDAO.foundByID(idSala);
+                        p.setSala(salaFound);
                         
                         p.setStato(stato.valueOf(rs.getString("stato")));
                         
@@ -130,7 +141,7 @@ public class PostoDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.posto (riga, colonna, idSala, stato) VALUES ('"+ p.getRiga() +"', '"+ p.getColonna()+"', '"+ p.getSala().getIdSala() +"', '"+ p.getStato()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Posto (riga, colonna, idSala, stato) VALUES ('"+ p.getRiga() +"', '"+ p.getColonna()+"', '"+ p.getSala().getIdSala() +"', '"+ p.getStato()+"')");
             stmt.executeUpdate();
             
             inserito = true;
@@ -144,20 +155,21 @@ public class PostoDAO {
     
     /**
      * Metodo per la modifica dei dati di un {@link Posto} nel DB.
-     * @param p Oggetto di tipo {@link Posto}.
+     * @param daInserire Oggetto di tipo {@link Posto} che sar� inserito nel DB.
+     * @param daModificare Oggetto di tipo {@link Posto} che sar� modificato nel DB.
      * @return 'true' per il corretto update o 'false' in caso di update fallito.
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized boolean updatePosto(Posto p) throws SQLException, ParseException, NamingException{
+    public synchronized boolean updatePosto(Posto daInserire, Posto daModificare) throws SQLException, ParseException, NamingException{
        
        boolean modificato= false;
        PreparedStatement stmt=null;
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.posto SET riga='"+ p.getRiga() +"', colonna='"+ p.getColonna()+"', idSala='"+ p.getSala().getIdSala() +"', stato='"+ p.getStato()+"' WHERE ( riga=riga='"+ p.getRiga() +"' AND colonna='"+ p.getColonna()+"');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.posto SET Riga='"+ daInserire.getRiga() +"', colonna='"+ daInserire.getColonna()+"', idSala='"+ daInserire.getSala().getIdSala() +"', stato='"+ daInserire.getStato()+"' WHERE ( riga='"+ daModificare.getRiga() +"' AND colonna='"+ daModificare.getColonna()+"' AND idSala='"+ daModificare.getSala().getIdSala() +"');");
             stmt.executeUpdate();
             
             modificato = true;
@@ -170,21 +182,20 @@ public class PostoDAO {
     
     /**
      * Metodo per la cancellazione di un {@link Posto} all'interno del DB.
-     * @param riga identificativo della riga di tipo intero all'interno della {@link Sala}.
-     * @param colonna identificativo della colonna di tipo intero all'interno della {@link Sala}.
+     * @param p oggetto di tipo {@link Posto} che sar� cancellato dal DB.
      * @return 'true' per la corretta rimozione o 'false' in caso di rimozione fallita.
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized boolean deletePosto(int riga, int colonna) throws SQLException, ParseException, NamingException{
+    public synchronized boolean deletePosto(Posto p) throws SQLException, ParseException, NamingException{
        
        boolean eliminato= false;
        PreparedStatement stmt=null;
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.posto WHERE (riga='"+ riga +"' AND colonna='"+ colonna +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Posto WHERE (riga='"+ p.getRiga() +"' AND colonna='"+ p.getColonna() +"' AND idSala='"+ p.getSala().getIdSala() +"');");
             stmt.executeUpdate();
             
             eliminato = true;

@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -24,11 +25,20 @@ import model.Film.vistoCensura;
 public class FilmDAO {
     private static Logger logger= Logger.getLogger("global");
     private Connection connection;
-     
+    
+    /*
+     * Metodo costruttore della classe.
+     * @throws SQLException
+     * @throws NamingException
+     */
     public FilmDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
-   
+    
+    /*
+     * Metodo che restituisce la connessione di tipo {@link Connection}.
+     * @return oggetto connessione di tipo {@link Connection}
+     */
     public Connection getDAOConnection(){
         return this.connection;
     }
@@ -43,11 +53,11 @@ public class FilmDAO {
     public synchronized Collection<Film> getAllOpere() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Film> film = new LinkedList<Film>();
+       Collection<Film> film = new LinkedList<>();
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -64,7 +74,7 @@ public class FilmDAO {
                         f.setDurata(rs.getTime("durata"));
                         
                         Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data"));
+                        dataUscita.setTime(rs.getDate("data_uscita"));
                         f.setDataUscita(dataUscita);
                         
                         f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
@@ -96,7 +106,7 @@ public class FilmDAO {
        Collection<Film> film = new LinkedList<Film>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera where tipo= 'film' ");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -143,10 +153,10 @@ public class FilmDAO {
     public synchronized Collection<Film> getAllTeatro() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Film> film = new LinkedList<Film>();
+       Collection<Film> film = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera where tipo= 'teatro' ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera where tipo= 'TEATRO' ");
 
             ResultSet rs = stmt.executeQuery();
 
@@ -163,7 +173,7 @@ public class FilmDAO {
                         f.setDurata(rs.getTime("durata"));
                         
                         Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data"));
+                        dataUscita.setTime(rs.getDate("data_uscita"));
                         f.setDataUscita(dataUscita);
                         
                         f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
@@ -193,16 +203,16 @@ public class FilmDAO {
     public synchronized Film foundByID(int idFilm) throws SQLException, ParseException, NamingException{
         
        PreparedStatement stmt=null;
-       Film film = new Film();
+       Film f = new Film();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.opera WHERE idOpera= '"+ idFilm +"' ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE idOpera= '"+ idFilm +"' ");
 
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
                    
-                        Film f = new Film();
+                        
                         f.setIdFilm(rs.getInt("idOpera"));
                         f.setTipo(tipo.valueOf(rs.getString("tipo")));
                         f.setTitolo(rs.getString("titolo"));
@@ -213,7 +223,7 @@ public class FilmDAO {
                         f.setDurata(rs.getTime("durata"));
                         
                         Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data"));
+                        dataUscita.setTime(rs.getDate("data_uscita"));
                         f.setDataUscita(dataUscita);
                         
                         f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
@@ -229,7 +239,7 @@ public class FilmDAO {
 			if (stmt != null)
                             stmt.close();
 			}
-	return film;
+	return f;
     }
     
     /**
@@ -244,10 +254,11 @@ public class FilmDAO {
         
        boolean inserito= false;
        PreparedStatement stmt=null;
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.opera (idOpera, tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer) VALUES ('"+ f.getIdFilm() +"', '"+ f.getTipo()+"', '"+ f.getTitolo()+"', '"+ f.getLocandina()+"', '"+ f.getRegia()+"', '"+ f.getCast()+"', '"+ f.getGenere()+"', '"+ f.getDurata()+"', '"+ f.getDataUscita().getTime()+"', '"+ f.getVistoCensura()+"', '"+ f.getDistribuzione()+"', '"+ f.getProduzione()+"', '"+ f.getTrama()+"', '"+ f.getTrailer()+")");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Opera (idOpera, tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer) VALUES ('"+ f.getIdFilm() +"', '"+ f.getTipo()+"', '"+ f.getTitolo()+"', '"+ f.getLocandina()+"', '"+ f.getRegia()+"', '"+ f.getCast()+"', '"+ f.getGenere()+"', '"+ f.getDurata()+"', '"+ sdf.format(f.getDataUscita().getTime())+"', '"+ f.getVistoCensura()+"', '"+ f.getDistribuzione()+"', '"+ f.getProduzione()+"', '"+ f.getTrama()+"', '"+ f.getTrailer()+"')");
             stmt.executeUpdate();
             
             inserito = true;
@@ -271,10 +282,11 @@ public class FilmDAO {
        
        boolean modificato= false;
        PreparedStatement stmt=null;
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.opera SET idOpera='"+ f.getIdFilm() +"', tipo='"+ f.getTipo()+"', titolo='"+ f.getTitolo() +"', locandina='"+ f.getLocandina()+"', regia='"+ f.getRegia()+"', cast='"+ f.getCast()+"', genere='"+ f.getGenere()+"', durata='"+ f.getDurata() +"', data_uscita='"+ f.getDataUscita().getTime()+"', visto_censura='"+ f.getVistoCensura()+"', distribuzione='"+f.getDistribuzione()+"', produzione='"+f.getProduzione()+"', trama='"+f.getTrama()+"', trailer='"+f.getTrailer()+"'  WHERE ( idOpera='"+ f.getIdFilm() +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Opera SET idOpera='"+ f.getIdFilm() +"', tipo='"+ f.getTipo()+"', titolo='"+ f.getTitolo() +"', locandina='"+ f.getLocandina()+"', regia='"+ f.getRegia()+"', cast='"+ f.getCast()+"', genere='"+ f.getGenere()+"', durata='"+ f.getDurata() +"', data_uscita='"+ sdf.format(f.getDataUscita().getTime())+"', visto_censura='"+ f.getVistoCensura()+"', distribuzione='"+f.getDistribuzione()+"', produzione='"+f.getProduzione()+"', trama='"+f.getTrama()+"', trailer='"+f.getTrailer()+"'  WHERE ( idOpera='"+ f.getIdFilm() +"');");
             stmt.executeUpdate();
             
             modificato = true;
@@ -300,7 +312,7 @@ public class FilmDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.opera WHERE (idOpera='"+ idOpera +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Opera WHERE (idOpera='"+ idOpera +"');");
             stmt.executeUpdate();
             
             eliminato = true;

@@ -69,7 +69,7 @@ public class Recensione {
 
     @Override
     public String toString() {
-        return getClass().getName()+"{" + ", emailUtente=" + emailUtente + ", film=" + film + ", valutazione=" + valutazione + ", testo=" + testo + ", dataImmissione=" + dataImmissione + '}';
+        return getClass().getName()+"{" + "emailUtente=" + emailUtente + ", film=" + film + ", valutazione=" + valutazione + ", testo=" + testo + ", dataImmissione=" + dataImmissione + '}';
     }
 
     

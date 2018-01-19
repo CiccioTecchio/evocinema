@@ -40,7 +40,7 @@ public class RecensioniCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       
-        String film = request.getParameter("idFilm");
+        int film = Integer.parseInt(request.getParameter("idFilm"));
         Collection<Recensione> recensioni = null;
         
         RecensioneDAO daoRec; 

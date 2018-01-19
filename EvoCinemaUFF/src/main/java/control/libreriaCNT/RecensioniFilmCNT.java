@@ -42,7 +42,7 @@ public class RecensioniFilmCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String film = request.getParameter("idFilm");
+        int film = Integer.parseInt(request.getParameter("idFilm"));
         String order = request.getParameter("order");
 
         if (order == null) {

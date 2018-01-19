@@ -97,7 +97,7 @@ public abstract class Operazione {
         return sconto;
     }
 
-    public void setIdOperazione(int Operazione) {
+    public void setIdOperazione(int idOperazione) {
         this.idOperazione = idOperazione;
     }
 

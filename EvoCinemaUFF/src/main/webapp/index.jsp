@@ -1,3 +1,4 @@
+<% request.setAttribute("title", "Home"); %>
 <jsp:include page="Header.jsp" />
 
 

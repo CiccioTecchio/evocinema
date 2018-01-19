@@ -3,12 +3,15 @@ package database;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
@@ -21,6 +24,25 @@ import model.FilmConValutazioneMedia;
  * @author GiuseppeDelGaudio
  */
 public class FilmValutazioneDAO {
+    private static Logger logger= Logger.getLogger("global");
+    private Connection connection;
+    
+    /*
+     * Metodo costruttore della classe.
+     * @throws SQLException
+     * @throws NamingException
+     */
+    public FilmValutazioneDAO() throws NamingException, SQLException {
+        connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+    }
+    
+    /*
+     * Metodo che restituisce la connessione di tipo {@link Connection}.
+     * @return oggetto connessione di tipo {@link Connection}
+     */
+    public Connection getDAOConnection(){
+        return this.connection;
+    }
     
      /**
      * Permette di estrarre le tuple di tipo {@link FilmConValutazioneMedia} dal DB.
@@ -29,66 +51,49 @@ public class FilmValutazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized ArrayList<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
+    public synchronized Collection<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
+      
        PreparedStatement stmt=null;
-       ArrayList<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>();
+       Collection<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>(); 
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
-       String sql = "SELECT * " +
-                        "FROM("
-                            + "(select Opera.* , avg( valutazione ) as valutazione from Recensioni,Opera where Opera.idOpera = Recensioni.id_opera group by idOpera order by titolo) " +
-                                "UNION" +
-                                "(select * , (null) as 'Valutazione' from Opera) ) as t GROUP BY t.idOpera";
-       
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement(sql);
+            stmt = (PreparedStatement) connection.prepareStatement(" SELECT Opera.* , AVG( valutazione ) AS valutazione FROM Recensioni,Opera "
+                    + "                                                 WHERE Opera.idOpera = Recensioni.id_opera GROUP BY idOpera");
 
             ResultSet rs = stmt.executeQuery();
-
-            int idOpera;
-            String  titolo , locandina , regia , cast ,genere ;
-            Time durata;
-            Calendar dataUscita;
-            vistoCensura vistocensura; 
-            tipo tipo;
-            String distribuzione; 
-            String produzione; 
-            String trama ;
-            String trailer ; 
-            float valutazione; 
-            int i = 0;
+ 
+            
 		while (rs.next()) {
                    
+                        FilmConValutazioneMedia filmValMedia = new FilmConValutazioneMedia();
                         
-                        idOpera = rs.getInt("idOpera");
-                        tipo = Film.tipo.valueOf(rs.getString("tipo")); 
-                        titolo = rs.getString("titolo");
-			locandina = rs.getString("locandina");
-                        regia = rs.getString("regia");
-                        cast = rs.getString("cast");
-                        genere = rs.getString("genere");
-                        durata = rs.getTime("durata");
+                        filmValMedia.setIdFilm(rs.getInt("idOpera"));
+                        filmValMedia.setTipo(Film.tipo.valueOf(rs.getString("tipo"))); 
+                        filmValMedia.setTitolo(rs.getString("titolo"));
+			filmValMedia.setLocandina(rs.getString("locandina"));
+                        filmValMedia.setRegia(rs.getString("regia"));
+                        filmValMedia.setCast(rs.getString("cast"));
+                        filmValMedia.setGenere(rs.getString("genere"));
+                        filmValMedia.setDurata(rs.getTime("durata"));
                         
-                        dataUscita = Calendar.getInstance();
+                        Calendar dataUscita = Calendar.getInstance();
                         dataUscita.setTime(rs.getDate("data_uscita"));
+                        filmValMedia.setDataUscita(dataUscita);
                         
+                        filmValMedia.setVistoCensura(Film.vistoCensura.valueOf(rs.getString("visto_censura")));
+                        filmValMedia.setDistribuzione(rs.getString("distribuzione"));
+                        filmValMedia.setProduzione(rs.getString("produzione"));
+                        filmValMedia.setTrama(rs.getString("trama"));
+                        filmValMedia.setTrailer(rs.getString("trailer"));
                         
-                        vistocensura = Film.vistoCensura.valueOf(rs.getString("visto_censura"));
-                        distribuzione = rs.getString("distribuzione");
-                        produzione = rs.getString("produzione");
-                        trama = rs.getString("trama");
-                        trailer = rs.getString("trailer");
+                        filmValMedia.setValutazioneMedia(rs.getFloat("valutazione")); 
                         
-                        valutazione = rs.getFloat("valutazione"); 
-                        
-                        FilmConValutazioneMedia filmValMedia = new FilmConValutazioneMedia(idOpera , tipo , titolo , locandina , regia , cast , genere , durata , dataUscita , vistocensura , distribuzione,produzione,trama,trailer,valutazione);
                         
                         filmConValutazione.add(filmValMedia);
-                         Logger.getLogger("global").info("\n IL FILM è ---->" +filmValMedia.getIdFilm() + "   ----  i  == " + i );
-                         i++; 
+                        
                         
                     }
                     
@@ -100,7 +105,7 @@ public class FilmValutazioneDAO {
        }
        
        
-                Logger.getLogger("global").info("\nL'array è grande ---->" +filmConValutazione.size() );
+       
 		return filmConValutazione;
    }
     

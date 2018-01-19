@@ -65,27 +65,27 @@ public class Login extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         boolean utenteIsNull = true;
         HttpSession s = request.getSession();
         request.setAttribute("title", "Login");
-        
+
         String email = filter(request.getParameter("emailLogin"));
         String password = filter(request.getParameter("passwordLogin"));
 
         try {
             model = new UtenteRegistratoDAO();
             utente = model.controllaLogin(email, password);
+            System.out.println(utente);
+            if(utente == null){
+                utenteIsNull = false;
+                s.setAttribute("user", utente);
+            }
         } catch (NamingException | SQLException | ParseException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (!utente.getNomeUtente().equals("")) {
-            utenteIsNull = false;
-            s.setAttribute("user", utente);
-        }
 
-        if (utenteIsNull) {
+        if (!utenteIsNull) {
             s.setAttribute("loginErrato", true);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
             dispatcher.forward(request, response);

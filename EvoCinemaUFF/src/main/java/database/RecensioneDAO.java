@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -23,11 +24,20 @@ public class RecensioneDAO {
     private static Logger logger= Logger.getLogger("global");
     private FilmDAO filmDAO = new FilmDAO();
     private Connection connection;
-     
+    
+    /*
+     * Metodo costruttore della classe.
+     * @throws SQLException
+     * @throws NamingException
+     */
     public RecensioneDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
-   
+    
+    /*
+     * Metodo che restituisce la connessione di tipo {@link Connection}.
+     * @return oggetto connessione di tipo {@link Connection}
+     */
     public Connection getDAOConnection(){
         return this.connection;
     }
@@ -44,7 +54,7 @@ public class RecensioneDAO {
        Collection<Recensione> recensioni = new LinkedList<Recensione>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni");
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -86,7 +96,7 @@ public class RecensioneDAO {
        Collection<Recensione> recensioni = new LinkedList<Recensione>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE email= '"+ emailUtente +"' AND data_recensione != NULL AND testo != NULL");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= '"+ emailUtente +"' AND data_recensione IS NOT NULL AND testo IS NOT NULL");
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -119,13 +129,13 @@ public class RecensioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Recensione> foundByFilm(String idFilm) throws SQLException, ParseException, NamingException{
+    public synchronized Collection<Recensione> foundByFilm(int idFilm) throws SQLException, ParseException, NamingException{
         
        PreparedStatement stmt=null;
        Collection<Recensione> recensioni = new LinkedList<Recensione>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.recensioni WHERE id_opera= '"+ idFilm +"' AND data_recensione != NULL AND testo != NULL");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE id_opera= '"+ idFilm +"' AND data_recensione IS NOT NULL AND testo IS NOT NULL");
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -162,9 +172,10 @@ public class RecensioneDAO {
        
        PreparedStatement stmt=null;
        boolean inserita= false;
-       
+       Calendar today = Calendar.getInstance();
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.recensioni (email, id_opera, valutazione, testo, data_recensione) VALUES ('"+ r.getEmailUtente() +"', '"+ r.getFilm().getIdFilm()+"', '"+ r.getValutazione() +"', '"+ r.getTesto()+"', '"+ r.getDataImmissione().getTime() +"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Recensioni (email, id_opera, valutazione, testo, data_recensione) VALUES ('"+ r.getEmailUtente() +"', '"+ r.getFilm().getIdFilm()+"', '"+ r.getValutazione() +"', '"+ r.getTesto()+"', '"+sdf.format(today.getTime())+"')");
             stmt.executeUpdate();
             inserita = true;
         } 
@@ -187,9 +198,10 @@ public class RecensioneDAO {
         
        PreparedStatement stmt=null;
        boolean update= false;
-       
+       Calendar today = Calendar.getInstance();
+       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.recensioni SET valutazione='"+ r.getValutazione() +"', testo='"+ r.getTesto()+"', data_recensione='"+ r.getDataImmissione().getTime() +"' WHERE ( email='"+ r.getEmailUtente()+"' AND id_opera='"+ r.getFilm().getIdFilm() + "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Recensioni SET valutazione='"+ r.getValutazione() +"', testo='"+ r.getTesto()+"', data_recensione='"+sdf.format(today.getTime()) +"' WHERE ( email='"+ r.getEmailUtente()+"' AND id_opera='"+ r.getFilm().getIdFilm() + "');");
             stmt.executeUpdate();
             update = true;
         } 
@@ -214,7 +226,7 @@ public class RecensioneDAO {
        boolean delete= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.recensioni WHERE ( email='" +r.getEmailUtente()+ "' AND id_opera='"+ r.getFilm().getIdFilm() +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Recensioni WHERE ( email='" +r.getEmailUtente()+ "' AND id_opera='"+ r.getFilm().getIdFilm() +"');");
             stmt.executeUpdate();
             delete = true;
         } 

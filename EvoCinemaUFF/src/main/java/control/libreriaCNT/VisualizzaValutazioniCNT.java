@@ -49,10 +49,11 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
       
     
             
-        FilmValutazioneDAO query = new FilmValutazioneDAO();
-        ArrayList<FilmConValutazioneMedia> arrayList = new ArrayList<FilmConValutazioneMedia>(); 
+        
+        Collection<FilmConValutazioneMedia> arrayList = new ArrayList<FilmConValutazioneMedia>(); 
 
         try { 
+            FilmValutazioneDAO query = new FilmValutazioneDAO();
             arrayList = query.getAllFilmValutazioni();
         } catch (SQLException ex) {
             Logger.getLogger(VisualizzaValutazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
