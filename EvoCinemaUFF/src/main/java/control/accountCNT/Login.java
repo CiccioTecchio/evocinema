@@ -76,8 +76,8 @@ public class Login extends HttpServlet {
         try {
             model = new UtenteRegistratoDAO();
             utente = model.controllaLogin(email, password);
-
-            if (!utente.getEmail().equals("")) {
+            System.out.println(utente);
+            if(utente == null){
                 utenteIsNull = false;
                 s.setAttribute("user", utente);
             }
@@ -85,7 +85,7 @@ public class Login extends HttpServlet {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (utenteIsNull) {
+        if (!utenteIsNull) {
             s.setAttribute("loginErrato", true);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
             dispatcher.forward(request, response);
