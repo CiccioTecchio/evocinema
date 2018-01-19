@@ -14,18 +14,23 @@ public class FilmConValutazioneMedia extends Film {
         this.valutazioneMedia=valutazione;
     }
 
+    public FilmConValutazioneMedia() {
+    }
+
 
     public float getValutazioneMedia() {
         return valutazioneMedia;
     }
 
-    public void setValutazioneMedia(int valutazioneMedia) {
+    public void setValutazioneMedia(float valutazioneMedia) {
         this.valutazioneMedia = valutazioneMedia;
     }
-    
+
     @Override
     public String toString() {
-        return getClass().getName()+"{" + this.toString()  + valutazioneMedia + "}";
+        return this.getClass().getName()+"{" + "valutazioneMedia=" + valutazioneMedia + '}';
     }
+    
+    
     
 }
