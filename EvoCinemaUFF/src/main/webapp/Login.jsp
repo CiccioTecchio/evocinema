@@ -20,7 +20,6 @@
             HttpSession s = request.getSession();
             UtenteRegistrato utente;
             utente = (UtenteRegistrato) s.getAttribute("user");
-            
             Boolean login = (Boolean) s.getAttribute("loginErrato");
             if (utente == null) {
 

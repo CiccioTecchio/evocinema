@@ -5,11 +5,13 @@ body {
     color:#000;
     margin: 0;
     padding: 0;
+     overflow-y: scroll;
+
 }
 .swiper-container {
     width: 100%;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 50px;
+    padding-bottom: 150px;
 }
 .swiper-slide {
     background-position: center;
@@ -18,7 +20,7 @@ body {
     height: 300px;
 }
 #date{
-    padding-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 
@@ -26,6 +28,12 @@ body {
 .pb-5, .py-5{
     padding-bottom: 2rem!important;
     padding-top: 2rem!important;
+    position: fixed;
+ 
+    bottom: 0;
+    width: 100%;
+   
+   
 }
 
 .calendar-icon{
@@ -47,4 +55,14 @@ body {
 
 #date{
     margin-top:100px;
+}
+footer{
+    background-color: #343a40!important;
+}
+
+
+
+
+
+
 }

@@ -88,6 +88,7 @@ public class UtenteBaseDAO {
        try {
            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE email='"+email+"'");
            ResultSet rs = stmt.executeQuery();
+           rs.first();
            utenteFound.setEmail(rs.getString("email"));
            utenteFound.setNomeUtente(rs.getString("nome_utente"));
            utenteFound.setPassword(rs.getString("password"));

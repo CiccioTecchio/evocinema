@@ -31,8 +31,8 @@
         <link href="HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
         <link rel="stylesheet" href="Gestione_operazione_sala.css">
-        
-        
+
+
 
 
         <!-- Custom fonts for this template-->
@@ -59,27 +59,27 @@
     </head>
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-    
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
-    <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <!-- inizio menù laterale -->
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-          <a class="nav-link" href="index.jsp">
-            <i class="fa fa-fw fa-home"></i>
-            <span class="nav-link-text">Home</span>
-          </a>
-        </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-          <a class="nav-link" href="VisualizzaLibreria.jsp">
-            <i class="fa fa-fw fa-book"></i>
-            <span class="nav-link-text">Libreria</span>
-          </a>
-        </li>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                    <!-- inizio menù laterale -->
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                        <a class="nav-link" href="index.jsp">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="nav-link-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaLibreria.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Libreria</span>
+                        </a>
+                    </li>
        
         
              

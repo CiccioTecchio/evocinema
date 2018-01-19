@@ -26,14 +26,14 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+public class LoginCNT extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     UtenteRegistratoDAO model = null;
     UtenteRegistrato utente = null;
 
-    public Login() {
+    public LoginCNT() {
         super();
     }
 
@@ -82,7 +82,7 @@ public class Login extends HttpServlet {
                 s.setAttribute("user", utente);
             }
         } catch (NamingException | SQLException | ParseException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LoginCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (utenteIsNull) {
