@@ -3,6 +3,7 @@ package database;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -54,7 +55,7 @@ public class FilmValutazioneDAO {
       
       
        PreparedStatement stmt=null;
-       Collection<FilmConValutazioneMedia> filmConValutazione = new LinkedList<>();
+       Collection<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>(); 
        connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
        
        try {
