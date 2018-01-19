@@ -6,13 +6,14 @@
 package control.acquistoCNT;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Sconto;
+import model.Spettacolo;
 
 /**
  *
@@ -36,7 +37,36 @@ public class GestioneAcquistiCNT extends HttpServlet {
        
         
         
-        request.setAttribute("Title", "Gestione acquisto");
+            //DATI TEMPORANEI
+            ArrayList<Spettacolo> spettacoli = new ArrayList<>();
+
+            spettacoli.add(new Spettacolo());
+            spettacoli.get(0).setIdFilm(1);
+            spettacoli.get(0).setTitolo("Thor");
+            spettacoli.add(new Spettacolo());
+            spettacoli.get(1).setIdFilm(2);
+            spettacoli.get(1).setTitolo("Justice League");
+            
+            ArrayList<Sconto> sconti = new ArrayList<>();
+            sconti.add(new Sconto(0, "sconto1", 0, 0, "", Sconto.verificabile.FALSE, 
+                    Sconto.tipo.FISSO, Sconto.disponibile.TRUE, Sconto.tipologia.TERMINE));
+            sconti.add(new Sconto(1, "prendi 2 paghi 1", 0, 0, "", Sconto.verificabile.FALSE, 
+                    Sconto.tipo.FISSO, Sconto.disponibile.TRUE, Sconto.tipologia.TERMINE));
+            
+            //FILM E SCONTI SONO SEMPRE GLI STESSI, VARIANO SOLTANTO ORE E DATA    
+        
+            request.setAttribute("SPETTACOLI", spettacoli);
+            request.setAttribute("SCONTI", sconti);
+        
+        
+        
+        
+         /*
+        PrintWriter out=response.getWriter();
+        
+        request.setAttribute("Title", "Gestione acquisto");*/
+        
+
         //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestioneOperazioniSala.jsp");
 	//		dispatcher.forward(request,response);
     }

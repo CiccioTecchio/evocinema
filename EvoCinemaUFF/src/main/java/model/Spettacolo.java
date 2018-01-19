@@ -14,7 +14,8 @@ public class Spettacolo {
     private Calendar oraInizio;
     private Calendar oraFine;
     private String matricePosti;
-
+    private String titolo;
+ 
     public Spettacolo(int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine, String matricePosti) {
         this.idSala= sala;
         this.idFilm= idFilm;
@@ -57,11 +58,18 @@ public class Spettacolo {
         this.matricePosti = matricePosti;
     }       
         
-    
     public Spettacolo(){
         
     }
 
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+    
     public int getIdSpettacolo() {
         return idSpettacolo;
     }

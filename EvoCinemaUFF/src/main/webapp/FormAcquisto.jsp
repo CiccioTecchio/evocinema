@@ -9,7 +9,7 @@
 <body>        
     <form>  
         <fieldset class="fieldsetCustom">
-            <legend class="legendCustom">Vendita biglietti - 1 </legend>
+            <legend class="legendCustom">Vendita biglietti - 3 </legend>
 
             <div>
                 <div class="m-4">
@@ -43,8 +43,8 @@
                 </div>
             </div>    
         
-            <div class="mt-5">
-                <input class="mr-3" type="submit" name="Conferma" value="Indietro" />
+            <div class="m-4">
+                <input class="mr-3" type="submit" name="Indietro" value="Indietro" />
                 <div class="float-right">
                     <input class="mr-3" type="submit" name="Conferma" value="Conferma" />  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
                         CHE IN BASE AL VALORE PASSATO REDIRECT BACK, SE ANNULLA, ALTRIMENTI REDIRECT AVANTI-->
