@@ -15,6 +15,9 @@ import javax.sql.DataSource;
  * @author sarad
  */
 public class SingletonDBConnection {
+    
+    
+    
     private static SingletonDBConnection singleInstance;
     private static DataSource dataSource;
     private static Connection dbConnect;
@@ -28,7 +31,7 @@ public class SingletonDBConnection {
 
         try{
         Class.forName("com.mysql.jdbc.Driver"); 
-        String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=user&password=1234";
+        String url2 = "jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco";
         dbConnect = DriverManager.getConnection(url2);
         if (dbConnect != null) {
             System.out.println("Connected to the database evocinema");
@@ -72,7 +75,7 @@ public class SingletonDBConnection {
          
         try{
         Class.forName("com.mysql.jdbc.Driver"); 
-         String url2 = "jdbc:mysql://localhost:3306/evo_cinema?user=root&password=1234";
+        String url2 = "jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco";
         dbConnect = DriverManager.getConnection(url2);
 
         }
