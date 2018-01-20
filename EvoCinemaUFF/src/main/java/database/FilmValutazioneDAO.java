@@ -6,17 +6,14 @@ import com.mysql.jdbc.PreparedStatement;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
-import model.Film.tipo;
-import model.Film.vistoCensura;
 import model.FilmConValutazioneMedia;
 
 /**
@@ -51,23 +48,17 @@ public class FilmValutazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
-      
+    public synchronized List<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>(); 
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       List<FilmConValutazioneMedia> filmConValutazione = new ArrayList<>(); 
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement(" SELECT Opera.* , AVG( valutazione ) AS valutazione FROM Recensioni,Opera "
                     + "                                                 WHERE Opera.idOpera = Recensioni.id_opera GROUP BY idOpera");
-
             ResultSet rs = stmt.executeQuery();
  
-            
 		while (rs.next()) {
-                   
                         FilmConValutazioneMedia filmValMedia = new FilmConValutazioneMedia();
                         
                         filmValMedia.setIdFilm(rs.getInt("idOpera"));

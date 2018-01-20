@@ -6,12 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
+import model.Sala;
 import model.Spettacolo;
 
 /**
@@ -23,10 +25,19 @@ public class SpettacoloDAO {
     private static Logger logger= Logger.getLogger("global");
     private Connection connection;
      
+    /**
+     * Costruttore della classe {@link SpettacoloDAO}
+     * @throws NamingException
+     * @throws SQLException 
+     */
     public SpettacoloDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
    
+    /**
+     * Metodo per il preliezo dell'istanza della connessione attuale.
+     * @return la connessione attuale.
+     */
     public Connection getDAOConnection(){
         return this.connection;
     }
@@ -38,13 +49,13 @@ public class SpettacoloDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Spettacolo> getAllSpettacoli() throws SQLException, ParseException, NamingException {
+    public synchronized List<Spettacolo> getAllSpettacoli() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
+       List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo");
            ResultSet rs = stmt.executeQuery();
            while (rs.next()) {
                Spettacolo s = new Spettacolo();
@@ -52,6 +63,7 @@ public class SpettacoloDAO {
                s.setIdSpettacolo(rs.getInt("idSpettacolo"));
                s.setIdSala(rs.getInt("id_sala"));
                s.setIdFilm(rs.getInt("idOpera"));
+               s.setTitolo(rs.getString("titolo"));
                Calendar dataInizio = Calendar.getInstance();
                dataInizio.setTime(rs.getDate("data_inizio"));
                s.setDataInizio(dataInizio);
@@ -65,12 +77,13 @@ public class SpettacoloDAO {
                Calendar oraFine= Calendar.getInstance();
                oraInizio.setTime(rs.getTime("ora_fine"));
                s.setOraFine(oraFine);
+               s.setMatricePosti(rs.getString("matrice_posti"));
                spettacoli.add(s);
            }
        } finally{
-                if (stmt != null)
-                    stmt.close();
-		}
+            if (stmt != null)
+                stmt.close();
+            }
     return spettacoli;
    }
     
@@ -88,28 +101,30 @@ public class SpettacoloDAO {
        Spettacolo spettacoloFound = new Spettacolo();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE idSpettacolo = ?");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE idSpettacolo = ?");
            stmt.setInt(1, idSpettacolo);
            ResultSet rs = stmt.executeQuery();
            
-           spettacoloFound.setIdSpettacolo(rs.getInt("idSpettacolo"));
-           spettacoloFound.setIdSala(rs.getInt("id_sala"));
-           spettacoloFound.setIdFilm(rs.getInt("idOpera"));
-           Calendar dataInizio = Calendar.getInstance();
-           dataInizio.setTime(rs.getDate("data_inizio"));
-           spettacoloFound.setDataInizio(dataInizio);
-           Calendar dataFine = Calendar.getInstance();
-           dataFine.setTime(rs.getDate("data_fine"));
-           spettacoloFound.setDataFine(dataFine);
-           spettacoloFound.setPrezzo(rs.getFloat("prezzo"));
-           Calendar oraInizio= Calendar.getInstance();
-           oraInizio.setTime(rs.getTime("ora_inizio"));
-           spettacoloFound.setOraInizio(oraInizio);
-           Calendar oraFine= Calendar.getInstance();
-           oraInizio.setTime(rs.getTime("ora_fine"));
-           spettacoloFound.setOraFine(oraFine);
-           spettacoloFound.setMatricePosti(rs.getString("matrice_posti"));
-           
+           while(rs.next()){
+                spettacoloFound.setIdSpettacolo(rs.getInt("idSpettacolo"));
+                spettacoloFound.setIdSala(rs.getInt("id_sala"));
+                spettacoloFound.setIdFilm(rs.getInt("idOpera"));
+                spettacoloFound.setTitolo(rs.getString("titolo"));
+                Calendar dataInizio = Calendar.getInstance();
+                dataInizio.setTime(rs.getDate("data_inizio"));
+                spettacoloFound.setDataInizio(dataInizio);
+                Calendar dataFine = Calendar.getInstance();
+                dataFine.setTime(rs.getDate("data_fine"));
+                spettacoloFound.setDataFine(dataFine);
+                spettacoloFound.setPrezzo(rs.getFloat("prezzo"));
+                Calendar oraInizio= Calendar.getInstance();
+                oraInizio.setTime(rs.getTime("ora_inizio"));
+                spettacoloFound.setOraInizio(oraInizio);
+                Calendar oraFine= Calendar.getInstance();
+                oraInizio.setTime(rs.getTime("ora_fine"));
+                spettacoloFound.setOraFine(oraFine);
+                spettacoloFound.setMatricePosti(rs.getString("matrice_posti"));
+           }
            } finally{
                     if (stmt != null)
                         stmt.close();
@@ -125,13 +140,13 @@ public class SpettacoloDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Spettacolo> foundBySala(int idSala) throws SQLException, ParseException, NamingException {
+    public synchronized List<Spettacolo> foundBySala(int idSala) throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
+       List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE id_sala='"+idSala+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE id_sala='"+idSala+"'");
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -140,6 +155,7 @@ public class SpettacoloDAO {
                 s.setIdSpettacolo(rs.getInt("idSpettacolo"));
                 s.setIdSala(rs.getInt("id_sala"));
                 s.setIdFilm(rs.getInt("idOpera"));
+                s.setTitolo(rs.getString("titolo"));
                 Calendar dataInizio = Calendar.getInstance();
                 dataInizio.setTime(rs.getDate("data_inizio"));
                 s.setDataInizio(dataInizio);
@@ -153,6 +169,7 @@ public class SpettacoloDAO {
                 Calendar oraFine= Calendar.getInstance();
                 oraInizio.setTime(rs.getTime("ora_fine"));
                 s.setOraFine(oraFine);
+                s.setMatricePosti(rs.getString("matrice_posti"));
                 spettacoli.add(s);
                 }
            } finally{
@@ -170,15 +187,13 @@ public class SpettacoloDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Spettacolo> foundByDate(Calendar date) throws SQLException, ParseException, NamingException {
+    public synchronized List<Spettacolo> foundByDate(Calendar date) throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
-       Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE data_inizio <= ? AND data_fine >= ?");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE data_inizio <= ? AND data_fine >= ?");
            stmt.setDate(1, new java.sql.Date(date.getTimeInMillis()));
            stmt.setDate(2, new java.sql.Date(date.getTimeInMillis()));
            ResultSet rs = stmt.executeQuery();
@@ -206,9 +221,9 @@ public class SpettacoloDAO {
                 spettacoli.add(s);
                 }
            } finally{
-                    if (stmt != null)
-                        stmt.close();
-                    }
+                if (stmt != null)
+                    stmt.close();
+                }
            
     return spettacoli;
     }
@@ -221,13 +236,13 @@ public class SpettacoloDAO {
      * @throws ParseExceptionstring
      * @throws NamingException 
      */
-    public synchronized Collection<Spettacolo> foundByOpera(int idOpera) throws SQLException, ParseException, NamingException {
+    public synchronized List<Spettacolo> foundByOpera(int idOpera) throws SQLException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Spettacolo> spettacoli = new LinkedList<Spettacolo>();
+       List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.spettacolo WHERE idOpera='"+idOpera+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE idOpera='"+idOpera+"'");
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -236,6 +251,7 @@ public class SpettacoloDAO {
                 s.setIdSpettacolo(rs.getInt("idSpettacolo"));
                 s.setIdSala(rs.getInt("id_sala"));
                 s.setIdFilm(rs.getInt("idOpera"));
+                s.setTitolo(rs.getString("titolo"));
                 Calendar dataInizio = Calendar.getInstance();
                 dataInizio.setTime(rs.getDate("data_inizio"));
                 s.setDataInizio(dataInizio);
@@ -249,12 +265,13 @@ public class SpettacoloDAO {
                 Calendar oraFine= Calendar.getInstance();
                 oraInizio.setTime(rs.getTime("ora_fine"));
                 s.setOraFine(oraFine);
+                s.setMatricePosti(rs.getString("matrice_posti"));
                 spettacoli.add(s);
                 }
            } finally{
-                    if (stmt != null)
-                        stmt.close();
-                    }
+                if (stmt != null)
+                    stmt.close();
+                }
     return spettacoli;
     }
     
@@ -270,9 +287,15 @@ public class SpettacoloDAO {
         
         PreparedStatement stmt=null;
         boolean inserito= false;
-
+        SimpleDateFormat sdfg= new SimpleDateFormat("yyyy-MM-dd");
+        String dataInizio=sdfg.format(s.getDataInizio().getTime());
+        String dataFine=sdfg.format(s.getDataFine().getTime());
+        SimpleDateFormat sdfh= new SimpleDateFormat("HH:mm:ss");
+        String oraInizio= sdfh.format(s.getOraInizio().getTime());
+        String oraFine= sdfg.format(s.getOraFine().getTime());
+        
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.spettacolo (idSpettacolo, id_sala, idOpera, data_inizio, data_finr, prezzo, ora_inizio, ora_fine) VALUES ('"+ s.getIdSpettacolo() +"', '"+ s.getIdSala()+"', '"+ s.getIdFilm()+"', '"+ s.getDataInizio()+"', '"+ s.getDataFine()+"', '"+ s.getPrezzo()+"', '"+ s.getOraInizio()+"', '"+ s.getOraFine()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Spettacolo (idSpettacolo, id_sala, idOpera, titolo, data_inizio, data_fine, prezzo, ora_inizio, ora_fine, matrice_posti) VALUES ('"+ s.getIdSpettacolo() +"', '"+ s.getIdSala()+"', '"+ s.getIdFilm()+"', '"+s.getTitolo()+"', '"+dataInizio+"' , '"+dataFine+"', '"+ s.getPrezzo()+"', '"+oraInizio+"', '"+oraFine+"' , '"+s.getMatricePosti()+"')");
             stmt.executeUpdate();
             inserito= true;
         } 
@@ -295,9 +318,15 @@ public class SpettacoloDAO {
         
        PreparedStatement stmt=null;
        boolean update= false;
+       SimpleDateFormat sdfg= new SimpleDateFormat("yyyy-MM-dd");
+       String dataInizio=sdfg.format(s.getDataInizio().getTime());
+       String dataFine=sdfg.format(s.getDataFine().getTime());
+       SimpleDateFormat sdfh= new SimpleDateFormat("HH:mm:ss");
+       String oraInizio= sdfh.format(s.getOraInizio().getTime());
+       String oraFine= sdfg.format(s.getOraFine().getTime());
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.spettacolo SET id_sala='"+ s.getIdSala()+"', idOpera='"+ s.getIdFilm()+"', data_inizio='"+s.getDataInizio()+"', data_fine='"+s.getDataFine()+"', prezzo='"+s.getPrezzo()+"', ora_inizio='"+s.getOraInizio()+"', ora_fine='"+s.getOraFine()+"' WHERE ( idSpettacolo='"+ s.getIdSpettacolo()+ "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Spettacolo SET id_sala='"+ s.getIdSala()+"', idOpera='"+ s.getIdFilm()+"', titolo='"+s.getTitolo()+"', data_inizio= '"+dataInizio+"', data_fine='"+dataFine+"', prezzo='"+s.getPrezzo()+"', ora_inizio='"+oraInizio+"', ora_fine='"+oraFine+"', matrice_posti='"+s.getMatricePosti()+"' WHERE ( idSpettacolo='"+ s.getIdSpettacolo()+ "');");
             stmt.executeUpdate();
             update = true;
         } 
@@ -322,7 +351,7 @@ public class SpettacoloDAO {
        boolean delete= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.spettacolo WHERE ( idSpettacolo='"+ idSpettacolo +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Spettacolo WHERE ( idSpettacolo='"+ idSpettacolo +"');");
             stmt.executeUpdate();
             delete = true;
         } 

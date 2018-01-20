@@ -6,12 +6,11 @@ import com.mysql.jdbc.PreparedStatement;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
@@ -50,46 +49,40 @@ public class FilmDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Film> getAllOpere() throws SQLException, ParseException, NamingException {
+    public synchronized List<Film> getAllOpere() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Film> film = new LinkedList<>();
+       List<Film> film = new LinkedList<>();
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera");
-
             ResultSet rs = stmt.executeQuery();
 
-		while (rs.next()) {
-                   
-                        Film f = new Film();
-                        f.setIdFilm(rs.getInt("idOpera"));
-                        f.setTipo(tipo.valueOf(rs.getString("tipo")));
-                        f.setTitolo(rs.getString("titolo"));
-			f.setLocandina(rs.getString("locandina"));
-                        f.setRegia(rs.getString("regia"));
-                        f.setCast(rs.getString("cast"));
-                        f.setGenere(rs.getString("genere"));
-                        f.setDurata(rs.getTime("durata"));
+            while (rs.next()) {
+                Film f = new Film();
+                f.setIdFilm(rs.getInt("idOpera"));
+                f.setTipo(tipo.valueOf(rs.getString("tipo")));
+                f.setTitolo(rs.getString("titolo"));
+		f.setLocandina(rs.getString("locandina"));
+                f.setRegia(rs.getString("regia"));
+                f.setCast(rs.getString("cast"));
+                f.setGenere(rs.getString("genere"));
+                f.setDurata(rs.getTime("durata"));
                         
-                        Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data_uscita"));
-                        f.setDataUscita(dataUscita);
-                        
-                        f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
-                        f.setDistribuzione(rs.getString("distribuzione"));
-                        f.setProduzione(rs.getString("produzione"));
-                        f.setTrama(rs.getString("trama"));
-                        f.setTrailer(rs.getString("trailer"));
-                        film.add(f);
-                    }
-                    
-
-		} finally {
-				if (stmt != null)
-					stmt.close();
-			}
+                Calendar dataUscita = Calendar.getInstance();
+                dataUscita.setTime(rs.getDate("data_uscita"));
+                f.setDataUscita(dataUscita);        
+                f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
+                f.setDistribuzione(rs.getString("distribuzione"));
+                f.setProduzione(rs.getString("produzione"));
+                f.setTrama(rs.getString("trama"));
+                f.setTrailer(rs.getString("trailer"));
+                film.add(f);
+                }
+            } finally {
+                    if (stmt != null)
+			stmt.close();
+		}
 	return film;
    }
     
@@ -100,47 +93,43 @@ public class FilmDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Film> getAllFilm() throws SQLException, ParseException, NamingException {
+    public synchronized List<Film> getAllFilm() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Film> film = new LinkedList<Film>();
+       List<Film> film = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
-
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
             ResultSet rs = stmt.executeQuery();
 
-		while (rs.next()) {
-                   
-                        Film f = new Film();
-                        f.setIdFilm(rs.getInt("idOpera"));
-                        f.setTipo(tipo.valueOf(rs.getString("tipo")));
-                        f.setTitolo(rs.getString("titolo"));
-			f.setLocandina(rs.getString("locandina"));
-                        f.setRegia(rs.getString("regia"));
-                        f.setCast(rs.getString("cast"));
-                        f.setGenere(rs.getString("genere"));
-                        f.setDurata(rs.getTime("durata"));
+            while (rs.next()) {
+                Film f = new Film();
+                f.setIdFilm(rs.getInt("idOpera"));
+                f.setTipo(tipo.valueOf(rs.getString("tipo")));
+                f.setTitolo(rs.getString("titolo"));
+		f.setLocandina(rs.getString("locandina"));
+                f.setRegia(rs.getString("regia"));
+                f.setCast(rs.getString("cast"));
+                f.setGenere(rs.getString("genere"));
+                f.setDurata(rs.getTime("durata"));
                         
-                        Calendar dataUscita = Calendar.getInstance();
-                        Date newDate = rs.getTimestamp("data_uscita");
-                        dataUscita.setTime(newDate);
-                        f.setDataUscita(dataUscita);
+                Calendar dataUscita = Calendar.getInstance();
+                Date newDate = rs.getTimestamp("data_uscita");
+                dataUscita.setTime(newDate);
+                f.setDataUscita(dataUscita);
                         
-                        f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
-                        f.setDistribuzione(rs.getString("distribuzione"));
-                        f.setProduzione(rs.getString("produzione"));
-                        f.setTrama(rs.getString("trama"));
-                        f.setTrailer(rs.getString("trailer"));
-                        film.add(f);
-                    }
-                    
-
-		} finally {
-				if (stmt != null)
-					stmt.close();
-			}
-		return film;
+                f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
+                f.setDistribuzione(rs.getString("distribuzione"));
+                f.setProduzione(rs.getString("produzione"));
+                f.setTrama(rs.getString("trama"));
+                f.setTrailer(rs.getString("trailer"));
+                film.add(f);
+            }
+        } finally {
+		if (stmt != null)
+                    stmt.close();
+            }
+    return film;
    }
     
     /**
@@ -150,46 +139,42 @@ public class FilmDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Film> getAllTeatro() throws SQLException, ParseException, NamingException {
+    public synchronized List<Film> getAllTeatro() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Film> film = new LinkedList<>();
+       List<Film> film = new LinkedList<>();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera where tipo= 'TEATRO' ");
-
             ResultSet rs = stmt.executeQuery();
 
-		while (rs.next()) {
-                   
-                        Film f = new Film();
-                        f.setIdFilm(rs.getInt("idOpera"));
-                        f.setTipo(tipo.valueOf(rs.getString("tipo")));
-                        f.setTitolo(rs.getString("titolo"));
-			f.setLocandina(rs.getString("locandina"));
-                        f.setRegia(rs.getString("regia"));
-                        f.setCast(rs.getString("cast"));
-                        f.setGenere(rs.getString("genere"));
-                        f.setDurata(rs.getTime("durata"));
+            while (rs.next()) {
+                Film f = new Film();
+                f.setIdFilm(rs.getInt("idOpera"));
+                f.setTipo(tipo.valueOf(rs.getString("tipo")));
+                f.setTitolo(rs.getString("titolo"));
+		f.setLocandina(rs.getString("locandina"));
+                f.setRegia(rs.getString("regia"));
+                f.setCast(rs.getString("cast"));
+                f.setGenere(rs.getString("genere"));
+                f.setDurata(rs.getTime("durata"));
                         
-                        Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data_uscita"));
-                        f.setDataUscita(dataUscita);
+                Calendar dataUscita = Calendar.getInstance();
+                dataUscita.setTime(rs.getDate("data_uscita"));
+                f.setDataUscita(dataUscita);
                         
-                        f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
-                        f.setDistribuzione(rs.getString("distribuzione"));
-                        f.setProduzione(rs.getString("produzione"));
-                        f.setTrama(rs.getString("trama"));
-                        f.setTrailer(rs.getString("trailer"));
-                        film.add(f);
-                    }
-                    
-
-		} finally {
-				if (stmt != null)
-					stmt.close();
-			}
-	return film;
+                f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
+                f.setDistribuzione(rs.getString("distribuzione"));
+                f.setProduzione(rs.getString("produzione"));
+                f.setTrama(rs.getString("trama"));
+                f.setTrailer(rs.getString("trailer"));
+                film.add(f);
+            }
+        } finally {
+		if (stmt != null)
+                    stmt.close();
+            }
+    return film;
    }
     
     /**
@@ -207,39 +192,33 @@ public class FilmDAO {
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE idOpera= '"+ idFilm +"' ");
-
             ResultSet rs = stmt.executeQuery();
 
-		while (rs.next()) {
-                   
+            while (rs.next()) {
+                f.setIdFilm(rs.getInt("idOpera"));
+                f.setTipo(tipo.valueOf(rs.getString("tipo")));
+                f.setTitolo(rs.getString("titolo"));
+		f.setLocandina(rs.getString("locandina"));
+                f.setRegia(rs.getString("regia"));
+                f.setCast(rs.getString("cast"));
+                f.setGenere(rs.getString("genere"));
+                f.setDurata(rs.getTime("durata"));
                         
-                        f.setIdFilm(rs.getInt("idOpera"));
-                        f.setTipo(tipo.valueOf(rs.getString("tipo")));
-                        f.setTitolo(rs.getString("titolo"));
-			f.setLocandina(rs.getString("locandina"));
-                        f.setRegia(rs.getString("regia"));
-                        f.setCast(rs.getString("cast"));
-                        f.setGenere(rs.getString("genere"));
-                        f.setDurata(rs.getTime("durata"));
+                Calendar dataUscita = Calendar.getInstance();
+                dataUscita.setTime(rs.getDate("data_uscita"));
+                f.setDataUscita(dataUscita);
                         
-                        Calendar dataUscita = Calendar.getInstance();
-                        dataUscita.setTime(rs.getDate("data_uscita"));
-                        f.setDataUscita(dataUscita);
-                        
-                        f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
-                        f.setDistribuzione(rs.getString("distribuzione"));
-                        f.setProduzione(rs.getString("produzione"));
-                        f.setTrama(rs.getString("trama"));
-                        f.setTrailer(rs.getString("trailer"));
-                        
-                    }
-                    
-
-		} finally {
-			if (stmt != null)
-                            stmt.close();
-			}
-	return f;
+                f.setVistoCensura(vistoCensura.valueOf(rs.getString("visto_censura")));
+                f.setDistribuzione(rs.getString("distribuzione"));
+                f.setProduzione(rs.getString("produzione"));
+                f.setTrama(rs.getString("trama"));
+                f.setTrailer(rs.getString("trailer"));
+            }
+        } finally {
+            if (stmt != null)
+                stmt.close();
+            }
+    return f;
     }
     
     /**
@@ -257,17 +236,16 @@ public class FilmDAO {
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Opera (idOpera, tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer) VALUES ('"+ f.getIdFilm() +"', '"+ f.getTipo()+"', '"+ f.getTitolo()+"', '"+ f.getLocandina()+"', '"+ f.getRegia()+"', '"+ f.getCast()+"', '"+ f.getGenere()+"', '"+ f.getDurata()+"', '"+ sdf.format(f.getDataUscita().getTime())+"', '"+ f.getVistoCensura()+"', '"+ f.getDistribuzione()+"', '"+ f.getProduzione()+"', '"+ f.getTrama()+"', '"+ f.getTrailer()+"')");
             stmt.executeUpdate();
             
             inserito = true;
             } finally {
-				if (stmt != null)
-					stmt.close();
-			}
-		return inserito;
-	}
+		if (stmt != null)
+                    stmt.close();
+		}
+	return inserito;
+    }
     
     
     /**
@@ -285,17 +263,15 @@ public class FilmDAO {
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Opera SET idOpera='"+ f.getIdFilm() +"', tipo='"+ f.getTipo()+"', titolo='"+ f.getTitolo() +"', locandina='"+ f.getLocandina()+"', regia='"+ f.getRegia()+"', cast='"+ f.getCast()+"', genere='"+ f.getGenere()+"', durata='"+ f.getDurata() +"', data_uscita='"+ sdf.format(f.getDataUscita().getTime())+"', visto_censura='"+ f.getVistoCensura()+"', distribuzione='"+f.getDistribuzione()+"', produzione='"+f.getProduzione()+"', trama='"+f.getTrama()+"', trailer='"+f.getTrailer()+"'  WHERE ( idOpera='"+ f.getIdFilm() +"');");
             stmt.executeUpdate();
-            
             modificato = true;
             } finally {
-				if (stmt != null)
-					stmt.close();
-			}
-		return modificato;
-	}
+		if (stmt != null)
+                    stmt.close();
+		}
+        return modificato;
+    }
     
     /**
      * Metodo per la cancellazione di un {@link Film} all'interno del DB
@@ -311,15 +287,13 @@ public class FilmDAO {
        PreparedStatement stmt=null;
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Opera WHERE (idOpera='"+ idOpera +"');");
             stmt.executeUpdate();
-            
             eliminato = true;
             } finally {
-			if (stmt != null)
-                            stmt.close();
-			}
-		return eliminato;
-	}
+		if (stmt != null)
+                    stmt.close();
+		}
+        return eliminato;
+    }
 }

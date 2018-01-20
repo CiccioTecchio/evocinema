@@ -10,8 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Sala;
@@ -28,15 +28,24 @@ public class SalaDAO {
     private PreparedStatement stmt = null;
     private Sala salaFound = new Sala();
     
+    /**
+     * Costruttore della classe {@link SalaDAO} che istanzia una connection.
+     * @throws NamingException
+     * @throws SQLException 
+     */
     public SalaDAO() throws NamingException, SQLException {
         connection=(com.mysql.jdbc.Connection) SingletonDBConnection.getInstance().getConnInst();
     }
    
+    /**
+     * Metodo di prelievo della connessione attuale.
+     * @return l'istanza attuale della connessione.
+     */
     public Connection getDAOConnection(){
         return this.connection;
     }
     /**
-     * Permette di estrarre tuple di Sala dal DB.
+     * Permette di estrarre tuple di tipo {@link Sala} dal DB.
      * @return Lista delle Sale presenti all'interno del DB.
      * @throws SQLException
      * @throws ParseException
@@ -44,46 +53,25 @@ public class SalaDAO {
      * 
      * 
      */
-    
-    public synchronized Sala foundByID(int idSala) throws SQLException, ParseException, NamingException {
-       
-       try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sala WHERE id_sala="+idSala+"");
-           ResultSet rs = stmt.executeQuery();
-           rs.next();
-           salaFound.setIdSala(rs.getInt("id_sala"));
-           salaFound.setNumeroPosti(rs.getInt("numero_posti"));
-           salaFound.setConfigPosti(rs.getString("configurazione_posti"));
-       }
-       finally{
-           if (stmt != null)
-                        stmt.close();
-           }
-    return salaFound;
-    }
-    
-    public synchronized Collection<Sala> getAllSale() throws SQLException, ParseException, NamingException {
+    public synchronized List<Sala> getAllSale() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Sala> sale = new LinkedList<Sala>();
+       List<Sala> sale = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.sala");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sala");
            ResultSet rs = stmt.executeQuery();
            while (rs.next()) {
                Sala s = new Sala();
-               
                s.setIdSala(rs.getInt("id_sala"));
                s.setNumeroPosti(rs.getInt("numero_posti"));
                s.setConfigPosti(rs.getString("configurazione_posti"));
                sale.add(s);
            }
-       } finally{
-                if (stmt != null)
-                    stmt.close();
-		
+        } finally {
+            if (stmt != null)
+                stmt.close();
 	}
-       
     return sale;
    }
    
@@ -95,7 +83,21 @@ public class SalaDAO {
     * @throws ParseException
     * @throws NamingException 
     */
-   
+   public synchronized Sala foundByID(int idSala) throws SQLException, ParseException, NamingException {
+       try {
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sala WHERE id_sala="+idSala+"");
+           ResultSet rs = stmt.executeQuery();
+           rs.next();
+           salaFound.setIdSala(rs.getInt("id_sala"));
+           salaFound.setNumeroPosti(rs.getInt("numero_posti"));
+           salaFound.setConfigPosti(rs.getString("configurazione_posti"));
+       }finally{
+           if (stmt != null)
+                stmt.close();
+           }
+        return salaFound;
+    }
+    
    /**
     * Metodo per l'inserimento di una {@link Sala} all'interno del DB.
     * @param s Oggetto di tipo {@link Sala}
@@ -106,12 +108,11 @@ public class SalaDAO {
     */
     public synchronized boolean createSala(Sala s) throws SQLException, ParseException, NamingException{
         
-        
         PreparedStatement stmt=null;
         boolean inserita= false;
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.sala (id_sala, numero_posti, configurazione_posti) VALUES ('"+ s.getIdSala() +"', '"+ s.getNumeroPosti()+"', '"+ s.getConfigPosti()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sala (id_sala, numero_posti, configurazione_posti) VALUES ('"+ s.getIdSala() +"', '"+ s.getNumeroPosti()+"', '"+ s.getConfigPosti()+"')");
             stmt.executeUpdate();
             inserita = true;
         } 
@@ -137,7 +138,7 @@ public class SalaDAO {
        PreparedStatement stmt=null;
        boolean update= false;       
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.sala SET numero_posti='"+ s.getNumeroPosti()+"', configurazione_posti='"+ s.getConfigPosti()+"' WHERE ( id_sala='"+ s.getIdSala()+ "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Sala SET numero_posti='"+ s.getNumeroPosti()+"', configurazione_posti='"+ s.getConfigPosti()+"' WHERE ( id_sala='"+ s.getIdSala()+ "');");
             stmt.executeUpdate();
             update = true;
         } 
@@ -158,7 +159,6 @@ public class SalaDAO {
      */
     public synchronized boolean deleteSale(int idSala) throws SQLException, ParseException, NamingException{
         
-      
        PreparedStatement stmt=null;
        boolean delete= false;       
        try {
