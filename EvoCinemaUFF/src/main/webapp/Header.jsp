@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-   
+
 
         <title><%= request.getAttribute("title")%></title>
 
@@ -58,16 +58,16 @@
 
 
     </head>
- 
+
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-     
 
-    <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="javascript/swiper.js"></script> 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
-    
+
+        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="javascript/swiper.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
             <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
@@ -109,10 +109,11 @@
                         <%
                             if (u == null) {
                         %>
-                        <i class="fa fa-fw fa-sign-in"></i>Login</a>
-                        <%
-                        } else {
-                        %>                        
+                        <a class="nav-link" href="Login.jsp">
+                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
+                            <%
+                            } else {
+                            %>                        
                         <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
                             <%
@@ -122,76 +123,73 @@
                 </ul>
             </div>
         </nav>
-                    
 
 
 
-                    
-                    <div class="content-wrapper">
+
+
+        <div class="content-wrapper">
             <div class="container-fluid">
 
-    
-
-            
-<!--    Barra Duplicata ?? 
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
-            <a class="navbar-brand" style="color: white" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                    <!-- inizio menù laterale -->
-                   <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                        <a class="nav-link" href="index.jsp">
-                            <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-                        <a class="nav-link" href="VisualizzaLibreria.jsp">
-                            <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Libreria</span>
-                        </a>
-                    </li>
 
 
 
-
-                    <!-- fine menù laterale -->       
-               <!-- </ul>
-
-
-                <ul class="navbar-nav sidenav-toggler">
-                    <li class="nav-item">
-                        <a class="nav-link text-center" id="sidenavToggler">
-                            <i class="fa fa-fw fa-angle-left"></i>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                            <%
-                               // if (u == null) {
-                            %>
-                            <i class="fa fa-fw fa-sign-in"></i>Login</a>
-                            <%
-                            //} else {
-                            %>
-                        <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-                        <%
-                            //}
-                        %>
-                    </li>
-                </ul>
-            </div>
-        </nav>  -->
+                <!--    Barra Duplicata ?? 
+                
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+                            <a class="navbar-brand" style="color: white" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
+                            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarResponsive">
+                                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <!-- inizio menù laterale -->
+                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                     <a class="nav-link" href="index.jsp">
+                         <i class="fa fa-fw fa-home"></i>
+                         <span class="nav-link-text">Home</span>
+                     </a>
+                 </li>
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                     <a class="nav-link" href="VisualizzaLibreria.jsp">
+                         <i class="fa fa-fw fa-book"></i>
+                         <span class="nav-link-text">Libreria</span>
+                     </a>
+                 </li>
 
 
-        
 
 
-          
-  
+                <!-- fine menù laterale -->       
+                <!-- </ul>
+ 
+ 
+                 <ul class="navbar-nav sidenav-toggler">
+                     <li class="nav-item">
+                         <a class="nav-link text-center" id="sidenavToggler">
+                             <i class="fa fa-fw fa-angle-left"></i>
+                         </a>
+                     </li>
+                 </ul>
+                 <ul class="navbar-nav ml-auto">
+                     <li class="nav-item">
+                         <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                <%
+                    // if (u == null) {
+                %>
+                <i class="fa fa-fw fa-sign-in"></i>Login</a>
+                <%                                //} else {
+                %>
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                <%                            //}
+%>
+            </li>
+        </ul>
+    </div>
+</nav>  -->
+
+
+
+
+
+
