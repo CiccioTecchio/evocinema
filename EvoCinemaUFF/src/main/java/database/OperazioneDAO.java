@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 import java.util.Date;
+import java.util.List;
 import javax.naming.NamingException;
 import model.Acquisto;
 import model.Operazione;
@@ -58,10 +59,10 @@ public class OperazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized Collection<Operazione> getAllOperazioni() throws SQLException, ParseException, NamingException {
+   public synchronized List<Operazione> getAllOperazioni() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Operazione> operazioni = new LinkedList<>();
+       List<Operazione> operazioni = new LinkedList<>();
        boolean prenotazione=false;
        try {
            
@@ -88,7 +89,7 @@ public class OperazioneDAO {
                         int idSala = rs.getInt("idSala");
                         Sala sala = salaDAO.foundByID(idSala);
                         p.setSala(sala);
-                        String idSconto = rs.getString("sconto_applicato");
+                        int idSconto = rs.getInt("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         p.setSconto(sconto);
                         
@@ -115,23 +116,18 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         a.setData(data);
                         
-                        String idSconto = rs.getString("sconto_applicato");
+                        int idSconto = rs.getInt("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         a.setSconto(sconto);
                         
                     operazioni.add(a);
                     
-                    }
-				
-                                
-				
-			}
-
-		} finally {
-				if (stmt != null)
-					stmt.close();
-			
-		}
+                    }			
+	}
+	} finally {
+            if (stmt != null)
+		stmt.close();	
+	}
 	return operazioni;
    }
    
@@ -142,9 +138,10 @@ public class OperazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-   public Collection<Prenotazione> getPrenotazioni() throws SQLException, ParseException, NamingException {
+   public List<Prenotazione> getPrenotazioni() throws SQLException, ParseException, NamingException {
       
-       Collection<Prenotazione> prenotazioni = new LinkedList<>();
+       PreparedStatement stmt=null;
+       List<Prenotazione> prenotazioni = new LinkedList<>();
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE prenotato= 'TRUE' AND acquistato='FALSE'");
 
@@ -166,7 +163,7 @@ public class OperazioneDAO {
                         data.setTime(newDate);
                         p.setData(data);
                         int idSala = rs.getInt("idSala");
-                        String idSconto = rs.getString("sconto_applicato");
+                        int idSconto = rs.getInt("sconto_applicato");
                         Sala sala = salaDAO.foundByID(idSala);
                         p.setSala(sala);
                         Sconto sconto = scontoDAO.foundByID(idSconto);
@@ -190,21 +187,16 @@ public class OperazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized Collection<Acquisto> getAcquisti() throws SQLException, ParseException, NamingException {
+   public synchronized List<Acquisto> getAcquisti() throws SQLException, ParseException, NamingException {
       
-       Connection connection=null;
        PreparedStatement stmt=null;
-       Collection<Acquisto> acquisti = new LinkedList<>();
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       List<Acquisto> acquisti = new LinkedList<>();
        
        try {
-           
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE acquistato= 'TRUE'");
-
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
-                   
                         Acquisto a = new Acquisto();
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setIdOperazione(rs.getInt("id_Operazione"));
@@ -225,23 +217,17 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         a.setData(data);
                         
-                        String idSconto = rs.getString("sconto_applicato");
+                        int idSconto = rs.getInt("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         a.setSconto(sconto);
                         
                         acquisti.add(a);
-                    }
-                    
-
+                    }  
 		} finally{
-				if (stmt != null)
-					stmt.close();
-			}
-		
-       
-       logger.info(acquisti+"");
-       
-		return acquisti;
+			if (stmt != null)
+                            stmt.close();
+                    }
+	return acquisti;
    }
    
    /**
@@ -260,8 +246,6 @@ public class OperazioneDAO {
        Prenotazione p = new Prenotazione();
        Acquisto a = new Acquisto();
        Operazione o = new Operazione(){};
-       
-        
        
        try {
            
@@ -294,7 +278,7 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         p.setData(data);
                         
-                        String idSconto = rs.getString("sconto_applicato");
+                        int idSconto = rs.getInt("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         p.setSconto(sconto);
                         
@@ -320,7 +304,7 @@ public class OperazioneDAO {
                         data.setTime(rs.getDate("data"));
                         a.setData(data);
                         
-                        String idSconto = rs.getString("sconto_applicato");
+                        int idSconto = rs.getInt("sconto_applicato");
                         Sconto sconto = scontoDAO.foundByID(idSconto);
                         a.setSconto(sconto);
                         
