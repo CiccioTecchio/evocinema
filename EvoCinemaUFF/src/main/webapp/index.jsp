@@ -7,12 +7,12 @@
             
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" ><img src="images/locandine/locandina.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/locandina.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/locandina.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/locandina.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/locandina.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/locandina.jpg" alt=""/></div>
+                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
+                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
+                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
+                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
+                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
+                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
                 </div>       
             </div>
         </header>

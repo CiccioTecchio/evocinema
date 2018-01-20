@@ -143,13 +143,7 @@ public class Spettacolo {
         this.matricePosti = matricePosti;
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
 
     @Override
     public String toString() {
