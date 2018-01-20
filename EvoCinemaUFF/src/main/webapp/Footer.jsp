@@ -1,6 +1,6 @@
 
-
-
+     
+</div>
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
@@ -13,7 +13,7 @@
       <i class="fa fa-angle-up"></i>
     </a>
 
-</div>
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -32,6 +32,12 @@
       </div>
     </div>
     
+    <script src="Template%20Sb%20Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="Template%20Sb%20Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
 
         <script>
       var swiper = new Swiper('.swiper-container', {
@@ -84,7 +90,10 @@
     }
   } );
   </script>
-
+  <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
+</div>
     </body>
 
 </html>

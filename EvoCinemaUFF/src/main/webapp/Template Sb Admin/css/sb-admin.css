@@ -344,3 +344,16 @@ footer.sticky-footer {
 @media (min-width: 992px) {
   body.sidenav-toggled footer.sticky-footer {
     width: calc(100% - 55px); } }
+
+
+.selezionato {
+    
+    cursor: pointer; 
+    
+}
+
+.selezionato:hover {
+    
+    background-color: #e6e6e6; 
+    
+}
