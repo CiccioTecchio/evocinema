@@ -7,6 +7,7 @@ import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,10 +50,8 @@ public class FilmValutazioneDAO {
      */
     public synchronized List<FilmConValutazioneMedia> getAllFilmValutazioni( ) throws SQLException, ParseException, NamingException {
       
-      
        PreparedStatement stmt=null;
-       Collection<FilmConValutazioneMedia> filmConValutazione = new ArrayList<FilmConValutazioneMedia>(); 
-       connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
+       List<FilmConValutazioneMedia> filmConValutazione = new ArrayList<>(); 
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement(" SELECT Opera.* , AVG( valutazione ) AS valutazione FROM Recensioni,Opera "
