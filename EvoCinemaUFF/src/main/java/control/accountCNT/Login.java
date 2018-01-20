@@ -91,6 +91,7 @@ public class Login extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             s.removeAttribute("loginErrato");
+            s.setAttribute("user", utente);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
             dispatcher.forward(request, response);
         }
