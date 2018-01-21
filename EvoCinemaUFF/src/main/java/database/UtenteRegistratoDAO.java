@@ -375,5 +375,28 @@ public class UtenteRegistratoDAO {
         }
         return utente;
     }
+    
+    public synchronized Boolean controllaUtente(String username) throws SQLException {
+        
+        PreparedStatement stmt = null;
+        Boolean flag = false;
+        
+        try{
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE"
+                    + " nome_utente = '" + username + "' ");
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                flag = true;
+            }
+            
+            return flag;
+        }finally{
+            if (stmt != null){
+                stmt.close();
+            }
+        }
+        
+    }
 
 }

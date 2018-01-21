@@ -36,7 +36,7 @@
             }
         %>
         <form
-            action="/Registrazione"
+            action="RegistrazioneCNT"
             method="post">
             <label class="labelRegistrazione">Nome: </label>
             <input type="text"
@@ -54,7 +54,7 @@
             <br>
 
             <label class="labelRegistrazione">Sesso: </label>
-            <select>
+            <select name="sessoRegistrazione">
                 <option value="maschio">Maschio</option>
                 <option value="femmina">Femmina</option>
             </select>
@@ -116,7 +116,7 @@
             <br>
 
             <input type="submit" id="bottoneRegistrazione" name="bottoneRegistrazione"
-                   value="Conferma" disabled>
+                   value="Conferma">
         </form>
 
 
