@@ -8,17 +8,18 @@ public class Spettacolo {
     private int idSpettacolo;
     private int idSala;
     private int idFilm;
+    private String titolo;
     private Calendar dataInizio;
     private Calendar dataFine;
     private float prezzo;
     private Calendar oraInizio;
     private Calendar oraFine;
     private String matricePosti;
-    private String titolo;
- 
-    public Spettacolo(int sala, int idFilm, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine, String matricePosti) {
+
+    public Spettacolo(int sala, int idFilm, String titolo, Calendar dataInizio, Calendar dataFine, float prezzo, Calendar oraInizio, Calendar oraFine, String matricePosti) {
         this.idSala= sala;
         this.idFilm= idFilm;
+        this.titolo=titolo;
         this.dataInizio= dataInizio;
         this.dataFine= dataFine;
         this.prezzo= prezzo;
@@ -142,8 +143,12 @@ public class Spettacolo {
         this.matricePosti = matricePosti;
     }
 
+
+
     @Override
     public String toString() {
-        return getClass().getName()+"{" + "idSpettacolo=" + idSpettacolo + ", idSala=" + idSala + ", idFilm=" + idFilm + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", oraInizio=" + oraInizio + ", oraFine=" + oraFine + '}';
+        return "Spettacolo{" + "idSpettacolo=" + idSpettacolo + ", idSala=" + idSala + ", idFilm=" + idFilm + ", titolo=" + titolo + ", dataInizio=" + dataInizio + ", dataFine=" + dataFine + ", prezzo=" + prezzo + ", oraInizio=" + oraInizio + ", oraFine=" + oraFine + ", matricePosti=" + matricePosti + '}';
     }
+    
+    
 }

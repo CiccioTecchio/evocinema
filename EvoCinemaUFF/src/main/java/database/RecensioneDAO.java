@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
@@ -48,10 +48,10 @@ public class RecensioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Recensione> getAllRecensioni() throws SQLException, ParseException, NamingException {
+    public synchronized List<Recensione> getAllRecensioni() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Recensione> recensioni = new LinkedList<Recensione>();
+       List<Recensione> recensioni = new LinkedList<>();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni");
@@ -90,10 +90,10 @@ public class RecensioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Recensione> foundByEmail(String emailUtente) throws SQLException, ParseException, NamingException{
+    public synchronized List<Recensione> foundByEmail(String emailUtente) throws SQLException, ParseException, NamingException{
         
        PreparedStatement stmt=null;
-       Collection<Recensione> recensioni = new LinkedList<Recensione>();
+       List<Recensione> recensioni = new LinkedList<>();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= '"+ emailUtente +"' AND data_recensione IS NOT NULL AND testo IS NOT NULL");
@@ -129,10 +129,10 @@ public class RecensioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Recensione> foundByFilm(int idFilm) throws SQLException, ParseException, NamingException{
+    public synchronized List<Recensione> foundByFilm(int idFilm) throws SQLException, ParseException, NamingException{
         
        PreparedStatement stmt=null;
-       Collection<Recensione> recensioni = new LinkedList<Recensione>();
+       List<Recensione> recensioni = new LinkedList<>();
        
        try {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE id_opera= '"+ idFilm +"' AND data_recensione IS NOT NULL AND testo IS NOT NULL");

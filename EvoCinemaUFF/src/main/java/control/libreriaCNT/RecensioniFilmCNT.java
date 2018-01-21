@@ -42,7 +42,7 @@ public class RecensioniFilmCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int film = Integer.parseInt(request.getParameter("idFilm"));
+        int film = Integer.parseInt((String)request.getAttribute("idFilm"));
         String order = request.getParameter("order");
 
         if (order == null) {
@@ -71,8 +71,6 @@ public class RecensioniFilmCNT extends HttpServlet {
 
         request.setAttribute("recensioni", recensioni); // attributo di ritorno
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/dettaglioFilm.jsp");
-        dispatcher.forward(request, response);
     }
 
     /**

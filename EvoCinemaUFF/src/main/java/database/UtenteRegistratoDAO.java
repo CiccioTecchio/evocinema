@@ -10,17 +10,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Gestore;
 import model.Operatore;
+import model.Spettacolo;
 import model.UtenteBase;
 import model.UtenteRegistrato;
 import model.UtenteRegistrato.ruolo;
 import static model.UtenteRegistrato.ruolo.GESTORE;
+import static model.UtenteRegistrato.ruolo.OPERATORE;
 import static model.UtenteRegistrato.ruolo.UTENTE;
 
 /**
@@ -48,16 +51,15 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
-    public synchronized Collection<UtenteRegistrato> getAllUtenti(String tipo) throws SQLException, ParseException, NamingException {
+    public synchronized List<UtenteRegistrato> getUtentiByRuolo(ruolo tipo) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
-        Collection<UtenteRegistrato> utentiRegistrati = new LinkedList<UtenteRegistrato>();
+        List<UtenteRegistrato> utentiRegistrati = new LinkedList<>();
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE ruolo=" + tipo + "");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE ruolo='" + tipo + "'");
             ResultSet rs = stmt.executeQuery();
 
-            //rs per Gestore
             if (tipo.equals(ruolo.GESTORE)) {
                 while (rs.next()) {
                     Gestore ut = new Gestore();
@@ -75,7 +77,7 @@ public class UtenteRegistratoDAO {
                     ut.setIndirizzo(rs.getString("indirizzo"));
                     utentiRegistrati.add(ut);
                 }
-            } //rs per Operatore
+            }
             else if (tipo.equals(ruolo.OPERATORE)) {
                 while (rs.next()) {
                     Operatore ut = new Operatore();
@@ -93,7 +95,7 @@ public class UtenteRegistratoDAO {
                     ut.setIndirizzo(rs.getString("indirizzo"));
                     utentiRegistrati.add(ut);
                 }
-            } //rs per UtenteBase
+            }
             else if (tipo.equals(ruolo.UTENTE)) {
                 while (rs.next()) {
                     UtenteBase ut = new UtenteBase();
@@ -122,10 +124,10 @@ public class UtenteRegistratoDAO {
     }
 
     /**
-     * Metodo per la ricerca di un oggetto di tipo {@link UtenteBase} avente
+     * Metodo per la ricerca di un oggetto di tipo {@link UtenteRegistrato} avente
      * l'{@link UtenteBase.emailUtente} uguale al parametro passato.
      *
-     * @param email Identificativo dell'oggetto {@link UtenteBase}
+     * @param email Identificativo dell'oggetto {@link UtenteRegistrato}
      * @return Oggetto di tipo {@link UtenteBase}
      * @throws SQLException
      * @throws ParseException
@@ -134,31 +136,68 @@ public class UtenteRegistratoDAO {
     public synchronized UtenteRegistrato foundByEmail(String email) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
-        //TODO modificare e inserire 3 costruttori a seconda del ruolo
-        UtenteRegistrato utenteFound = new UtenteBase();
-
+        UtenteRegistrato utenteToReturn= null;
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.utente WHERE email='" + email + "'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE email='" + email + "'");
             ResultSet rs = stmt.executeQuery();
-            utenteFound.setEmail(rs.getString("email"));
-            utenteFound.setNomeUtente(rs.getString("nome_utente"));
-            utenteFound.setPassword(rs.getString("password"));
-            utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
-            utenteFound.setNome(rs.getString("nome"));
-            Calendar dataNascita = Calendar.getInstance();
-            dataNascita.setTime(rs.getDate("data_nascita"));
-            utenteFound.setDataNascita(dataNascita);
-            utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
-            utenteFound.setCellulare(rs.getString("cellulare"));
-            utenteFound.setCittà(rs.getString("città"));
-            utenteFound.setIndirizzo(rs.getString("indirizzo"));
-            ((UtenteBase) utenteFound).setSaldo(rs.getFloat("saldo"));
-        } finally {
+            
+            while(rs.next()){
+                if(rs.getString("ruolo").equals(UTENTE)){
+                    UtenteBase utenteFound= new UtenteBase();
+                    utenteFound.setEmail(rs.getString("email"));
+                    utenteFound.setNomeUtente(rs.getString("nome_utente"));
+                    utenteFound.setPassword(rs.getString("password"));
+                    utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
+                    utenteFound.setNome(rs.getString("nome"));
+                    Calendar dataNascita = Calendar.getInstance();
+                    dataNascita.setTime(rs.getDate("data_nascita"));
+                    utenteFound.setDataNascita(dataNascita);
+                    utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
+                    utenteFound.setCellulare(rs.getString("cellulare"));
+                    utenteFound.setCittà(rs.getString("città"));
+                    utenteFound.setIndirizzo(rs.getString("indirizzo"));
+                    utenteFound.setSaldo(rs.getFloat("saldo"));
+                    utenteToReturn=utenteFound;
+                }
+                else if(rs.getString("ruolo").equals(OPERATORE)){
+                    Operatore utenteFound= new Operatore();
+                    utenteFound.setEmail(rs.getString("email"));
+                    utenteFound.setNomeUtente(rs.getString("nome_utente"));
+                    utenteFound.setPassword(rs.getString("password"));
+                    utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
+                    utenteFound.setNome(rs.getString("nome"));
+                    Calendar dataNascita = Calendar.getInstance();
+                    dataNascita.setTime(rs.getDate("data_nascita"));
+                    utenteFound.setDataNascita(dataNascita);
+                    utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
+                    utenteFound.setCellulare(rs.getString("cellulare"));
+                    utenteFound.setCittà(rs.getString("città"));
+                    utenteFound.setIndirizzo(rs.getString("indirizzo"));
+                    utenteToReturn=utenteFound;
+                }
+                else if(rs.getString("ruolo").equals(GESTORE)){
+                    Gestore utenteFound= new Gestore();
+                    utenteFound.setEmail(rs.getString("email"));
+                    utenteFound.setNomeUtente(rs.getString("nome_utente"));
+                    utenteFound.setPassword(rs.getString("password"));
+                    utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
+                    utenteFound.setNome(rs.getString("nome"));
+                    Calendar dataNascita = Calendar.getInstance();
+                    dataNascita.setTime(rs.getDate("data_nascita"));
+                    utenteFound.setDataNascita(dataNascita);
+                    utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
+                    utenteFound.setCellulare(rs.getString("cellulare"));
+                    utenteFound.setCittà(rs.getString("città"));
+                    utenteFound.setIndirizzo(rs.getString("indirizzo"));
+                    utenteToReturn=utenteFound;
+                }
+            }
+        }finally {
             if (stmt != null) {
                 stmt.close();
             }
         }
-        return utenteFound;
+        return utenteToReturn;
     }
 
     /**
@@ -171,15 +210,20 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
-    /*
     public synchronized boolean updateUtenteRegistrato(UtenteRegistrato ut) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
         boolean update = false;
-
-        //TO DO modificare statement
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        String dataN=sdf.format(ut.getDataNascita().getTime());
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.utente SET nome_utente='" + ut.getNomeUtente() + "', password='" + ut.getPassword() + "', ruolo='" + ut.getRuolo() + "', nome='" + ut.getNome() + "', cognome='" + ut.getCognome() + "', data_nascita='" + ut.getDataNascita() + "', sesso='" + ut.getSesso() + "', cellulare='" + ut.getCellulare() + "', città='" + ut.getCittà() + "', indirizzo='" + ut.getIndirizzo() + "', saldo='" + ut.getSaldo() + "' WHERE ( email='" + ut.getEmail() + "');");
+            if(ut.getRuolo().equals(UTENTE)){
+                UtenteBase u= (UtenteBase) ut;
+                stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + u.getNomeUtente() + "', password='" + u.getPassword() + "', ruolo='" + u.getRuolo() + "', nome='" + u.getNome() + "', cognome='" + u.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + u.getSesso() + "', cellulare='" + u.getCellulare() + "', città='" + u.getCittà() + "', indirizzo='" + u.getIndirizzo() + "', '"+u.getSaldo()+"' WHERE ( email='" + u.getEmail() + "');");
+            }
+            else{
+                stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + ut.getNomeUtente() + "', password='" + ut.getPassword() + "', ruolo='" + ut.getRuolo() + "', nome='" + ut.getNome() + "', cognome='" + ut.getCognome() + "', data_nascita='" + dataN + "', sesso='" + ut.getSesso() + "', cellulare='" + ut.getCellulare() + "', città='" + ut.getCittà() + "', indirizzo='" + ut.getIndirizzo() + "' WHERE ( email='" + ut.getEmail() + "');");
+            }
             stmt.executeUpdate();
             update = true;
         } finally {
@@ -189,7 +233,6 @@ public class UtenteRegistratoDAO {
         }
         return update;
     }
-    /*
     
     /**
      * Metodo per l'inserimento di un oggetto di tipo {@link Spettacolo}
@@ -201,15 +244,19 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
- /*
-    public synchronized boolean createUtente(UtenteRegistrato u) throws SQLException, ParseException, NamingException {
+    public synchronized boolean createUtenteRegistrato(UtenteRegistrato u) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
         boolean inserito = false;
-
-        //TODO modificate statement
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        String dataN=sdf.format(u.getDataNascita().getTime());
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('" + u.getEmail() + "', '" + u.getNomeUtente() + "', '" + u.getPassword() + "', '" + u.getRuolo() + "', '" + u.getNome() + "', '" + u.getCognome() + "', '" + u.getDataNascita() + "', '" + u.getSesso() + "', '" + u.getCellulare() + "', '" + u.getCittà() + "', '" + u.getIndirizzo() + "', '" + u.getSaldo() + "')");
+            if(u.getRuolo().equals(UTENTE)){
+                UtenteBase ut= (UtenteBase) u;
+                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('" + ut.getEmail() + "', '" + ut.getNomeUtente() + "', '" + ut.getPassword() + "', '" + ut.getRuolo() + "', '" + ut.getNome() + "', '" + ut.getCognome() + "', '" + dataN + "', '" + ut.getSesso() + "', '" + ut.getCellulare() + "', '" + ut.getCittà() + "', '" + ut.getIndirizzo() + "' , '"+ut.getSaldo()+"')");
+            }else{
+                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('" + u.getEmail() + "', '" + u.getNomeUtente() + "', '" + u.getPassword() + "', '" + u.getRuolo() + "', '" + u.getNome() + "', '" + u.getCognome() + "', '" + dataN + "', '" + u.getSesso() + "', '" + u.getCellulare() + "', '" + u.getCittà() + "', '" + u.getIndirizzo() + "')");
+            }
             stmt.executeUpdate();
             inserito = true;
         } finally {
@@ -219,9 +266,9 @@ public class UtenteRegistratoDAO {
         }
         return inserito;
     }
-     */
+    
     /**
-     * Metodo per la cancellazione di un oggetto di tipo {@link Spettacolo}.
+     * Metodo per la cancellazione di un oggetto di tipo {@link UtenteRegistrato}.
      *
      * @param email identificativo dell' {@link UtenteBase} da cancellare.
      * @return 'true' in caso di successo o 'false' in caso di fallimento
@@ -229,13 +276,13 @@ public class UtenteRegistratoDAO {
      * @throws ParseException
      * @throws NamingException
      */
-    public synchronized boolean deleteUtente(String email) throws SQLException, ParseException, NamingException {
+    public synchronized boolean deleteUtenteRegistrato(String email) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
         boolean delete = false;
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.utente WHERE ( email='" + email + "');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Utente WHERE ( email='" + email + "');");
             stmt.executeUpdate();
             delete = true;
         } finally {

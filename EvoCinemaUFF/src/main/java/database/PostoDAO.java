@@ -6,8 +6,8 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Posto;
@@ -48,10 +48,10 @@ public class PostoDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-    public synchronized Collection<Posto> getAllPosti() throws SQLException, ParseException, NamingException {
+    public synchronized List<Posto> getAllPosti() throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
-       Collection<Posto> posti = new LinkedList<>();
+       List<Posto> posti = new LinkedList<>();
       
        try {
            

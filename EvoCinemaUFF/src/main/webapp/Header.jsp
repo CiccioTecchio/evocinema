@@ -10,6 +10,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
+
         <title><%= request.getAttribute("title")%></title>
 
 
@@ -32,7 +33,7 @@
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
         <link rel="stylesheet" href="Gestione_operazione_sala.css">
 
-
+        <link rel="icon" href="images/logo.png" type="image/png" />
 
 
         <!-- Custom fonts for this template-->
@@ -57,7 +58,15 @@
 
 
     </head>
+
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+
+
+
+        <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="javascript/swiper.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
@@ -97,93 +106,90 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                            <%
-                                if (u == null) {
-                            %>
-                            <i class="fa fa-fw fa-sign-in"></i>Login</a>
+                        <%
+                            if (u == null) {
+                        %>
+                        <a class="nav-link" href="Login.jsp">
+                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
                             <%
                             } else {
                             %>                        
-                            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                        <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-                        <%
-                            }
-                        %>
+                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                            <%
+                                }
+                            %>
                     </li>
                 </ul>
             </div>
         </nav>
+
+
+
+
+
         <div class="content-wrapper">
             <div class="container-fluid">
 
 
 
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
-                    <a class="navbar-brand" style="color: white" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                            <!-- inizio menù laterale -->
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                                <a class="nav-link" href="index.jsp">
-                                    <i class="fa fa-fw fa-home"></i>
-                                    <span class="nav-link-text">Home</span>
-                                </a>
-                            </li>
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-                                <a class="nav-link" href="VisualizzaLibreria.jsp">
-                                    <i class="fa fa-fw fa-book"></i>
-                                    <span class="nav-link-text">Libreria</span>
-                                </a>
-                            </li>
+
+                <!--    Barra Duplicata ?? 
+                
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+                            <a class="navbar-brand" style="color: white" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
+                            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarResponsive">
+                                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <!-- inizio menù laterale -->
+                <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                     <a class="nav-link" href="index.jsp">
+                         <i class="fa fa-fw fa-home"></i>
+                         <span class="nav-link-text">Home</span>
+                     </a>
+                 </li>
+                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                     <a class="nav-link" href="VisualizzaLibreria.jsp">
+                         <i class="fa fa-fw fa-book"></i>
+                         <span class="nav-link-text">Libreria</span>
+                     </a>
+                 </li>
 
 
 
 
-                            <!-- fine menù laterale -->       
-                        </ul>
+                <!-- fine menù laterale -->       
+                <!-- </ul>
+ 
+ 
+                 <ul class="navbar-nav sidenav-toggler">
+                     <li class="nav-item">
+                         <a class="nav-link text-center" id="sidenavToggler">
+                             <i class="fa fa-fw fa-angle-left"></i>
+                         </a>
+                     </li>
+                 </ul>
+                 <ul class="navbar-nav ml-auto">
+                     <li class="nav-item">
+                         <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                <%
+                    // if (u == null) {
+                %>
+                <i class="fa fa-fw fa-sign-in"></i>Login</a>
+                <%                                //} else {
+                %>
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                <%                            //}
+%>
+            </li>
+        </ul>
+    </div>
+</nav>  -->
 
 
-                        <ul class="navbar-nav sidenav-toggler">
-                            <li class="nav-item">
-                                <a class="nav-link text-center" id="sidenavToggler">
-                                    <i class="fa fa-fw fa-angle-left"></i>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                                    <%
-                                        if (u == null) {
-                                    %>
-                                    <i class="fa fa-fw fa-sign-in"></i>Login</a>
-                                    <%
-                                    } else {
-                                    %>
-                                <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-                                <%
-                                    }
-                                %>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-                <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <script src="javascript/swiper.js"></script> 
-                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-                <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
-                <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-                <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
-                <script src="Template%20Sb%20Admin/vendor/chart.js/Chart.min.js"></script>
-                <script src="Template%20Sb%20Admin/js/sb-admin-charts.min.js"></script>
 
 
-                <!-- Custom scripts for this page-->
+
+
