@@ -3,34 +3,46 @@
     Created on : 11-gen-2018, 11.53.26
     Author     : pietr
 --%>
+
 <%@page import="model.Sconto"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="model.Spettacolo"%>
-<%@page import="model.Film"%> 
-<%@page import="java.util.ArrayList"%> 
-<jsp:include page="GestioneAcquistiCNT"/> 
-<jsp:include page="JSONOrariSpettacolo"/> 
-<jsp:include page="Header.jsp" /> 
+<%@page import="model.Film"%>
+<%@page import="java.util.ArrayList"%>
+<jsp:include page="GestioneAcquistiCNT"/>
+<jsp:include page="Header.jsp" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <script>
+    function OnSubmitFormGestioneOperazioniSala()
+    {
+        if(document.pressed == 'Annulla')
+        {
+            alert("annulla");
+            document.myform.action ="GestioneOperazioniSala.jsp";
+        }
+        else
+        if(document.pressed == 'Conferma')
+        {
+            alert("conferma");
+            document.myform.action ="GestioneAcquistiCNT";
+        }
+        return true;
+    }
+
+    function aggiornaOra(idSpettacolo){
+    var select = document.getElementById("orarioSelezionato");
     
-     function aggiornaOra(idSpettacolo){ 
-    alert("idSpettacolo"+idSpettacolo); 
-    var idFilmSelezionato = document.getElementById("spettacoloSelezionato").value; 
-    var select = document.getElementById("orarioSelezionato"); 
-    
-    alert("prima del xmht"); 
-     
-    var xmht = new XMLHttpRequest(); 
-  xmht.onreadystatechange =function(){ 
-    console.log("readyState: " + this.readyState); 
-    if(this.readyState==4&&this.status==200){ 
-        alert("nell xmht"); 
-                    /*SVUOTIAMO L'ELEMENTO SELECT*/ 
-                    select.options.length = 0;     
-                     
-            
+    var xmht = new XMLHttpRequest();
+	xmht.onreadystatechange =function(){
+                console.log("readyState: " + this.readyState);
+		if(this.readyState==4&&this.status==200){
+                    /*SVUOTIAMO L'ELEMENTO SELECT*/
+                    select.options.length = 0;    
+                    
                     /*PER OGNI OGGETTO JSON AGGIUNGERE L'OPTION RISPETTO AGLI ORARI DELLO SPETTACOLO*/        
 		    var result=this.responseText;    
                     while(result.length>2){
@@ -42,14 +54,34 @@
                     
                     select.add(option);
                     }
-                 
-    } 
-  }; 
-  xmht.open("GET","JSONOrariSpettacolo?idSpettacolo="+idSpettacolo,true); 
-  xmht.send(); 
-
-}   
+		}
+	};
+	xmht.open("GET","JSONOrariSpettacolo?idSpettacolo="+idSpettacolo,true);
+	xmht.send();
     
+    
+    }
+    
+    function aggiornaData(orarioSpettacoloSelezionato){
+        var idSpettacoloSelezionato = document.getElementById("spettacoloSelezionato").value;
+    
+        var xmht = new XMLHttpRequest();
+            xmht.onreadystatechange =function(){
+		console.log("readyState: " + this.readyState);
+		if(this.readyState==4&&this.status==200){
+                   
+                   //MODIFICARE ELEMENTO CON ID "TO" NELLA PAGINA
+                    var result=this.responseText;  
+                    alert("data "+result.substring(2,10));
+                    document.getElementById("to").value=result.substring(2,10);
+                    
+		}
+	};
+	xmht.open("GET","JSONDataSpettacolo?idSpettacolo="+
+                idSpettacoloSelezionato+"&oraSpettacolo="+orarioSpettacoloSelezionato,true);
+	xmht.send();
+    
+    }
 </script>
 
 

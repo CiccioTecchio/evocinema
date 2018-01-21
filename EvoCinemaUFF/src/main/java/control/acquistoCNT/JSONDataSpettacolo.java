@@ -48,14 +48,8 @@ public class JSONDataSpettacolo extends HttpServlet {
         
         if(idSpettacolo.equals("2"))
             jsonArray.put(0, "05/01/18");
-        
-        
-        //System.out.println("JSON "+jsonArray.toString());
-        
-        response.getWriter().write(jsonArray.toString());
-        
              
-        
+          
         //System.out.println("JSON "+jsonArray.toString());
         
         response.getWriter().write(jsonArray.toString());
