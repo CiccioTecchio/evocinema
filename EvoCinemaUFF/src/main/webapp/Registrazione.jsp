@@ -109,7 +109,7 @@
             <br>
 
             <label class="labelRegistrazione">Conferma password: </label>
-            <input type="password" id="confermaPasswordRegistrazione"
+            <input type="password" name="password1Registrazione" id="confermaPasswordRegistrazione"
                    onchange='controlloCaratteri()'> <span id="hidePw2">Il
                 campo non pu&ograve; essere vuoto.</span>
 

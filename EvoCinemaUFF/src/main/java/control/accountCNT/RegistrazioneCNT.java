@@ -123,9 +123,16 @@ public class RegistrazioneCNT extends HttpServlet {
                 u.setRuolo(UtenteRegistrato.ruolo.UTENTE);
 
                 u.setNomeUtente((String) request.getParameter("userRegistrazione"));
-                u.setPassword((String) request.getParameter("passwordRegistrazione"));
+                String password = (String) request.getParameter("passwordRegistrazione");
+                String password1 = (String) request.getParameter("password1Registrazione");
+                if(password.equals(password1)){
+                    u.setPassword(password);                    
+                } else {
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
+                    dispatcher.forward(request, response);
+                }               
 
-                s.setAttribute("utenteRegistrazione", u);
+                s.setAttribute("user", u);
                 
                 try {
                     model.createUtenteRegistrato(u);
