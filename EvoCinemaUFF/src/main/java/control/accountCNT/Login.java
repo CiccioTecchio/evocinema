@@ -92,8 +92,10 @@ public class Login extends HttpServlet {
         } else {
             s.removeAttribute("loginErrato");
             s.setAttribute("user", utente);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
+            String re = "/index.jsp";
+            if( utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE ) response.sendRedirect("admin/index.jsp");
+            else {RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(re);
+            dispatcher.forward(request, response);}
         }
     }
 
