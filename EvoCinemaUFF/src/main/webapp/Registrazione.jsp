@@ -108,6 +108,15 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
+                                    <label for="exampleInputName">User</Laber>
+                                    <input class="form-control" type="text"
+                                           id="userRegistrazione" onchange='controlloCarattery()' name='userRegistrazione'> 
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
                                     <label for="exampleInputPassword1">Password</label>
                                     <input class="form-control" name="passwordRegistrazione" id="exampleInputPassword1" type="password" >
                                 </div>
