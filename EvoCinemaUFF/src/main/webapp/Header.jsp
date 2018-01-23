@@ -1,3 +1,5 @@
+/* global show */
+
 
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -105,22 +107,62 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                   
                         <%
                             if (u == null) {
                         %>
+                        <li class="nav-item">
                         <a class="nav-link" href="Login.jsp">
                             <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
+                        </li>
                             <%
                             } else {
-                            %>                        
-                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                            %> 
+                 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente() %>
+                        </a>
+                        <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
+                              <a class="dropdown-item" href="VisualizzaProfilo.jsp">
+                                <span class="text-success">
+                                  <strong>
+                                    <i class="fa fa-user-circle"></i>Profilo</strong>
+                                   </span>
+                                  
+                              </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">
+                                <span class="text-danger">
+                                   <strong>
+                                    <i class="fa fa-fw fa-sign-out"></i>Logout</strong>
+                                    </span>
+                                </a>
+                        </div>
+                    </li>
+                    <%--
+                    <li class="nav-item">
+                        <a class="nav-link" >
+                        <i class=""></i>
+                        <%= u.getNomeUtente() %>
+                        </a>
+                    </li>
+                        <%--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-                            <%
+                        --%>
+                        
+                           <%
                                 }
                             %>
-                    </li>
                 </ul>
+                  <script>
+                   $(document).ready(function(){
+                     $("#alertsDropdown").click(function(){
+                        $("#showtogglemenu").toggle();
+                    });
+                    }); 
+                  </script>
+ 
             </div>
         </nav>
 

@@ -53,12 +53,12 @@
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="exampleInputName">Nome</label>
+                                    <label for="exampleInputName">Nome </label>
                                     <input class="form-control" type="text"
                                            id="nomeRegistrazione" onchange='controlloCaratteri()' name="nomeRegistrazione">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleInputLastName">Cognome</label>
+                                    <label for="exampleInputLastName">Cognome </label>
                                     <input class="form-control" id="exampleInputLastName" name="cognomeRegistrazione" type="text" aria-describedby="nameHelp" >
                                 </div>
                             </div>
