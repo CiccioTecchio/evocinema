@@ -5,8 +5,16 @@
  */
 package control.acquistoCNT;
 
+import database.ScontoDAO;
+import database.SpettacoloDAO;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,29 +40,31 @@ public class GestioneAcquistiCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, ParseException, NamingException {
         response.setContentType("text/html;charset=UTF-8");
        
         
-        
-            //DATI TEMPORANEI
-            ArrayList<Spettacolo> spettacoli = new ArrayList<>();
+            /*String myData = request.getParameter("dataRegistrazione");
+                int anno = Integer.parseInt(myData.substring(0, 4));
+                int mese = Integer.parseInt(myData.substring(5, 7)) - 1;
+                int giorno = Integer.parseInt(myData.substring(8, 10));
+                Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+                data.set(anno, mese, giorno);                
 
-            spettacoli.add(new Spettacolo());
-            spettacoli.get(0).setIdFilm(1);
-            spettacoli.get(0).setTitolo("Thor");
-            spettacoli.add(new Spettacolo());
-            spettacoli.get(1).setIdFilm(2);
-            spettacoli.get(1).setTitolo("Justice League");
-            
-            ArrayList<Sconto> sconti = new ArrayList<>();
-            sconti.add(new Sconto(0, "sconto1", 0, 0, "", Sconto.verificabile.FALSE, 
-                    Sconto.tipo.FISSO, Sconto.disponibile.TRUE, Sconto.tipologia.TERMINE));
-            sconti.add(new Sconto(1, "prendi 2 paghi 1", 0, 0, "", Sconto.verificabile.FALSE, 
-                    Sconto.tipo.FISSO, Sconto.disponibile.TRUE, Sconto.tipologia.TERMINE));
-            
-            //FILM E SCONTI SONO SEMPRE GLI STESSI, VARIANO SOLTANTO ORE E DATA    
+                u.setDataNascita(data);*/
         
+            //FILM E SCONTI SONO SEMPRE GLI STESSI, VARIANO SOLTANTO ORE E DATA    
+            
+            SpettacoloDAO spdao= new SpettacoloDAO();
+            Calendar cal = Calendar.getInstance();
+                        
+            
+            List<Spettacolo> spettacoli = spdao.foundByDate(cal);
+            
+            
+            ScontoDAO scdao = new ScontoDAO();
+            List<Sconto> sconti = scdao.getAllSconti();
+            
             request.setAttribute("SPETTACOLI", spettacoli);
             request.setAttribute("SCONTI", sconti);
         
@@ -83,7 +93,15 @@ public class GestioneAcquistiCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestioneAcquistiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GestioneAcquistiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(GestioneAcquistiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -97,7 +115,15 @@ public class GestioneAcquistiCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestioneAcquistiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(GestioneAcquistiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(GestioneAcquistiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
