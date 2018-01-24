@@ -193,7 +193,8 @@ public class SpettacoloDAO {
        List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE data_inizio <= ? AND data_fine >= ?");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT evo_cinema.Spettacolo.* "
+                   + "FROM evo_cinema.Spettacolo WHERE data_inizio <= ? AND data_fine >= ?");
            stmt.setDate(1, new java.sql.Date(date.getTimeInMillis()));
            stmt.setDate(2, new java.sql.Date(date.getTimeInMillis()));
            ResultSet rs = stmt.executeQuery();
@@ -202,6 +203,7 @@ public class SpettacoloDAO {
                 Spettacolo s=new Spettacolo();
                 
                 s.setIdSpettacolo(rs.getInt("idSpettacolo"));
+                s.setTitolo(rs.getString("titolo"));
                 s.setIdSala(rs.getInt("id_sala"));
                 s.setIdFilm(rs.getInt("idOpera"));
                 Calendar dataInizio = Calendar.getInstance();
@@ -215,10 +217,16 @@ public class SpettacoloDAO {
                 oraInizio.setTime(rs.getTime("ora_inizio"));
                 s.setOraInizio(oraInizio);
                 Calendar oraFine= Calendar.getInstance();
-                oraInizio.setTime(rs.getTime("ora_fine"));
+                oraFine.setTime(rs.getTime("ora_fine"));
                 s.setOraFine(oraFine);
                 s.setMatricePosti(rs.getString("matrice_posti"));
                 spettacoli.add(s);
+               /*
+                logger.info("ore inizio "+s.getOraInizio().get(Calendar.HOUR_OF_DAY)
+                        +" minuti"+s.getOraInizio().get(Calendar.MINUTE)+" result: "+rs.getTime("ora_inizio"));
+                logger.info("ore fine "+s.getOraFine().get(Calendar.HOUR_OF_DAY)
+                        +" minuti"+s.getOraFine().get(Calendar.MINUTE)+" result: "+rs.getTime("ora_fine"));
+               */ 
                 }
            } finally{
                 if (stmt != null)
