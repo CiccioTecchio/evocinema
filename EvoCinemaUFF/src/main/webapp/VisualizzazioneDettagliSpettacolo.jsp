@@ -43,6 +43,7 @@
             switch(matSala[i][j]){
                 case '0' :
                     url = "images/trasparente.png";
+                    classe = "vds-trasparente";
                     break;
                 case '2' :
                     url = "images/poltrona_non_disponibile_v2.png";
@@ -71,7 +72,7 @@
                     url = String.valueOf(matSala[i][j]);
             }
 %>
-            <img data-pos ="<%= (offset+y)/*definire tramite css*/%>" class="vds-posto <%= classe %> cell" src="<%= url %>" />
+            <img data-pos ="<%= (offset+y)/*definire tramite js*/%>" class="vds-posto <%= classe %> cell" src="<%= url %>" />
 <%          y++;
         }
  %>
@@ -83,5 +84,5 @@
                 </div>
                 <div class ="col">RiepilogoOrdine</div>
 
-
+<script src="javascript/visualizzazione_dettagli_spettacolo.js"></script>
 <jsp:include page="Footer.jsp" />
