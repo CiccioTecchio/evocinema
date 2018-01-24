@@ -19,7 +19,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UtenteRegistrato;
 
 /**
  *
@@ -44,25 +46,21 @@ public class FiltroAdmin implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
      
-        
-        String par = request.getParameter("p"); 
+          
+           UtenteRegistrato user = (UtenteRegistrato) ( (HttpServletRequest) request).getSession().getAttribute("user"); 
+           
+           if( user != null  ){
+           
+         
+               if(user.getRuolo() == UtenteRegistrato.ruolo.GESTORE) chain.doFilter(request, response);
+               else ((HttpServletResponse)response).sendRedirect("../index.jsp");
+            
+           }else  ((HttpServletResponse)response).sendRedirect("../Login.jsp");
        
-        if(par == null ) par = "null"; 
-        
-        if (  par.equals("passa") ){
-        
-            System.out.println("Sono dentro al filtro");
-            
-            
-            chain.doFilter(request, response);
             
             
             
-        }else{
-        
-           ((HttpServletResponse) response).sendRedirect("http://localhost:8080/EvoCinemaUFF/VisualizzazioneProgrammazione.jsp");
-        
-        }
+       
         
     }
 

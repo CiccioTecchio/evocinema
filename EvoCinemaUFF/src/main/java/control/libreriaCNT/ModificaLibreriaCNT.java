@@ -10,41 +10,35 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
 import model.Film;
-import model.Film.vistoCensura; 
-import java.text.DateFormat; 
-import java.text.FieldPosition;
-import java.text.ParseException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.NamingException;
+import model.FilmConValutazioneMedia;
 
 /**
  *
- * @author GiuseppeDelGaudio
- *
+ * @author user
  */
-
-@WebServlet(name = "inserisciLibreria" , urlPatterns = { "/admin/inserisciLibreria" })
-public class InserisciFilmCNT extends HttpServlet {
-
- 
+@WebServlet(name = "ModificaLibreriaCNT", urlPatterns = {"/admin/modificaLibreria"})
+public class ModificaLibreriaCNT extends HttpServlet {
 
     
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Gestisce una richiesta HTTP GET 
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -54,17 +48,12 @@ public class InserisciFilmCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        doPost(request, response);
-       
-        
+        doGet(request, response);
     }
 
     /**
-     * Gestisce una richiesta HTTP GET 
-     * Questo metodo inserisce un film all'interno della libreria acquisendo i vari parametri dalla Request per poi effettuare il forward
-     * al chiamante e restituire un messaggio con lo stato dell'inserimento.
-     *
+     * Handles the HTTP <code>POST</code> method.
+     *Prende come parametri tutti i dati del film e modifica i valori nel DB
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -88,17 +77,19 @@ public class InserisciFilmCNT extends HttpServlet {
         String dataUscita = request.getParameter("dataUscita"); 
         String censura = request.getParameter("censura");
         String cast = request.getParameter("cast");
-        String regia = request.getParameter("regia"); 
-        
-        String messageInsert = ""; 
+        String regia = request.getParameter("regia");
+        String idOpera = request.getParameter("idOpera");
+        String ritorno = request.getParameter("index");
+        String messageUpdate = ""; 
         int tempo = Integer.parseInt(durata); 
-       
-        
+        ArrayList<FilmConValutazioneMedia> array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
+        FilmConValutazioneMedia filmedia = array.get(Integer.parseInt(ritorno));
+        float media = filmedia.getValutazioneMedia(); 
         Time minuti = calcolaTime(tempo); 
         System.err.println("la data è "+dataUscita);
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd"); 
-       
+        
         Calendar cal = Calendar.getInstance();
         try { 
             
@@ -107,28 +98,37 @@ public class InserisciFilmCNT extends HttpServlet {
             
            cal.setTime(date);
            
-            Film film = new Film( Film.tipo.valueOf(tipo)  , titolo, "images/locandine/"+locandina, regia, cast, genere, minuti , cal , vistoCensura.valueOf(censura) , distribuzione, produzione, trama, trailer);
+            FilmConValutazioneMedia film = new FilmConValutazioneMedia( Integer.parseInt(idOpera) ,Film.tipo.valueOf(tipo)  , titolo, locandina, regia, cast, genere, minuti , cal , Film.vistoCensura.valueOf(censura) , distribuzione, produzione, trama, trailer,media );
                
             FilmDAO dao = new FilmDAO();
             
-            dao.createFilm(film);
+            dao.updateFilm(film);
             
-            messageInsert = "Inserimento Completato con Successo"; 
+            messageUpdate = "Modifica Completata con Successo"; 
             
+            array.set(Integer.parseInt(ritorno), film);
             
+            request.getSession().setAttribute("listaFilmValutazione",array);
+            
+            System.err.println("Stampaaa -->" + messageUpdate );
             
         } catch (ParseException ex) {
             Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
            // Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            messageInsert = "Elemento già esistente"; 
+            messageUpdate = "Aggiornamento Fallito"; 
             Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-       request.setAttribute("messaggioInsert", messageInsert);
-                
-       RequestDispatcher dispacher = request.getRequestDispatcher(rh);
+       
+        System.err.println("Stampaaa -->" + messageUpdate );
+        
+       request.setAttribute("messaggioUpdate", messageUpdate);
+       
+       request.setAttribute("index", ritorno );
+       
+       RequestDispatcher dispacher = request.getRequestDispatcher("/admin/ModificaFilm.jsp");
        dispacher.forward(request, response);
         
         
@@ -146,6 +146,10 @@ public class InserisciFilmCNT extends HttpServlet {
     return new Time(ore, minuti, 0);
     
     }
+        
+    }
+
+   
+    
 
 
-}

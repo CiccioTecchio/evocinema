@@ -4,6 +4,9 @@
     Author     : GiuseppeDelGaudio
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="model.Recensione"%>
+<%@page import="java.util.Collection"%>
 <%@page import="model.UtenteBase"%>
 <%@page import="model.UtenteRegistrato"%>
 <%@page import="java.util.Calendar"%>
@@ -164,6 +167,51 @@
         </form>
     </div>
 
+
+</div>
+            
+<div class="card mb-3">
+
+    <span class="card-header" > Recensioni Utenti </span>
+
+    <div class="card-body">
+        <%
+                    request.setAttribute("idFilm", idFilmAr);
+                %>
+                <jsp:include page="/recensioniFilm"/>
+                <%
+                    Collection<Recensione> recensioni = (Collection<Recensione>) request.getSession().getAttribute("recensioni");
+                    if (null == recensioni) {
+                %>
+
+                Questo film non ha ancora nessuna recensione. Se lo hai già visto, scrivine una tu! ;)
+
+                <%
+                } else {
+                    Iterator<Recensione> i = recensioni.iterator();
+                    while(i.hasNext()) {
+                    Recensione rec = i.next();
+                %>
+                <div class="list-group-item list-group-item-action">
+                    <div class="media">
+                        <img class="d-flex mr-3 rounded-circle" src="images/utente.png">
+                        <div class="media-body">
+                            <strong><%= rec.getEmailUtente() %></strong><br>
+                            <%= rec.getTesto()%>
+                            <div class="text-muted smaller">
+                                <%
+                                    SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
+                                %>
+                                <%= s.format(rec.getDataImmissione())%>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%                      }
+                    }
+                %>
+    </div>
 
 </div>
 </div>
