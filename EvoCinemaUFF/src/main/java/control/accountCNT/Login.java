@@ -57,27 +57,28 @@ public class Login extends HttpServlet {
         return (filtered.toString());
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
 
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         boolean utenteIsNull = true;
         HttpSession s = request.getSession();
         request.setAttribute("title", "Login");
-
         String email = filter(request.getParameter("emailLogin"));
         String password = filter(request.getParameter("passwordLogin"));
 
         try {
             model = new UtenteRegistratoDAO();
             utente = model.controllaLogin(email, password);
-            System.out.println(utente);
-            if(utente == null){
+            
+            if (utente == null) {
                 utenteIsNull = false;
                 s.setAttribute("user", utente);
             }
@@ -86,16 +87,21 @@ public class Login extends HttpServlet {
         }
 
         if (!utenteIsNull) {
-            s.setAttribute("loginErrato", true);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
-            dispatcher.forward(request, response);
+            response.getWriter().write("loginErrato");
+            
+            //s.setAttribute("loginErrato", true);
+            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
+            //dispatcher.forward(request, response);
         } else {
-            s.removeAttribute("loginErrato");
+            //s.removeAttribute("loginErrato");
             s.setAttribute("user", utente);
-            String re = "/index.jsp";
-            if( utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE ) response.sendRedirect("admin/index.jsp");
-            else {RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(re);
-            dispatcher.forward(request, response);}
+            if (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE) {
+                response.getWriter().write("admin/index.jsp");
+            } else {
+                //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(re);
+                response.getWriter().write("index.jsp");
+                //dispatcher.forward(request, response);
+            }
         }
     }
 

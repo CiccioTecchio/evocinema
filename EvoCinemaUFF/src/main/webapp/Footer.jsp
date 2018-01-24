@@ -37,6 +37,7 @@
     <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
+    <script src="javascript/login.js" type="text/javascript"></script>
 
     <script>
         var swiper = new Swiper('.swiper-container', {
