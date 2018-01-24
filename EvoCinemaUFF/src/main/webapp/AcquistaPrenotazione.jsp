@@ -77,12 +77,6 @@
             <label class="float-right" id="idPrenotazione" name="orario"><%= orario %></label>
         </div>
         <br><br>
-        
-        <div class="ml-4">
-            <label>N° biglietti prenotati:</label>
-            <label class="float-right" id="idNumber" name="numero"></label>
-        </div>
-        <br><br>
                     <%
                         int riga = x.getPostoRiga();
                         int colonna = x.getPostoColonna();
