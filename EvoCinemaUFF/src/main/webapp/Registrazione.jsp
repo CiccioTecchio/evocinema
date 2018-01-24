@@ -23,102 +23,124 @@
             if (utente == null) {
                 if (registrazioneImpossibile != null) {
         %>
-        <h2>Registrazione</h2>
-        <h3>Esiste gi&agrave; un account con questo nome utente.</h3>
-
+        <script>
+        $(document).ready(function(){
+            var x = document.getElementById("error");
+           
+                x.style.display = "block";
+           });
+</script>
         <%
         } else {
         %>
-
-        <h2>Registrazione</h2>
-        <p>Inserisci i dati per la creazione dell'account</p>
+        <script>
+        $(document).ready(function(){
+            var x = document.getElementById("error");
+           
+                x.style.display = "none";
+           });
+           </script>
         <%
             }
         %>
-        <form
-            action="RegistrazioneCNT"
-            method="post">
-            <label class="labelRegistrazione">Nome: </label>
-            <input type="text"
-                   id="nomeRegistrazione" onchange='controlloCaratteri()'
-                   name="nomeRegistrazione">
-            <span id="hideNome">Il campo non pu&ograve; essere vuoto.</span> 
+        
+        <div class="container">
+            <div class="card card-register mx-auto mt-5">
+                <div class="card-header">Registra un account</div>
+                <div class="card-body">
+                    <form action="RegistrazioneCNT" method="post">
 
-            <br>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputName">Nome </label>
+                                    <input class="form-control" type="text"
+                                           id="nomeRegistrazione" onchange='controlloCaratteri()' name="nomeRegistrazione">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputLastName">Cognome </label>
+                                    <input class="form-control" id="exampleInputLastName" name="cognomeRegistrazione" type="text" aria-describedby="nameHelp" >
+                                </div>
+                            </div>
+                        </div>
 
-            <label class="labelRegistrazione">Cognome: </label>
-            <input type="text" name="cognomeRegistrazione" id="cognomeRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hideCognome">Il campo non pu&ograve; essere vuoto.</span>
 
-            <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input class="form-control" id="exampleInputEmail1" name="emailRegistrazione" type="email" aria-describedby="emailHelp" >
+                        </div>
 
-            <label class="labelRegistrazione">Sesso: </label>
-            <select name="sessoRegistrazione">
-                <option value="maschio">Maschio</option>
-                <option value="femmina">Femmina</option>
-            </select>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputName">Sesso</label>
+                                    <select name="sessoRegistrazione" class="form-control"
+                                            >
+                                        <option value="maschio">Maschio</option>
+                                        <option value="femmina">Femmina</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputLastName">Data di nascita</label>
+                                    <input class="form-control" name="dataRegistrazione" id="exampleInputLastName" type="date" aria-describedby="nameHelp" >
+                                </div>
+                            </div>
+                        </div>
 
-            <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Indirizzo</label>
+                            <input class="form-control" id="exampleInputEmail1" name="indirizzoRegistrazione" type="text" aria-describedby="emailHelp" >
+                        </div>
 
-            <label class="labelRegistrazione">Data di nascita: </label>
-            <input type="date" name="dataRegistrazione" id="dataRegistrazione">
-
-            <br>
-
-            <label class="labelRegistrazione">Indirizzo: </label>
-            <input type="text" name="indirizzoRegistrazione" id="indirizzoRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hideIndirizzo">Il campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <label class="labelRegistrazione">Citt&agrave;: </label>
-            <input type="text" name="cittaRegistrazione" id="cittaRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hideCitta">Il campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <label class="labelRegistrazione">E-mail: </label>
-            <input type="email" name="emailRegistrazione" id="emailRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hideEmail">Il campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <label class="labelRegistrazione">Cellulare: </label>
-            <input type="text" name="cellulareRegistrazione" id="cellulareRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hideCellulare">Il campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <label class="labelRegistrazione">Username: </label>
-            <input type="text" name="userRegistrazione" id="usernameRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hideUsername">Il campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <label class="labelRegistrazione">Password: </label>
-            <input type="password" name="passwordRegistrazione" id="passwordRegistrazione"
-                   onchange='controlloCaratteri()'>
-            <span id="hidePw1">Il campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <label class="labelRegistrazione">Conferma password: </label>
-            <input type="password" name="password1Registrazione" id="confermaPasswordRegistrazione"
-                   onchange='controlloCaratteri()'> <span id="hidePw2">Il
-                campo non pu&ograve; essere vuoto.</span>
-
-            <br>
-
-            <input type="submit" id="bottoneRegistrazione" name="bottoneRegistrazione"
-                   value="Conferma">
-        </form>
-
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputName">Città</label>
+                                    <input class="form-control" type="text"
+                                           id="cittaRegistrazione" onchange='controlloCaratteri()' name="cittaRegistrazione" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputLastName">Cellulare</label>
+                                    <input class="form-control" name="cellulareRegistrazione" id="exampleInputLastName" type="text" aria-describedby="nameHelp" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputName">User</Laber>
+                                    <input class="form-control" type="text"
+                                           id="userRegistrazione" onchange='controlloCarattery()' name='userRegistrazione'> 
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input class="form-control" name="passwordRegistrazione" id="exampleInputPassword1" type="password" >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleConfirmPassword">Conferma password</label>
+                                    <input class="form-control"name="password1Registrazione" id="exampleConfirmPassword" type="password" >
+                                </div>
+                            </div>
+                        </div>
+                        <br>    
+                        <input type="submit" id="bottoneRegistrazione" name="bottoneRegistrazione" value="Conferma" class="btn btn-primary btn-block" href="index.jsp"></input>
+                        <div  id ="error">
+                            <span>
+                                <p class="error-psw2">Siamo spiacenti, esiste già un altro account con questo nome utente</p>
+                            </span>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="Login.jsp">Clicca qui per accedere</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <%
         } else {

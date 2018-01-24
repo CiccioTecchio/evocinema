@@ -70,7 +70,7 @@ public class RecensioniCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        UtenteRegistrato ut = (UtenteRegistrato) request.getSession().getAttribute("utente"); 
+        UtenteRegistrato ut = (UtenteRegistrato) request.getSession().getAttribute("user"); 
         String recensione = request.getParameter("testo"); 
         float rate = Float.parseFloat(request.getParameter("rate")); 
         String messaggio = "Recensione Inserita Correttamente"; 
@@ -103,7 +103,7 @@ public class RecensioniCNT extends HttpServlet {
         
         }else {
         
-        messaggio = "Devi essere loggato per recensire "; 
+        messaggio = "Devi essere loggato per recensire  <a href='Login.jsp'>Effettua Il login ora </a>"; 
         
         }
         

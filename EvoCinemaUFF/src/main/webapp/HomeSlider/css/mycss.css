@@ -21,7 +21,24 @@ body {
     padding-bottom: 30px;
 }
 
+#error{
+   margin-top: 20px;
+   margin-bottom: 20px;
+   margin-left: 10px;
+   margin-right: 10px;
+    
+}
 
+.error-psw{
+    color: red;
+    opacity: 0.9;
+}
+
+.error-psw2{
+    color: red;
+    opacity: 0.9;
+    margin-left:90px;
+}
 
 .pb-5, .py-5{
     padding-bottom: 2rem!important;
