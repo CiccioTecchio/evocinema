@@ -6,8 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<jsp:include page="Header.jsp"/>
+<%    request.setAttribute("title", "Inserisci Film Libreria"); %>
+<jsp:include page="HeaderAdmin.jsp"/>
 
 <div class="card mb-3" >
     
@@ -15,6 +15,7 @@
         <p>Inserisci un film in Libreria</p>
     </div>
     <%
+      
          String messaggio = (String) request.getAttribute("messaggioInsert");
         if (messaggio != null) { %>
         
@@ -33,6 +34,7 @@
             <div class="form-group">
                 <label for="uploadLocandina">Upload Locandina</label>
                 <input  type="file" name="locandina" id="uploadLocandina"/>
+                <input type="hidden" name="action" value="new"/>
             </div>
             
             <div id="locandina" ></div>
@@ -73,10 +75,10 @@
             <div class="form-group">
                 <label for="censura"> Seleziona censura </label>
                 <select name="censura" required="true" class="form-control insfilm" id="censura">
-                <option>T</option>
-                <option>VM14</option>
-                <option>VM16</option>
-                <option>VM18</option>
+                    <option value="T">T</option>
+                    <option value="VM14">VM14</option>
+                    <option value="VM16">VM16</option>
+                    <option value="VM18">VM18</option>
                 </select>
             </div>
             <div class="form-group">
@@ -171,7 +173,7 @@ function postFilesData(){
     
    
 
-<jsp:include page="Footer.jsp"/>
+<jsp:include page="FooterAdmin.jsp"/>
        
 
    

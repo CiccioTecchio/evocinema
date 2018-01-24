@@ -51,6 +51,21 @@ public class uploadLocandina extends HttpServlet {
                 System.out.println("path server-->"+pathServer);
 		File fileSave = new File(pathServer);
 		String nameFile="vuoto"; 
+                
+                String action = (String) request.getParameter("action");
+                
+                if( action.equals("change") ){
+                
+                    String old = (String) request.getParameter("old");
+            
+                    String namefile = old.substring(old.lastIndexOf("/")+1);
+                    String path =  request.getServletContext().getRealPath("")+"images"+File.separator+"locandine"+File.separator+namefile;
+                    System.out.println("la path del file è -->"+path);
+                    File oldFile = new File(path); 
+                    
+                    if(oldFile.exists()) oldFile.delete(); 
+                
+                }
 		
 		try{
 		

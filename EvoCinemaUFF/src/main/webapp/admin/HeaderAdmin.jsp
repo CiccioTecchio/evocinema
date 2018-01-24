@@ -92,6 +92,9 @@
             <li>
               <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
             </li>
+            <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
+                
+            </li>
           </ul>
         </li>
 
