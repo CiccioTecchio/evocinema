@@ -12,17 +12,10 @@
 <jsp:include page="Header.jsp" />
     
 <%
-  Collection<Spettacolo> spettacoli = (Collection<Spettacolo>) request.getAttribute("spettacoli");
-            
-            
+    Collection<Spettacolo> spettacoli = (Collection<Spettacolo>) request.getAttribute("spettacoli");
+    
             
             
 %>
-    
-    <body>
         
-        <div> Qui non ci sta niente</div>
-        
-    </body>
-    
 <jsp:include page="Footer.jsp" />

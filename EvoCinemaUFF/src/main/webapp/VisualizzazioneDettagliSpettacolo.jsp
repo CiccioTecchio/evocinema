@@ -50,7 +50,7 @@
                     y++;
                     break;
                 case '1' :
-                    switch(matricePostiSpettacolo[offset + y++]){
+                    switch(matricePostiSpettacolo[offset + y]){
                         case 'd':
                             url = "images/poltrona_disponibile_v2.png";
                             classe = "vds-posto-disponibile";
@@ -71,8 +71,8 @@
                     url = String.valueOf(matSala[i][j]);
             }
 %>
-            <img class="<%= classe %> cell" src="<%= url %>" />
-<%
+            <img data-pos ="<%= (offset+y)/*definire tramite css*/%>" class="vds-posto <%= classe %> cell" src="<%= url %>" />
+<%          y++;
         }
  %>
                     </div>
