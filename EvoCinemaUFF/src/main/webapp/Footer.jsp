@@ -32,10 +32,14 @@
     </div>
 
     
-    
+ 
+
+    <script src="Template%20Sb%20Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="Template%20Sb%20Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-    
+    <!-- Custom scripts for all pages-->
+    <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
     <!-- Custom scripts for all pages-->
 
 
