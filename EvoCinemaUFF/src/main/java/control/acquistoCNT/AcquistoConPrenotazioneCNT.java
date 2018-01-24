@@ -3,31 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control.programmazioneCNT;
+package control.acquistoCNT;
 
-import database.SalaDAO;
-import database.SpettacoloDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Sala;
-import model.Spettacolo;
 
 /**
  *
- * @author Michele
+ * @author giuseppeapuzzo
  */
-public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
+@WebServlet(name = "AcquistoConPrenotazioneCNT", urlPatterns = {"/AcquistoConPrenotazioneCNT"})
+public class AcquistoConPrenotazioneCNT extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,27 +32,18 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Logger logger = Logger.getLogger("global");
-        try {
-            int id = 3;//Integer.parseInt(request.getParameter("idSpettacolo"));
-            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
-            SalaDAO salaDao = new SalaDAO();
-            Spettacolo spettacolo = spettacoloDao.foundByID(id);
-            Sala sala = salaDao.foundByID(spettacolo.getIdSala());
-            Calendar now = new GregorianCalendar();
-            now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-            Calendar start = spettacolo.getDataInizio();
-            int offset = (int) ((now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24));
-            
-            
-            request.setAttribute("spettacolo", spettacolo);
-            request.setAttribute("sala", sala);
-            request.setAttribute("offset", offset);
-            request.setAttribute("title", "Programmazione");
-        } catch (SQLException | ParseException | NamingException e){
-            Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
-        }    
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AcquistoConPrenotazioneCNT</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AcquistoConPrenotazioneCNT at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,6 +73,20 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String titolo = request.getParameter("titolo");
+        String importo = request.getParameter("importo");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AcquistoConPrenotazioneCNT</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AcquistoConPrenotazioneCNT at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     /**

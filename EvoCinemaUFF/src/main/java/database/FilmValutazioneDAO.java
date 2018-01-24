@@ -54,8 +54,13 @@ public class FilmValutazioneDAO {
        List<FilmConValutazioneMedia> filmConValutazione = new ArrayList<>(); 
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement(" SELECT Opera.* , AVG( valutazione ) AS valutazione FROM Recensioni,Opera "
-                    + "                                                 WHERE Opera.idOpera = Recensioni.id_opera GROUP BY idOpera");
+            stmt = (PreparedStatement) connection.prepareStatement("select * from\n" +
+                                                         "((select Opera.* , avg( valutazione ) as valutazione from "
+                                                                  + "Recensioni,Opera "
+                                                                    + "where Opera.idOpera = Recensioni.id_opera "
+                                                                    + "group by idOpera order by titolo)  \n" +
+                                                                        "union All\n" +
+                                                                        "(select * , (null) as 'valutazione' from Opera) ) as t group by t.idOpera");
             ResultSet rs = stmt.executeQuery();
  
 		while (rs.next()) {

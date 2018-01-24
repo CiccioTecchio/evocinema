@@ -4,29 +4,37 @@
     Author     : luca
 --%>
 
+<%@page import="control.programmazioneCNT.RappresentazioneSala"%>
 <%@page import="control.programmazioneCNT.VisualizzazioneDettagliSpettacoloCNT"%>
 <%@page import="model.Spettacolo"%>
 <%@page import="model.Sala"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/VisualizzazioneDettagliSpettacoloCNT" />
+<jsp:include page="VisualizzazioneDettagliSpettacoloCNT" />
 <jsp:include page="Header.jsp" />
 <%
     Spettacolo spettacolo = (Spettacolo) request.getAttribute("spettacolo");
     Sala sala = (Sala) request.getAttribute("sala");
     int offset = (int) request.getAttribute("offset");
-    
-    char[] matricePostiSala = (sala.getConfigPosti()).toCharArray();
-    char[] matricePostiSpettacolo = (spettacolo.getMatricePosti()).toCharArray();
+    RappresentazioneSala rs = new RappresentazioneSala(spettacolo, sala, offset);
+    int beginRiga = 0, endRiga = 0, beginColonna = 0, endColonna = 0;
+    beginRiga = rs.getBeginRiga();
+    beginColonna = rs.getBeginColonna();
+    endRiga = rs.getEndRiga();
+    endColonna = rs.getEndColonna();
+    char[][] matSala = rs.getMatSala();
+    char[] matricePostiSpettacolo = rs.getMatricePostiSpettacolo();
+//    char[] matricePostiSala = (sala.getConfigPosti()).toCharArray();
+//    char[] matricePostiSpettacolo = (spettacolo.getMatricePosti()).toCharArray();
 %>
         <div class="container-fluid">
             <div id ="titolo" class="row">
                 <div class ="col">Seleziona i Posti</div>
-                <div class ="col">Riepilogo Ordine</div>
+                <div class ="col">Riepilogo-Ordine</div>
             </div> 
             <div class="row">
                 <div class ="col">
                     <div id="seats" class="container">
-<%
+<%/*
     //Conversione dell'array in una matrice
     char[][] matSala = new char[30][30];
     int z = 0;
@@ -36,9 +44,9 @@
             z++;
         }
     }
-    
-    int beginRiga = 0, endRiga = 0, beginColonna = 0, endColonna = 0;
-    
+    */
+   // 
+    /*
     //Calcolo della prima riga dei posti da cui stampare
     boolean flag = true;
     for(int i = 0; flag && i < 30; i++){
@@ -49,7 +57,8 @@
             }    
         }   
     }
-    
+    */
+    /*
     //Calcolo dell'ultima riga dei posti da stampare
     flag = true;
     for(int i = 29; flag && i >= 0; i--){
@@ -60,7 +69,8 @@
             }
         }   
     }
-    
+    */
+    /*
     //Calcolo della prima colonna dei posti da stampare
     flag = true;
     for(int j = 0; flag && j < 30; j++){
@@ -71,7 +81,8 @@
             }
         }   
     }
-    
+    */
+    /*
     //Calcolo dell'ultima colonna dei posti da stampare
     flag = true;
     for(int j = 29; flag && j >= 0; j--){
@@ -82,16 +93,17 @@
             }
         }   
     }
-
+*/
+    
     //Stampa della sala e dei posti in base al relativo stato
     String url = null, classe = null;
     int y = 0;
-    offset = offset * sala.getNumeroPosti() - 1;
-    for(int i = beginRiga; i >= endRiga; i++){
-%>
-        <div class="row">
-<%
-        for(int j = beginColonna; j >= endColonna; j++){
+
+    offset = 0;//offset * sala.getNumeroPosti() - 1;
+    for(int i = beginRiga; i <= endRiga; i++){
+        out.print("<div class=\"row\">");
+
+        for(int j = beginColonna; j <= endColonna; j++){
             switch(matSala[i][j]){
                 case '0' :
                     url = "images/trasparente.png";
@@ -102,7 +114,7 @@
                     y++;
                     break;
                 case '1' :
-                    switch(matricePostiSpettacolo[offset + y]){
+                    switch(matricePostiSpettacolo[offset + y++]){
                         case 'd':
                             url = "images/poltrona_disponibile_v2.png";
                             classe = "vds-posto-disponibile";
@@ -116,22 +128,20 @@
                             classe = "vds-posto-occupato";
                             break;
                         default :
-                            throw new Exception();
+                            url = "xyz";
                     }
                     break;
                 default :
-                    throw new Exception();
+                    url = String.valueOf(matSala[i][j]);
             }
-%>
-            <img class="<%= classe %> cell" src="<%= url%>" />
-<%
-        }
- %>
-        </div>
-<%
-    }
-    
 
+            out.print("<img class=\"" + classe + " cell\" src=\"" + url + "\" />");
+
+        }
+ 
+        out.print("</div>");
+
+    }
 %>
                     </div>
                 </div>
