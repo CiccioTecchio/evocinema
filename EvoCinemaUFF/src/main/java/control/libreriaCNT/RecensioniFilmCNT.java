@@ -7,6 +7,7 @@ package control.libreriaCNT;
 
 import database.RecensioneDAO;
 import java.io.IOException;
+import static java.lang.System.out;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Collection;
@@ -42,19 +43,23 @@ public class RecensioniFilmCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int film = Integer.parseInt((String)request.getAttribute("idFilm"));
-        String order = request.getParameter("order");
+        int film = Integer.parseInt((String) request.getAttribute("idFilm"));
+        /*String order = request.getParameter("order");
 
-        if (order == null) {
+        //if (order == null) {
             order = "data_recensione";
         }
-
+*/
         Collection<Recensione> recensioni = null;
 
+        
         try {
             RecensioneDAO daoRec = new RecensioneDAO();
 
             recensioni = daoRec.foundByFilm(film);
+            
+            
+            
 
         } catch (SQLException ex) {
 
