@@ -1,6 +1,3 @@
-/* global show */
-
-
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -148,17 +145,7 @@
                                 </a>
                         </div>
                     </li>
-                    <%--
-                    <li class="nav-item">
-                        <a class="nav-link" >
-                        <i class=""></i>
-                        <%= u.getNomeUtente() %>
-                        </a>
-                    </li>
-                        <%--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-                        --%>
-                        
+                 
                            <%
                                 }
                             %>
