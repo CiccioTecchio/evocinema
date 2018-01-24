@@ -5,6 +5,7 @@
  */
 package control.programmazioneCNT;
 
+import database.FilmDAO;
 import database.SpettacoloDAO;
 import model.Spettacolo;
 import java.util.*;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Film;
 
 /**
  *
@@ -42,10 +44,25 @@ public class VisualizzazioneProgrammazioneCNT extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             Calendar today = Calendar.getInstance();
+            FilmDAO filmDao = new FilmDAO();
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
             Collection<Spettacolo> spettacoli = spettacoloDao.foundByDate(today);
+            Collection<Film> film = new LinkedList<Film>();
+            //scarto gli spettacoli che non rappresentano alcun opera
+            spettacoli = spettacoli.stream().filter((s) -> s.getIdFilm() != null).collect(Collectors.toList());
+            //ordinamento degli spettacoli in base all'id dell'opera
             spettacoli = spettacoli.stream().sorted((s1, s2) -> Integer.compare(s1.getIdFilm(), s2.getIdFilm())).collect(Collectors.toList());
+            //prelevo dal db le opere che mi servono
+            int newId, id = spettacoli.stream().findFirst().get().getIdFilm();
+            film.add(filmDao.foundByID(id));
+            for(Spettacolo s : spettacoli){
+                if((newId = s.getIdFilm()) != id){
+                    film.add(filmDao.foundByID(newId));
+                    id = newId;
+                }
+            }
             request.setAttribute("spettacoli", spettacoli);
+            request.setAttribute("film", film);
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
         }    

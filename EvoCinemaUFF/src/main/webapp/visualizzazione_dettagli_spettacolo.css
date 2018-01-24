@@ -4,7 +4,8 @@
 */
 
 .vds-posto {
-    margin : 1px;
+    margin : 0.5px;
+    margin-bottom:5px;
 }
 
 .vds-posto-non-disponibile {

@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class Spettacolo {
     private int idSpettacolo;
     private int idSala;
-    private int idFilm;
+    private Integer idFilm;
     private String titolo;
     private Calendar dataInizio;
     private Calendar dataFine;
@@ -79,7 +79,7 @@ public class Spettacolo {
         return idSala;
     }
 
-    public int getIdFilm() {
+    public Integer getIdFilm() {
         return idFilm;
     }
 
