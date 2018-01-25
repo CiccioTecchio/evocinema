@@ -136,11 +136,7 @@ public class RegistrazioneCNT extends HttpServlet {
                 
                 try {
                     model.createUtenteRegistrato(u);
-                } catch (SQLException ex) { 
-                    Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NamingException ex) {
+                } catch (SQLException | ParseException | NamingException ex) {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
                 }
 

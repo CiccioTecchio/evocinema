@@ -279,6 +279,50 @@ public class OperazioneDAO {
 	return acquisti;
    }
    
+   
+    public List<Acquisto> getAcquistiUtente(String emailParam) throws SQLException, ParseException, NamingException {
+      
+       PreparedStatement stmt=null;
+       List<Acquisto> acquisti = new LinkedList<>();
+       try {
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE acquistato='TRUE' AND email= '"+emailParam+"'");
+
+            ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+                   
+                        Acquisto a = new Acquisto();
+                        a.setIdOperazione(rs.getInt("id_Operazione"));
+			a.setEmail(rs.getString("email"));
+                        a.setIdSpettacolo(rs.getInt("idSpettacolo"));
+			a.setPostoColonna(rs.getInt("posto_colonna"));
+                        a.setPostoRiga(rs.getInt("posto_riga"));
+                        a.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
+                        a.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
+                        a.setPrezzoFinale(rs.getFloat("prezzo_finale"));
+                        Calendar data = Calendar.getInstance();
+                        Date newDate = rs.getTimestamp("data");
+                        data.setTime(newDate);
+                        a.setData(data);
+                        int idSala = rs.getInt("idSala");
+                        int idSconto = rs.getInt("sconto_applicato");
+                        Sala sala = salaDAO.foundByID(idSala);
+                        a.setSala(sala);
+                        Sconto sconto = scontoDAO.foundByID(idSconto);
+                        a.setSconto(sconto);
+                        
+                        acquisti.add(a);
+                    }
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
+		}
+    return acquisti;
+   }
+    
+    
    /**
      * Metodo per la ricerca nel DB di una {@link Operazione}.
      * @param idOperazione identificativo dell' {@link Operazione} di tipo intero.

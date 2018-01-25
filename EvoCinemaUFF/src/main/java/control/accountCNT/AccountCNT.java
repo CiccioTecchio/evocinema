@@ -6,10 +6,13 @@
 package control.accountCNT;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.UtenteBase;
 
 /**
  *
@@ -59,16 +62,37 @@ public class AccountCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        HttpSession s = request.getSession();
+        UtenteBase utente = (UtenteBase) s.getAttribute("user");
+        
+        String page="";
+        
+        String op =  request.getParameter("operazione");
+        
+        
+        switch (op) {
+            case "1":  page="/account/VisualizzazioneAccount.jsp";
+                     break;
+            case "2":  page="/account/VisualizzazioneSaldo.jsp";
+                     break;
+            case "3":  page="/GestioneAcquisti";
+                     break;
+            case "4":  page="/GestionePrenotazioni";
+                     break;
+        }
+        
+        
+        s.removeAttribute("operazione");
+        s.setAttribute("user", utente);
+        s.setAttribute("passwordCoincidono", "true");
+        
+        
+        
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        dispatcher.forward(request, response);
+        
+
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
