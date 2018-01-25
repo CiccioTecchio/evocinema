@@ -23,3 +23,7 @@
 .vds-posto-occupato {
     
 }
+
+#riepilogo-ordine span {
+    text:5em;
+}

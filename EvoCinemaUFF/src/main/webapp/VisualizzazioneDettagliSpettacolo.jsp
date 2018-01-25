@@ -22,13 +22,12 @@
     char[] matricePostiSpettacolo = rs.getMatricePostiSpettacolo();
 %>
         <div class="container-fluid">
-            <div id ="titolo" class="row">
-                <div class ="col">Seleziona i Posti</div>
-                <div class ="col">Riepilogo-Ordine</div>
-            </div> 
             <div class="row">
                 <div class ="col">
-                    <div id="seats" class="container">
+                    <div data-num-posti="<%= sala.getNumeroPosti() %>" data-prezzo="<%= spettacolo.getPrezzo() %>" id="seats" class="card">
+                        <h5 class="card-header">Seleziona i Posti</h5>
+                        <div class="card-body">
+                            
 <%   
     //Stampa della sala e dei posti in base al relativo stato
     String url = null, classe = null;
@@ -72,7 +71,7 @@
                     url = String.valueOf(matSala[i][j]);
             }
 %>
-            <img data-pos ="<%= (offset+y)/*definire tramite js*/%>" class="vds-posto <%= classe %> cell" src="<%= url %>" />
+            <img data-pos ="" class="vds-posto <%= classe %> cell" src="<%= url %>" />
 <%          y++;
         }
  %>
@@ -80,9 +79,28 @@
 <%
     }
 %>
+                        
+                        </div>
                     </div>
                 </div>
-                <div class ="col">RiepilogoOrdine</div>
-
+                <div class ="col">
+                    <div id="riepilogo-ordine" class="card">
+                        <h5 class="card-header">Riepilogo Ordine</h5>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-dark">Procedi con l'ordine</button>
+                                    </div>
+                                    <div class="col">
+                                        <p id="totale">Totale = 0.00&euro;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
 <script src="javascript/visualizzazione_dettagli_spettacolo.js"></script>
 <jsp:include page="Footer.jsp" />
