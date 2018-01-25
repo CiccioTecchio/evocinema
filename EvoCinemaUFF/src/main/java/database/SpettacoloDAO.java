@@ -2,9 +2,11 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -101,7 +103,7 @@ public class SpettacoloDAO {
        Spettacolo spettacoloFound = new Spettacolo();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE idSpettacolo = ?");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE idSpettacolo = ? ");
            stmt.setInt(1, idSpettacolo);
            ResultSet rs = stmt.executeQuery();
            
@@ -146,7 +148,8 @@ public class SpettacoloDAO {
        List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE id_sala='"+idSala+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE id_sala= ? ");
+           stmt.setInt(1, idSala);
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -250,7 +253,8 @@ public class SpettacoloDAO {
        List<Spettacolo> spettacoli = new LinkedList<>();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE idOpera='"+idOpera+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Spettacolo WHERE idOpera= ? ");
+           stmt.setInt( 1, idOpera);
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -295,15 +299,22 @@ public class SpettacoloDAO {
         
         PreparedStatement stmt=null;
         boolean inserito= false;
-        SimpleDateFormat sdfg= new SimpleDateFormat("yyyy-MM-dd");
-        String dataInizio=sdfg.format(s.getDataInizio().getTime());
-        String dataFine=sdfg.format(s.getDataFine().getTime());
-        SimpleDateFormat sdfh= new SimpleDateFormat("HH:mm:ss");
-        String oraInizio= sdfh.format(s.getOraInizio().getTime());
-        String oraFine= sdfg.format(s.getOraFine().getTime());
-        
+       
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Spettacolo (idSpettacolo, id_sala, idOpera, titolo, data_inizio, data_fine, prezzo, ora_inizio, ora_fine, matrice_posti) VALUES ('"+ s.getIdSpettacolo() +"', '"+ s.getIdSala()+"', '"+ s.getIdFilm()+"', '"+s.getTitolo()+"', '"+dataInizio+"' , '"+dataFine+"', '"+ s.getPrezzo()+"', '"+oraInizio+"', '"+oraFine+"' , '"+s.getMatricePosti()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Spettacolo ( id_sala, idOpera, titolo, data_inizio, data_fine, prezzo, ora_inizio, ora_fine, matrice_posti) "
+                    + "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
+            
+            stmt.setInt(1, s.getIdSala());
+            stmt.setInt(2, s.getIdFilm());
+            stmt.setString(3, s.getTitolo());
+            stmt.setDate( 4 , new Date( s.getDataInizio().getTimeInMillis()));
+            stmt.setDate( 5 , new Date(s.getDataFine().getTimeInMillis()));
+            stmt.setFloat(6, s.getPrezzo() );
+            Time timeInizio = new Time(s.getOraInizio().getTimeInMillis());
+            Time timeFine = new Time(s.getOraFine().getTimeInMillis()); 
+            stmt.setTime( 7 , timeInizio);
+            stmt.setTime( 8 , timeFine );
+            stmt.setString(9, s.getMatricePosti());
             stmt.executeUpdate();
             inserito= true;
         } 
@@ -326,15 +337,23 @@ public class SpettacoloDAO {
         
        PreparedStatement stmt=null;
        boolean update= false;
-       SimpleDateFormat sdfg= new SimpleDateFormat("yyyy-MM-dd");
-       String dataInizio=sdfg.format(s.getDataInizio().getTime());
-       String dataFine=sdfg.format(s.getDataFine().getTime());
-       SimpleDateFormat sdfh= new SimpleDateFormat("HH:mm:ss");
-       String oraInizio= sdfh.format(s.getOraInizio().getTime());
-       String oraFine= sdfg.format(s.getOraFine().getTime());
+       
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Spettacolo SET id_sala='"+ s.getIdSala()+"', idOpera='"+ s.getIdFilm()+"', titolo='"+s.getTitolo()+"', data_inizio= '"+dataInizio+"', data_fine='"+dataFine+"', prezzo='"+s.getPrezzo()+"', ora_inizio='"+oraInizio+"', ora_fine='"+oraFine+"', matrice_posti='"+s.getMatricePosti()+"' WHERE ( idSpettacolo='"+ s.getIdSpettacolo()+ "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Spettacolo SET id_sala= ? , idOpera= ? , titolo= ? , data_inizio=  ? , data_fine= ? , prezzo= ? , ora_inizio= ? , ora_fine= ? , matrice_posti= ?  WHERE ( idSpettacolo= ? );");
+            
+            stmt.setInt(1, s.getIdSala());
+            stmt.setInt(2, s.getIdFilm());
+            stmt.setString(3, s.getTitolo());
+            stmt.setDate( 4 , new Date( s.getDataInizio().getTimeInMillis()));
+            stmt.setDate( 5 , new Date(s.getDataFine().getTimeInMillis()));
+            stmt.setFloat(6, s.getPrezzo() );
+            Time timeInizio = new Time(s.getOraInizio().getTimeInMillis());
+            Time timeFine = new Time(s.getOraFine().getTimeInMillis()); 
+            stmt.setTime( 7 , timeInizio);
+            stmt.setTime( 8 , timeFine );
+            stmt.setString(9, s.getMatricePosti());
+            stmt.setInt(10, s.getIdSpettacolo());
             stmt.executeUpdate();
             update = true;
         } 
@@ -359,7 +378,8 @@ public class SpettacoloDAO {
        boolean delete= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Spettacolo WHERE ( idSpettacolo='"+ idSpettacolo +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Spettacolo WHERE ( idSpettacolo= ? );");
+            stmt.setInt(1, idSpettacolo);
             stmt.executeUpdate();
             delete = true;
         } 

@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Opera` (
   `distribuzione` VARCHAR(255) NULL,
   `produzione` VARCHAR(255) NULL,
   `trama` TEXT NULL,
-  `trailer` VARCHAR(155) NULL,
+  `trailer` VARCHAR(400) NULL,
   PRIMARY KEY (`idOpera`))
 ENGINE = InnoDB;
 

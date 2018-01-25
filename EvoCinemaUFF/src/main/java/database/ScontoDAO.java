@@ -92,7 +92,8 @@ public class ScontoDAO {
        Sconto scontoFound = new Sconto();
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE idSconto='"+idSconto+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE idSconto= ? ");
+           stmt.setInt(1, idSconto);
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -120,7 +121,8 @@ public class ScontoDAO {
        
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE nome='"+nomeSconto+"'");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE nome= ? ");
+           stmt.setString(1, nomeSconto);
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -191,7 +193,8 @@ public class ScontoDAO {
        List<Sconto> sconti = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE tipo='" + tipoSelezionato +"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE tipo= ? ");
+            stmt.setString(1,tipoSelezionato.toString());
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()){
@@ -228,7 +231,8 @@ public class ScontoDAO {
        List<Sconto> sconti = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE tipologia='" + tipologiaSelezionata +"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sconto WHERE tipologia= ? ");
+            stmt.setString(1, tipologiaSelezionata.toString());
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()){
@@ -265,7 +269,17 @@ public class ScontoDAO {
        boolean update= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Sconto SET nome='"+ s.getNome()+"', tipo='"+ s.getTipo()+"', percentuale='"+s.getPercentuale()+"', prezzo='"+s.getPrezzo()+"', verificabile='"+s.getVerificabile()+"', disponibile='"+s.getDisponibile()+"', tipologia='"+s.getTipologia()+"', parametro_tipologia='"+s.getParametroTipologia()+"' WHERE ( idSconto='"+ s.getIdSconto()+ "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Sconto SET nome= ? , tipo= ? , percentuale= ? , prezzo= ? , verificabile= ?  , disponibile= ? , "
+                                                                + "tipologia= ? , parametro_tipologia= ? WHERE ( idSconto= ? );");
+            stmt.setString(1, s.getNome());
+            stmt.setString(2, s.getTipo().toString());
+            stmt.setInt(3, s.getPercentuale());
+            stmt.setFloat(4, s.getPrezzo());
+            stmt.setString(5, s.getVerificabile().toString());
+            stmt.setString( 6 , s.getDisponibile().toString() );
+            stmt.setString(7, s.getTipologia().toString());
+            stmt.setString( 8 , s.getParametroTipologia());
+            stmt.setInt(9, s.getIdSconto());
             stmt.executeUpdate();
             update = true;
         } 
@@ -290,7 +304,17 @@ public class ScontoDAO {
        boolean inserita= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sconto (idSconto,nome,tipo,percentuale, prezzo, verificabile,disponibile,tipologia,parametro_tipologia)VALUES ('"+ s.getIdSconto() +"', '"+ s.getNome()+"', '"+s.getTipo()+"', '"+s.getPercentuale()+"', '"+s.getPrezzo()+"', '"+s.getVerificabile()+"', '"+s.getDisponibile()+"', '"+ s.getTipologia()+"', '"+ s.getParametroTipologia()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sconto (idSconto,nome,tipo,percentuale, prezzo, verificabile,disponibile,tipologia,parametro_tipologia)"
+                           + "VALUES (? , ? , ? , ? , ? , ? , ? , ? , ? )");
+            stmt.setInt(1, s.getIdSconto());
+            stmt.setString(2, s.getNome());
+            stmt.setString(3, s.getTipo().toString());
+            stmt.setInt(4, s.getPercentuale());
+            stmt.setFloat(5, s.getPrezzo());
+            stmt.setString(6, s.getVerificabile().toString());
+            stmt.setString( 7 , s.getDisponibile().toString() );
+            stmt.setString(8, s.getTipologia().toString());
+            stmt.setString(9, s.getParametroTipologia());
             stmt.executeUpdate();
             inserita = true;
         } 
@@ -315,7 +339,8 @@ public class ScontoDAO {
        boolean delete= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Sconto WHERE ( idSconto='"+ idSconto +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Sconto WHERE ( idSconto= ? );");
+            stmt.setInt(1,  idSconto );
             stmt.executeUpdate();
             delete = true;
         } 

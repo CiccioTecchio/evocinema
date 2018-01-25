@@ -99,8 +99,10 @@ public class PostoDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Posto WHERE riga='"+ riga +"' AND colonna='"+ colonna +"' AND idSala='"+ sala +"' ");
-
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Posto WHERE riga= ? AND colonna= ? AND idSala= ? ");
+            stmt.setInt(1, riga);
+            stmt.setInt(2, colonna);
+            stmt.setInt(3, sala);
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -141,7 +143,12 @@ public class PostoDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Posto (riga, colonna, idSala, stato) VALUES ('"+ p.getRiga() +"', '"+ p.getColonna()+"', '"+ p.getSala().getIdSala() +"', '"+ p.getStato()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Posto (riga, colonna, idSala, stato) VALUES (? , ? , ? , ?)");
+            stmt.setInt(1, p.getRiga());
+            stmt.setInt(2, p.getColonna());
+            stmt.setInt(3, p.getSala().getIdSala());
+            stmt.setString(4, p.getStato().toString());
+            
             stmt.executeUpdate();
             
             inserito = true;
@@ -169,7 +176,15 @@ public class PostoDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.posto SET Riga='"+ daInserire.getRiga() +"', colonna='"+ daInserire.getColonna()+"', idSala='"+ daInserire.getSala().getIdSala() +"', stato='"+ daInserire.getStato()+"' WHERE ( riga='"+ daModificare.getRiga() +"' AND colonna='"+ daModificare.getColonna()+"' AND idSala='"+ daModificare.getSala().getIdSala() +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.posto SET Riga= ? , colonna= ? , idSala= ? , stato= ? WHERE ( riga= ? AND colonna= ? AND idSala= ? );");
+            stmt.setInt(1, daInserire.getRiga());
+            stmt.setInt(2, daInserire.getColonna());
+            stmt.setInt(3, daInserire.getSala().getIdSala());
+            stmt.setString(4, daInserire.getStato().toString());
+             stmt.setInt(5, daModificare.getRiga());
+            stmt.setInt(6, daModificare.getColonna());
+            stmt.setInt(7, daModificare.getSala().getIdSala());
+   
             stmt.executeUpdate();
             
             modificato = true;
@@ -195,7 +210,10 @@ public class PostoDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Posto WHERE (riga='"+ p.getRiga() +"' AND colonna='"+ p.getColonna() +"' AND idSala='"+ p.getSala().getIdSala() +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Posto WHERE (riga= ? AND colonna= ? AND idSala= ? );");
+            stmt.setInt(1, p.getRiga());
+            stmt.setInt(2, p.getColonna());
+            stmt.setInt(3, p.getSala().getIdSala());
             stmt.executeUpdate();
             
             eliminato = true;
