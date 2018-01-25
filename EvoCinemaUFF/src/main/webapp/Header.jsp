@@ -48,7 +48,6 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
 
-
         <link rel="icon" href="../images/logoGIF.gif" type="image/gif" sizes="160x160">
         
 

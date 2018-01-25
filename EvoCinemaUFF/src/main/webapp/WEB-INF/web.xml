@@ -88,10 +88,7 @@
         <servlet-name>EliminaSpettacoloCNT</servlet-name>
         <url-pattern>/EliminaSpettacoloCNT</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AbilitaScontoCNT</servlet-name>
-        <url-pattern>/AbilitaScontoCNT</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AggiuntaScontoCNT</servlet-name>
         <url-pattern>/AggiuntaScontoCNT</url-pattern>

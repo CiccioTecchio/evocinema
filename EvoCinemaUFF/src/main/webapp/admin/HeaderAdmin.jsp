@@ -43,11 +43,14 @@
         <link href="../Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
         <!-- Custom styles for this template-->
         <link href="../Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
+        <script src="../HomeSlider/vendor/jquery/jquery.min.js"></script>
         <script src="../Template%20Sb%20Admin/js/sb-admin.min.js"></script>
 
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
         <link rel="icon" href="../images/logoGIF.gif" type="image/gif" sizes="160x160">
-        <script src="../HomeSlider/vendor/jquery/jquery.min.js"></script>
+        
 
 
 
