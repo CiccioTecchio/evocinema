@@ -6,6 +6,8 @@ var ro = document.querySelector("#riepilogo-ordine .container");
 $("#target").submit(submit);
 setIdPosto(seats.getAttribute("data-num-posti"));
 
+setIdPosto(seats.getAttribute("data-num-posti"));
+
 for(i = 0; i < posti_disponibili.length; i++){
     posti_disponibili[i].onclick = handleClick;
     posti_disponibili[i].onmouseover = handleMouseOver;
