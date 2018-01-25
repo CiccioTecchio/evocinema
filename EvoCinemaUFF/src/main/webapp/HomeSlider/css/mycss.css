@@ -68,3 +68,19 @@ body {
 p{
     margin-top:15px;
 }
+.error-psw3{
+    color: red;
+    opacity: 0.9;
+    margin-left:210px;
+}
+
+.nav-link text-center{
+    margin-bottom: 25px;
+}
+#sidenavToggler{
+     margin-bottom: 25px;
+}
+
+.fa-angle-left:before{
+    margin-bottom:10px;
+}

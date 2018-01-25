@@ -29,7 +29,7 @@
                      var password = $('#passwordRegistrazione').val();
                      var password2 = $('#passwordRegistrazione2').val();
                      var bool=true;
-                     alert(dataNascita);
+                     
                      if(nome.length<2){
                          $('#errorNome').show(); 
                          bool=false;
@@ -164,8 +164,7 @@
                               "emailRegistrazione":email,"indirizzoRegistrazione":indirizzo,
                           "cittaRegistrazione":citta,"passwordRegistrazione":password,"password1Registrazione":password2,"cellulareRegistrazione":cellulare,
                       "userRegistrazione":username,"dataRegistrazione":dataNascita,"sessoRegistrazione":sesso},
-                              success: function (data) {
-                                        alert(data.toString());
+                              success: function (data) { 
                                      window.location.href = data.toString();
                                  }
                                  
@@ -187,5 +186,9 @@
         if(theEvent.preventDefault) theEvent.preventDefault();
       }
     }  
+    
+   $(function() {
+  $( "#datepicker" ).datepicker({  maxDate: new Date() });
+ });
     
 
