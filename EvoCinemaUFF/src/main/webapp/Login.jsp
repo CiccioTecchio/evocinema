@@ -41,7 +41,7 @@
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header">Login</div>
                 <div class="card-body">
-                    <form id="form" method="post" action="Login">
+                    <form id="form" >
                         <div  class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input class="form-control" id="emailLogin"  name="emailLogin" type="text" aria-describedby="emailHelp" >
@@ -88,7 +88,7 @@
             <div class="card card-login mx-auto mt-5">
                 <div class="card-header">Login</div>
                 <div class="card-body">
-                    <form id="form" method="post" action="Login">
+                    <form id="form">
                         <div  class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input class="form-control" id="emailLogin2"  name="emailLogin" type="text" aria-describedby="emailHelp" placeholder="Enter email" disabled="">
@@ -105,7 +105,7 @@
                             </div>
                         </div>
 
-                        <input  class="btn btn-primary btn-block" type="submit" name="bottoneLogin" value="Login" disabled="">
+                        <input class="btn btn-primary btn-block" type="submit" name="bottoneLogin" value="Login" disabled="">
                         <div class="form-input-validation is-error" id ="error">
                             <span>
                                 <p class="error-psw">Siamo spiacenti, la password non è corretta. Riprova.</p>

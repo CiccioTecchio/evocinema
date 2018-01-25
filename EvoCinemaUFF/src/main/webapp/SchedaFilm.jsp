@@ -4,6 +4,7 @@
     Author     : GiuseppeDelGaudio
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="model.Recensione"%>
 <%@page import="java.util.Collection"%>
@@ -87,7 +88,7 @@
 
                     </tr>
                     <tr>
-                        <td class="text-right"><H5><strong> Titolo :</strong></H5></td><td> <H2><%= film.getTitolo()%></H2></td></tr>
+                        <td class="text-right"><H5><strong> Titolo :</strong></H5></td><td> <H2><%= film.getTitolo() %></H2></td></tr>
                     <tr>
                         <td class="text-right"><H5><strong> Genere :</strong></H5></td><td><H5> <%= film.getGenere()%></H5></td></tr>
                     <tr>
@@ -169,18 +170,17 @@
 
 
 </div>
-            
+<% request.setAttribute("idFilm", ""+film.getIdFilm());%>
 <div class="card mb-3">
 
     <span class="card-header" > Recensioni Utenti </span>
 
     <div class="card-body">
-        <%
-                    request.setAttribute("idFilm", idFilmAr);
-                %>
+ 
                 <jsp:include page="/recensioniFilm"/>
                 <%
-                    Collection<Recensione> recensioni = (Collection<Recensione>) request.getSession().getAttribute("recensioni");
+                    List<Recensione> recensioni;
+                    recensioni = (List<Recensione>) request.getAttribute("recensioni");
                     if (null == recensioni) {
                 %>
 
@@ -188,24 +188,25 @@
 
                 <%
                 } else {
-                    Iterator<Recensione> i = recensioni.iterator();
-                    while(i.hasNext()) {
-                    Recensione rec = i.next();
+                    for(Recensione rec:recensioni){
                 %>
                 <div class="list-group-item list-group-item-action">
                     <div class="media">
-                        <img class="d-flex mr-3 rounded-circle" src="images/utente.png">
+                        <i class="fa fa-user fa-2x mr-3"></i>
                         <div class="media-body">
                             <strong><%= rec.getEmailUtente() %></strong><br>
                             <%= rec.getTesto()%>
+                           
                             <div class="text-muted smaller">
                                 <%
-                                    SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
+                                    SimpleDateFormat s = new SimpleDateFormat("dd-MM-yyyy");
+
                                 %>
-                                <%= s.format(rec.getDataImmissione())%>
+                            
+                                <%= s.format(rec.getDataImmissione().getTime())%>
 
                             </div>
-                        </div>
+                       </div>
                     </div>
                 </div>
                 <%                      }

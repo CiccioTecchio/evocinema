@@ -98,9 +98,10 @@ public class RegistrazioneCNT extends HttpServlet {
                 u.setCognome((String) request.getParameter("cognomeRegistrazione"));
 
                 String myData = request.getParameter("dataRegistrazione");
-                int anno = Integer.parseInt(myData.substring(0, 4));
-                int mese = Integer.parseInt(myData.substring(5, 7)) - 1;
-                int giorno = Integer.parseInt(myData.substring(8, 10));
+                
+                int giorno = Integer.parseInt(myData.substring(3, 5));
+                int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
+                int anno = Integer.parseInt(myData.substring(6, 10));
                 Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
                 data.set(anno, mese, giorno);                
 
@@ -144,9 +145,7 @@ public class RegistrazioneCNT extends HttpServlet {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                RequestDispatcher dispatcher = getServletContext()
-                        .getRequestDispatcher("/index.jsp");
-                dispatcher.forward(request, response);
+                response.getWriter().write("index.jsp"); 
             }
 
         }

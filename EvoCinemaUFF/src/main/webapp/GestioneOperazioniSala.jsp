@@ -4,151 +4,243 @@
     Author     : pietr
 --%>
 
-<%@page import="model.Sconto"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.sql.Date"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="model.Spettacolo"%>
-<%@page import="model.Film"%>
-<%@page import="java.util.ArrayList"%>
-<jsp:include page="GestioneAcquistiCNT"/>
-<jsp:include page="Header.jsp" />
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% request.setAttribute("title", "Vendi biglietto"); %>
+<jsp:include page="Header.jsp"/>
+<jsp:include page= "GestioneAcquistiCNT"/>
 
 <!DOCTYPE html>
-<script>
-    function OnSubmitFormGestioneOperazioniSala()
-    {
-        if(document.pressed == 'Annulla')
-        {
-            alert("annulla");
-            document.myform.action ="GestioneOperazioniSala.jsp";
-        }
-        else
-        if(document.pressed == 'Conferma')
-        {
-            alert("conferma");
-            document.myform.action ="GestioneAcquistiCNT";
-        }
-        return true;
-    }
 
-    function aggiornaOra(idSpettacolo){
-    var select = document.getElementById("orarioSelezionato");
-    
-    var xmht = new XMLHttpRequest();
-	xmht.onreadystatechange =function(){
-                console.log("readyState: " + this.readyState);
-		if(this.readyState==4&&this.status==200){
-                    /*SVUOTIAMO L'ELEMENTO SELECT*/
-                    select.options.length = 0;    
-                    
-                    /*PER OGNI OGGETTO JSON AGGIUNGERE L'OPTION RISPETTO AGLI ORARI DELLO SPETTACOLO*/        
-		    var result=this.responseText;    
-                    while(result.length>2){
-                    var orario=result.substring(2, 7);
-                    result=result.substring(8);
-                    var option = document.createElement("option");
-                    option.text = orario;
-                    option.value = orario;
-                    
-                    select.add(option);
-                    }
-		}
-	};
-	xmht.open("GET","JSONOrariSpettacolo?idSpettacolo="+idSpettacolo,true);
-	xmht.send();
-    
-    
+<%
+    List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("SPETTACOLI");
+
+    if ((null == spettacoli) || (spettacoli.size() == 0)) {
+
+%>
+<div >
+
+    <p class="m-0 text-center" > Nessun Film Da Visualizzare </p>
+
+</div>
+<%        } else {
+%>
+
+
+<div class="card-header">
+    <i class="fa fa-table"></i> Lista Film in programmazione</div>
+<div class="card-body">
+
+    <div class="table-responsive">
+        <table id="listaFilm" style="border-" class="table table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+
+                    <th>Titolo</th>
+                    <th>Data inizio</th>                                               
+                    <th>Data fine</th>
+                    <th>Ora inizio proiezione</th>
+                    <th>Ora fine proiezione</th>
+
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    for (int i = 0; i < spettacoli.size(); i++) {
+                %>
+                <tr class="selezionato"  onclick="alert('Servlet')" style="cursor: pointer;">
+                    <td><%= spettacoli.get(i).getTitolo()%></td>
+                    <%
+                        Calendar cal = spettacoli.get(i).getDataInizio();
+                        String data = cal.get(Calendar.YEAR) + "/";
+                        int mese = cal.get(Calendar.MONTH);
+                        if ((mese >= 0) && (mese < 9)) {
+                            data = data + "0" + (mese + 1);
+                        } else {
+                            data = data + (mese + 1);
+                        }
+                        data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
+                    %>       
+                    <td><%= data%></td>
+                    <%
+                        cal = spettacoli.get(i).getDataFine();
+                        data = cal.get(Calendar.YEAR) + "/";
+                        mese = cal.get(Calendar.MONTH);
+                        if ((mese >= 0) && (mese < 9)) {
+                            data = data + "0" + (mese + 1);
+                        } else {
+                            data = data + (mese + 1);
+                        }
+                        data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
+                    %>       
+                    <td><%= data%></td>
+                    <%
+                        cal = spettacoli.get(i).getOraInizio();
+                        String orario = "";
+                        int ora = cal.get(Calendar.HOUR_OF_DAY);
+                        if ((ora <= 0) && (ora >= 9)) {
+                            orario = "0" + ora;
+                        } else {
+                            orario += ora;
+                        }
+                        if (cal.get(Calendar.MINUTE) == 0) {
+                            orario += ":00";
+                        } else {
+                            orario += ":" + cal.get(Calendar.MINUTE);
+                        }
+                    %>
+                    <td><%= orario%></td>
+                    <%
+                        cal = spettacoli.get(i).getOraFine();
+                        orario = "";
+                        ora = cal.get(Calendar.HOUR_OF_DAY);
+                        if ((ora >= 0) && (ora <= 9)) {
+                            orario = "0" + ora;
+                        } else {
+                            orario += ora;
+                        }
+                        if (cal.get(Calendar.MINUTE) == 0) {
+                            orario += ":00";
+                        } else {
+                            orario += ":" + cal.get(Calendar.MINUTE);
+                        }
+                    %>
+                    <td><%= orario%></td>
+
+                </tr>
+
+                <% }  %>
+
+            </tbody>
+        </table>
+
+                <!--
+
+                <script>
+
+            $(document).ready(function () {
+
+                $("#listaFilm").DataTable({
+
+                    "order": [[0, "asc"]],
+
+                    "columns": [
+
+                        {"orderable": false},
+                        null,
+                        null,
+                        {"orderable": false},
+                        null,
+                        null,
+                        {"orderable": false}]
+                });
+
+
+            });
+
+
+
+
+        </script>
+
+-->
+<!--
+        <script>
+
+
+
+            var valore;
+
+            $(".rateYo").each(function (e) {
+
+                valore = $(this).text();
+
+                if (!(valore === "Non Disponibile")) {
+
+                    $(this).rateYo({
+
+                        rating: valore,
+                        readOnly: true,
+                        precision: 4
+
+                    });
+
+                    $("#ValBott").css("border-bottom-width", "2px");
+                    $("#ValBott").css("border-right-width", "0px");
+                    $("#ValBottLeft").css("border-left-width", "0px");
+                    $(".rigaVal").css("border-right-width", "0px");
+                    $(".rigaValLeft").css("border-left-width", "0px");
+
+
+                }
+
+
+            });
+
+        </script>
+-->
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $( function() {
+   	 $( "#datepicker" ).datepicker();
+  	} );
+  
+    // Setup - add a text input to each footer cell
+    $('#listaFilm tfoot th').each( function () {
+        var title = $(this).text();
+        if (title === "Start date") {
+            $(this).html( '<input type="text" id="datepicker" placeholder="Search '+title+'" />' );
+            }
+            else {
+		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+            }
+    } );
+
+    // DataTable
+    var table = $('#listaFilm').DataTable({ 
+
+
+        "scrollCollapse": false,
+        "paging":         true
     }
-    
-    function aggiornaData(orarioSpettacoloSelezionato){
-        var idSpettacoloSelezionato = document.getElementById("spettacoloSelezionato").value;
-    
-        var xmht = new XMLHttpRequest();
-            xmht.onreadystatechange =function(){
-		console.log("readyState: " + this.readyState);
-		if(this.readyState==4&&this.status==200){
-                   
-                   //MODIFICARE ELEMENTO CON ID "TO" NELLA PAGINA
-                    var result=this.responseText;  
-                    alert("data "+result.substring(2,10));
-                    document.getElementById("to").value=result.substring(2,10);
-                    
-		}
-	};
-	xmht.open("GET","JSONDataSpettacolo?idSpettacolo="+
-                idSpettacoloSelezionato+"&oraSpettacolo="+orarioSpettacoloSelezionato,true);
-	xmht.send();
-    
-    }
+    );
+
+
+    $('#listaFilm tbody').on( 'click', 'tr', function () {
+    $(this).toggleClass('selected');
+    } );
+
+
+     $('#listaFilm tbody')
+        .on( 'mouseenter', 'td', function () {
+            var colIdx = table.cell(this).index().column;
+
+            $( table.cells().nodes() ).removeClass( 'highlight' );
+            $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
+        } );
+
+
+    $('#button').click( function () {
+        alert( table.rows('.selected').data().length +' row(s) selected' );
+    } );
+
+    });
 </script>
 
 
+    </div>
+</div>
 
-<form name="" method="POST" onclick="return OnSubmitFormGestioneOperazioniSala()">
-    <fieldset class="fieldsetCustom">
+<% }%>
 
 
-        <legend class="legendCustom">Vendita biglietti - 1 </legend>
+<jsp:include page= "/Footer.jsp"/>
 
-        <div class="m-4">
-            <lable>Spettacolo in programmazione</lable>
-            <select id="spettacoloSelezionato" class="float-right" onchange="aggiornaOra(this.value)">
-                <% for (Spettacolo s : (ArrayList<Spettacolo>)request.getAttribute("SPETTACOLI")) {
-                        String titolo = s.getTitolo();
-                        int id = s.getIdFilm();%>
-                <option name="idSpettacolo" value="<%=id%>"><%=titolo%></option>  <!--COME VALORE DELL'OPTION SETTO L'ID DEL FILM COSI 
-                                                           CE L'HO GIA' DISPONIBILE-->
-                <%}%>
-            </select>		
-        </div>
 
-        <div class="m-4">
-            <lable>Orario programmazione</lable>
-            <select id="orarioSelezionato" class="float-right" onchange="aggiornaData(this.value)">
-               
-            </select>
-        </div>
-        
-        <div class="m-4">
-            <lable>Data programmazione</lable>
-            <!-- datapicker bootstrap-->
-            <input type="text" class="float-right" id="to" name="data">
-        </div> 
-    
-        
-   
-
-        <!-- NUMERO DI BIGLIETTI IN BASE AD I POSTI CHE VERRANNO OCCUPATI
-        <div>
-        <lable>N°biglietti</lable>
-        <input class="float-right" type="number" value="1" name="quantity" min="1" max="5"> 
-        </div>
-        -->    
-
-        <div class="m-4">
-            <lable>Sconto</lable>
-            <select class="float-right">
-            <% for (Sconto sc : (ArrayList<Sconto>)request.getAttribute("SCONTI")) {
-                        String titolo = sc.getNome();
-                        int idSconto = sc.getIdSconto();
-            %>    
-                <option value="<%=idSconto%>"><%=titolo%></option>
-            <%}%>
-            </select>
-        </div>
-        
-
-        <div class="float-right">
-            <!--LA SERVLET PREMENDO SU CONFERMA AGGIUNGE NELLA SESSIONE UN OGGETTO CON QUESTI PARAMETRI-->
-            <input class="mr-3" type="submit" name="Conferma" value="Conferma" 
-                   onclick="document.pressed=this.value"/>  
-            
-            <input type="submit" name="Annulla" value="Annulla"
-                   onclick="document.pressed=this.value"/>
-        </div>
-             
-    </fieldset>
-</form>
-<jsp:include page="Footer.jsp" />

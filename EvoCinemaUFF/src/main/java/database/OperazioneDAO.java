@@ -180,6 +180,55 @@ public class OperazioneDAO {
     return prenotazioni;
    }
    
+      /**
+     * Permette di estrarre le tuple di tipo {@link Prenotazione} dal DB di ogni utnte.
+     * @return Lista di oggetti di tipo {@link Prenotazione} presenti all'interno del DB.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public List<Prenotazione> getPrenotazioniUtente(String emailParam) throws SQLException, ParseException, NamingException {
+      
+       PreparedStatement stmt=null;
+       List<Prenotazione> prenotazioni = new LinkedList<>();
+       try {
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE prenotato= 'TRUE' AND acquistato='FALSE' AND email= '"+emailParam+"'");
+
+            ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+                   
+                        Prenotazione p = new Prenotazione();
+                        p.setIdOperazione(rs.getInt("id_Operazione"));
+			p.setEmail(rs.getString("email"));
+                        p.setIdSpettacolo(rs.getInt("idSpettacolo"));
+			p.setPostoColonna(rs.getInt("posto_colonna"));
+                        p.setPostoRiga(rs.getInt("posto_riga"));
+                        p.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
+                        p.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
+                        p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
+                        Calendar data = Calendar.getInstance();
+                        Date newDate = rs.getTimestamp("data");
+                        data.setTime(newDate);
+                        p.setData(data);
+                        int idSala = rs.getInt("idSala");
+                        int idSconto = rs.getInt("sconto_applicato");
+                        Sala sala = salaDAO.foundByID(idSala);
+                        p.setSala(sala);
+                        Sconto sconto = scontoDAO.foundByID(idSconto);
+                        p.setSconto(sconto);
+                        
+                        prenotazioni.add(p);
+                    }
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
+		}
+    return prenotazioni;
+   }
+   
    /**
      * Permette di estrarre le tuple di tipo {@link Acquisto} dal DB.
      * @return Lista di oggetti di tipo {@link Acquisto} presenti all'interno del DB.

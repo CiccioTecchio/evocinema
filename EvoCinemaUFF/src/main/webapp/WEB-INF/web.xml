@@ -101,10 +101,6 @@
         <url-pattern>/ModificaScontoCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>VisualizzaScontoCNT</servlet-name>
-        <url-pattern>/VisualizzaScontoCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PrenotazioneBigliettoCNT</servlet-name>
         <url-pattern>/PrenotazioneBigliettoCNT</url-pattern>
     </servlet-mapping>
