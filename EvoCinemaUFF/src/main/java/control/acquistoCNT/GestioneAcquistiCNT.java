@@ -44,16 +44,7 @@ public class GestioneAcquistiCNT extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
        
         
-            /*String myData = request.getParameter("dataRegistrazione");
-                int anno = Integer.parseInt(myData.substring(0, 4));
-                int mese = Integer.parseInt(myData.substring(5, 7)) - 1;
-                int giorno = Integer.parseInt(myData.substring(8, 10));
-                Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-                data.set(anno, mese, giorno);                
-
-                u.setDataNascita(data);*/
-        
-            //FILM E SCONTI SONO SEMPRE GLI STESSI, VARIANO SOLTANTO ORE E DATA    
+           
             
             SpettacoloDAO spdao= new SpettacoloDAO();
             Calendar cal = Calendar.getInstance();
@@ -68,7 +59,7 @@ public class GestioneAcquistiCNT extends HttpServlet {
             request.setAttribute("SPETTACOLI", spettacoli);
             request.setAttribute("SCONTI", sconti);
         
-        
+           
         
         
          /*
