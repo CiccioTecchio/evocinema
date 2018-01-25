@@ -90,10 +90,12 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="submit" class="btn btn-dark">Procedi con l'ordine</button>
+                                        <form id="target" method="GET" action="paginaPietro.jsp">
+                                            <button type="submit" class="btn btn-primary">Procedi con l'ordine</button>
+                                        </form>
                                     </div>
                                     <div class="col">
-                                        <p id="totale">Totale = 0.00&euro;</p>
+                                        <p id="totale" class="btn btn-dark">Totale = 0.00&euro;</p>
                                     </div>
                                 </div>
                             </div>

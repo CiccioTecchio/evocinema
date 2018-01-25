@@ -3,7 +3,7 @@ var posti_disponibili = document.querySelectorAll(".vds-posto-disponibile");
 var seats = document.getElementById("seats");
 var prezzo = seats.getAttribute("data-prezzo");
 var ro = document.querySelector("#riepilogo-ordine .container");
-
+$("#target").submit(submit);
 setIdPosto(seats.getAttribute("data-num-posti"));
 
 for(i = 0; i < posti_disponibili.length; i++){
@@ -52,4 +52,9 @@ function removeFromRiepilogo(e){
 
 function calcolaTotale(){
     $("#totale").html("Totale = " + $(".prezzo").length * prezzo + "&euro;");
+}
+
+function submit(e){
+    alert("Dai cazzo");
+    e.preventDefault();
 }
