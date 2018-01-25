@@ -2,7 +2,6 @@
 <jsp:include page="Header.jsp" />
 
 
-
         <header>
             
             <div class="swiper-container">

@@ -43,11 +43,14 @@
         <link href="../Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
         <!-- Custom styles for this template-->
         <link href="../Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
+        <script src="../HomeSlider/vendor/jquery/jquery.min.js"></script>
         <script src="../Template%20Sb%20Admin/js/sb-admin.min.js"></script>
 
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
         <link rel="icon" href="../images/logoGIF.gif" type="image/gif" sizes="160x160">
-        <script src="../HomeSlider/vendor/jquery/jquery.min.js"></script>
+        
 
 
 
@@ -83,20 +86,37 @@
                             <span class="nav-link-text">Home - Admin</span>
                         </a>
                     </li>
-                                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-book"></i>
-            <span class="nav-link-text">Libreria</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="collapseComponents">
-            <li>
-              <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
-            </li>
-            <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
-                
-            </li>
-          </ul>
-        </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Libreria</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents">
+                            <li>
+                                <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
+                            </li>
+                            <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sconti">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Sconti</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents1">
+                            <li>
+                                <a href="VisualizzaSconti.jsp">Visualizza Sconti</a>
+                            </li>
+                            <li><a href="InserisciSconto.jsp">Inserisci Sconto</a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    
 
 
 
@@ -112,22 +132,52 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
+
+                    <%
+                        if (u == null) {
+                    %>
                     <li class="nav-item">
-                        <%
-                            if (u == null) {
-                        %>
                         <a class="nav-link" href="Login.jsp">
                             <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
-                            <%
-                            } else {
-                            %>                        
-                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-                            <%
-                                }
-                            %>
                     </li>
+                    <%
+                    } else {
+                    %> 
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente()%>
+                        </a>
+                        <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
+                            <a class="dropdown-item" href="VisualizzaProfilo.jsp">
+                                <span class="text-success">
+                                    <strong>
+                                        <i class="fa fa-user-circle"></i>Profilo</strong>
+                                </span>
+
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">
+                                <span class="text-danger">
+                                    <strong>
+                                        <i class="fa fa-fw fa-sign-out"></i>Logout</strong>
+                                </span>
+                            </a>
+                        </div>
+                    </li>
+
+                    <%
+                        }
+                    %>
                 </ul>
+                <script>
+                    $(document).ready(function () {
+                        $("#alertsDropdown").click(function () {
+                            $("#showtogglemenu").toggle();
+                        });
+                    });
+                </script>
+
             </div>
         </nav>
 
@@ -190,10 +240,10 @@
             <i class="fa fa-fw fa-sign-out"></i>Logout</a>
                 <%                            //}
 %>
-            </li>
-        </ul>
-    </div>
-</nav>  -->
+                            </li>
+                        </ul>
+                    </div>
+                </nav>  -->
 
 
 

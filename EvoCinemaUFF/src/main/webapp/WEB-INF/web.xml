@@ -84,10 +84,7 @@
         <servlet-name>EliminaSpettacoloCNT</servlet-name>
         <url-pattern>/EliminaSpettacoloCNT</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AbilitaScontoCNT</servlet-name>
-        <url-pattern>/AbilitaScontoCNT</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AggiuntaScontoCNT</servlet-name>
         <url-pattern>/AggiuntaScontoCNT</url-pattern>
@@ -95,10 +92,6 @@
     <servlet-mapping>
         <servlet-name>ModificaScontoCNT</servlet-name>
         <url-pattern>/ModificaScontoCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VisualizzaScontoCNT</servlet-name>
-        <url-pattern>/VisualizzaScontoCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrenotazioneBigliettoCNT</servlet-name>

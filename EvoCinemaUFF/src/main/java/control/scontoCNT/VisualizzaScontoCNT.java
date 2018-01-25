@@ -5,17 +5,29 @@
  */
 package control.scontoCNT;
 
+import database.ScontoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Sconto;
 
 /**
  *
- * @author Michele
+ * @author francescodefeo
  */
+@WebServlet(name = "visualizzaSconto", urlPatterns = {"/visualizzaSconto"})
 public class VisualizzaScontoCNT extends HttpServlet {
 
     /**
@@ -45,6 +57,22 @@ public class VisualizzaScontoCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        Collection<Sconto> arrayList = null; 
+
+        try { 
+           ScontoDAO query = new ScontoDAO();
+            arrayList = query.getAllSconti();
+            
+        } catch (NamingException ex) {
+            Logger.getLogger(VisualizzaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(VisualizzaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(VisualizzaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+       
+        request.setAttribute("listaSconti", arrayList );
     }
 
     /**

@@ -5,17 +5,29 @@
  */
 package control.scontoCNT;
 
+import database.ScontoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Sconto;
 
 /**
  *
  * @author Michele
  */
+@WebServlet(name = "abilitaSconto", urlPatterns = {"/admin/abilitaSconto"})
 public class AbilitaScontoCNT extends HttpServlet {
 
     /**
@@ -45,6 +57,27 @@ public class AbilitaScontoCNT extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        System.out.print("KIGFKSkjsashjdhvaskblavbjkvsbjavbkjadsvbj bdjklj kdbj dbjfvbjkfksfjahvsafkjhsadlkjfhasdlkjfhsdalkjfhasdlkjfhasdljkfhasdlkfasd,hjk");
+        int position = Integer.parseInt(request.getParameter("position"));
+        List<Sconto> array = (List<Sconto>) request.getSession().getAttribute("listaSconti");
+        Sconto sconto = array.get(position);
+        if(sconto.getDisponibile().equals(Sconto.disponibile.TRUE))
+        sconto.setDisponibile(Sconto.disponibile.FALSE);
+        else
+        sconto.setDisponibile(Sconto.disponibile.TRUE);
+        try { 
+            ScontoDAO dao = new ScontoDAO();
+            dao.updateSconto(sconto);
+            
+        } catch (NamingException ex) {
+            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         RequestDispatcher res = request.getRequestDispatcher("/admin/VisualizzaSconti.jsp");
+         res.forward(request, response);
     }
 
     /**
