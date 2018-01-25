@@ -62,8 +62,6 @@ public class VisualizzaScontoCNT extends HttpServlet {
         try { 
            ScontoDAO query = new ScontoDAO();
             arrayList = query.getAllSconti();
-            for(Sconto s:arrayList)
-            System.out.print(s);
             
         } catch (NamingException ex) {
             Logger.getLogger(VisualizzaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);

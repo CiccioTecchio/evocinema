@@ -5,12 +5,25 @@
  */
 package control.accountCNT;
 
+import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.UtenteBase;
+import model.UtenteRegistrato;
 
 /**
  *
@@ -60,6 +73,81 @@ public class ModificaDettagliCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        HttpSession s = request.getSession();
+        UtenteBase utente = (UtenteBase) s.getAttribute("user");
+        
+        
+        utente.setRuolo(UtenteRegistrato.ruolo.UTENTE);
+        
+        
+        String nome = request.getParameter("modificaNome");
+        utente.setNome(nome);
+        String cognome = request.getParameter("modificaCognome");
+        utente.setCognome(cognome);
+        
+        String città = request.getParameter("modificaCitta");
+        utente.setCittà(città);
+               
+        
+        
+        String indirizzo = request.getParameter("modificaIndirizzo");
+        utente.setIndirizzo(indirizzo);
+        
+        String cellulare = request.getParameter("modificaCellulare");
+        utente.setCellulare(cellulare);
+        
+        
+        String sesso = request.getParameter("modificaSesso");
+        if(sesso.equalsIgnoreCase("maschio")){
+            utente.setSesso(UtenteRegistrato.sesso.M);
+        }else if(sesso.equalsIgnoreCase("femmina")){
+            utente.setSesso(UtenteRegistrato.sesso.F);
+        }
+        
+        String myData = request.getParameter("modificaData");
+                int anno = Integer.parseInt(myData.substring(0, 4));
+                int mese = Integer.parseInt(myData.substring(5, 7)) - 1;
+                int giorno = Integer.parseInt(myData.substring(8, 10));
+                Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+                data.set(anno, mese, giorno);               
+                utente.setDataNascita(data);
+        
+                
+        
+                //utente.setNomeUtente((String) request.getParameter("modificaUser"));
+                String password = (String) request.getParameter("modificaPassword");
+                if(!password.isEmpty()){
+                
+                    String password1 = (String) request.getParameter("modificaPassword1");
+                    if( password.equals(password1)){
+                        utente.setPassword(password);
+                        System.out.println("le password coincidono");
+                    } else {
+                        s.setAttribute("passwordCoincidono", "false");
+                        System.out.println("le password non coincidono");
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account/VisualizzazioneAccount.jsp");
+                        dispatcher.forward(request, response);
+                    }
+                }
+        
+        
+        try {
+            UtenteRegistratoDAO dao = new UtenteRegistratoDAO();
+            dao.updateUtenteRegistrato(utente);
+            
+            
+        } catch (NamingException | SQLException | ParseException ex) {
+            Logger.getLogger(CancellazioneAccountCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        s.setAttribute("user", utente);
+        
+        
+        
+        String page="/account/VisualizzazioneAccount.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        dispatcher.forward(request, response);
     }
 
     /**

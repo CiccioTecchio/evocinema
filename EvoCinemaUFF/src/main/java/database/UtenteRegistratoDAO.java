@@ -222,10 +222,14 @@ public class UtenteRegistratoDAO {
         try {
             if(ut.getRuolo().equals(UTENTE)){
                 UtenteBase u= (UtenteBase) ut;
+
                 stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente= ? , password= ? , ruolo= ? , nome= ? , cognome= ?, data_nascita= ? , "
-                        + "                                             sesso= ? , cellulare= ? , città= ? , indirizzo= ? , saldo= ?  WHERE ( email= ? );");
+                        +" sesso= ? , cellulare= ? , città= ? , indirizzo= ? , saldo= ?  WHERE ( email= ? );");
                 stmt.setFloat(11, u.getSaldo());
                 stmt.setString(12, ut.getEmail());
+
+                stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + u.getNomeUtente() + "', password='" + u.getPassword() + "', ruolo='" + u.getRuolo() + "', nome='" + u.getNome() + "', cognome='" + u.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + u.getSesso() + "', cellulare='" + u.getCellulare() + "', città='" + u.getCittà() + "', indirizzo='" + u.getIndirizzo() + "', saldo='"+u.getSaldo()+"' WHERE ( email='" + u.getEmail() + "');");
+
             }
             else{
                 stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente "

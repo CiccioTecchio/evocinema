@@ -44,11 +44,12 @@
    
         <!-- Custom styles for this template-->
         <link href="Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
+        <script src="HomeSlider/vendor/jquery/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="Template%20Sb%20Admin/js/sb-admin.min.js"></script>
 
-
         <link rel="icon" href="../images/logoGIF.gif" type="image/gif" sizes="160x160">
-        <script src="HomeSlider/vendor/jquery/jquery.min.js"></script>
+        
 
         <!-- Libreria Rating  -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
@@ -62,7 +63,7 @@
 
         <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>     
         <script src="javascript/swiper.js"></script> 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
 
 
 
