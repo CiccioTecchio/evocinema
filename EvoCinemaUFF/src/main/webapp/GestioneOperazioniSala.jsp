@@ -52,9 +52,13 @@
             <tbody>
                 <%
                     for (int i = 0; i < spettacoli.size(); i++) {
+                        String idSpettacolo=""+spettacoli.get(i).getIdSpettacolo();
                 %>
-                <tr class="selezionato"  onclick="alert('Servlet')" style="cursor: pointer;">
-                    <td><%= spettacoli.get(i).getTitolo()%></td>
+
+                
+                <tr class="selezionato" onclick="window.location.href='VisualizzazioneDettagliSpettacolo.jsp?idSpettacolo=<%= idSpettacolo %>'" style="cursor: pointer;">
+                    <td name="idSpettacolo" value="<%= spettacoli.get(i).getIdSpettacolo()%>"
+                        ><%= spettacoli.get(i).getTitolo()%></td>
                     <%
                         Calendar cal = spettacoli.get(i).getDataInizio();
                         String data = cal.get(Calendar.YEAR) + "/";
@@ -83,13 +87,14 @@
                         cal = spettacoli.get(i).getOraInizio();
                         String orario = "";
                         int ora = cal.get(Calendar.HOUR_OF_DAY);
-                        if ((ora <= 0) && (ora >= 9)) {
+                        int minuti = cal.get(Calendar.MINUTE);
+                        if ((ora >= 0) && (ora <= 9)) {
                             orario = "0" + ora;
                         } else {
                             orario += ora;
                         }
-                        if (cal.get(Calendar.MINUTE) == 0) {
-                            orario += ":00";
+                        if (minuti>=0 && minuti<10) {
+                            orario+=":0"+minuti;
                         } else {
                             orario += ":" + cal.get(Calendar.MINUTE);
                         }
@@ -99,13 +104,14 @@
                         cal = spettacoli.get(i).getOraFine();
                         orario = "";
                         ora = cal.get(Calendar.HOUR_OF_DAY);
+                        minuti = cal.get(Calendar.MINUTE);
                         if ((ora >= 0) && (ora <= 9)) {
                             orario = "0" + ora;
                         } else {
                             orario += ora;
                         }
-                        if (cal.get(Calendar.MINUTE) == 0) {
-                            orario += ":00";
+                        if (minuti>=0 && minuti<10) {
+                            orario+=":0"+minuti;
                         } else {
                             orario += ":" + cal.get(Calendar.MINUTE);
                         }
@@ -118,76 +124,24 @@
 
             </tbody>
         </table>
+           
+    </div>
+</div>
 
-                <!--
-
-                <script>
-
-            $(document).ready(function () {
-
-                $("#listaFilm").DataTable({
-
-                    "order": [[0, "asc"]],
-
-                    "columns": [
-
-                        {"orderable": false},
-                        null,
-                        null,
-                        {"orderable": false},
-                        null,
-                        null,
-                        {"orderable": false}]
-                });
-
-
-            });
-
-
-
-
-        </script>
-
--->
-<!--
-        <script>
-
-
-
-            var valore;
-
-            $(".rateYo").each(function (e) {
-
-                valore = $(this).text();
-
-                if (!(valore === "Non Disponibile")) {
-
-                    $(this).rateYo({
-
-                        rating: valore,
-                        readOnly: true,
-                        precision: 4
-
-                    });
-
-                    $("#ValBott").css("border-bottom-width", "2px");
-                    $("#ValBott").css("border-right-width", "0px");
-                    $("#ValBottLeft").css("border-left-width", "0px");
-                    $(".rigaVal").css("border-right-width", "0px");
-                    $(".rigaValLeft").css("border-left-width", "0px");
-
-
-                }
-
-
-            });
-
-        </script>
--->
-
-
+<% }%>
+     
+                
 <script type="text/javascript">
 $(document).ready(function() {
+    
+    
+     /*NASCONDO SEARCH FIELD IN ALTO A DESTRA*/
+    /*
+        $('#listaFilm').dataTable( {
+            searching: false           
+        } );
+        */
+    /*    
     $( function() {
    	 $( "#datepicker" ).datepicker();
   	} );
@@ -202,11 +156,9 @@ $(document).ready(function() {
 		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
             }
     } );
-
+*/
     // DataTable
     var table = $('#listaFilm').DataTable({ 
-
-
         "scrollCollapse": false,
         "paging":         true
     }
@@ -231,14 +183,25 @@ $(document).ready(function() {
         alert( table.rows('.selected').data().length +' row(s) selected' );
     } );
 
-    });
+/*
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+  */  
+    
+    
+} );
 </script>
 
-
-    </div>
-</div>
-
-<% }%>
 
 
 <jsp:include page= "/Footer.jsp"/>
