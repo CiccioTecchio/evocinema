@@ -2,3 +2,15 @@
     Created on : 24-gen-2018, 16.23.51
     Author     : luca
 */
+div[data-label] {
+    font-weight: bold;
+}
+
+
+div[data-table] .row:nth-child(even) {
+    background-color: lightblue;
+}
+
+#orari {
+    background: none;
+}
