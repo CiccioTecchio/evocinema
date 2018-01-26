@@ -30,21 +30,18 @@
         }
         ArrayList<FilmConValutazioneMedia> array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
 
-        if (array == null || idFilmAr == null || idFilmAr == " ") { %>
+        if (array == null || idFilmAr == null || idFilmAr == "") { %>
 
 
 
     <div class="jumbotron text-center">
         <ol class="breadcrumb-item" >
 
-            <h4>Non Sono Presenti Elementi da Visualizzare</h4> 
+            <h4>Non sono presenti film da visualizzare</h4> 
 
         </ol>
 
     </div>
-
-
-
 
     <%
 
@@ -58,7 +55,7 @@
         String data = simple.format(cal.getTime());
 
     %>
-    <div class="row" >
+    <div class="row ml-3 mt-5">
 
         <div class="card mb-3">
             <img class="card-img-top img-fluid thumbnail " style="max-width: 350px ; max-height: 500px " src="<%= film.getLocandina()%>">
@@ -66,33 +63,31 @@
 
     <div class="card mb-3 ml-5">
         <span class="card-header" > Informazioni Film </span>
-        <div class="row"> 
-            <div class="card-body pt-1 mt-4" >
+
+        <div class="card-body pt-1 mt-4 pl-5 pr-5" >
                 <table>
                     <tr>
-                        <td class="text-right"> <H3>Voto :</H3></td><td><p id="valutazioneFilm" class="card-body mr-2"> <%= film.getValutazioneMedia()%></p> </td>
+                        <td class="text-right pr-3"> <H3>Voto :</H3></td><td><p id="valutazioneFilm" class="card-body mr-2"> <%= film.getValutazioneMedia()%></p> </td>
 
                     </tr>
                     <tr>
-                        <td class="text-right"><H5><strong> Titolo :</strong></H5></td><td> <H2><%= film.getTitolo()%></H2></td></tr>
+                        <td class="text-right pr-3"><H5><strong> Titolo :</strong></H5></td><td> <H2> <%= film.getTitolo()%></H2></td></tr>
                     <tr>
-                        <td class="text-right"><H5><strong> Genere :</strong></H5></td><td><H5> <%= film.getGenere()%></H5></td></tr>
+                        <td class="text-right pr-3"><H5><strong> Genere :</strong></H5></td><td><H5> <%= film.getGenere()%></H5></td></tr>
                     <tr>
-                        <td class="text-right"><strong> Durata :</strong></td><td> <%= film.getDurata()%></td></tr>
+                        <td class="text-right pr-3"><strong> Durata :</strong></td><td> <%= film.getDurata()%></td></tr>
                     <tr>
-                        <td class="text-right"><strong> Regia :</strong></td><td> <%= film.getRegia()%></td></tr>
+                        <td class="text-right pr-3"><strong> Regia :</strong></td><td> <%= film.getRegia()%></td></tr>
                     <tr>
-                        <td class="text-right"><strong> Cast :</strong></td><td> <%= film.getCast()%></td></tr>
+                        <td class="text-right pr-3"><strong> Cast :</strong></td><td> <%= film.getCast()%></td></tr>
                     <tr>
-                        <td class="text-right"><strong> Produzione :</strong></td><td> <%= film.getProduzione()%></td></tr>
+                        <td class="text-right pr-3"><strong> Produzione :</strong></td><td> <%= film.getProduzione()%></td></tr>
                 </table>
 
             </div> 
 
-        </div>
     </div>
 
-</div>
 </div>
 <div class="card mb-3">
 
@@ -162,7 +157,7 @@
         <%
             List<Recensione> recensioni;
             recensioni = (List<Recensione>) request.getAttribute("recensioni");
-            if (null == recensioni) {
+            if ((null == recensioni)||(recensioni.isEmpty())) {
         %>
 
         Questo film non ha ancora nessuna recensione. Se lo hai già visto, scrivine una tu! ;)
@@ -218,11 +213,10 @@
     </div>
 </div>
 <%}%> 
-
+</div>
 <script>
 
     var valore = $("#valutazioneFilm").text();
-    console.log(valore);
 
     $("#valutazioneFilm").rateYo({
 
@@ -270,11 +264,6 @@
 
 
     }
-
-
-
-
-
 
 </script>
 <jsp:include page="Footer.jsp" />
