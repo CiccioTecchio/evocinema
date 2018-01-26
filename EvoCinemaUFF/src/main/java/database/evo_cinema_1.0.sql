@@ -209,8 +209,8 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Operazione` (
   `id_Operazione` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(50) NOT NULL,
   `idSpettacolo` INT NOT NULL,
-  `posto_colonna` TINYINT(2) NOT NULL,
-  `posto_riga` TINYINT(2) NOT NULL,
+  `posto` INT NOT NULL,
+  `offset` INT NOT NULL,
   `idSala` INT NOT NULL,
   `prenotato` ENUM('TRUE', 'FALSE') NOT NULL,
   `acquistato` ENUM('TRUE', 'FALSE') NOT NULL,
@@ -219,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Operazione` (
   `sconto_applicato` INT NOT NULL,
   PRIMARY KEY (`id_Operazione`),
   INDEX `FK_id Spettacolo_idx` (`idSpettacolo` ASC),
-  INDEX `FK_posto_idx` (`posto_colonna` ASC, `posto_riga` ASC, `idSala` ASC),
+/*  INDEX `FK_posto_idx` (`posto_colonna` ASC, `posto_riga` ASC, `idSala` ASC), */
   INDEX `FK_sconto_idx` (`sconto_applicato` ASC),
   CONSTRAINT `FK_utente`
     FOREIGN KEY (`email`)
@@ -231,11 +231,11 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Operazione` (
     REFERENCES `evo_cinema`.`Spettacolo` (`idSpettacolo`)
     ON DELETE NO ACTION
     ON UPDATE CASCADE,
-  CONSTRAINT `FK_posto`
+/*  CONSTRAINT `FK_posto`
     FOREIGN KEY ( `posto_riga` , `posto_colonna` , `idSala`)
     REFERENCES `evo_cinema`.`Posto` (`riga` ,`colonna`, `idSala`)
     ON DELETE NO ACTION
-    ON UPDATE CASCADE,
+    ON UPDATE CASCADE,*/
   CONSTRAINT `FK_sconto`
     FOREIGN KEY (`sconto_applicato`)
     REFERENCES `evo_cinema`.`Sconto` (`idSconto`)

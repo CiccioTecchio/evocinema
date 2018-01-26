@@ -29,13 +29,12 @@
     char[] matricePostiSpettacolo = rs.getMatricePostiSpettacolo();
 %>
         <div class="container-fluid">
-            <div id ="titolo" class="row">
-                <div class ="col">Seleziona i Posti</div>
-                <div class ="col">Riepilogo-Ordine</div>
-            </div> 
             <div class="row">
                 <div class ="col">
-                    <div id="seats" class="container">
+                    <div data-num-posti="<%= sala.getNumeroPosti() %>" data-prezzo="<%= spettacolo.getPrezzo() %>" id="seats" class="card">
+                        <h5 class="card-header">Seleziona i Posti</h5>
+                        <div class="card-body">
+                            
 <%   
     //Stampa della sala e dei posti in base al relativo stato
     String url = null, classe = null;
@@ -50,6 +49,7 @@
             switch(matSala[i][j]){
                 case '0' :
                     url = "images/trasparente.png";
+                    classe = "vds-trasparente";
                     break;
                 case '2' :
                     url = "images/poltrona_non_disponibile_v2.png";
@@ -57,7 +57,7 @@
                     y++;
                     break;
                 case '1' :
-                    switch(matricePostiSpettacolo[offset + y++]){
+                    switch(matricePostiSpettacolo[offset + y]){
                         case 'd':
                             url = "images/poltrona_disponibile_v2.png";
                             classe = "vds-posto-disponibile";
@@ -78,17 +78,38 @@
                     url = String.valueOf(matSala[i][j]);
             }
 %>
-            <img class="<%= classe %> cell" src="<%= url %>" />
-<%
+            <img data-pos ="" class="vds-posto <%= classe %> cell" src="<%= url %>" />
+<%          y++;
         }
  %>
                     </div>
 <%
     }
 %>
+                        
+                        </div>
                     </div>
                 </div>
-                <div class ="col">RiepilogoOrdine</div>
-
-
+                <div class ="col">
+                    <div id="riepilogo-ordine" class="card">
+                        <h5 class="card-header">Riepilogo Ordine</h5>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <form id="target" method="GET" action="paginaPietro.jsp">
+                                            <button type="submit" class="btn btn-primary">Procedi con l'ordine</button>
+                                        </form>
+                                    </div>
+                                    <div class="col">
+                                        <p id="totale" class="btn btn-dark">Totale = 0.00&euro;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+<script src="javascript/visualizzazione_dettagli_spettacolo.js"></script>
 <jsp:include page="Footer.jsp" />
