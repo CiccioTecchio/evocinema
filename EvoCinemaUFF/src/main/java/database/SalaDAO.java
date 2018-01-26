@@ -85,7 +85,8 @@ public class SalaDAO {
     */
    public synchronized Sala foundByID(int idSala) throws SQLException, ParseException, NamingException {
        try {
-           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sala WHERE id_sala="+idSala+"");
+           stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Sala WHERE id_sala= ? ");
+           stmt.setInt(1, idSala);
            ResultSet rs = stmt.executeQuery();
            rs.next();
            salaFound.setIdSala(rs.getInt("id_sala"));
@@ -112,7 +113,10 @@ public class SalaDAO {
         boolean inserita= false;
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sala (id_sala, numero_posti, configurazione_posti) VALUES ('"+ s.getIdSala() +"', '"+ s.getNumeroPosti()+"', '"+ s.getConfigPosti()+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sala (id_sala, numero_posti, configurazione_posti) VALUES ( ? , ? , ? )");
+            stmt.setInt(1, s.getIdSala());
+            stmt.setInt(2, s.getNumeroPosti());
+            stmt.setString(3, s.getConfigPosti());
             stmt.executeUpdate();
             inserita = true;
         } 
@@ -138,7 +142,11 @@ public class SalaDAO {
        PreparedStatement stmt=null;
        boolean update= false;       
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Sala SET numero_posti='"+ s.getNumeroPosti()+"', configurazione_posti='"+ s.getConfigPosti()+"' WHERE ( id_sala='"+ s.getIdSala()+ "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Sala SET numero_posti= ? , configurazione_posti= ?  WHERE ( id_sala= ? );");
+            stmt.setInt(1, s.getNumeroPosti());
+            stmt.setString(2, s.getConfigPosti());
+            stmt.setInt(3, s.getIdSala());
+            
             stmt.executeUpdate();
             update = true;
         } 
@@ -162,7 +170,8 @@ public class SalaDAO {
        PreparedStatement stmt=null;
        boolean delete= false;       
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.sala WHERE ( id_sala='"+ idSala +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.sala WHERE ( id_sala= ? );");
+            stmt.setInt(1, idSala);
             stmt.executeUpdate();
             delete = true;
         } 

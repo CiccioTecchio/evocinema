@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Michele
+ * @author francescodefeo
  */
 public class AggiuntaScontoCNT extends HttpServlet {
 

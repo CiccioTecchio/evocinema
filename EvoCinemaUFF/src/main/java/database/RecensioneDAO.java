@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
 import model.Film;
+import java.sql.Date; 
 import model.Recensione;
 
 
@@ -96,9 +97,10 @@ public class RecensioneDAO {
        List<Recensione> recensioni = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= '"+ emailUtente +"' AND data_recensione IS NOT NULL AND testo IS NOT NULL");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= ? AND data_recensione IS NOT NULL AND testo IS NOT NULL");
+            stmt.setString(1, emailUtente);
             ResultSet rs = stmt.executeQuery();
-
+            
 		while (rs.next()) {
                     Recensione r= new Recensione();
                     r.setEmailUtente(rs.getString("email"));
@@ -135,18 +137,18 @@ public class RecensioneDAO {
        List<Recensione> recensioni = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE id_opera= '"+ idFilm +"' AND data_recensione IS NOT NULL AND testo IS NOT NULL");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT Recensioni.*, Utente.nome_utente FROM evo_cinema.Recensioni inner join evo_cinema.Utente on Recensioni.email=Utente.email WHERE id_opera= ? AND data_recensione IS NOT NULL AND testo IS NOT NULL");
+            stmt.setInt(1,  idFilm );
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
                     Recensione r= new Recensione();
-                    r.setEmailUtente(rs.getString("email"));
+                    r.setEmailUtente(rs.getString("nome_utente"));
                     int idOpera = rs.getInt("id_opera");
                     Film film = filmDAO.foundByID(idOpera);
                     r.setFilm(film);
                     r.setValutazione(rs.getFloat("valutazione"));
                     r.setTesto(rs.getString("testo"));
-                    
                     Calendar data = Calendar.getInstance();
                     data.setTime(rs.getDate("data_recensione"));
                     r.setDataImmissione(data);
@@ -173,9 +175,14 @@ public class RecensioneDAO {
        PreparedStatement stmt=null;
        boolean inserita= false;
        Calendar today = Calendar.getInstance();
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       Date date = new Date(System.currentTimeMillis());
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Recensioni (email, id_opera, valutazione, testo, data_recensione) VALUES ('"+ r.getEmailUtente() +"', '"+ r.getFilm().getIdFilm()+"', '"+ r.getValutazione() +"', '"+ r.getTesto()+"', '"+sdf.format(today.getTime())+"')");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Recensioni (email, id_opera, valutazione, testo, data_recensione) VALUES ( ? , ? , ? , ? ,? )");
+            stmt.setString(1, r.getEmailUtente());
+            stmt.setInt(2, r.getFilm().getIdFilm());
+            stmt.setFloat(3, r.getValutazione() );
+            stmt.setString(4, r.getTesto());
+            stmt.setDate( 5, date );
             stmt.executeUpdate();
             inserita = true;
         } 
@@ -198,10 +205,14 @@ public class RecensioneDAO {
         
        PreparedStatement stmt=null;
        boolean update= false;
-       Calendar today = Calendar.getInstance();
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+       Date date = new Date(System.currentTimeMillis()); 
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Recensioni SET valutazione='"+ r.getValutazione() +"', testo='"+ r.getTesto()+"', data_recensione='"+sdf.format(today.getTime()) +"' WHERE ( email='"+ r.getEmailUtente()+"' AND id_opera='"+ r.getFilm().getIdFilm() + "');");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Recensioni SET valutazione= ?, testo= ? , data_recensione= ? WHERE ( email= ? AND id_opera= ? ");
+            stmt.setFloat(1, r.getValutazione() );
+            stmt.setString( 2 , r.getTesto());
+            stmt.setDate( 3 , date );
+            stmt.setString(4, r.getEmailUtente());
+            stmt.setInt(5, r.getFilm().getIdFilm());
             stmt.executeUpdate();
             update = true;
         } 
@@ -226,7 +237,10 @@ public class RecensioneDAO {
        boolean delete= false;
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Recensioni WHERE ( email='" +r.getEmailUtente()+ "' AND id_opera='"+ r.getFilm().getIdFilm() +"');");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Recensioni WHERE ( email= ? AND id_opera= ? )");
+            
+            stmt.setString(1, r.getEmailUtente() );
+            stmt.setInt(2, r.getFilm().getIdFilm());
             stmt.executeUpdate();
             delete = true;
         } 

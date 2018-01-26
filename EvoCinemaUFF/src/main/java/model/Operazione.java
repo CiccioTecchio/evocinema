@@ -12,8 +12,8 @@ public abstract class Operazione {
     private int idOperazione;
     private String email;
     private int idSpettacolo;
-    private int postoColonna;
-    private int postoRiga;
+    private int posto;
+    private int offset;
     private Sala sala;
     private prenotato prenotato;
     private acquistato acquistato;
@@ -23,12 +23,12 @@ public abstract class Operazione {
     
     
 
-    public Operazione(int idOperazione, String email, int idSpettacolo, int postoColonna, int postoRiga, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
+    public Operazione(int idOperazione, String email, int idSpettacolo, int posto, int offset, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
         this.idOperazione = idOperazione;
         this.email= email;
         this.idSpettacolo= idSpettacolo;
-        this.postoColonna= postoColonna;
-        this.postoRiga= postoRiga;
+        this.posto= posto;
+        this.offset= offset;
         this.sala= sala;
         this.prenotato = myPrenotato;
         this.acquistato= myAcquistato;
@@ -37,12 +37,12 @@ public abstract class Operazione {
         this.sconto = sconto;
     }
     
-    public Operazione( String email, int idSpettacolo, int postoColonna, int postoRiga, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
+    public Operazione( String email, int idSpettacolo, int posto, int offset, Sala sala, prenotato myPrenotato, acquistato myAcquistato, float prezzoFinale, Calendar data, Sconto sconto) {
         
         this.email= email;
         this.idSpettacolo= idSpettacolo;
-        this.postoColonna= postoColonna;
-        this.postoRiga= postoRiga;
+        this.posto= posto;
+        this.offset= offset;
         this.sala= sala;
         this.prenotato = myPrenotato;
         this.acquistato= myAcquistato;
@@ -65,12 +65,12 @@ public abstract class Operazione {
         return idSpettacolo;
     }
 
-    public int getPostoColonna() {
-        return postoColonna;
+    public int getPosto() {
+        return posto;
     }
 
-    public int getPostoRiga() {
-        return postoRiga;
+    public int getOffset() {
+        return offset;
     }
 
     public Sala getSala() {
@@ -109,12 +109,12 @@ public abstract class Operazione {
         this.idSpettacolo = idSpettacolo;
     }
 
-    public void setPostoColonna(int postoColonna) {
-        this.postoColonna = postoColonna;
+    public void setPosto(int posto) {
+        this.posto = posto;
     }
 
-    public void setPostoRiga(int postoRiga) {
-        this.postoRiga = postoRiga;
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     public void setSala(Sala sala) {
@@ -143,7 +143,7 @@ public abstract class Operazione {
 
     @Override
     public String toString() {
-        return this.getClass().getName()+"{" + "idOperazione=" + idOperazione + ", email=" + email + ", idSpettacolo=" + idSpettacolo + ", postoColonna=" + postoColonna + ", postoRiga=" + postoRiga + ", sala=" + sala + ", prenotato=" + prenotato + ", acquistato=" + acquistato + ", prezzoFinale=" + prezzoFinale + ", data=" + data + ", sconto=" + sconto + '}';
+        return this.getClass().getName()+"{" + "idOperazione=" + idOperazione + ", email=" + email + ", idSpettacolo=" + idSpettacolo + ", posto=" + posto + ", offset=" + offset + ", sala=" + sala + ", prenotato=" + prenotato + ", acquistato=" + acquistato + ", prezzoFinale=" + prezzoFinale + ", data=" + data + ", sconto=" + sconto + '}';
     }
     
 }

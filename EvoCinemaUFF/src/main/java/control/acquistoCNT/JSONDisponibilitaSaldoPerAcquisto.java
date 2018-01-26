@@ -5,11 +5,11 @@
  */
 package control.acquistoCNT;
 
-import database.SpettacoloDAO;
+import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -18,15 +18,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Spettacolo;
-import org.json.JSONArray;
+import javax.servlet.http.HttpSession;
+import model.UtenteBase;
+import model.UtenteRegistrato;
+import org.json.JSONObject;
+import org.json.JSONString;
 
 /**
  *
  * @author pietr
  */
-@WebServlet(name = "JSONDataSpettacolo", urlPatterns = {"/JSONDataSpettacolo"})
-public class JSONDataSpettacolo extends HttpServlet {
+@WebServlet(name = "JSONDisponibilitaSaldo", urlPatterns = {"/JSONDisponibilitaSaldo"})
+public class JSONDisponibilitaSaldoPerAcquisto extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,38 +41,23 @@ public class JSONDataSpettacolo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NamingException, SQLException {
+            throws ServletException, IOException, NamingException, SQLException, ParseException {
+
         
-        response.setContentType("application/json;charset=UTF-8");/*
-        PrintWriter out = response.getWriter();
-        /*RESTITUIAMO GLI ORARI DELLO SPETTACOLO SELEZIONATO
-        String idOpera = request.getParameter("idOpera");
-        String oraSpettacolo = request.getParameter("oraSpettacolo");
-        JSONArray jsonArray = new JSONArray();
-        QUERY DAO PER REPERIRE GLI ORARI DELLO SPETACOLO IN BASE ALL'ID 
-        SpettacoloDAO sdao=new SpettacoloDAO();
-        List<Spettacolo> spettacoli = sdao.foundByOpera(Integer.parseInt(idOpera));
+        response.setContentType("application/json;charset=UTF-8");
+        //PrintWriter out = response.getWriter();
         
-        Logger logger=Logger.getLogger("global");
-        for(Spettacolo s : spettacoli){
-            logger.info("data "+s.get);
-            
-        }
-        
-        jsonArray.put(0, "03/01/18");
-        if(idSpettacolo.equals("1"))
-            jsonArray.put(0, "04/01/18");
-        
-        if(idSpettacolo.equals("2"))
-            jsonArray.put(0, "05/01/18");
-             
-          
-        System.out.println("JSON "+jsonArray.toString());
-        
-        response.getWriter().write(jsonArray.toString());
-        */
-        
-        
+        HttpSession s = request.getSession();
+        UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
+        UtenteRegistratoDAO urd = new UtenteRegistratoDAO();
+        UtenteBase utenteb = (UtenteBase)urd.foundByEmail(user.getEmail());
+        JSONObject jsonObject=new JSONObject();
+        if(Float.parseFloat((String) request.getAttribute("importoTotale"))>utenteb.getSaldo())
+            jsonObject.put("Saldo insufficiente", 0);
+        else  jsonObject.put("Ok", 0);
+                    
+        response.getWriter().write(jsonObject.toString());
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,9 +75,11 @@ public class JSONDataSpettacolo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NamingException ex) {
-            Logger.getLogger(JSONDataSpettacolo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(JSONDataSpettacolo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,9 +97,11 @@ public class JSONDataSpettacolo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NamingException ex) {
-            Logger.getLogger(JSONDataSpettacolo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(JSONDataSpettacolo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

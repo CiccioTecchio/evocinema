@@ -5,12 +5,20 @@
  */
 package control.acquistoCNT;
 
+import database.UtenteRegistratoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Acquisto;
+import model.Operazione;
+import model.UtenteRegistrato;
 
 /**
  *
@@ -28,8 +36,31 @@ public class AcquistoBigliettoCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NamingException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession s = request.getSession();
+        UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
+        String emailAcquirente="";
+        Acquisto op = new Acquisto();
+        
+        if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE)
+        {
+            //IL CREDITO E' SUFFICIENTE, CONTROLLO EFFETTUATO PRIMA CON JSON
+            emailAcquirente=user.getEmail();
+            System.out.println("IDSPETTAOOLO"+request.getAttribute("idSpettacolo"));
+            //GET EMAIL UTENTE DA SESSION
+            //SCALA SOLDI
+        }
+        else //OPERATORE
+        {
+            emailAcquirente=request.getParameter("emailAcquirente");
+            //soldi in contanti
+            //op.set..
+            //operazioneDAO.createOperazione(op);
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,7 +75,13 @@ public class AcquistoBigliettoCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -58,7 +95,13 @@ public class AcquistoBigliettoCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

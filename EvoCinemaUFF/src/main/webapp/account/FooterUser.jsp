@@ -26,20 +26,18 @@
             <div class="modal-body">Seleziona "Logout" se vuoi abbandonare la sessione corrente.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Annulla</button>
-                <a class="btn btn-primary" href="../Logout">Logout</a>
+                <a class="btn btn-primary" href="Logout">Logout</a>
             </div>
         </div>
     </div>
 
     
-    <script src="../Template%20Sb%20Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
     <!-- Core plugin JavaScript-->
-    <script src="../Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="Template%20Sb%20Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
     <!-- Custom scripts for all pages-->
-    <script src="../Template%20Sb%20Admin/js/sb-admin.min.js"></script>
-    <script src="../javascript/login.js" type="text/javascript"></script>
-    <script src="../javascript/registrazione.js" type="text/javascript"></script>
-   
+
 
     <script>
         var swiper = new Swiper('.swiper-container', {
@@ -92,9 +90,9 @@
             }
         });
     </script>
-    <script src="../Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="../Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
-    <script src="../Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
+    <script src="Template%20Sb%20Admin/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
 </div>
 </body>
 

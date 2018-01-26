@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <servlet-mapping>
-        <servlet-name>AccountCNT</servlet-name>
-        <url-pattern>/AccountCNT</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>GestioneSaldoCNT</servlet-name>
+        <servlet-class>control.accountCNT.GestioneSaldoCNT</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestioneAcquisti</servlet-name>
+        <servlet-class>control.accountCNT.GestioneAcquisti</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestionePrenotazioni</servlet-name>
+        <servlet-class>control.accountCNT.GestionePrenotazioni</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RecuperoPasswordCNT</servlet-name>
         <url-pattern>/RecuperoPasswordCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VisualizzazioneAccountCNT</servlet-name>
-        <url-pattern>/VisualizzazioneAccountCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificaDettagliCNT</servlet-name>
         <url-pattern>/ModificaDettagliCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ModificaAccountCNT</servlet-name>
-        <url-pattern>/ModificaAccountCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CancellazioneAccountCNT</servlet-name>
         <url-pattern>/CancellazioneAccountCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GestioneAccountCNT</servlet-name>
-        <url-pattern>/GestioneAccountCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AggiuntaSalaCNT</servlet-name>
@@ -88,10 +84,7 @@
         <servlet-name>EliminaSpettacoloCNT</servlet-name>
         <url-pattern>/EliminaSpettacoloCNT</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AbilitaScontoCNT</servlet-name>
-        <url-pattern>/AbilitaScontoCNT</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AggiuntaScontoCNT</servlet-name>
         <url-pattern>/AggiuntaScontoCNT</url-pattern>
@@ -99,10 +92,6 @@
     <servlet-mapping>
         <servlet-name>ModificaScontoCNT</servlet-name>
         <url-pattern>/ModificaScontoCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VisualizzaScontoCNT</servlet-name>
-        <url-pattern>/VisualizzaScontoCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrenotazioneBigliettoCNT</servlet-name>
@@ -125,6 +114,10 @@
         <url-pattern>/PrenotazioneCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AccountCNT</servlet-name>
+        <url-pattern>/AccountCNT</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AnalyticsIscrizioniCNT</servlet-name>
         <url-pattern>/AnalyticsIscrizioniCNT</url-pattern>
     </servlet-mapping>
@@ -144,6 +137,18 @@
         <servlet-name>AnalyticsScontiCNT</servlet-name>
         <url-pattern>/AnalyticsScontiCNT</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestioneSaldoCNT</servlet-name>
+        <url-pattern>/GestioneSaldoCNT</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestioneAcquisti</servlet-name>
+        <url-pattern>/GestioneAcquisti</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionePrenotazioni</servlet-name>
+        <url-pattern>/GestionePrenotazioni</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -160,24 +165,12 @@
         <servlet-class>control.accountCNT.RecuperoPasswordCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>VisualizzazioneAccountCNT</servlet-name>
-        <servlet-class>control.accountCNT.VisualizzazioneAccountCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ModificaDettagliCNT</servlet-name>
         <servlet-class>control.accountCNT.ModificaDettagliCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ModificaAccountCNT</servlet-name>
-        <servlet-class>control.accountCNT.ModificaAccountCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CancellazioneAccountCNT</servlet-name>
         <servlet-class>control.accountCNT.CancellazioneAccountCNT</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GestioneAccountCNT</servlet-name>
-        <servlet-class>control.accountCNT.GestioneAccountCNT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AggiuntaSalaCNT</servlet-name>
