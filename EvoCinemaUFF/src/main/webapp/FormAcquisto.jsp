@@ -72,25 +72,43 @@
             </div>    
         
             <div class="float-right">
-                    <input class="mr-3" type="submit" name="scelta" value="Acquista" onclick="acquistofunction()"/>  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
+                    <input class="mr-3" type="submit" name="scelta" value="Acquista" onclick="return disponibilitaSaldoAcquisto()"/>  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
                         CHE IN BASE AL VALORE PASSATO REDIRECT BACK, SE ANNULLA, ALTRIMENTI REDIRECT AVANTI-->
-                    <input type="submit" name="scelta" value="Prenota" onclick="prenotazioneFunction()"/>
+                    <input type="submit" name="scelta" value="Prenota" onclick="return"/>
             </div>
             
         </fieldset>                
 </form>
 
 <script>
+    function disponibilitaSaldoAcquisto(){ 
+         
+    var xmht = new XMLHttpRequest(); 
+  xmht.onreadystatechange =function(){ 
+                console.log("readyState: " + this.readyState); 
+    if(this.readyState==4&&this.status==200){
+         
+        var result=this.responseText;     
+        if(result==='Saldo insufficiente')
+            alert(result);
+        if(result==='Ok')
+            acquistoFunction();
+         
+    } 
+  }; 
+  xmht.open("GET","JSONDisponibilitaSaldoPerAcquisto",true); 
+  xmht.send(); 
+  }
     
-    function acquistofunction() {
+    function acquistoFunction() {
     var r = confirm("Sei sicuro di voler acquistare il biglietto?");
     if (r == true) {
-        document.getElementById("myform").action="GestioneAcquistiCNT";
+        document.getElementById("myform").action="AcquistoBigliettoCNT";
     }
 
-}
+    }
 
-function prenotazioneFunction() {
+    function prenotazioneFunction() {
     var r = confirm("Sei sicuro di voler prenotare il biglietto?");
     if (r == true) {
         //document.getElementById("myform").action="PrenotazioneCNT";

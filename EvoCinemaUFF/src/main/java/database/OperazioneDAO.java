@@ -79,8 +79,8 @@ public class OperazioneDAO {
                         p.setIdOperazione(rs.getInt("id_Operazione"));
                         p.setEmail(rs.getString("email"));
                         p.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			p.setPostoColonna(rs.getInt("posto_colonna"));
-                        p.setPostoRiga(rs.getInt("posto_riga"));
+			p.setPosto(rs.getInt("posto"));
+                        p.setOffset(rs.getInt("offset"));
                         p.setPrenotato(x);
                         p.setAcquistato(y);
                         p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
@@ -102,8 +102,8 @@ public class OperazioneDAO {
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
                         a.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			a.setPostoColonna(rs.getInt("posto_colonna"));
-                        a.setPostoRiga(rs.getInt("posto_riga"));
+			a.setPosto(rs.getInt("posto"));
+                        a.setOffset(rs.getInt("offset"));
                         
                         int idSala = rs.getInt("idSala");
                         Sala sala = salaDAO.foundByID(idSala);
@@ -154,8 +154,8 @@ public class OperazioneDAO {
                         p.setIdOperazione(rs.getInt("id_Operazione"));
 			p.setEmail(rs.getString("email"));
                         p.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			p.setPostoColonna(rs.getInt("posto_colonna"));
-                        p.setPostoRiga(rs.getInt("posto_riga"));
+			p.setPosto(rs.getInt("posto"));
+                        p.setOffset(rs.getInt("offset"));
                         p.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
                         p.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
                         p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
@@ -203,8 +203,8 @@ public class OperazioneDAO {
                         p.setIdOperazione(rs.getInt("id_Operazione"));
 			p.setEmail(rs.getString("email"));
                         p.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			p.setPostoColonna(rs.getInt("posto_colonna"));
-                        p.setPostoRiga(rs.getInt("posto_riga"));
+			p.setPosto(rs.getInt("posto"));
+                        p.setOffset(rs.getInt("offset"));
                         p.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
                         p.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
                         p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
@@ -252,8 +252,8 @@ public class OperazioneDAO {
 			a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
                         a.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			a.setPostoColonna(rs.getInt("posto_colonna"));
-                        a.setPostoRiga(rs.getInt("posto_riga"));
+			a.setPosto(rs.getInt("posto"));
+                        a.setOffset(rs.getInt("offset"));
                         
                         int idSala = rs.getInt("idSala");
                         Sala sala = salaDAO.foundByID(idSala);
@@ -296,8 +296,8 @@ public class OperazioneDAO {
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
                         a.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			a.setPostoColonna(rs.getInt("posto_colonna"));
-                        a.setPostoRiga(rs.getInt("posto_riga"));
+			a.setPosto(rs.getInt("posto"));
+                        a.setOffset(rs.getInt("offset"));
                         a.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
                         a.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
                         a.setPrezzoFinale(rs.getFloat("prezzo_finale"));
@@ -357,8 +357,8 @@ public class OperazioneDAO {
                         p.setIdOperazione(rs.getInt("id_Operazione"));
                         p.setEmail(rs.getString("email"));
                         p.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			p.setPostoColonna(rs.getInt("posto_colonna"));
-                        p.setPostoRiga(rs.getInt("posto_riga"));
+			p.setPosto(rs.getInt("posto"));
+                        p.setOffset(rs.getInt("offset"));
                         
                         int idSala = rs.getInt("idSala");
                         Sala sala = salaDAO.foundByID(idSala);
@@ -383,8 +383,8 @@ public class OperazioneDAO {
                         a.setIdOperazione(rs.getInt("id_Operazione"));
 			a.setEmail(rs.getString("email"));
                         a.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			a.setPostoColonna(rs.getInt("posto_colonna"));
-                        a.setPostoRiga(rs.getInt("posto_riga"));
+			a.setPosto(rs.getInt("posto"));
+                        a.setOffset(rs.getInt("offset"));
                         
                         int idSala = rs.getInt("idSala");
                         Sala sala = salaDAO.foundByID(idSala);
@@ -434,13 +434,13 @@ public class OperazioneDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Operazione (id_Operazione, email, idSpettacolo, posto_colonna, posto_riga, idSala, prenotato, acquistato, prezzo_finale, data, sconto_applicato) "
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Operazione (id_Operazione, email, idSpettacolo, posto, offset, idSala, prenotato, acquistato, prezzo_finale, data, sconto_applicato) "
                                                             + "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?  )");
             stmt.setInt(1, p.getIdOperazione());
             stmt.setString(2, p.getEmail());
             stmt.setInt(3, p.getIdSpettacolo());
-            stmt.setInt(4, p.getPostoColonna());
-            stmt.setInt(5, p.getPostoRiga());
+            stmt.setInt(4, p.getPosto());
+            stmt.setInt(5, p.getOffset());
             stmt.setInt(6, p.getSala().getIdSala());
             stmt.setString(7, p.getPrenotato().toString());
             stmt.setString(8, p.getAcquistato().toString());
@@ -475,13 +475,13 @@ public class OperazioneDAO {
        
        try {
            
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Operazione SET email= ? , idSpettacolo= ? , posto_colonna= ?"
-                                    + ", posto_riga= ? , idSala= ? , prenotato= ?, acquistato= ? , prezzo_finale= ?, data= ? , sconto_applicato= ? "
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Operazione SET email= ? , idSpettacolo= ? , posto= ?"
+                                    + ", offset= ? , idSala= ? , prenotato= ?, acquistato= ? , prezzo_finale= ?, data= ? , sconto_applicato= ? "
                                     + "WHERE id_Operazione= ? ;");
             stmt.setString(1, p.getEmail()  );
             stmt.setInt(2, p.getIdSpettacolo());
-            stmt.setInt(3, p.getPostoColonna());
-            stmt.setInt(4, p.getPostoRiga());
+            stmt.setInt(3, p.getPosto());
+            stmt.setInt(4, p.getOffset());
             stmt.setInt(5, p.getSala().getIdSala());
             stmt.setString(6, p.getPrenotato().toString());
             stmt.setString(7, p.getAcquistato().toString());

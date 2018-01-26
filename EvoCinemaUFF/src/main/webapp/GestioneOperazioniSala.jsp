@@ -37,16 +37,13 @@
         <table id="listaFilm" style="border-" class="table table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-
+                    
                     <th>Titolo</th>
                     <th>Data inizio</th>                                               
                     <th>Data fine</th>
                     <th>Ora inizio proiezione</th>
                     <th>Ora fine proiezione</th>
-
-
-
-
+                    
                 </tr>
             </thead>
             <tbody>
@@ -119,86 +116,33 @@
                     <td><%= orario%></td>
 
                 </tr>
-
+                
                 <% }  %>
 
+               
+                
             </tbody>
         </table>
-           
     </div>
 </div>
 
 <% }%>
      
-                
+
 <script type="text/javascript">
 $(document).ready(function() {
-    
-    
-     /*NASCONDO SEARCH FIELD IN ALTO A DESTRA*/
-    /*
-        $('#listaFilm').dataTable( {
-            searching: false           
-        } );
-        */
-    /*    
+   /*
     $( function() {
    	 $( "#datepicker" ).datepicker();
   	} );
-  
+  */
     // Setup - add a text input to each footer cell
-    $('#listaFilm tfoot th').each( function () {
-        var title = $(this).text();
-        if (title === "Start date") {
-            $(this).html( '<input type="text" id="datepicker" placeholder="Search '+title+'" />' );
-            }
-            else {
-		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-            }
-    } );
-*/
+    
     // DataTable
     var table = $('#listaFilm').DataTable({ 
         "scrollCollapse": false,
         "paging":         true
-    }
-    );
-
-
-    $('#listaFilm tbody').on( 'click', 'tr', function () {
-    $(this).toggleClass('selected');
-    } );
-
-
-     $('#listaFilm tbody')
-        .on( 'mouseenter', 'td', function () {
-            var colIdx = table.cell(this).index().column;
-
-            $( table.cells().nodes() ).removeClass( 'highlight' );
-            $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-        } );
-
-
-    $('#button').click( function () {
-        alert( table.rows('.selected').data().length +' row(s) selected' );
-    } );
-
-/*
-    // Apply the search
-    table.columns().every( function () {
-        var that = this;
-
-        $( 'input', this.footer() ).on( 'keyup change', function () {
-            if ( that.search() !== this.value ) {
-                that
-                    .search( this.value )
-                    .draw();
-            }
-        } );
-    } );
-  */  
-    
-    
+    });
 } );
 </script>
 
