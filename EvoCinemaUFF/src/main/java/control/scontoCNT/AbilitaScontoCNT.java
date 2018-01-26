@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Sconto;
+import org.json.JSONObject;
 
 /**
  *
@@ -39,45 +41,10 @@ public class AbilitaScontoCNT extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        System.out.print("KIGFKSkjsashjdhvaskblavbjkvsbjavbkjadsvbj bdjklj kdbj dbjfvbjkfksfjahvsafkjhsadlkjfhasdlkjfhsdalkjfhasdlkjfhasdljkfhasdlkfasd,hjk");
-        int position = Integer.parseInt(request.getParameter("position"));
-        List<Sconto> array = (List<Sconto>) request.getSession().getAttribute("listaSconti");
-        Sconto sconto = array.get(position);
-        if(sconto.getDisponibile().equals(Sconto.disponibile.TRUE))
-        sconto.setDisponibile(Sconto.disponibile.FALSE);
-        else
-        sconto.setDisponibile(Sconto.disponibile.TRUE);
-        try { 
-            ScontoDAO dao = new ScontoDAO();
-            dao.updateSconto(sconto);
-            
-        } catch (NamingException ex) {
-            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         RequestDispatcher res = request.getRequestDispatcher("/admin/VisualizzaSconti.jsp");
-         res.forward(request, response);
+
     }
 
     /**
@@ -91,17 +58,49 @@ public class AbilitaScontoCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        response.setContentType("application/json");
+        String position = request.getParameter("position");
+        String swi = request.getParameter("switch");
+        String messaggio = "Cambiato correttamente";
+        System.out.println("posizione -->" + position);
+        System.out.println("stato " + swi);
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        List<Sconto> array = (List<Sconto>) request.getSession().getAttribute("listaSconti");
+
+        Sconto s = array.get(Integer.parseInt(position));
+
+        if (swi.equals("off")) {
+            s.setDisponibile(Sconto.disponibile.TRUE);
+        }
+
+        if (swi.equals("on")) {
+            s.setDisponibile(Sconto.disponibile.FALSE);
+        }
+
+        array.set(Integer.parseInt(position), s);
+        String errore = "false"; 
+        try {
+            ScontoDAO dao = new ScontoDAO();
+            dao.updateSconto(s);
+            request.getSession().setAttribute("listaSconti", array);
+
+        } catch (NamingException ex) {
+            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            messaggio = "SQL Exception";
+            errore="true";
+            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            messaggio = "Parse Exception";
+            errore="true";
+            Logger.getLogger(AbilitaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        JSONObject json = new JSONObject();
+        json.put("messaggio", messaggio);
+        json.put("posizione", position);
+        json.put("errore", errore);
+        response.getWriter().print(json.toString());
+    }
 
 }

@@ -45,7 +45,8 @@
         <!-- Custom styles for this template-->
         
         <link rel="icon" href="../images/logoGIF.gif" type="image/gif" sizes="160x160">
-        
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
          <link href="../Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
         <script src="../HomeSlider/vendor/jquery/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -60,7 +61,7 @@
     </head>
 
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
         <script src="../HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
