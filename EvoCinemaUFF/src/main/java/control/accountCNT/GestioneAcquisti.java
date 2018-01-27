@@ -89,7 +89,7 @@ public class GestioneAcquisti extends HttpServlet {
         
         
         
-        String page="/account/VisualizzaAcquisti.jsp";
+        String page="AccountVisualizzaAcquisti.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

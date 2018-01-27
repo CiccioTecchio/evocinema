@@ -90,7 +90,7 @@ public class GestionePrenotazioni extends HttpServlet {
         
         
         
-        String page="/account/VisualizzaPrenotazioni.jsp";
+        String page="AccountVisualizzaPrenotazioni.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

@@ -4,6 +4,7 @@
     Author     : Michele
 --%>
 
+<%@page import="model.UtenteRegistrato.sesso"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="model.UtenteBase"%>
@@ -12,10 +13,10 @@
 <% HttpSession s = request.getSession();
    UtenteBase utente = (UtenteBase) s.getAttribute("user");
    
-   String passwordCoincidono="";
+   /*String passwordCoincidono="";
    String x = ((String) s.getAttribute("passwordCoincidono"));
    s.setAttribute("passwordCoincidono", "true");
-   if(x.equals("true")){} else{ passwordCoincidono="Le password non coincidono";}
+   if(x.equals("true")){} else{ passwordCoincidono="Le password non coincidono";}*/
    
     
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -27,7 +28,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dettagli account</title>
     </head>
-    <jsp:include page="HeaderUser.jsp" />
+    <jsp:include page="AccountHeader.jsp" />
     <body>
         
         <div>Profilo di <%=utente.getNome()%> <%=utente.getCognome()%></div>
@@ -45,7 +46,7 @@
             
             Password: <input type="password" name="modificaPassword"> <br>
             Conferma password: <input type="password" name="modificaPassword1">
-            <%=passwordCoincidono%><br><br>
+            <br><br>
             Nome: <input type="text" name="modificaNome" value="<%=utente.getNome()%>"> <br>
             Cognome: <input type="text" name="modificaCognome" value="<%=utente.getCognome()%>"> <br>
             
@@ -60,7 +61,7 @@
 
             <%  String a="";
                 String b="";
-                if(utente.getSesso().toString().equalsIgnoreCase("MASCHIO")){
+                if(utente.getSesso().equals(sesso.M)){
                     a="checked";
                 }else{
                     b="checked";
@@ -79,5 +80,5 @@
             <button type="sumbit">Cancella account</button>
         </form>
     </body>
-    <jsp:include page="FooterUser.jsp" />
+    <jsp:include page="AccountFooter.jsp" />
 </html>

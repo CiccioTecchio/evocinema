@@ -17,15 +17,15 @@
         <title>Home</title>
         
     </head>
-    <jsp:include page="HeaderUser.jsp" />
+    <jsp:include page="AccountHeader.jsp" />
     <body>
         Utente: <%= utente.getNome()%> <%= utente.getCognome()%>
         
-        <a href="account/UserMenu.jsp">Vai al menù</a>
+        <a href="AccountUserMenu.jsp">Vai al menù</a>
         
         
         
     </body>
-    <jsp:include page="FooterUser.jsp" />
+    <jsp:include page="AccountFooter.jsp" />
 </html>
 

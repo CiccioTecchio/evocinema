@@ -72,9 +72,9 @@ public class AccountCNT extends HttpServlet {
         
         
         switch (op) {
-            case "1":  page="/account/VisualizzazioneAccount.jsp";
+            case "1":  page="/AccountVisualizzazioneAccount.jsp";
                      break;
-            case "2":  page="/account/VisualizzazioneSaldo.jsp";
+            case "2":  page="/AccountVisualizzazioneSaldo.jsp";
                      break;
             case "3":  page="/GestioneAcquisti";
                      break;
