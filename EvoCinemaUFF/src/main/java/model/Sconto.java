@@ -1,14 +1,12 @@
 
 package model;
 
-import java.util.Calendar;
-
 public class Sconto {
     
     public enum verificabile{TRUE, FALSE};
     public enum tipo{PERCENTUALE,FISSO};
     public enum disponibile{TRUE, FALSE};
-    public enum tipologia{CAT_PERSONE,GIORNO_SETTIMANA,TERMINE,DATA};
+    public enum tipologia{CAT_PERSONE,GIORNO_SETTIMANA,GENERE,FILM,SPETTACOLO,DATA,SESSO};
     
     private int idSconto;
     private String nome;

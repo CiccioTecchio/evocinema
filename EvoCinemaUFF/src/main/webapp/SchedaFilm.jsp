@@ -242,7 +242,7 @@
         $(item).rateYo({
             rating: $(item).text(),
             readOnly: true
-        })
+        });
     });
 
     function check() {
