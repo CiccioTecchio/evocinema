@@ -7,7 +7,6 @@ package control.acquistoCNT;
 
 import database.UtenteRegistratoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -22,14 +21,13 @@ import javax.servlet.http.HttpSession;
 import model.UtenteBase;
 import model.UtenteRegistrato;
 import org.json.JSONObject;
-import org.json.JSONString;
 
 /**
  *
  * @author pietr
  */
 @WebServlet(name = "JSONDisponibilitaSaldo", urlPatterns = {"/JSONDisponibilitaSaldo"})
-public class JSONDisponibilitaSaldoPerAcquisto extends HttpServlet {
+public class JSONDisponibilitaSaldo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,10 +50,17 @@ public class JSONDisponibilitaSaldoPerAcquisto extends HttpServlet {
         UtenteRegistratoDAO urd = new UtenteRegistratoDAO();
         UtenteBase utenteb = (UtenteBase)urd.foundByEmail(user.getEmail());
         JSONObject jsonObject=new JSONObject();
-        if(Float.parseFloat((String) request.getAttribute("importoTotale"))>utenteb.getSaldo())
-            jsonObject.put("Saldo insufficiente", 0);
+        if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
+            //SE E' UN UTENTE BASE
+            if(Float.parseFloat((String) request.getAttribute("importoTotale"))>utenteb.getSaldo())
+                //SE HA IL CREDITO INSUFFICIENTE
+                jsonObject.put("Saldo insufficiente", 0);
+            else  jsonObject.put("Ok", 0); //SE HA IL CREDITO SUFFICIENTE
+        }
+        
+        //SE E' UN OPERATORE
         else  jsonObject.put("Ok", 0);
-                    
+        
         response.getWriter().write(jsonObject.toString());
 
     }
@@ -75,11 +80,11 @@ public class JSONDisponibilitaSaldoPerAcquisto extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NamingException ex) {
-            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,11 +102,11 @@ public class JSONDisponibilitaSaldoPerAcquisto extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (NamingException ex) {
-            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(JSONDisponibilitaSaldoPerAcquisto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JSONDisponibilitaSaldo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
