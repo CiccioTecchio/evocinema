@@ -95,7 +95,7 @@ public class GestioneSaldoCNT extends HttpServlet {
             Logger.getLogger(GestioneSaldoCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String page="/account/VisualizzazioneSaldo.jsp";
+        String page="/AccountVisualizzazioneSaldo.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

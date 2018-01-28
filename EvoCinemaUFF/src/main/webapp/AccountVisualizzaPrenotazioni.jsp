@@ -42,7 +42,7 @@
                     Sala: <%= a.getSala().getIdSala()%>
                 </tr>
                 <tr>
-                    Posto: riga <%= a.getPostoRiga()%>, colonna <%= a.getPostoColonna()%>
+                    Posto: riga <%= a.getPosto()%>, colonna <%= a.getOffset()%>
                 </tr>
                 
             </td>

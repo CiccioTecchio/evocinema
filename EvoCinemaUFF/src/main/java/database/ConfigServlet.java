@@ -20,14 +20,9 @@ public class ConfigServlet extends HttpServlet{
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException{
       super.init();
-      Logger logger=Logger.getLogger("global");
-      
-      logger.info("pongo");
-      
-      
       try {
           UtenteRegistratoDAO model = new UtenteRegistratoDAO();
-          UtenteBase a = (UtenteBase) model.foundByEmail("a@a");
+          UtenteBase a =model.foundUtenteBaseByEmail("Daespo44@gmail.com");
           System.out.print(a);
           
           //updateRecensione

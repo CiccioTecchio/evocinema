@@ -43,7 +43,7 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Logger logger = Logger.getLogger("global");
         try {
-            int id = 3;//Integer.parseInt(request.getParameter("idSpettacolo"));
+            int id = Integer.parseInt(request.getParameter("idSpettacolo"));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
             SalaDAO salaDao = new SalaDAO();
             Spettacolo spettacolo = spettacoloDao.foundByID(id);

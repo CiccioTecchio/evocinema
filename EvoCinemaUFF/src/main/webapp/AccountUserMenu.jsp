@@ -15,16 +15,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account - Menù</title>
     </head>
-    <jsp:include page="HeaderUser.jsp" />
+    <jsp:include page="AccountHeader.jsp" />
     <body>
         
         Ciao <%=utente.getNome()%>, scegli cosa fare: <br>
-        <form action="../AccountCNT" method="POST">
+        <form action="AccountCNT" method="POST">
             <button type="sumbit" name="operazione" value="1"> Visualizza dettagli Account</button><br>
             <button type="sumbit" name="operazione" value="2"> Visualizza saldo</button><br>
             <button type="sumbit" name="operazione" value="3"> Visualizza acquisti</button><br>
             <button type="sumbit" name="operazione" value="4"> Visualizza prenotazioni</button><br>
         </form>
     </body>
-    <jsp:include page="FooterUser.jsp" />
+    <jsp:include page="AccountFooter.jsp" />
 </html>

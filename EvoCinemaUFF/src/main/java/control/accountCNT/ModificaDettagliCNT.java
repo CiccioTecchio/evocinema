@@ -76,9 +76,7 @@ public class ModificaDettagliCNT extends HttpServlet {
         
         HttpSession s = request.getSession();
         UtenteBase utente = (UtenteBase) s.getAttribute("user");
-        
-        
-        utente.setRuolo(UtenteRegistrato.ruolo.UTENTE);
+
         
         
         String nome = request.getParameter("modificaNome");
@@ -141,11 +139,12 @@ public class ModificaDettagliCNT extends HttpServlet {
             Logger.getLogger(CancellazioneAccountCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        s.removeAttribute("user");
         s.setAttribute("user", utente);
         
         
         
-        String page="/account/VisualizzazioneAccount.jsp";
+        String page="/AccountVisualizzazioneAccount.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

@@ -70,6 +70,7 @@ public class UtenteRegistratoDAO {
                     ut.setPassword(rs.getString("password"));
                     ut.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     ut.setNome(rs.getString("nome"));
+                    ut.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     ut.setDataNascita(dataNascita);
@@ -88,6 +89,7 @@ public class UtenteRegistratoDAO {
                     ut.setPassword(rs.getString("password"));
                     ut.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     ut.setNome(rs.getString("nome"));
+                    ut.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     ut.setDataNascita(dataNascita);
@@ -106,6 +108,7 @@ public class UtenteRegistratoDAO {
                     ut.setPassword(rs.getString("password"));
                     ut.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     ut.setNome(rs.getString("nome"));
+                    ut.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     ut.setDataNascita(dataNascita);
@@ -144,14 +147,69 @@ public class UtenteRegistratoDAO {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             
+                
+                if(rs.getString("ruolo").equals(OPERATORE.name())){
+                    while(rs.next()){
+                        Operatore utenteFound= new Operatore();
+                        utenteFound.setEmail(rs.getString("email"));
+                        utenteFound.setNomeUtente(rs.getString("nome_utente"));
+                        utenteFound.setPassword(rs.getString("password"));
+                        utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
+                        utenteFound.setNome(rs.getString("nome"));
+                        utenteFound.setCognome(rs.getString("cognome"));
+                        Calendar dataNascita = Calendar.getInstance();
+                        dataNascita.setTime(rs.getDate("data_nascita"));
+                        utenteFound.setDataNascita(dataNascita);
+                        utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
+                        utenteFound.setCellulare(rs.getString("cellulare"));
+                        utenteFound.setCittà(rs.getString("città"));
+                        utenteFound.setIndirizzo(rs.getString("indirizzo"));
+                        utenteToReturn=utenteFound;
+                    }
+                }
+                else if(rs.getString("ruolo").equals(GESTORE.name())){
+                    while(rs.next()){
+                        Gestore utenteFound= new Gestore();
+                        utenteFound.setEmail(rs.getString("email"));
+                        utenteFound.setNomeUtente(rs.getString("nome_utente"));
+                        utenteFound.setPassword(rs.getString("password"));
+                        utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
+                        utenteFound.setNome(rs.getString("nome"));
+                        utenteFound.setCognome(rs.getString("cognome"));
+                        Calendar dataNascita = Calendar.getInstance();
+                        dataNascita.setTime(rs.getDate("data_nascita"));
+                        utenteFound.setDataNascita(dataNascita);
+                        utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
+                        utenteFound.setCellulare(rs.getString("cellulare"));
+                        utenteFound.setCittà(rs.getString("città"));
+                        utenteFound.setIndirizzo(rs.getString("indirizzo"));
+                        utenteToReturn=utenteFound;
+                    }
+                }
+        }finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return utenteToReturn;
+    }
+    
+    public synchronized UtenteBase foundUtenteBaseByEmail(String email) throws SQLException, ParseException, NamingException {
+
+        PreparedStatement stmt = null;
+        UtenteBase utenteFound= new UtenteBase();
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE email= ? ");
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            
             while(rs.next()){
-                if(rs.getString("ruolo").equals(UTENTE)){
-                    UtenteBase utenteFound= new UtenteBase();
                     utenteFound.setEmail(rs.getString("email"));
                     utenteFound.setNomeUtente(rs.getString("nome_utente"));
                     utenteFound.setPassword(rs.getString("password"));
                     utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utenteFound.setNome(rs.getString("nome"));
+                    utenteFound.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utenteFound.setDataNascita(dataNascita);
@@ -160,49 +218,15 @@ public class UtenteRegistratoDAO {
                     utenteFound.setCittà(rs.getString("città"));
                     utenteFound.setIndirizzo(rs.getString("indirizzo"));
                     utenteFound.setSaldo(rs.getFloat("saldo"));
-                    utenteToReturn=utenteFound;
-                }
-                else if(rs.getString("ruolo").equals(OPERATORE)){
-                    Operatore utenteFound= new Operatore();
-                    utenteFound.setEmail(rs.getString("email"));
-                    utenteFound.setNomeUtente(rs.getString("nome_utente"));
-                    utenteFound.setPassword(rs.getString("password"));
-                    utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
-                    utenteFound.setNome(rs.getString("nome"));
-                    Calendar dataNascita = Calendar.getInstance();
-                    dataNascita.setTime(rs.getDate("data_nascita"));
-                    utenteFound.setDataNascita(dataNascita);
-                    utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
-                    utenteFound.setCellulare(rs.getString("cellulare"));
-                    utenteFound.setCittà(rs.getString("città"));
-                    utenteFound.setIndirizzo(rs.getString("indirizzo"));
-                    utenteToReturn=utenteFound;
-                }
-                else if(rs.getString("ruolo").equals(GESTORE)){
-                    Gestore utenteFound= new Gestore();
-                    utenteFound.setEmail(rs.getString("email"));
-                    utenteFound.setNomeUtente(rs.getString("nome_utente"));
-                    utenteFound.setPassword(rs.getString("password"));
-                    utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
-                    utenteFound.setNome(rs.getString("nome"));
-                    Calendar dataNascita = Calendar.getInstance();
-                    dataNascita.setTime(rs.getDate("data_nascita"));
-                    utenteFound.setDataNascita(dataNascita);
-                    utenteFound.setSesso(UtenteRegistrato.sesso.valueOf(rs.getString("sesso")));
-                    utenteFound.setCellulare(rs.getString("cellulare"));
-                    utenteFound.setCittà(rs.getString("città"));
-                    utenteFound.setIndirizzo(rs.getString("indirizzo"));
-                    utenteToReturn=utenteFound;
-                }
             }
         }finally {
             if (stmt != null) {
                 stmt.close();
             }
         }
-        return utenteToReturn;
+        return utenteFound;
     }
-
+    
     /**
      * Metodo per la modifica dei dati di un oggetto di tipo {@link UtenteBase}
      * all'interno del DB
@@ -345,6 +369,7 @@ public class UtenteRegistratoDAO {
                     utente.setPassword(rs.getString("password"));
                     utente.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utente.setDataNascita(dataNascita);
@@ -362,6 +387,7 @@ public class UtenteRegistratoDAO {
                     utente.setPassword(rs.getString("password"));
                     utente.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utente.setDataNascita(dataNascita);
@@ -379,6 +405,7 @@ public class UtenteRegistratoDAO {
                     utente.setPassword(rs.getString("password"));
                     utente.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utente.setDataNascita(dataNascita);
