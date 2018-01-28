@@ -91,8 +91,10 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <form id="target" method="GET" action="FormAcquisto.jsp">
-                                            <button type="submit" class="btn btn-primary">Procedi con l'ordine</button>
+                                        <form id="target" method="POST" action="FormAcquisto.jsp">
+                                            <input name="idSpettacolo" value="<%= spettacolo.getIdSpettacolo() %>" hidden/>
+                                            <input id="p" name="posti" value="" hidden />
+                                            <button class="btn btn-primary" >Procedi con l'ordine</button>
                                         </form>
                                     </div>
                                     <div class="col">

@@ -3,8 +3,6 @@ var posti_disponibili = document.querySelectorAll(".vds-posto-disponibile");
 var seats = document.getElementById("seats");
 var prezzo = seats.getAttribute("data-prezzo");
 var ro = document.querySelector("#riepilogo-ordine .container");
-$("#target").submit(submit);
-setIdPosto(seats.getAttribute("data-num-posti"));
 
 setIdPosto(seats.getAttribute("data-num-posti"));
 
@@ -24,10 +22,12 @@ function handleClick(e) {
         el.setAttribute("src", "images/poltrona_selezionata_v2.png");
         addToRiepilogo(e);
         calcolaTotale();
+        setPosti();
     } else if(el.getAttribute("src") == "images/poltrona_selezionata_v2.png"){
         el.setAttribute("src", "images/poltrona_disponibile_v2.png");
         removeFromRiepilogo(e);
         calcolaTotale();
+        setPosti();
     }
 }
 
@@ -40,7 +40,7 @@ function setIdPosto(id){
 
 function addToRiepilogo(e){
     var el = e.target;
-    var str = "<div class='row'><div class='col'><p id='" + el.getAttribute("data-pos") + "'>Posto: " + el.getAttribute("data-pos") + 
+    var str = "<div class='row'><div class='col'><p data-pos='" + el.getAttribute("data-pos") + "'>Posto: " + el.getAttribute("data-pos") + 
                 "</p></div><div class='col'><p class='prezzo'>Prezzo: " + prezzo + "&euro;</p></div></div>";
     str = str + ro.innerHTML;
     ro.innerHTML = str;
@@ -49,14 +49,18 @@ function addToRiepilogo(e){
 function removeFromRiepilogo(e){
     var el = e.target;
     var pos = el.getAttribute("data-pos");
-    $("#"+pos).parent().parent().remove();
+    $("p[data-pos='"+pos+"'").parent().parent().remove();
 }
 
 function calcolaTotale(){
     $("#totale").html("Totale = " + $(".prezzo").length * prezzo + "&euro;");
 }
 
-function submit(e){
-    alert("Dai cazzo");
-    e.preventDefault();
+function setPosti(){
+    var posti = "";
+    var ps = ro.querySelectorAll("p[data-pos]");
+    for(i = 0; i < ps.length; i++){
+        posti += (ps[i].getAttribute("data-pos") + "-");
+    }
+    $("#p").attr("value", posti);
 }
