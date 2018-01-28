@@ -17,6 +17,16 @@
 <form id="myform" method="POST">  
     <fieldset class="fieldsetCustom">
         <legend class="legendCustom">Vendita biglietti - 3 </legend>
+        
+        <!--SE E' UN OPERATORE INSERIRA' MANUALMENTE L'EMAIL DEL CLIENTE-->
+        <div class="m-4">
+            <lable>Inserisci l'email del cliente </lable>
+            <input class="form-control" type="text" id="emailUtenteBase" type="hidden" value="" >
+        </div>
+        
+        <!--SE E' L'UTENTE INTERESSATO CHE STA ACQUISTANDO ONLINE, RECUPERO L'EMAIL DALLA SESSIONE-->
+        <%//RECUPERO EMAIL DA SESSIONE%>
+        
         <% 
            List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("SPETTACOLI");
            Spettacolo spettacoloSelezionato = null;
@@ -36,7 +46,7 @@
                 <lable class="float-right"><%=spettacoloSelezionato.getTitolo()%></lable>
             </div>
 
-            <input id="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>" id="spettacoloScelto">
+            <input id="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
             
             <% Calendar cal = Calendar.getInstance();
                 String orario = "";
@@ -110,7 +120,7 @@
                 <tr>
                     <td><%=posto%></td>
                     <td>
-                        <select>
+                        <select onchange="calcolaPrezzoTotale()">
                             <option value="0" >Nessuno</option>
                             <%for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
                                 {
@@ -144,8 +154,7 @@
             
             <div class="m-4">
                 <lable>Importo da pagare: </lable>
-                <label id="prezzoTotale" class="float-right" name="importoTotale" value="<%=(numeroBiglietti*spettacoloSelezionato.getPrezzo())%>"
-                       ><%=(numeroBiglietti*spettacoloSelezionato.getPrezzo())%></label>
+                <label id="prezzoTotale" class="float-right"></label>
             </div>
         </div>    
             
@@ -162,29 +171,34 @@
 
 <script>
 
+
+    //richiamare la funzione la prima volta
+    calcolaPrezzoTotale();   
     function calcolaPrezzoTotale(){
         var selects = document.getElementsByTagName('select');
         var stringaIdSconti="";
-        alert('prima');
         for(var i=0;i<selects.length;i++)
         {
             stringaIdSconti=stringaIdSconti+selects[i].value+'-';
         }
-        alert('idSconti '+stringaIdSconti);
         var xmht = new XMLHttpRequest();
         var spettacoloScelto=document.getElementById('spettacoloScelto').value;
+        var operazione=document.querySelector('input[name="operazione"]:checked').value;
+        
         xmht.onreadystatechange = function () {
             console.log("readyState: " + this.readyState);
             if (this.readyState == 4 && this.status == 200) {
 
                 var result = this.responseText;
+                alert(result);
                 
-                
-
+                //document.getElementById('prezzoTotale').innerHTML=result.substring(2,6);
+                document.getElementById('prezzoTotale').innerHTML=result.substring(
+                        2,result.lastIndexOf('"'));    
             }
         };
         xmht.open("GET", "JSONCalcoloPrezzoTotale?stringaIdSconti="+stringaIdSconti+
-                "&spettacoloScelto="+spettacoloScelto, true);
+                "&spettacoloScelto="+spettacoloScelto+"&operazione="+operazione, true);
         xmht.send();
     }
         

@@ -46,6 +46,8 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
         String idSconti = ""+request.getParameter("stringaIdSconti");
         int idSpettacolo = Integer.parseInt(request.getParameter("spettacoloScelto"));
         
+        String operazione = request.getParameter("operazione");
+        
         SpettacoloDAO sdao= new SpettacoloDAO();
         ScontoDAO scdao= new ScontoDAO();
         
@@ -53,24 +55,37 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
         float prezzoTotale=0;
         int idScontoAttuale=0;
         Sconto sc = new Sconto();
+        
+        if(operazione.equals("Acquista")){
+            System.out.println("Acquisto");
         while(!idSconti.equals("")){
             idScontoAttuale = Integer.parseInt(idSconti.substring(0,idSconti.indexOf('-')));
             idSconti=idSconti.substring(idSconti.indexOf('-')+1);
             
-            if(idScontoAttuale==0) prezzoTotale+=prezzoBiglietto; //SE NESSUNO SCONTO E' STATO SELEZIONATO
+            if(idScontoAttuale==0) 
+                prezzoTotale+=prezzoBiglietto; //SE NESSUNO SCONTO E' STATO SELEZIONATO
             else{
                 sc=scdao.foundByID(idScontoAttuale);
                 if(sc.getTipo()==Sconto.tipo.FISSO)
                     prezzoTotale+=sc.getPrezzo();
-                else prezzoTotale+=(prezzoBiglietto*(sc.getPercentuale()/100));
+                else {
+                    prezzoTotale+=(prezzoBiglietto*(1-((float)sc.getPercentuale()/100)));
+                }
             }
-            System.out.println("nome "+sc);
+        
+        }
+        }
+        else{
+            System.out.println("Prenotazione");
+            while(!idSconti.equals("")){
+            idSconti=idSconti.substring(idSconti.indexOf('-')+1);
+            prezzoTotale+=2;
+            }
         }
         
-        System.out.println("prezzo totale "+prezzoTotale);
         JSONObject jsonObject = new JSONObject();
         
-        jsonObject.put("Saldo insufficiente", 0);
+        jsonObject.put(prezzoTotale+"", 0);
         
                 
         response.getWriter().write(jsonObject.toString());
