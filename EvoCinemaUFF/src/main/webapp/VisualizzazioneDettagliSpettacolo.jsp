@@ -97,7 +97,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <form id="target" method="GET" action="paginaPietro.jsp">
+                                        <form id="target" method="GET" action="FormAcquisto.jsp">
                                             <button type="submit" class="btn btn-primary">Procedi con l'ordine</button>
                                         </form>
                                     </div>

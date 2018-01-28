@@ -42,12 +42,12 @@ public class StampaSpettacolo {
                         +   "<div data-label class=\"col\">Spettacoli:<br />&nbsp;</div>"
                         + "</div>"
                         + "<div id=\"orari\" class=\"row\">"
-                        +    "<form method=\"POST\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" hidden><button class=\"btn btn-primary\" type=\"submit\">"+ /*s.getOraInizio()*/"HH:MM" +"</button></form>";
+                        +    "<form method=\"POST\" action=\"VisualizzazioneDettagliSpettacolo.jsp\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" hidden><button class=\"btn btn-primary\" type=\"submit\">"+ sdf.format(s.getOraInizio().getTime()) +"</button></form>";
 
     }
     
     public static void aggiungiSpettacolo(Spettacolo s){
-        str = str + "<form method=\"POST\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" hidden><button class=\"btn btn-primary\" type=\"submit\">"+ /*sdf.format(s.getOraInizio())*/ "HH:MM" +"</button></form>";
+        str = str + "<form method=\"POST\" action=\"VisualizzazioneDettagliSpettacolo.jsp\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" hidden><button class=\"btn btn-primary\" type=\"submit\">"+ sdf.format(s.getOraInizio().getTime())  +"</button></form>";
     }
     
     public static String getResult(){
@@ -56,7 +56,7 @@ public class StampaSpettacolo {
     
     static String str;
     static String close = "</div></div></div><hr/>";
-    static SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+    static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 }
 /*
                   <div class="row">
