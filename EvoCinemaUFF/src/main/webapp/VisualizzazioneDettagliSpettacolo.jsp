@@ -12,13 +12,7 @@
 <jsp:include page="VisualizzazioneDettagliSpettacoloCNT" />
 <jsp:include page="Header.jsp" />
 
-<%/*
-     HttpSession s = request.getSession();
-     String idSpettacolo = request.getParameter("idSpettacolo");
-     if(idSpettacolo!=null)
-            s.setAttribute("idSpettacolo", idSpettacolo);*/
-    
-     
+<%  
     Spettacolo spettacolo = (Spettacolo) request.getAttribute("spettacolo");
     Sala sala = (Sala) request.getAttribute("sala");
     int offset = 0;//(int) request.getAttribute("offset");
