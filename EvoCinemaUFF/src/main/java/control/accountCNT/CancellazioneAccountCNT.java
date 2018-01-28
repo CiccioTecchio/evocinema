@@ -94,7 +94,7 @@ public class CancellazioneAccountCNT extends HttpServlet {
         }
         
         
-        String page="/index";
+        String page="/index.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }

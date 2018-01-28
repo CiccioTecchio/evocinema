@@ -22,7 +22,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account - Acquisti</title>
     </head>
-    <jsp:include page="HeaderUser.jsp" />
+    <jsp:include page="AccountHeader.jsp" />
     <body>
         Acquisti effettuati: <%= acquisti.size()%><br>
         
@@ -42,7 +42,7 @@
                     Sala: <%= a.getSala().getIdSala()%>
                 </tr>
                 <tr>
-                    Posto: riga <%= a.getPostoRiga()%>, colonna <%= a.getPostoColonna()%>
+                    Posto: riga <%= a.getPosto()%>, colonna <%= a.getOffset()%>
                 </tr>
                 
             </td>
@@ -53,5 +53,5 @@
         
         
     </body>
-    <jsp:include page="FooterUser.jsp" />
+    <jsp:include page="AccountFooter.jsp" />
 </html>

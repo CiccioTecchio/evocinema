@@ -10,9 +10,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+/*import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;*/
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.UtenteBase;
 import model.UtenteRegistrato;
 
 /**
@@ -71,42 +80,7 @@ public class RecuperoPasswordCNT extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        HttpSession s = request.getSession();
-        String email = (String) s.getAttribute("emailRecupero");
-        String page="";
         
-        try {
-            UtenteRegistratoDAO model = new UtenteRegistratoDAO();
-            UtenteRegistrato utente = (UtenteRegistrato) model.foundByEmail(email);
-            
-            if(utente!=null){
-                //Generazione della nuova password da inviare via email
-                String caratteri = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-                StringBuilder salt = new StringBuilder();
-                Random rnd = new Random();
-                while (salt.length() < 10) { // length of the random string.
-                    int index = (int) (rnd.nextFloat() * caratteri.length());
-                    salt.append(caratteri.charAt(index));
-                }
-                String password = salt.toString();
-
-                //Invio della password via email
-                
-                
-                page=".../ControllaEmail.jsp";
-            }else{
-                s.setAttribute("emailNonValida", true);
-                page=".../RecuperoPassword.jsp";
-            }
-            
-        } catch (NamingException | SQLException | ParseException ex) {
-            Logger.getLogger(RecuperoPasswordCNT.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            dispatcher.forward(request, response);
     }
 
     /**

@@ -70,6 +70,7 @@ public class UtenteRegistratoDAO {
                     ut.setPassword(rs.getString("password"));
                     ut.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     ut.setNome(rs.getString("nome"));
+                    ut.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     ut.setDataNascita(dataNascita);
@@ -88,6 +89,7 @@ public class UtenteRegistratoDAO {
                     ut.setPassword(rs.getString("password"));
                     ut.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     ut.setNome(rs.getString("nome"));
+                    ut.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     ut.setDataNascita(dataNascita);
@@ -106,6 +108,7 @@ public class UtenteRegistratoDAO {
                     ut.setPassword(rs.getString("password"));
                     ut.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     ut.setNome(rs.getString("nome"));
+                    ut.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     ut.setDataNascita(dataNascita);
@@ -145,7 +148,7 @@ public class UtenteRegistratoDAO {
             ResultSet rs = stmt.executeQuery();
             
                 
-                if(rs.getString("ruolo").equals(OPERATORE)){
+                if(rs.getString("ruolo").equals(OPERATORE.name())){
                     while(rs.next()){
                         Operatore utenteFound= new Operatore();
                         utenteFound.setEmail(rs.getString("email"));
@@ -153,6 +156,7 @@ public class UtenteRegistratoDAO {
                         utenteFound.setPassword(rs.getString("password"));
                         utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                         utenteFound.setNome(rs.getString("nome"));
+                        utenteFound.setCognome(rs.getString("cognome"));
                         Calendar dataNascita = Calendar.getInstance();
                         dataNascita.setTime(rs.getDate("data_nascita"));
                         utenteFound.setDataNascita(dataNascita);
@@ -163,7 +167,7 @@ public class UtenteRegistratoDAO {
                         utenteToReturn=utenteFound;
                     }
                 }
-                else if(rs.getString("ruolo").equals(GESTORE)){
+                else if(rs.getString("ruolo").equals(GESTORE.name())){
                     while(rs.next()){
                         Gestore utenteFound= new Gestore();
                         utenteFound.setEmail(rs.getString("email"));
@@ -171,6 +175,7 @@ public class UtenteRegistratoDAO {
                         utenteFound.setPassword(rs.getString("password"));
                         utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                         utenteFound.setNome(rs.getString("nome"));
+                        utenteFound.setCognome(rs.getString("cognome"));
                         Calendar dataNascita = Calendar.getInstance();
                         dataNascita.setTime(rs.getDate("data_nascita"));
                         utenteFound.setDataNascita(dataNascita);
@@ -204,6 +209,7 @@ public class UtenteRegistratoDAO {
                     utenteFound.setPassword(rs.getString("password"));
                     utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utenteFound.setNome(rs.getString("nome"));
+                    utenteFound.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utenteFound.setDataNascita(dataNascita);
@@ -363,6 +369,7 @@ public class UtenteRegistratoDAO {
                     utente.setPassword(rs.getString("password"));
                     utente.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utente.setDataNascita(dataNascita);
@@ -380,6 +387,7 @@ public class UtenteRegistratoDAO {
                     utente.setPassword(rs.getString("password"));
                     utente.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utente.setDataNascita(dataNascita);
@@ -397,6 +405,7 @@ public class UtenteRegistratoDAO {
                     utente.setPassword(rs.getString("password"));
                     utente.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utente.setNome(rs.getString("nome"));
+                    utente.setCognome(rs.getString("cognome"));
                     Calendar dataNascita = Calendar.getInstance();
                     dataNascita.setTime(rs.getDate("data_nascita"));
                     utente.setDataNascita(dataNascita);
