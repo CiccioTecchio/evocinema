@@ -5,17 +5,26 @@
  */
 package control.scontoCNT;
 
+import database.ScontoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Sconto;
 
 /**
  *
  * @author Michele
  */
+@WebServlet( name = "ModificaSconto" , urlPatterns = { "/admin/modificaSconto" } )
+
 public class ModificaScontoCNT extends HttpServlet {
 
     /**
@@ -29,7 +38,83 @@ public class ModificaScontoCNT extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        String messaggio = "Impossibile completare la modifica";
+        
+        int idSconto = Integer.parseInt(request.getParameter("idSconto"));
+        
+        String nome = request.getParameter("nomeSconto");
+                
+        String tipo = request.getParameter("optTipo");
+        int percentuale = 0;
+        float prezzo = 0;
+        Sconto.tipo tipoSconto;
+        switch (tipo){
+            case "percentuale": percentuale = Integer.parseInt(request.getParameter("percentualeSconto"));
+                                tipoSconto = Sconto.tipo.PERCENTUALE;
+                                break;
+            case "fisso": prezzo = Float.parseFloat(request.getParameter("cifraSconto"));
+                          tipoSconto = Sconto.tipo.FISSO;
+                          break;
+            default: throw new IOException();
+        }
+        
+        String ver = request.getParameter("optVerificabile");
+        Sconto.verificabile verificabile;      
+        switch(ver){
+            case "True": verificabile = Sconto.verificabile.TRUE;
+                         break;
+            case "False": verificabile = Sconto.verificabile.FALSE;
+                          break;
+            default: throw new IOException();
+
+        }
+        
+        String tip = request.getParameter("optTipologia");
+        String parametroTipologia = null;       
+        Sconto.tipologia tipologia = null;
+        switch (tip){
+            case "giorno": parametroTipologia = request.getParameter("giornoDellaSettimana");
+                           tipologia = Sconto.tipologia.GIORNO_SETTIMANA;
+                           break;
+            case "genere": parametroTipologia = request.getParameter("genere");
+                           tipologia = Sconto.tipologia.GENERE;
+                           break;
+            case "film": parametroTipologia = request.getParameter("film");
+                         tipologia = Sconto.tipologia.FILM;
+                         break;
+            case "spettacolo": parametroTipologia = request.getParameter("spettacolo");
+                               tipologia = Sconto.tipologia.SPETTACOLO;
+                               break;
+            case "eta": parametroTipologia = request.getParameter("eta")+Integer.parseInt(request.getParameter("cifraEta"));
+                        tipologia = Sconto.tipologia.CAT_PERSONE;
+                        break;
+            case "data": parametroTipologia = request.getParameter("data");
+                         tipologia = Sconto.tipologia.DATA;
+                         break;
+            case "sesso": parametroTipologia = request.getParameter("sesso");
+                          tipologia = Sconto.tipologia.SESSO;
+                          break;
+            default: throw new IOException();
+        }
+                    
+        try {
+            
+            Sconto sconto = new Sconto(idSconto, nome, percentuale, prezzo, parametroTipologia, verificabile, tipoSconto, Sconto.disponibile.TRUE, tipologia);
+
+            ScontoDAO dao = new ScontoDAO();
+            
+            dao.updateSconto(sconto);
+            
+            messaggio = "Modifica completata con successo";
+            
+        } catch (NamingException | SQLException | ParseException ex) {
+            Logger.getLogger(AggiuntaScontoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        request.setAttribute("messaggioSconto", messaggio);
+        response.sendRedirect("VisualizzaSconti.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

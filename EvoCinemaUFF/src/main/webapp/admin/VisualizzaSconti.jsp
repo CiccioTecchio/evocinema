@@ -135,7 +135,7 @@
 
                         <form action="ModificaSconto.jsp" method="GET" >
                             <button class="btn btn-primary btn-md mt-2" >Modifica</button>
-                            <input type="hidden" name="position" value="<%= i%>" >
+                            <input type="hidden" name="position" value="<%Integer index=new Integer(i);%><%= index %>" >
                         </form>
                     </div>
                 </td>
