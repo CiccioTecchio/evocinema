@@ -143,7 +143,7 @@ public class RecensioneDAO {
 
 		while (rs.next()) {
                     Recensione r= new Recensione();
-                    r.setEmailUtente(rs.getString("nome_utente"));
+                    r.setNomeUtente(rs.getString("nome_utente"));
                     int idOpera = rs.getInt("id_opera");
                     Film film = filmDAO.foundByID(idOpera);
                     r.setFilm(film);

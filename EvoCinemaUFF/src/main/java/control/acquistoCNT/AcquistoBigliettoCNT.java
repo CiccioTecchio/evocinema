@@ -39,6 +39,8 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             throws ServletException, IOException, NamingException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         
+        System.out.println("Servlet acquistobigliettocnt");
+        /*
         HttpSession s = request.getSession();
         UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
         String emailAcquirente="";
@@ -61,7 +63,7 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             //op.set..
             //operazioneDAO.createOperazione(op);
         }
-        
+        */
         
     }
 

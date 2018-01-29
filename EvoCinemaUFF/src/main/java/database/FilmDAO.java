@@ -251,7 +251,7 @@ public class FilmDAO {
         
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Opera (tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer) VALUES ( ? ,? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Opera (tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer) VALUES ( ? ,? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
 
             stmt.setString(1, f.getTipo().toString());
             stmt.setString(2, f.getTitolo());
@@ -267,6 +267,9 @@ public class FilmDAO {
             stmt.setString(11, f.getProduzione());
             stmt.setString(12, f.getTrama());
             stmt.setString(13, f.getTrailer());
+            
+           
+            
             stmt.executeUpdate();
 
             inserito = true;
