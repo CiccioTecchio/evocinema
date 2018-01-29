@@ -15,37 +15,45 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% request.setAttribute("title", "Finalizza operazione");%>
 <jsp:include page="Header.jsp" />
-<jsp:include page= "GestioneAcquistiCNT"/>
+
 <!DOCTYPE html>
 
 <%
-if(session.getAttribute("user")==null)
-    {
-        String redirectURL = "Login.jsp";
-        response.sendRedirect(redirectURL);
+    UtenteRegistrato utente =(UtenteRegistrato) session.getAttribute("user");
+    if ((utente == null)){
+        response.sendRedirect("Login.jsp");
     }
 
 %>
-
+<jsp:include page= "GestioneAcquistiCNT"/>
 <form id="myform" method="POST">  
     <div class="card">
         
         <%  UtenteRegistrato user=(UtenteRegistrato)session.getAttribute("user");
             //System.out.println("ruolo "+user.getRuolo().toString());
-            if(user.getRuolo()==UtenteRegistrato.ruolo.OPERATORE)
-            {
-        %>
-        <!--SE E' UN OPERATORE INSERIRA' MANUALMENTE L'EMAIL DEL CLIENTE-->
-        <div class="m-4">
-            <lable>Inserisci l'email del cliente </lable>
-            <input class="form-control" type="text" id="emailUtenteBase" value="" >
-        </div>
-        <%}
-        else
-        {%>
-        <!--SE E' L'UTENTE INTERESSATO CHE STA ACQUISTANDO ONLINE, RECUPERO L'EMAIL DALLA SESSIONE-->
-        <input type="hidden" id="emailUtenteBase" value="<%=user.getEmail()%>" >
-        <%}
+            if (utente!=null){
+                if(user.getRuolo()==UtenteRegistrato.ruolo.OPERATORE){
+                %>
+                <!--SE E' UN OPERATORE INSERIRA' MANUALMENTE L'EMAIL DEL CLIENTE-->
+                <div class="m-4">
+                <label class="radio-inline">
+                <input type="radio" name="pagamento" value="Contanti" onclick="VisibilitaEmail()" checked> Pagamento in contanti<br>
+                </label>
+                
+                <label class="radio-inline">
+                <input type="radio" name="pagamento" value="Virtuale" onclick="VisibilitaEmail()" > Pagamento online<br>
+                </label>
+                </div>
+                <div id="divEmail" class="m-4">
+                    <lable>Inserisci l'email del cliente </lable>
+                    <input class="form-control" type="text" id="emailUtenteBase" value="" >
+                </div>
+                <%}
+                else{
+                %>
+                <!--SE E' L'UTENTE INTERESSATO CHE STA ACQUISTANDO ONLINE, RECUPERO L'EMAIL DALLA SESSIONE-->
+                <input type="hidden" id="emailUtenteBase" value="<%=user.getEmail()%>" >
+                <%}
         
            List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("SPETTACOLI");
            Spettacolo spettacoloSelezionato = null;
@@ -238,12 +246,26 @@ if(session.getAttribute("user")==null)
     </div>
     </div>        
             <div class="m-4">
+                
+                <%
+                    if(utente.getRuolo().equals(ruolo.UTENTE)){
+                %>
                 <label class="radio-inline">
                 <input type="radio" name="operazione" value="Acquista" onclick="calcolaPrezzoTotale()" checked> Acquista<br>
                 </label>
                 <label class="radio-inline">
                 <input type="radio" name="operazione" value="Prenota" onclick="calcolaPrezzoTotale()">Prenota<br>  
                 </label>
+                <%
+                    }
+                    if(utente.getRuolo().equals(ruolo.OPERATORE)){
+                %>
+                <label class="radio-inline">
+                <input type="radio" name="operazione" value="Acquista" onclick="calcolaPrezzoTotale()" checked> Vendi biglietto<br>
+                </label> 
+                <%
+                    }
+                %>
             </div>
          
             
@@ -257,13 +279,13 @@ if(session.getAttribute("user")==null)
             
        <div class="m-4">
            
-            <input class="mr-3" type="button" value="Procedi" name="Procedi" onclick="return disponibilitaSaldo()"/>  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
+           <input id="idProcedi" class="mr-3" type="button" value="Procedi" name="Procedi" onclick="return disponibilitaSaldo()" />  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
                 CHE IN BASE AL VALORE PASSATO REDIRECT BACK, SE ANNULLA, ALTRIMENTI REDIRECT AVANTI-->
         </div>
     </div>             
               
 </form>
-
+<% } %>
 <script>
 
 
@@ -302,6 +324,7 @@ if(session.getAttribute("user")==null)
     
 
     function disponibilitaSaldo() {
+        //alert("disponibilita saldo");
         var emailAcquirente=document.getElementById('emailUtenteBase').value;
         var importoTotale=document.getElementById("prezzoTotaleHidden").value;
         var xmht = new XMLHttpRequest();
@@ -328,6 +351,7 @@ if(session.getAttribute("user")==null)
     }
 
     function acquistoFunction() {
+        //alert("Acquisto function");
         var r = confirm("Sei di voler procedere?");
         if (r == true) {
             document.getElementById("myform").action = "AcquistoBigliettoCNT";
@@ -341,6 +365,19 @@ if(session.getAttribute("user")==null)
             //document.getElementById("myform").action="PrenotazioneCNT";
         }
 
+    }
+    
+    VisibilitaEmail();
+    function VisibilitaEmail(){
+        var pagamento=document.querySelector('input[name="pagamento"]:checked').value;
+        if(pagamento=="Contanti"){
+            document.getElementById("divEmail").style.visibility = 'hidden';
+            document.getElementById("idProcedi").onclick = acquistoFunction;
+        }else{
+            document.getElementById("divEmail").style.visibility = 'visible';
+            document.getElementById("idProcedi").onclick = disponibilitaSaldo;
+        }
+            
     }
 
 </script>

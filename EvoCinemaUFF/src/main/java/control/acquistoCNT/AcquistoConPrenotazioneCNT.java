@@ -52,48 +52,47 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
         UtenteRegistrato utente =(UtenteRegistrato) session.getAttribute("user");
         if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
             email = utente.getEmail();
+            UtenteRegistratoDAO utenteDAO = new UtenteRegistratoDAO();
+            UtenteBase utbase = utenteDAO.foundUtenteBaseByEmail(email);
+
+            Operazione operazione = (Operazione) session.getAttribute("operazione");
+            OperazioneDAO opDAO = new OperazioneDAO();
+            float price = operazione.getPrezzoFinale();
+            float saldo = utbase.getSaldo();
+            Sconto sconto = operazione.getSconto();
+            if(sconto.getIdSconto() == 0){
+                utbase.setSaldo(saldo - price + 2.0f);
+            }
+            if(sconto.getTipo().equals(tipo.FISSO)){
+                utbase.setSaldo(saldo - sconto.getPrezzo() + 2.0f);
+            }
+            if(sconto.getTipo().equals(tipo.PERCENTUALE)){
+               float percentuale =(float) operazione.getSconto().getPercentuale();
+               float dascalare = (price * percentuale) /100;  
+               utbase.setSaldo(saldo - (price-dascalare) + 2.0f);
+            }
+            boolean responso = utenteDAO.updateUtenteBase(utbase);
+            if(responso){
+                operazione.setAcquistato(Operazione.acquistato.TRUE);
+                //operazione.setPrenotato(Operazione.prenotato.FALSE);
+                opDAO.updateOperazione(operazione);
+                response.sendRedirect("ResocontoAcquisto.jsp");
+            }else{
+                response.sendRedirect("VisualizzaPrenotazioni.jsp");
+            }
+        
         }
         if( (utente.getRuolo()).equals(ruolo.OPERATORE)){
-            email = (String) session.getAttribute("emailUtente");
-        }
-        UtenteRegistratoDAO utenteDAO = new UtenteRegistratoDAO();
-        UtenteBase utbase = utenteDAO.foundUtenteBaseByEmail(email);
         
-        Operazione operazione = (Operazione) session.getAttribute("operazione");
-        OperazioneDAO opDAO = new OperazioneDAO();
-        float price = operazione.getPrezzoFinale();
-        float saldo = utbase.getSaldo();
-        Sconto sconto = operazione.getSconto();
-        if(sconto.getIdSconto() == 0){
-            utbase.setSaldo(saldo - price + 2.0f);
-        }
-        if(sconto.getTipo().equals(tipo.FISSO)){
-            utbase.setSaldo(saldo - sconto.getPrezzo() + 2.0f);
-        }
-        if(sconto.getTipo().equals(tipo.PERCENTUALE)){
-           float percentuale =(float) operazione.getSconto().getPercentuale();
-           float dascalare = (price * percentuale) /100;  
-           utbase.setSaldo(saldo - (price-dascalare) + 2.0f);
-        }
-        boolean responso = utenteDAO.updateUtenteBase(utbase);
-        if(responso){
+            Operazione operazione = (Operazione) session.getAttribute("operazione");
+            OperazioneDAO opDAO = new OperazioneDAO();
+        
             operazione.setAcquistato(Operazione.acquistato.TRUE);
             //operazione.setPrenotato(Operazione.prenotato.FALSE);
             opDAO.updateOperazione(operazione);
             response.sendRedirect("ResocontoAcquisto.jsp");
         }
-        else{
-            if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
-                response.sendRedirect("VisualizzaPrenotazioni.jsp");
-            }
-            if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) {
-                response.sendRedirect("VisualizzaPrenotazioniOperatore.jsp");
-            }
-        }
-        //utenteDAO.updateUtenteRegistrato((UtenteRegistrato)utbase);
-        //response.sendRedirect("ResocontoAcquisto.jsp");
-        
-        
+ 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
