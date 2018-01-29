@@ -104,11 +104,12 @@ public class ModificaDettagliCNT extends HttpServlet {
         }
         
         String myData = request.getParameter("modificaData");
-                int anno = Integer.parseInt(myData.substring(0, 4));
-                int mese = Integer.parseInt(myData.substring(5, 7)) - 1;
-                int giorno = Integer.parseInt(myData.substring(8, 10));
+               int giorno = Integer.parseInt(myData.substring(3, 5));
+               int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
+                int anno = Integer.parseInt(myData.substring(6, 10));
                 Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-                data.set(anno, mese, giorno);               
+                data.set(anno, mese, giorno);  
+                            
                 utente.setDataNascita(data);
         
                 
