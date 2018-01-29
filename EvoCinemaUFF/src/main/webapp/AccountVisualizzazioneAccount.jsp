@@ -13,10 +13,15 @@
 <% HttpSession s = request.getSession();
    
 UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
-SimpleDateFormat sdf= new SimpleDateFormat("yyyy-mm-dd");
+SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yy");
 String dataN= sdf.format(utente.getDataNascita().getTime());
-
-    
+String a="";
+                String b="";
+                if(utente.getSesso().equals(sesso.M)){
+                    a="checked";
+                }else{
+                    b="checked";
+                }
     
 %>
 <!DOCTYPE html>
@@ -38,57 +43,14 @@ String dataN= sdf.format(utente.getDataNascita().getTime());
         
 
         <div>Dati Personali: <br><br>
-        
-        <form >
             
-            Password: <input type="password" name="modificaPassword"> <br>
-            Conferma password: <input type="password" name="modificaPassword1">
-            <br><br>
-            Nome: <input type="text" name="modificaNome" value="<%=utente.getNome()%>"> <br>
-            Cognome: <input type="text" name="modificaCognome" value="<%=utente.getCognome()%>"> <br>
-            
-            <div class="col-md-6">
-                <label for="exampleInputLastName">Data di nascita</label>
-                <input class="form-control" name="modificaData" id="exampleInputLastName" type="date" aria-describedby="nameHelp" value="<%=dataN%>">
-            </div>
-            
-            Indirizzo: <input type="text" name="modificaIndirizzo" value="<%=utente.getIndirizzo()%>"> <br>
-            Città: <input type="text" name="modificaCitta" value="<%=utente.getCittà()%>"> <br>
-            Cellulare: <input type="text" name="modificaCellulare" value="<%=utente.getCellulare()%>"> <br>
-
-            <%  String a="";
-                String b="";
-                if(utente.getSesso().equals(sesso.M)){
-                    a="checked";
-                }else{
-                    b="checked";
-                }
-            %>
-            
-            Sesso:<br>
-            <input type="radio" name="modificaSesso" value="maschio" <%= a %> > Maschio<br>
-            <input type="radio" name="modificaSesso" value="femmina" <%= b %> > Femmina<br>
-        
-                   <button type="submit">Salva</button>
-        </form>
-        </div>
-        
-        <form action="CancellazioneAccountCNT" method="POST">
-            <button type="sumbit">Cancella account</button>
-        </form>
             
         <div class="container-left col-md-4">
             
 
                     <div class="card-body">
                         <form action="ModificaDettagliCNT" method="POST">
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Username </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" maxlength="50" value="<%=utente.getNomeUtente()%>" >
-                                </div>
-                            </div>
+                            
                             <div class="form-group">
 
                                 <div class="form-row">
@@ -103,19 +65,12 @@ String dataN= sdf.format(utente.getDataNascita().getTime());
 
                                 </div>
                             </div>
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">E-Mail </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaEmail" value="<%=utente.getEmail()%>">
-                                </div>
-                            </div>
-
+                          
                             <div class="form-group">
 
                                 <div class="form-row">
                                     <label for="exampleInputName">Data di nascita </label>
-                                    <input class="form-control" name="modificaData" type="text" id="datepicker" value="<%=dataN %>">
+                                    <input class="form-control" name="modificaData" type="text" id="datepicker" value="<%=dataN%>">
                                     
                                 </div>
                             </div>
@@ -137,19 +92,14 @@ String dataN= sdf.format(utente.getDataNascita().getTime());
                             <div class="form-group">
 
                                 <div class="form-row">
-                                    <label for="exampleInputName">Sesso     </label>
-                                    <input type="radio" name="modificaSesso" value="maschio" <%= a %> > Maschio   
-                                    <input type="radio" name="modificaSesso" value="femmina" <%= b %> > Femmina     
-                                </div>
-                            </div>
-                                
-                                <div class="form-group">
-
-                                <div class="form-row">
                                     <label for="exampleInputName">Cellulare </label>
                                     <input class="form-control" type="text" id="nomeRegistrazione" name="modificaCellulare" maxlength="50" value="<%=utente.getCellulare()%>" >
                                 </div>
                             </div>
+                                
+                            
+                                
+                                
                                 <div class="form-group">
 
                                 <div class="form-row">
@@ -164,6 +114,16 @@ String dataN= sdf.format(utente.getDataNascita().getTime());
                                     <input class="form-control" type="text" id="nomeRegistrazione" name="modificaPassword1" maxlength="50"  >
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+
+                                <div class="form-row">
+                                    <label for="exampleInputName">Sesso     </label>
+                                    <input type="radio" name="modificaSesso" value="maschio" <%= a %> > Maschio   
+                                    <input type="radio" name="modificaSesso" value="femmina" <%= b %> > Femmina     
+                                </div>
+                            </div>
+                                
                                 <br>
                                 <button class="btn btn-primary btn-block" type="submit">Salva</button>
                         </form>

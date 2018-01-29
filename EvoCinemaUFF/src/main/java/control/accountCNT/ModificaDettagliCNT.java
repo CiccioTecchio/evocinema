@@ -75,7 +75,7 @@ public class ModificaDettagliCNT extends HttpServlet {
         processRequest(request, response);
         
         HttpSession s = request.getSession();
-        UtenteBase utente = (UtenteBase) s.getAttribute("user");
+        UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
 
         
         
@@ -104,11 +104,13 @@ public class ModificaDettagliCNT extends HttpServlet {
         }
         
         String myData = request.getParameter("modificaData");
+        System.out.println(myData);
                int giorno = Integer.parseInt(myData.substring(3, 5));
-               int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
+               int mese = Integer.parseInt(myData.substring(0, 2));
                 int anno = Integer.parseInt(myData.substring(6, 10));
                 Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-                data.set(anno, mese, giorno);  
+                data.set(anno, mese-1, giorno); 
+               
                             
                 utente.setDataNascita(data);
         
@@ -125,7 +127,7 @@ public class ModificaDettagliCNT extends HttpServlet {
                     } else {
                         s.setAttribute("passwordCoincidono", "false");
                         System.out.println("le password non coincidono");
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account/VisualizzazioneAccount.jsp");
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("AccountVisualizzazioneAccount.jsp");
                         dispatcher.forward(request, response);
                     }
                 }

@@ -253,7 +253,7 @@ public class UtenteRegistratoDAO {
                 stmt.setFloat(11, u.getSaldo());
                 stmt.setString(12, ut.getEmail());
 
-                stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + u.getNomeUtente() + "', password='" + u.getPassword() + "', ruolo='" + u.getRuolo() + "', nome='" + u.getNome() + "', cognome='" + u.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + u.getSesso() + "', cellulare='" + u.getCellulare() + "', città='" + u.getCittà() + "', indirizzo='" + u.getIndirizzo() + "', saldo='"+u.getSaldo()+"' WHERE ( email='" + u.getEmail() + "');");
+               //stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + u.getNomeUtente() + "', password='" + u.getPassword() + "', ruolo='" + u.getRuolo() + "', nome='" + u.getNome() + "', cognome='" + u.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + u.getSesso() + "', cellulare='" + u.getCellulare() + "', città='" + u.getCittà() + "', indirizzo='" + u.getIndirizzo() + "', saldo='"+u.getSaldo()+"' WHERE ( email='" + u.getEmail() + "');");
 
             }
             else{
