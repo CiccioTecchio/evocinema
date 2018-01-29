@@ -48,6 +48,7 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
         
         String operazione = request.getParameter("operazione");
         
+        
         SpettacoloDAO sdao= new SpettacoloDAO();
         ScontoDAO scdao= new ScontoDAO();
         
@@ -87,7 +88,6 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
         
         jsonObject.put(prezzoTotale+"", 0);
         
-                
         response.getWriter().write(jsonObject.toString());
          /*
         PrintWriter out=response.getWriter();

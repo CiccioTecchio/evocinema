@@ -15,6 +15,13 @@
 <!DOCTYPE html>
 
 <%
+   
+    if(session.getAttribute("user")==null)
+    {
+        String redirectURL = "Login.jsp";
+        response.sendRedirect(redirectURL);
+    }
+    
     List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("SPETTACOLI");
 
     if ((null == spettacoli) || (spettacoli.size() == 0)) {
