@@ -45,21 +45,27 @@ public class JSONDisponibilitaSaldo extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         //PrintWriter out = response.getWriter();
         
-        HttpSession s = request.getSession();
-        UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
+        String emailAcquirente=request.getParameter("emailAcquirente");
         UtenteRegistratoDAO urd = new UtenteRegistratoDAO();
-        UtenteBase utenteb = (UtenteBase)urd.foundByEmail(user.getEmail());
         JSONObject jsonObject=new JSONObject();
-        if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
+        System.out.println("emailAcquirente "+emailAcquirente);
+        UtenteBase acquirente = urd.foundUtenteBaseByEmail(emailAcquirente);/*
+        if(acquirente.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
             //SE E' UN UTENTE BASE
-            if(Float.parseFloat((String) request.getAttribute("importoTotale"))>utenteb.getSaldo())
+            UtenteBase utenteb = (UtenteBase)urd.foundUtenteBaseByEmail(user.getEmail());*/
+        
+        System.out.println("importoTotale"+request.getParameter("importoTotale"));
+            if((Float.parseFloat((String)request.getParameter("importoTotale")))>acquirente.getSaldo())
                 //SE HA IL CREDITO INSUFFICIENTE
                 jsonObject.put("Saldo insufficiente", 0);
             else  jsonObject.put("Ok", 0); //SE HA IL CREDITO SUFFICIENTE
-        }
+       // }
         
-        //SE E' UN OPERATORE
-        else  jsonObject.put("Ok", 0);
+        
+        //SE E' UN OPERATORE UTILIZZERA' PAGAMENTO IN CONTANTI
+        //else  jsonObject.put("Ok", 0);
+        
+        System.out.println("messaggio json"+jsonObject.toString());
         
         response.getWriter().write(jsonObject.toString());
 

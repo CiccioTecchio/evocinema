@@ -5,13 +5,26 @@
  */
 package control.acquistoCNT;
 
+import database.OperazioneDAO;
+import database.UtenteRegistratoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Operazione;
+import model.Sconto;
+import model.Sconto.tipo;
+import model.UtenteBase;
+import model.UtenteRegistrato;
+import model.UtenteRegistrato.ruolo;
 
 /**
  *
@@ -30,20 +43,57 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, NamingException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AcquistoConPrenotazioneCNT</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AcquistoConPrenotazioneCNT at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        String email =""; 
+       
+        HttpSession session = request.getSession();
+        UtenteRegistrato utente =(UtenteRegistrato) session.getAttribute("user");
+        if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
+            email = utente.getEmail();
         }
+        if( (utente.getRuolo()).equals(ruolo.OPERATORE)){
+            email = (String) session.getAttribute("emailUtente");
+        }
+        UtenteRegistratoDAO utenteDAO = new UtenteRegistratoDAO();
+        UtenteBase utbase = utenteDAO.foundUtenteBaseByEmail(email);
+        
+        Operazione operazione = (Operazione) session.getAttribute("operazione");
+        OperazioneDAO opDAO = new OperazioneDAO();
+        float price = operazione.getPrezzoFinale();
+        float saldo = utbase.getSaldo();
+        Sconto sconto = operazione.getSconto();
+        if(sconto.getIdSconto() == 0){
+            utbase.setSaldo(saldo - price + 2.0f);
+        }
+        if(sconto.getTipo().equals(tipo.FISSO)){
+            utbase.setSaldo(saldo - sconto.getPrezzo() + 2.0f);
+        }
+        if(sconto.getTipo().equals(tipo.PERCENTUALE)){
+           float percentuale =(float) operazione.getSconto().getPercentuale();
+           float dascalare = (price * percentuale) /100;  
+           utbase.setSaldo(saldo - (price-dascalare) + 2.0f);
+        }
+        boolean responso = utenteDAO.updateUtenteBase(utbase);
+        if(responso){
+            operazione.setAcquistato(Operazione.acquistato.TRUE);
+            operazione.setPrenotato(Operazione.prenotato.FALSE);
+            opDAO.updateOperazione(operazione);
+            response.sendRedirect("ResocontoAcquisto.jsp");
+        }
+        else{
+            if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
+                response.sendRedirect("VisualizzaPrenotazioni.jsp");
+            }
+            if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) {
+                response.sendRedirect("VisualizzaPrenotazioniOperatore.jsp");
+            }
+        }
+        //utenteDAO.updateUtenteRegistrato((UtenteRegistrato)utbase);
+        //response.sendRedirect("ResocontoAcquisto.jsp");
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +108,15 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AcquistoConPrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(AcquistoConPrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AcquistoConPrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,21 +130,16 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        String titolo = request.getParameter("titolo");
-        String importo = request.getParameter("importo");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AcquistoConPrenotazioneCNT</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AcquistoConPrenotazioneCNT at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AcquistoConPrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(AcquistoConPrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AcquistoConPrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     /**

@@ -279,40 +279,44 @@ public class OperazioneDAO {
                     }
 	return acquisti;
    }
-   
-   
-    public List<Acquisto> getAcquistiUtente(String emailParam) throws SQLException, ParseException, NamingException {
+       /**
+     * Permette di estrarre le tuple di tipo {@link Acquisto} dal DB di ogni utnte.
+     * @return Lista di oggetti di tipo {@link Prenotazione} presenti all'interno del DB.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public List<Acquisto> getAcquistiUtente(String emailParam) throws SQLException, ParseException, NamingException {
       
        PreparedStatement stmt=null;
        List<Acquisto> acquisti = new LinkedList<>();
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE acquistato='TRUE' AND email= ? ");
-            stmt.setString(1, emailParam);
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE prenotato= 'FALSE' AND acquistato='TRUE' AND email= '"+emailParam+"'");
+
             ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
                    
-                        Acquisto a = new Acquisto();
-                        a.setIdOperazione(rs.getInt("id_Operazione"));
-			a.setEmail(rs.getString("email"));
-                        a.setIdSpettacolo(rs.getInt("idSpettacolo"));
-			a.setPosto(rs.getInt("posto"));
-                        a.setOffset(rs.getInt("offset"));
-                        a.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
-                        a.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
-                        a.setPrezzoFinale(rs.getFloat("prezzo_finale"));
+                        Acquisto p = new Acquisto();
+                        p.setIdOperazione(rs.getInt("id_Operazione"));
+			p.setEmail(rs.getString("email"));
+                        p.setIdSpettacolo(rs.getInt("idSpettacolo"));
+			p.setPosto(rs.getInt("posto"));
+                        p.setOffset(rs.getInt("offset"));
+                        p.setPrenotato(prenotato.valueOf(rs.getString("prenotato")));
+                        p.setAcquistato(acquistato.valueOf(rs.getString("acquistato")));
+                        p.setPrezzoFinale(rs.getFloat("prezzo_finale"));
                         Calendar data = Calendar.getInstance();
-                        Date newDate = rs.getDate("data");
-                        data.setTime(newDate);
-                        a.setData(data);
+                        data.setTime(rs.getDate("data"));
+                        p.setData(data);
                         int idSala = rs.getInt("idSala");
                         int idSconto = rs.getInt("sconto_applicato");
                         Sala sala = salaDAO.foundByID(idSala);
-                        a.setSala(sala);
+                        p.setSala(sala);
                         Sconto sconto = scontoDAO.foundByID(idSconto);
-                        a.setSconto(sconto);
+                        p.setSconto(sconto);
                         
-                        acquisti.add(a);
+                        acquisti.add(p);
                     }
             } catch(Exception e){
                 e.printStackTrace();
@@ -322,8 +326,7 @@ public class OperazioneDAO {
 		}
     return acquisti;
    }
-    
-    
+   
    /**
      * Metodo per la ricerca nel DB di una {@link Operazione}.
      * @param idOperazione identificativo dell' {@link Operazione} di tipo intero.
@@ -530,4 +533,3 @@ public class OperazioneDAO {
 	}
 }
    
-

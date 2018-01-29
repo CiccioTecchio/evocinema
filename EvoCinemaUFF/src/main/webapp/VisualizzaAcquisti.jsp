@@ -1,6 +1,6 @@
 <%-- 
-    Document   : VisualizzaPrenotazioni
-    Created on : 24-gen-2018, 10.50.43
+    Document   : VisualizzaAcquisti
+    Created on : 25-gen-2018, 16.28.11
     Author     : giuseppeapuzzo
 --%>
 
@@ -8,16 +8,16 @@
 <%@page import="model.Sconto.tipo"%>
 <%@page import="model.Sconto"%>
 <%@page import="model.UtenteRegistrato"%>
-<%@page import="database.FilmDAO"%>
 <%@page import="model.Sala"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="model.Spettacolo"%>
-<%@page import="database.SpettacoloDAO"%>
-<%@page import="java.util.List"%>
-<%@page import="model.Prenotazione"%>
 <%@page import="model.Film"%>
+<%@page import="database.FilmDAO"%>
+<%@page import="model.Spettacolo"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="database.SpettacoloDAO"%>
+<%@page import="model.Acquisto"%>
+<%@page import="java.util.List"%>
 <%@page import="database.OperazioneDAO"%>
-<% request.setAttribute("title", "Visualizza prenotazioni"); %>
+<% request.setAttribute("title", "Visualizza acquisti"); %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="Header.jsp"/>
 <!DOCTYPE html>
@@ -31,29 +31,28 @@
     if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
         String email =utente.getEmail(); 
         OperazioneDAO opdao = new OperazioneDAO();
-        List<Prenotazione> prenotazioni = opdao.getPrenotazioniUtente(email);
+        List<Acquisto> acquisti = opdao.getAcquistiUtente(email);
         SpettacoloDAO spettdao = new SpettacoloDAO();
         String titolo;
         Calendar cal;
-        if ((prenotazioni == null) || (prenotazioni.size() == 0)) {
+        if ((acquisti == null) || (acquisti.size() == 0)) {
 %>
 
 <div >
 
-    <p class="m-0 text-center" > Nessuna prenotazione da visualizzare </p>
+    <p class="m-0 text-center" > Nessun acquisto da visualizzare </p>
 
 </div>
-<%    
-    } else {
+<%        } else {
 %>
 
 
 <div class="card-header">
-    <i class="fa fa-table"></i> Lista prenotazioni utente</div>
-    <div class="card-body" id="idcorpo">
+    <i class="fa fa-table"></i> Lista acquisti utente</div>
+<div class="card-body">
 
     <div class="table-responsive">
-        <table id="listaPrenotazioni" style="border-" class="table table-bordered" cellspacing="0" width="100%">
+        <table id="listaAcquisti" style="border-" class="table table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Locandina</th>
@@ -62,18 +61,19 @@
                     <th>Ora inizio proiezione</th>
                     <th>Posto</th>
                     <th>Sala</th>
-                    <th>Prezzo</th>
-                    <th>Sconto</th>
+                    <th>Prezzo spettacolo</th>
+                    <th>Sconto ricevuto</th>
+                    <th>Importo pagato</th>
 
                 </tr>
             </thead>
             <tbody>
                 <%
-                    for (int i = 0; i < prenotazioni.size(); i++) {
-                        String idOperazione = ""+prenotazioni.get(i).getIdOperazione();
-                        Spettacolo x = spettdao.foundByID(prenotazioni.get(i).getIdSpettacolo());
+                    for (int i = 0; i < acquisti.size(); i++) {
+                        String idOperazione = ""+acquisti.get(i).getIdOperazione();
+                        Spettacolo x = spettdao.foundByID(acquisti.get(i).getIdSpettacolo());
                 %>
-                <tr class="selezionato" onclick="window.location.href='VisualizzaPrenotazione.jsp?IdPrenotazione='+<%= idOperazione %>" style="cursor: pointer;">
+                <tr class="selezionato">
                     <%
                         FilmDAO fd = new FilmDAO();
                         Film film = fd.foundByID(x.getIdFilm());
@@ -111,27 +111,40 @@
                         }
                     %>
                     <td><%= orario %></td>
-                    <td><%= prenotazioni.get(i).getPosto() %></td>
+                    <td><%= acquisti.get(i).getPosto() %></td>
                     <%
-                        Sala sala = prenotazioni.get(i).getSala();
+                        Sala sala = acquisti.get(i).getSala();
                         int idSala = sala.getIdSala();
                     %>
                     <td><%= idSala %></td>
-                    <td><%= prenotazioni.get(i).getPrezzoFinale()%></td>
+                    <td><%= acquisti.get(i).getPrezzoFinale()%></td>
                     <%
                         String ScontoPercentuale ="";
-                        Sconto sc = prenotazioni.get(i).getSconto();
+                        Sconto sc = acquisti.get(i).getSconto();
                         if(sc.getTipo().equals(tipo.FISSO)){
-                            ScontoPercentuale =  "Prezzo fisso";
+                            ScontoPercentuale =  "Prezzo fisso"; %>
+                            <td><%= ScontoPercentuale %></td>
+                            <td><%= sc.getPrezzo() %></td>
+                        <%    
                         }
                         if(sc.getIdSconto()==0){
-                            ScontoPercentuale = "Nessuno sconto";
+                            ScontoPercentuale = "Nessuno sconto"; %>
+                            <td><%= ScontoPercentuale %></td>
+                            <td><%= acquisti.get(i).getPrezzoFinale()%></td>
+                        <%    
                         }
                         if(sc.getTipo().equals(tipo.PERCENTUALE)){
-                            ScontoPercentuale = ""+sc.getPercentuale()+"%";
+                            ScontoPercentuale = ""+sc.getPercentuale()+"%"; 
+                            float percentuale = (float) sc.getPercentuale();
+                            float price = acquisti.get(i).getPrezzoFinale();
+                            float dascalare = (price * percentuale) /100;  
+                            String xs = ""+(price-dascalare)+ "€";
+                        %>
+                            <td><%= ScontoPercentuale %></td>
+                            <td><%= xs %></td>
+                        <%    
                         }
                     %>
-                    <td><%= ScontoPercentuale %></td>
 
                 </tr>
 
@@ -143,18 +156,18 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // DataTable
-            var table = $('#listaPrenotazioni').DataTable({ 
+            var table = $('#listaAcquisti').DataTable({ 
                 "scrollCollapse": false,
                 "paging":         true
             }
             );
 
-            $('#listaPrenotazioni tbody').on( 'click', 'tr', function () {
+            $('#listaAcquisti tbody').on( 'click', 'tr', function () {
             $(this).toggleClass('selected');
             } );
 
 
-             $('#listaPrenotazioni tbody')
+             $('#listaAcquisti tbody')
                 .on( 'mouseenter', 'td', function () {
                     var colIdx = table.cell(this).index().column;
 
@@ -175,5 +188,6 @@
 
 <% }
 }%>
+
 
 <jsp:include page= "/Footer.jsp"/>

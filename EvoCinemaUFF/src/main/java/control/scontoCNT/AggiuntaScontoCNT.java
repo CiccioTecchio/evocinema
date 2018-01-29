@@ -111,7 +111,7 @@ public class AggiuntaScontoCNT extends HttpServlet {
         }
         
         
-        request.setAttribute("messaggioInserimentoSconto", messaggio);
+        request.setAttribute("messaggioSconto", messaggio);
         response.sendRedirect("VisualizzaSconti.jsp");
     }
 

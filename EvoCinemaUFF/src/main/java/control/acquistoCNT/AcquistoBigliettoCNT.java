@@ -44,6 +44,8 @@ public class AcquistoBigliettoCNT extends HttpServlet {
         String emailAcquirente="";
         Acquisto op = new Acquisto();
         
+        //L'EMAIL LA PRENDO NELLA JSP, NON LA PRELEVO QUI DALLA SESSIONE
+        
         if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE)
         {
             //IL CREDITO E' SUFFICIENTE, CONTROLLO EFFETTUATO PRIMA CON JSON
