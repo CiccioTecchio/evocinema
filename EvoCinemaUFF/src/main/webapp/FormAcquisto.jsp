@@ -354,7 +354,7 @@
         //alert("Acquisto function");
         var r = confirm("Sei di voler procedere?");
         if (r == true) {
-            document.getElementById("myform").action = "AcquistoBigliettoCNT";
+            window.location.href="AcquistoBigliettoCNT";
         }
 
     }
@@ -362,7 +362,7 @@
     function prenotazioneFunction() {
         var r = confirm("Sei sicuro di voler prenotare il biglietto?");
         if (r == true) {
-            //document.getElementById("myform").action="PrenotazioneCNT";
+            window.location.href="PrenotazioneBigliettoCNT";
         }
 
     }
