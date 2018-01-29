@@ -266,7 +266,7 @@ public class UtenteRegistratoDAO {
             stmt.setString(3, ut.getRuolo().toString());
             stmt.setString(4, ut.getNome());
             stmt.setString(5, ut.getCognome());
-            stmt.setDate(6, new Date(ut.getDataNascita().getTimeInMillis()));
+            stmt.setString(6, dataN);
             stmt.setString(7, ut.getSesso().toString());
             stmt.setString(8, ut.getCellulare());
             stmt.setString(9, ut.getCittà());

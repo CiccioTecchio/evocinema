@@ -16,7 +16,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account - Saldo</title>
     </head>
-    <jsp:include page="AccountHeader.jsp" />
+    <jsp:include page="Header.jsp" />
     <body>
         Il tuo saldo è: <%= utente.getSaldo()%>
         
@@ -27,5 +27,5 @@
             
         </form>
     </body>
-    <jsp:include page="AccountFooter.jsp" />
+    <jsp:include page="Footer.jsp" />
 </html>

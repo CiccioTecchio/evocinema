@@ -74,7 +74,7 @@ public class CancellazioneAccountCNT extends HttpServlet {
         processRequest(request, response);
         
         HttpSession s = request.getSession();
-        UtenteBase utente = (UtenteBase) s.getAttribute("user");
+        UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
         boolean cancellato=false;
         System.out.println("utente in sessione: "+utente);
         
@@ -94,9 +94,10 @@ public class CancellazioneAccountCNT extends HttpServlet {
         }
         
         
-        String page="/index.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+        String page="index.jsp";
+        response.sendRedirect(page);
+        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        //dispatcher.forward(request, response);
     }
 
     /**

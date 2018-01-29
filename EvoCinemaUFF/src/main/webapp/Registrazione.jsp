@@ -69,7 +69,7 @@
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
-                            <input class="form-control" type="text" id="emailRegistrazione" name="emailRegistrazione" maxlength="50" onchange ="validateEmail(event)">
+                            <input class="form-control" type="text" id="emailRegistrazione" name="emailRegistrazione" maxlength="50">
                             <div class="form-input-validation is-error" id ="errorEmail2">
                                 <span>
                                     <p class="error-psw">Questo campo non può contenere meno di 5 caratteri!</p>
