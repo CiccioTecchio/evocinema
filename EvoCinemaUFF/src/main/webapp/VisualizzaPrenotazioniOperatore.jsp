@@ -1,6 +1,6 @@
 <%-- 
-    Document   : VisualizzaPrenotazioni
-    Created on : 24-gen-2018, 10.50.43
+    Document   : VisualizzaPrenotazioniGestore
+    Created on : 29-gen-2018, 13.18.56
     Author     : giuseppeapuzzo
 --%>
 
@@ -27,9 +27,12 @@
     UtenteRegistrato utente =(UtenteRegistrato) s.getAttribute("user");
     if ((utente == null)){
         response.sendRedirect("Login.jsp");
-    }
-    if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
-        String email =utente.getEmail(); 
+    }else{
+        String email = request.getParameter("emailUtente");
+        if(email == null) {
+            email = (String) s.getAttribute("emailUtente");
+        }
+        s.setAttribute("emailUtente", email);
         OperazioneDAO opdao = new OperazioneDAO();
         List<Prenotazione> prenotazioni = opdao.getPrenotazioniUtente(email);
         SpettacoloDAO spettdao = new SpettacoloDAO();
@@ -40,7 +43,10 @@
 
 <div >
 
-    <p class="m-0 text-center" > Nessuna prenotazione da visualizzare </p>
+    <p class="m-0 text-center" > Nessuna prenotazione da visualizzare per l'utente inserito</p>
+    <div align="center">
+        <input type="button" name="Home" value="Ritorna alla Home Operatore" onclick="window.location.href='index.jsp' " />
+    </div>
 
 </div>
 <%    
@@ -49,7 +55,7 @@
 
 
 <div class="card-header">
-    <i class="fa fa-table"></i> Lista prenotazioni utente</div>
+    <i class="fa fa-table"></i> Lista prenotazioni dell'utente inserito</div>
     <div class="card-body" id="idcorpo">
 
     <div class="table-responsive">

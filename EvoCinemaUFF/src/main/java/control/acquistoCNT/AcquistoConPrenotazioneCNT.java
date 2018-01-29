@@ -23,6 +23,8 @@ import model.Operazione;
 import model.Sconto;
 import model.Sconto.tipo;
 import model.UtenteBase;
+import model.UtenteRegistrato;
+import model.UtenteRegistrato.ruolo;
 
 /**
  *
@@ -43,13 +45,21 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, NamingException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        String email ="ABergamaschi@gmail.com"; 
-        UtenteRegistratoDAO utenteDAO = new UtenteRegistratoDAO();
-        UtenteBase utbase = utenteDAO.foundUtenteBaseByEmail(email);
+        
+        String email =""; 
        
         HttpSession session = request.getSession();
+        UtenteRegistrato utente =(UtenteRegistrato) session.getAttribute("user");
+        if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
+            email = utente.getEmail();
+        }
+        if( (utente.getRuolo()).equals(ruolo.OPERATORE)){
+            email = (String) session.getAttribute("emailUtente");
+        }
+        UtenteRegistratoDAO utenteDAO = new UtenteRegistratoDAO();
+        UtenteBase utbase = utenteDAO.foundUtenteBaseByEmail(email);
+        
         Operazione operazione = (Operazione) session.getAttribute("operazione");
-        System.out.println("perazione servlet="+operazione.toString());
         OperazioneDAO opDAO = new OperazioneDAO();
         float price = operazione.getPrezzoFinale();
         float saldo = utbase.getSaldo();
@@ -73,7 +83,12 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
             response.sendRedirect("ResocontoAcquisto.jsp");
         }
         else{
-            response.sendRedirect("VisualizzaPrenotazioni.jsp");
+            if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
+                response.sendRedirect("VisualizzaPrenotazioni.jsp");
+            }
+            if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) {
+                response.sendRedirect("VisualizzaPrenotazioniOperatore.jsp");
+            }
         }
         //utenteDAO.updateUtenteRegistrato((UtenteRegistrato)utbase);
         //response.sendRedirect("ResocontoAcquisto.jsp");

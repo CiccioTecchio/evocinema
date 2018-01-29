@@ -4,6 +4,8 @@
     Author     : giuseppeapuzzo
 --%>
 
+<%@page import="model.UtenteRegistrato.ruolo"%>
+<%@page import="model.UtenteRegistrato"%>
 <%@page import="model.Sconto.tipo"%>
 <%@page import="database.SpettacoloDAO"%>
 <%@page import="database.OperazioneDAO"%>
@@ -115,20 +117,44 @@
         <br><br>
 
         </br></br>
-        <input type="button" name="Indietro" value="Indietro" onclick="window.location.href='VisualizzaPrenotazioni.jsp' " />
+        <%
+            HttpSession s = request.getSession();
+            UtenteRegistrato utente =(UtenteRegistrato) s.getAttribute("user");
+            String indietro ="";
+            if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) {
+                indietro = "VisualizzaPrenotazioniOperatore.jsp";
+            }
+            if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
+                indietro = "VisualizzaPrenotazioni.jsp";
+            }
+        %>
+        <input type="button" name="Indietro" value="Indietro" onclick="window.location.href='<%= indietro %>' " />
         <div class="float-right">
-            <input class="mr-3" type="submit" name="Esito" value="Acquista prenotazione" onclick="document.pressed=this.value" />  
-            <input type="submit" name="Esito" value="Cancella prenotazione" onclick="if(confirm('Sei sicuro di voler cancellare la prenotazione?'))document.pressed=this.value"/>
+            <%
+            if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) { %>
+                <input class="mr-3" type="submit" name="Esito" value="Vendi la prenotazione all'utente" onclick="document.pressed=this.value" />  
+            <%
+                indietro = "VisualizzaPrenotazioniOperatore.jsp";
+            }
+            if( (utente.getRuolo()).equals(ruolo.UTENTE) ) { %>
+                <input class="mr-3" type="submit" name="Esito" value="Acquista prenotazione" onclick="document.pressed=this.value" />  
+                <input type="submit" name="Esito" value="Cancella prenotazione" onclick="if(confirm('Sei sicuro di voler cancellare la prenotazione?'))document.pressed=this.value"/>
+            <%
+            }
+            %>  
+            
         </div>
 
     </fieldset>
 </form>
 <script>
       function OnSubmit(){
+        if(document.pressed == "Vendi la prenotazione all'utente"){
+            document.getElementById("idform").action="AcquistoConPrenotazioneCNT";
+        }
         if(document.pressed == 'Acquista prenotazione'){
             document.getElementById("idform").action="AcquistoConPrenotazioneCNT";
         }
-        else
         if(document.pressed == 'Cancella prenotazione'){
             document.getElementById("idform").action="DisdettaPrenotazioneCNT";
         }

@@ -4,6 +4,8 @@
     Author     : giuseppeapuzzo
 --%>
 
+<%@page import="model.UtenteRegistrato.ruolo"%>
+<%@page import="model.UtenteRegistrato"%>
 <%@page import="model.Sconto.tipo"%>
 <%@page import="model.Sconto"%>
 <%@page import="java.util.Calendar"%>
@@ -17,6 +19,8 @@
 
 
 <%
+    
+    UtenteRegistrato utente =(UtenteRegistrato) session.getAttribute("user");
     Operazione operazione = (Operazione) session.getAttribute("operazione");
     SpettacoloDAO spettDAO = new SpettacoloDAO();
     Spettacolo spett = spettDAO.foundByID(operazione.getIdSpettacolo());
@@ -127,10 +131,21 @@
             %>
 
         </br></br>
-        <input type="button" name="Prenotazioni" value="Ritorna alla lista prenotazioni" onclick="window.location.href='VisualizzaPrenotazioni.jsp' " />
-        <div class="float-right">
-        <input type="button" name="Acquisti" value="Visualizza tutti gli acquisti" onclick="window.location.href='VisualizzaAcquisti.jsp' " />
-        </div>
+        <%
+            if( (utente.getRuolo()).equals(ruolo.UTENTE) ){ %>
+                <input type="button" name="Prenotazioni" value="Ritorna alla lista prenotazioni" onclick="window.location.href='VisualizzaPrenotazioni.jsp' " />
+                <div class="float-right">
+                <input type="button" name="Acquisti" value="Visualizza tutti gli acquisti" onclick="window.location.href='VisualizzaAcquisti.jsp' " />
+                </div>
+            <%
+            }
+            if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) { %>
+                <div align="center">
+                <input type="button" name="Home" value="Ritorna alla Home Operatore" onclick="window.location.href='index.jsp' " />
+                </div>
+            <%
+            }
+        %>
 
     </fieldset>
 </form>
