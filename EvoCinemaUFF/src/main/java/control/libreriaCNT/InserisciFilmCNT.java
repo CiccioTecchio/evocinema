@@ -123,7 +123,7 @@ public class InserisciFilmCNT extends HttpServlet {
            // Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             messageInsert = "Elemento già esistente"; 
-            Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         
        request.setAttribute("messaggioInsert", messageInsert);

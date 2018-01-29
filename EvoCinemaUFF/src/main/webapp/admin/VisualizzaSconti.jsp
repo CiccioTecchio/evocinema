@@ -173,7 +173,7 @@
                 $("#messaggio").append("<div class='alert "+erCode+" alert-dismissible fade show' role='alert'>\n\
                 <strong>"+data.messaggio+"</strong>\n\
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>\n\
-                <span aria-hidden='true'>&times;</span>\n\
+               <span aria-hidden='true'>&times;</span>\n\
                 </button>\n\
                 </div>");
 
