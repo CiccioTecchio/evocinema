@@ -28,7 +28,7 @@
     if ((utente == null)){
         response.sendRedirect("Login.jsp");
     }
-    if( (utente.getRuolo()).equals(ruolo.UTENTE) ) {
+    if( (utente!=null) && ((utente.getRuolo()).equals(ruolo.UTENTE))  ) {
         String email =utente.getEmail(); 
         OperazioneDAO opdao = new OperazioneDAO();
         List<Acquisto> acquisti = opdao.getAcquistiUtente(email);

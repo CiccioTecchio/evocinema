@@ -78,7 +78,7 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
         boolean responso = utenteDAO.updateUtenteBase(utbase);
         if(responso){
             operazione.setAcquistato(Operazione.acquistato.TRUE);
-            operazione.setPrenotato(Operazione.prenotato.FALSE);
+            //operazione.setPrenotato(Operazione.prenotato.FALSE);
             opDAO.updateOperazione(operazione);
             response.sendRedirect("ResocontoAcquisto.jsp");
         }
