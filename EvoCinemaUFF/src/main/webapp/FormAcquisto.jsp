@@ -3,6 +3,10 @@
     Created on : 18-gen-2018, 11.18.43
     Author     : pietr
 --%>
+<%@page import="model.Sconto.verificabile"%>
+<%@page import="com.sun.istack.internal.logging.Logger"%>
+<%@page import="model.UtenteRegistrato.ruolo"%>
+<%@page import="model.UtenteRegistrato"%>
 <%@page import="model.Sconto.disponibile"%>
 <%@page import="model.Spettacolo"%>
 <%@page import="model.Sconto"%>
@@ -14,41 +18,58 @@
 <jsp:include page= "GestioneAcquistiCNT"/>
 <!DOCTYPE html>
 
+<%
+if(session.getAttribute("user")==null)
+    {
+        String redirectURL = "Login.jsp";
+        response.sendRedirect(redirectURL);
+    }
+
+%>
+
 <form id="myform" method="POST">  
-    <fieldset class="fieldsetCustom">
-        <legend class="legendCustom">Vendita biglietti - 3 </legend>
+    <div class="card">
         
+        <%  UtenteRegistrato user=(UtenteRegistrato)session.getAttribute("user");
+            //System.out.println("ruolo "+user.getRuolo().toString());
+            if(user.getRuolo()==UtenteRegistrato.ruolo.OPERATORE)
+            {
+        %>
         <!--SE E' UN OPERATORE INSERIRA' MANUALMENTE L'EMAIL DEL CLIENTE-->
         <div class="m-4">
             <lable>Inserisci l'email del cliente </lable>
-            <input class="form-control" type="text" id="emailUtenteBase" type="hidden" value="" >
+            <input class="form-control" type="text" id="emailUtenteBase" value="" >
         </div>
-        
+        <%}
+        else
+        {%>
         <!--SE E' L'UTENTE INTERESSATO CHE STA ACQUISTANDO ONLINE, RECUPERO L'EMAIL DALLA SESSIONE-->
-        <%//RECUPERO EMAIL DA SESSIONE%>
+        <input type="hidden" id="emailUtenteBase" value="<%=user.getEmail()%>" >
+        <%}
         
-        <% 
            List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("SPETTACOLI");
            Spettacolo spettacoloSelezionato = null;
+           
            for(Spettacolo s: spettacoli)
            {
-               if(s.getIdSpettacolo()==19)
+               if(s.getIdSpettacolo()==Integer.parseInt(request.getParameter("idSpettacolo")))
                    //s.getIdSpettacolo()==(Integer.parseInt(request.getParameter("idSpetacolo")))
                {
                    spettacoloSelezionato = s;
                    break;
                }
            }
-                %>
+            
+          %>
+          
+          
         <div>
             <div class="m-4">
                 <lable>Nome spettacolo in programmazione: </lable>
                 <lable class="float-right"><%=spettacoloSelezionato.getTitolo()%></lable>
             </div>
-
-            <input id="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
             
-            <% Calendar cal = Calendar.getInstance();
+            <% Calendar cal = spettacoloSelezionato.getOraInizio();
                 String orario = "";
                 int ora = cal.get(Calendar.HOUR_OF_DAY);
                 int minuti = cal.get(Calendar.MINUTE);
@@ -63,6 +84,22 @@
                     orario += ":" + cal.get(Calendar.MINUTE);
                 }
 
+                cal = spettacoloSelezionato.getOraFine();
+                String orario2 = "";
+                ora = cal.get(Calendar.HOUR_OF_DAY);
+                minuti = cal.get(Calendar.MINUTE);
+                if ((ora >= 0) && (ora <= 9)) {
+                    orario2 = "0" + ora;
+                } else {
+                    orario2 += ora;
+                }
+                if (minuti >= 0 && minuti < 10) {
+                    orario2 += ":0" + minuti;
+                } else {
+                    orario2 += ":" + cal.get(Calendar.MINUTE);
+                }
+
+                cal = spettacoloSelezionato.getDataInizio();
                 String data = cal.get(Calendar.YEAR) + "/";
                 int mese = cal.get(Calendar.MONTH);
                 if ((mese >= 0) && (mese < 9)) {
@@ -72,14 +109,65 @@
                 }
                 data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
 
+                cal = spettacoloSelezionato.getDataFine();
+                String data2 = cal.get(Calendar.YEAR) + "/";
+                mese = cal.get(Calendar.MONTH);
+                if ((mese >= 0) && (mese < 9)) {
+                    data2 = data2 + "0" + (mese + 1);
+                } else {
+                    data2 = data2 + (mese + 1);
+                }
+                data2 = data2 + "/" + cal.get(Calendar.DAY_OF_MONTH);
+    
+            %>
+            
+            <div class="m-4">
+                <lable>Data spettacolo in programmazione: </lable>
+                <lable class="float-right"><%=data%>-<%=data2%></lable>
+            </div>
+            
+            
+            <div class="m-4">
+                <lable>Orario spettacolo in programmazione: </lable>
+                <lable class="float-right"><%=orario%>-<%=orario2%></lable>
+            </div>
+            
+            
+
+            <input id="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
+            
+            <%  cal = Calendar.getInstance();
+                 orario = "";
+                 ora = cal.get(Calendar.HOUR_OF_DAY);
+                 minuti = cal.get(Calendar.MINUTE);
+                if ((ora >= 0) && (ora <= 9)) {
+                    orario = "0" + ora;
+                } else {
+                    orario += ora;
+                }
+                if (minuti >= 0 && minuti < 10) {
+                    orario += ":0" + minuti;
+                } else {
+                    orario += ":" + cal.get(Calendar.MINUTE);
+                }
+
+                 data = cal.get(Calendar.YEAR) + "/";
+                 mese = cal.get(Calendar.MONTH);
+                if ((mese >= 0) && (mese < 9)) {
+                    data = data + "0" + (mese + 1);
+                } else {
+                    data = data + (mese + 1);
+                }
+                data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
+
             %>
             <div class="m-4">
-                <lable>Orario prenotazione: </lable>
+                <lable>Orario corrente: </lable>
                 <label class="float-right" nome="orarioPrenotazione" value="<%=orario%>"><%=orario%></label>
             </div>
 
             <div class="m-4">
-                <lable>Data prenotazione: </lable>
+                <lable>Data corrente: </lable>
                 <label class="float-right" nome="dataPrenotazione" value="<%=data%>"><%=data%></label>
             </div>
 
@@ -92,7 +180,7 @@
             </div>
             
             
-            
+            <div class="m-4">    
             <div class="table-responsive">
         <table id="listaFilm" style="border-" class="table table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -107,7 +195,7 @@
             
             <tbody>                
                 <%
-                String posti="1-12-13-14-";//posti=request.getParameter("posti");
+                String posti=request.getParameter("posti");//posti=request.getParameter("posti");
                 int numeroBiglietti=0;
                 while(!posti.equals(""))
                 {
@@ -126,11 +214,17 @@
                                 {
                                     if(s.getDisponibile()==disponibile.TRUE)
                                     {
+                                        if(((s.getVerificabile()==verificabile.FALSE)&&
+                                                (user.getRuolo()==ruolo.OPERATORE))||(
+                                                (s.getVerificabile()==verificabile.TRUE)&&
+                                                ((user.getRuolo()==ruolo.UTENTE)||
+                                                (user.getRuolo()==ruolo.OPERATORE))))
+                                        {
                                 %>
                                 <option value="<%=s.getIdSconto()%>">
                                     <%=s.getNome()%>
                                 </option>
-                               <%} }%>
+                               <%} }}%>
                         </select>
                         
                     </td> 
@@ -142,6 +236,7 @@
             </tbody>
         </table>
     </div>
+    </div>        
             <div class="m-4">
                 <label class="radio-inline">
                 <input type="radio" name="operazione" value="Acquista" onclick="calcolaPrezzoTotale()" checked> Acquista<br>
@@ -155,18 +250,18 @@
             <div class="m-4">
                 <lable>Importo da pagare: </lable>
                 <label id="prezzoTotale" class="float-right"></label>
+                <input type="hidden" id="prezzoTotaleHidden" value="">
             </div>
         </div>    
             
             
-       <div class="float-right">
+       <div class="m-4">
            
-            <input class="mr-3" type="submit" value="Procedi" name="Procedi" onclick="return disponibilitaSaldo()"/>  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
+            <input class="mr-3" type="button" value="Procedi" name="Procedi" onclick="return disponibilitaSaldo()"/>  <!--I DUE BUTTON RICHIAMERANNO LA STESSA SERVLET
                 CHE IN BASE AL VALORE PASSATO REDIRECT BACK, SE ANNULLA, ALTRIMENTI REDIRECT AVANTI-->
         </div>
-                 
-
-    </fieldset>                
+    </div>             
+              
 </form>
 
 <script>
@@ -190,10 +285,11 @@
             if (this.readyState == 4 && this.status == 200) {
 
                 var result = this.responseText;
-                alert(result);
                 
                 //document.getElementById('prezzoTotale').innerHTML=result.substring(2,6);
                 document.getElementById('prezzoTotale').innerHTML=result.substring(
+                        2,result.lastIndexOf('"'))+' €';    
+                document.getElementById('prezzoTotaleHidden').value=result.substring(
                         2,result.lastIndexOf('"'));    
             }
         };
@@ -206,21 +302,28 @@
     
 
     function disponibilitaSaldo() {
-
+        var emailAcquirente=document.getElementById('emailUtenteBase').value;
+        var importoTotale=document.getElementById("prezzoTotaleHidden").value;
         var xmht = new XMLHttpRequest();
         xmht.onreadystatechange = function () {
             console.log("readyState: " + this.readyState);
             if (this.readyState == 4 && this.status == 200) {
-
-                var result = this.responseText;
-                if (result === 'Saldo insufficiente')
-                    alert(result);
-                if (result === 'Ok')
-                    acquistoFunction();
-
+                 var result = this.responseText;
+                //alert(result);
+                if (result.substring(2,result.lastIndexOf('"')) === 'Saldo insufficiente')
+                    alert(result.substring(2,result.lastIndexOf('"')));
+                if (result.substring(2,result.lastIndexOf('"')) === 'Ok')
+                    {
+                        var operazione=document.querySelector('input[name="operazione"]:checked').value;
+                        if(operazione==="Prenota")
+                            prenotazioneFunction();
+                        if(operazione==="Acquista")    
+                            acquistoFunction();
+                    }
             }
         };
-        xmht.open("GET", "JSONDisponibilitaSaldo", true);
+        xmht.open("GET", "JSONDisponibilitaSaldo?importoTotale="+importoTotale+"&emailAcquirente="+
+                emailAcquirente, true);
         xmht.send();
     }
 
