@@ -8,6 +8,18 @@
         <servlet-name>VisualizzaRecensioniCNT</servlet-name>
         <servlet-class>control.accountCNT.VisualizzaRecensioniCNT</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VisualizzaOperatoriCNT</servlet-name>
+        <servlet-class>control.accountCNT.VisualizzaOperatoriCNT</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VisualizzaGestoriCNT</servlet-name>
+        <servlet-class>control.accountCNT.VisualizzaGestoriCNT</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancellazioneGestore</servlet-name>
+        <servlet-class>control.accountCNT.CancellazioneGestore</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RecuperoPasswordCNT</servlet-name>
         <url-pattern>/RecuperoPasswordCNT</url-pattern>
@@ -135,6 +147,18 @@
     <servlet-mapping>
         <servlet-name>VisualizzaRecensioniCNT</servlet-name>
         <url-pattern>/VisualizzaRecensioniCNT</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisualizzaOperatoriCNT</servlet-name>
+        <url-pattern>/VisualizzaOperatoriCNT</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VisualizzaGestoriCNT</servlet-name>
+        <url-pattern>/VisualizzaGestoriCNT</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancellazioneGestore</servlet-name>
+        <url-pattern>/CancellazioneGestore</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

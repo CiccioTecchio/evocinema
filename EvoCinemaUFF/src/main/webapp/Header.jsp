@@ -340,6 +340,22 @@
 
                         </ul>
                     </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Operatori e Gestori</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
+                            <li>
+                                <a href="VisualizzaOperatoriCNT">Visualizza Operatori</a>
+                            </li>
+                            <li><a href="VisualizzaGestoriCNT">Visualizza Gestori</a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    
                     <!-- fine menù laterale -->       
                 </ul>
                 <ul class="navbar-nav sidenav-toggler">
