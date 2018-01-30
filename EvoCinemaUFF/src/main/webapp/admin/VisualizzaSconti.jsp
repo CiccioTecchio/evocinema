@@ -136,7 +136,7 @@
 
                         <form action="ModificaSconto.jsp" method="GET" >
                             <button class="btn btn-primary btn-md mt-2" >Modifica</button>
-                            <input type="hidden" name="position" value="<%= i%>" >
+                            <input type="hidden" name="position" value="<%Integer index=new Integer(i);%><%= index %>" >
                         </form>
                     </div>
                 </td>
@@ -175,7 +175,7 @@
                 $("#messaggio").append("<div class='alert " + erCode + " alert-dismissible fade show' role='alert'>\n\
                 <strong>" + data.messaggio + "</strong>\n\
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>\n\
-                <span aria-hidden='true'>&times;</span>\n\
+               <span aria-hidden='true'>&times;</span>\n\
                 </button>\n\
                 </div>");
 

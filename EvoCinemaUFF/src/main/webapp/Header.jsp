@@ -64,11 +64,227 @@
 
         <script src="HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>     
         <script src="javascript/swiper.js"></script> 
-        
 
 
+        <%
+            if(u==null){
+            
+            %>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                    <!-- inizio menù laterale -->
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                        <a class="nav-link" href="index.jsp">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="nav-link-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzazioneProgrammazione.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Programmazione</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaLibreria.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Libreria</span>
+                        </a>
+                    </li>
+                    
+                    <!-- fine menù laterale -->       
+                </ul>
+                <ul class="navbar-nav sidenav-toggler">
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="sidenavToggler">
+                            <i class="fa fa-fw fa-angle-left"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                   
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="Login.jsp">
+                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
+                        </li>
+                            <%
+                            } else {
+                            %> 
+                         
+                <%
+                               String op=u.getRuolo().name();
+                switch(op){
+                    case "OPERATORE":
+                            %>
+                           
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                    <!-- inizio menù laterale -->
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                        <a class="nav-link" href="index.jsp">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="nav-link-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzazioneProgrammazione.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Programmazione</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaLibreria.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Libreria</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaAcquisti.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Vendite</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="OperatorePrelevaEmailUtente.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Prenotazioni</span>
+                        </a>
+                    </li>
+                    
+                    <!-- fine menù laterale -->       
+                </ul>
+                <ul class="navbar-nav sidenav-toggler">
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="sidenavToggler">
+                            <i class="fa fa-fw fa-angle-left"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente() %>
+                        </a>
+                        <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
+                              <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
+                                <span class="text-success">
+                                  <strong>
+                                    <i class="fa fa-user-circle"></i>Profilo</strong>
+                                   </span>
+                                  
+                              </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item"  data-toggle="modal" data-target="#exampleModal">
+                                <span class="text-danger">
+                                   <strong>
+                                    <i class="fa fa-fw fa-sign-out"></i>Logout</strong>
+                                    </span>
+                                </a>
+                        </div>
+                    </li>
+                           <%
+                                }
+
+                            %>
+                <!--FINE OPERATORE-->
+                <%
+                 switch(op){
+                    case "UTENTE":
+                            %>
+                           
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                    <!-- inizio menù laterale -->
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                        <a class="nav-link" href="index.jsp">
+                            <i class="fa fa-fw fa-home"></i>
+                            <span class="nav-link-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzazioneProgrammazione.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Porgrammazione</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaLibreria.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Libreria</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaAcquisti.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">VisualizzaAcquisti</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaPrenotazioni.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">VisualizzaPrenotazioni</span>
+                        </a>
+                    </li>
+                    <!-- fine menù laterale -->       
+                </ul>
+                <ul class="navbar-nav sidenav-toggler">
+                    <li class="nav-item">
+                        <a class="nav-link text-center" id="sidenavToggler">
+                            <i class="fa fa-fw fa-angle-left"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente() %>
+                        </a>
+                        <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
+                              <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
+                                <span class="text-success">
+                                  <strong>
+                                    <i class="fa fa-user-circle"></i>Profilo</strong>
+                                   </span>
+                                  
+                              </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item"  data-toggle="modal" data-target="#exampleModal">
+                                <span class="text-danger">
+                                   <strong>
+                                    <i class="fa fa-fw fa-sign-out"></i>Logout</strong>
+                                    </span>
+                                </a>
+                        </div>
+                    </li>
+                           <%
+                                }
+
+                            %>
+                <!--FINE UTENTE-->
+                <%
+                 switch(op){
+                    case "GESTORE":
+                            %>
+                           
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
             <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -98,24 +314,12 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                   
-                        <%
-                            if (u == null) {
-                        %>
-                        <li class="nav-item">
-                        <a class="nav-link" href="Login.jsp">
-                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
-                        </li>
-                            <%
-                            } else {
-                            %> 
-                 
-                    <li class="nav-item dropdown">
+<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente() %>
                         </a>
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                              <a class="dropdown-item" href="VisualizzaProfilo.jsp">
+                              <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                   <strong>
                                     <i class="fa fa-user-circle"></i>Profilo</strong>
@@ -123,7 +327,7 @@
                                   
                               </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">
+                            <a class="dropdown-item"  data-toggle="modal" data-target="#exampleModal">
                                 <span class="text-danger">
                                    <strong>
                                     <i class="fa fa-fw fa-sign-out"></i>Logout</strong>
@@ -131,9 +335,9 @@
                                 </a>
                         </div>
                     </li>
-
                            <%
                                 }
+}
                             %>
                 </ul>
                   <script>

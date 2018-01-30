@@ -4,15 +4,7 @@
         <servlet-name>GestioneSaldoCNT</servlet-name>
         <servlet-class>control.accountCNT.GestioneSaldoCNT</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>GestioneAcquisti</servlet-name>
-        <servlet-class>control.accountCNT.GestioneAcquisti</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GestionePrenotazioni</servlet-name>
-        <servlet-class>control.accountCNT.GestionePrenotazioni</servlet-class>
-    </servlet>
-    <servlet-mapping>
+   <servlet-mapping>
         <servlet-name>RecuperoPasswordCNT</servlet-name>
         <url-pattern>/RecuperoPasswordCNT</url-pattern>
     </servlet-mapping>
@@ -114,10 +106,6 @@
         <url-pattern>/PrenotazioneCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AccountCNT</servlet-name>
-        <url-pattern>/AccountCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AnalyticsIscrizioniCNT</servlet-name>
         <url-pattern>/AnalyticsIscrizioniCNT</url-pattern>
     </servlet-mapping>
@@ -141,24 +129,12 @@
         <servlet-name>GestioneSaldoCNT</servlet-name>
         <url-pattern>/GestioneSaldoCNT</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GestioneAcquisti</servlet-name>
-        <url-pattern>/GestioneAcquisti</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GestionePrenotazioni</servlet-name>
-        <url-pattern>/GestionePrenotazioni</url-pattern>
-    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>ConfigServlet</servlet-name>
         <servlet-class>database.ConfigServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AccountCNT</servlet-name>
-        <servlet-class>control.accountCNT.AccountCNT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RecuperoPasswordCNT</servlet-name>

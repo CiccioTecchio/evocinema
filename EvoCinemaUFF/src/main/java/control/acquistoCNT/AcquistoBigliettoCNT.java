@@ -39,10 +39,14 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             throws ServletException, IOException, NamingException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         
+        System.out.println("Servlet acquistobigliettocnt");
+        /*
         HttpSession s = request.getSession();
         UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
         String emailAcquirente="";
         Acquisto op = new Acquisto();
+        
+        //L'EMAIL LA PRENDO NELLA JSP, NON LA PRELEVO QUI DALLA SESSIONE
         
         if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE)
         {
@@ -59,7 +63,7 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             //op.set..
             //operazioneDAO.createOperazione(op);
         }
-        
+        */
         
     }
 

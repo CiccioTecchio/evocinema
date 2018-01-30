@@ -7,6 +7,7 @@ import java.util.Calendar;
 public class Recensione {
     
     private String emailUtente;
+    private String nomeUtente;
     private Film film;
     private float valutazione;
     private String testo;
@@ -25,7 +26,14 @@ public class Recensione {
         
     }
     
+    public String getNomeUtente() {
+        return nomeUtente;
+    }
 
+    public void setNomeUtente(String nomeUtente) {
+        this.nomeUtente = nomeUtente;
+    }
+    
     public float getValutazione() {
         return valutazione;
     }

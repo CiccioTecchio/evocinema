@@ -206,6 +206,7 @@ public class UtenteRegistratoDAO {
             while(rs.next()){
                     utenteFound.setEmail(rs.getString("email"));
                     utenteFound.setNomeUtente(rs.getString("nome_utente"));
+                    utenteFound.setCognome(rs.getString("cognome"));
                     utenteFound.setPassword(rs.getString("password"));
                     utenteFound.setRuolo(UtenteRegistrato.ruolo.valueOf(rs.getString("ruolo")));
                     utenteFound.setNome(rs.getString("nome"));
@@ -252,7 +253,7 @@ public class UtenteRegistratoDAO {
                 stmt.setFloat(11, u.getSaldo());
                 stmt.setString(12, ut.getEmail());
 
-                stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + u.getNomeUtente() + "', password='" + u.getPassword() + "', ruolo='" + u.getRuolo() + "', nome='" + u.getNome() + "', cognome='" + u.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + u.getSesso() + "', cellulare='" + u.getCellulare() + "', città='" + u.getCittà() + "', indirizzo='" + u.getIndirizzo() + "', saldo='"+u.getSaldo()+"' WHERE ( email='" + u.getEmail() + "');");
+               //stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + u.getNomeUtente() + "', password='" + u.getPassword() + "', ruolo='" + u.getRuolo() + "', nome='" + u.getNome() + "', cognome='" + u.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + u.getSesso() + "', cellulare='" + u.getCellulare() + "', città='" + u.getCittà() + "', indirizzo='" + u.getIndirizzo() + "', saldo='"+u.getSaldo()+"' WHERE ( email='" + u.getEmail() + "');");
 
             }
             else{
@@ -261,6 +262,50 @@ public class UtenteRegistratoDAO {
                         + "                                             sesso= ? , cellulare= ? , città= ? , indirizzo= ?  WHERE ( email= ? );");
                 stmt.setString(11, ut.getEmail());
             }
+            stmt.setString(1, ut.getNomeUtente());
+            stmt.setString(2, ut.getPassword());
+            stmt.setString(3, ut.getRuolo().toString());
+            stmt.setString(4, ut.getNome());
+            stmt.setString(5, ut.getCognome());
+            stmt.setString(6, dataN);
+            stmt.setString(7, ut.getSesso().toString());
+            stmt.setString(8, ut.getCellulare());
+            stmt.setString(9, ut.getCittà());
+            stmt.setString(10,ut.getIndirizzo());
+            stmt.executeUpdate();
+            update = true;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return update;
+    }
+    
+        /**
+     * Metodo per la modifica dei dati di un oggetto di tipo {@link UtenteBase}
+     * all'interno del DB
+     *
+     * @param ut Oggetto di tipo {@link UtenteBase}
+     * @return 'true' in caso di successo o 'false' in caso di fallimento
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
+    public synchronized boolean updateUtenteBase(UtenteBase ut) throws SQLException, ParseException, NamingException {
+
+        PreparedStatement stmt = null;
+        boolean update = false;
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        String dataN=sdf.format(ut.getDataNascita().getTime());
+        try {
+
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente= ? , password= ? , ruolo= ? , nome= ? , cognome= ?, data_nascita= ? , "
+                        +" sesso= ? , cellulare= ? , città= ? , indirizzo= ? , saldo= ?  WHERE ( email= ? );");
+            stmt.setFloat(11, ut.getSaldo());
+            stmt.setString(12, ut.getEmail());
+
+          //  stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Utente SET nome_utente='" + ut.getNomeUtente() + "', password='" + ut.getPassword() + "', ruolo='" + ut.getRuolo() + "', nome='" + ut.getNome() + "', cognome='" + ut.getCognome() + "', data_nascita='" + dataN+ "', sesso='" + ut.getSesso() + "', cellulare='" + ut.getCellulare() + "', città='" + ut.getCittà() + "', indirizzo='" + ut.getIndirizzo() + "', saldo='"+ut.getSaldo()+"' WHERE ( email='" + ut.getEmail() + "');");
             stmt.setString(1, ut.getNomeUtente());
             stmt.setString(2, ut.getPassword());
             stmt.setString(3, ut.getRuolo().toString());
