@@ -94,7 +94,7 @@
     <span class="card-header">Trama</span>
 
     <div class="card-body">
-        <%= film.getTrama()%>
+        <%=film.getTrama() %>
     </div>
 </div>
 <%    
