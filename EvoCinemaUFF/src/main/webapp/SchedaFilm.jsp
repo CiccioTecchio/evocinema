@@ -205,7 +205,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Devi completare tutti i campi prima di recensire</div>
+            <div class="modal-body" id="testoModal" >Devi completare tutti i campi prima di recensire</div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-lg btn-block" type="button" data-dismiss="modal">OK</button>
             </div>
@@ -222,16 +222,17 @@
 
         rating: valore,
         readOnly: true
-
+        
 
     });
 
 
     $("#votaUser").rateYo({
-
+        
+        precision : 1, 
         onSet: function (rating, rateYoInstance) {
 
-            alert("Il valore è " + rating);
+            
             $("#valoreRate").attr("value", rating);
 
         }
@@ -248,16 +249,41 @@
     function check() {
 
         var valoreRate = $("#valoreRate").attr("value");
-        // text = $("#testoRecensione").val();
         
-        if ((valoreRate !== "") ) //&& (text !== null && text !== "" && text !== "  ")) {
+        
+        var regExp = /[a-z]+\w*/i; 
+        var testoRecensione = $("#testoRecensione").val(); 
+        
+        if ((valoreRate !== "" ) && testoRecensione !== '')
         {
-            $("form").submit();
+            if( testoRecensione.match(regExp)) { 
+                
+                if( valoreRate >= 0.5 ) $("form").submit();
+                
+                else {
+                    
+                $('#testoModal').text("Devi inserire una valutazione superiore o uguale a 0.5"); 
+                $("#erroreCampi").modal({
+                backdrop: true
+                    });
+                    
+                }
+            }else {
+                
+                $('#testoModal').text("Devi inserire una recensione valida"); 
+                $("#erroreCampi").modal({
+                backdrop: true
+                    });
+                
+                
+            }
+            
+            
 
         } else {
 
-
-            $("#erroreCampi").modal({
+           
+           $("#erroreCampi").modal({
                 backdrop: true
             });
 
