@@ -4,6 +4,8 @@
     Author     : Angelo
 --%>
 
+<%@page import="model.FilmConValutazioneMedia"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Inserimento Nuovo Sconto");%>
 <jsp:include page="HeaderAdmin.jsp"/>
@@ -108,12 +110,36 @@
                         <input type="text" class="form-control" name="genere"  placeholder="Inserisci il genere per cui applicare lo sconto" />
                     </p>
                 </div>
+                <script>
+                    $(document).ready(function(){
+                       // Initialize select2
+                       $(".js-example-basic-single").select2();
+                      });
+                </script>
+                <jsp:include page= "/visualizzaValutazioni"/>
+
+<%
+    
+    ArrayList<FilmConValutazioneMedia> array;
+    array = (ArrayList<FilmConValutazioneMedia>) request.getAttribute("listaFilmValutazione");
+        
+    
+%>
+                
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
-                    <p>
-                        <input type="text" class="form-control" name="film"  placeholder="Inserisci l'id del film per cui applicare lo sconto" />
-                    </p>
+                    <select class="js-example-basic-single" name="film">
+                       
+                         <option value="0" >Nessuno</option>
+                          <% for(FilmConValutazioneMedia f:array){
+                          %>
+                                <option value="<%=f.getIdFilm() %>">
+                                    <%=f.getTitolo() %>
+                                </option>
+                               <% }%>
+                    </select>
                 </div>
+                
                 <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
                     <strong> Spettacolo </strong>
                     <p>

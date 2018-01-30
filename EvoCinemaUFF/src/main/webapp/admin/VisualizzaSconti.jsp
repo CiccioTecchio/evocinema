@@ -56,7 +56,7 @@
 <div class="card-header">
     <i class="fa fa-table"></i> Lista Sconti </div>
 
-    <div id="messaggio"></div>
+<div id="messaggio"></div>
 
 </div>
 <div class="table-responsive">
@@ -68,6 +68,7 @@
                 <th>Tipo</th>
                 <th>Verificabile</th>
                 <th>Tipologia</th>
+                <th>Parametro</th>
                 <th></th>
 
 
@@ -106,8 +107,8 @@
                 <td><%= sc.getNome()%></td>
                 <td><%= tip%></td>
                 <td><%= ver%></td>
+                <td><%= sc.getTipologia()%></td>
                 <td><%= sc.getParametroTipologia()%></td>
-
 
                 <td class="text-center">
                     <div class="text-center" >
@@ -145,7 +146,7 @@
             <% }  %>
 
         </tbody>
-       
+
     </table>
 </form>
 
@@ -165,19 +166,20 @@
             dataType: 'json',
             success: function (data, textStatus, jqXHR)
             {
-                
-                var erCode = "alert-success";
-                
-                if( data.errore === "true" ) erCode = "alert-danger"; 
 
-                $("#messaggio").append("<div class='alert "+erCode+" alert-dismissible fade show' role='alert'>\n\
-                <strong>"+data.messaggio+"</strong>\n\
+                var erCode = "alert-success";
+
+                if (data.errore === "true")
+                    erCode = "alert-danger";
+
+                $("#messaggio").append("<div class='alert " + erCode + " alert-dismissible fade show' role='alert'>\n\
+                <strong>" + data.messaggio + "</strong>\n\
                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>\n\
                <span aria-hidden='true'>&times;</span>\n\
                 </button>\n\
                 </div>");
 
-                
+
 
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -201,9 +203,10 @@
         $("#listaSconti").DataTable({
             "order": [[1, "asc"]],
             "columns": [
-                {"orderable": false},
+                null,
                 null,
                 {"orderable": false},
+                null,
                 {"orderable": false},
                 {"orderable": false}
             ]

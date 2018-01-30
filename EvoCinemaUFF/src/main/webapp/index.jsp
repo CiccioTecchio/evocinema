@@ -1,18 +1,27 @@
+
+<%@page import="java.util.List"%>
+<%@page import="model.Film"%>
+<%@page import="java.util.Collection"%>
 <% request.setAttribute("title", "Home"); %>
 <jsp:include page="Header.jsp" />
+<jsp:include page="VisualizzazioneProgrammazioneCNT" /> 
 
 
         <header>
-            
+         <% List<Film> array=(List<Film>)request.getAttribute("film1");
+                
+                       %>    
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
-                    <div class="swiper-slide" ><img src="images/locandine/benedettafollia.jpg" alt=""/></div>
-                </div>       
+                    <% for(Film f:array){
+      
+                    %>
+                    
+                    <div class="swiper-slide" ><img src="<%=f.getLocandina()%>" height="300px" width="250px" alt=""/></div>
+                    <%
+                     }%>
+                </div>  
+                    
             </div>
         </header>
         <div id="date">

@@ -248,9 +248,10 @@
     function check() {
 
         var valoreRate = $("#valoreRate").attr("value");
-        var text = $("#testoRecensione").val();
-        if ((valoreRate !== "") && (text !== null && text !== "" && text !== "  ")) {
-
+        // text = $("#testoRecensione").val();
+        
+        if ((valoreRate !== "") ) //&& (text !== null && text !== "" && text !== "  ")) {
+        {
             $("form").submit();
 
         } else {
