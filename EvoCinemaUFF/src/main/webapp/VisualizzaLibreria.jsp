@@ -102,7 +102,7 @@
                                     }
                                 
                                 %>
-                                <tr class="selezionato"  ondblclick="window.location.href='SchedaFilm.jsp?film=<%= i %>'" style="cursor: pointer;">
+                                <tr class="selezionato"  onclick="window.location.href='SchedaFilm.jsp?film=<%= i %>'" style="cursor: pointer;">
                                                 <td><img class="img-fluid" src="<%= film.getLocandina() %>" ></td>
 						<td><%= film.getTitolo()  %></td>
 						<td><%= film.getGenere()  %></td>
