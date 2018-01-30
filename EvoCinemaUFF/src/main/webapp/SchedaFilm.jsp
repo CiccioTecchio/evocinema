@@ -172,7 +172,7 @@
                 <i class="fa fa-user fa-2x mr-3"></i>
                 <div class="media-body">
                     <p class="card-body mr-2 valutazione" data-index="<%= i%>"> <%= rec.getValutazione()%></p>
-                    <p><strong><%= rec.getEmailUtente() %></strong>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <p><strong><%= rec.getNomeUtente()%></strong>&nbsp;&nbsp;&nbsp;&nbsp;</p>
                     <p><%= rec.getTesto()%>
 
                     <div class="text-muted smaller">
