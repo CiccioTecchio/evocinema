@@ -10,8 +10,7 @@
 <%@page import="model.FilmConValutazioneMedia"%>
 <%@page import="model.Film.vistoCensura"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page contentType="text/html"%>
 <% request.setAttribute("title", "Modifica Film"); %>
 <jsp:include page="HeaderAdmin.jsp"/>
 

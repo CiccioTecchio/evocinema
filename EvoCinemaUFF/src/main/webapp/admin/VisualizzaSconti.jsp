@@ -8,8 +8,7 @@
 <%@page import="model.Sconto.disponibile"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Sconto"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page contentType="text/html"%>
 <%  request.setAttribute("title", "Sconti"); %>
 <jsp:include page="HeaderAdmin.jsp"/>
 <jsp:include page= "/visualizzaSconto"/>
