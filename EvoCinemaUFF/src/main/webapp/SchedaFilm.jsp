@@ -61,11 +61,11 @@
             <img class="card-img-top img-fluid thumbnail " style="max-width: 350px ; max-height: 500px " src="<%= film.getLocandina()%>">
         </div>
 
-    <div class="card mb-3 ml-5">
+    <div class="card mb-3">
         <span class="card-header" > Informazioni Film </span>
 
         <div class="card-body pt-1 mt-4 pl-5 pr-5" >
-                <table>
+            <table class="table-responsive">
                     <tr>
                         <td class="text-right pr-3"> <H3>Voto :</H3></td><td><p id="valutazioneFilm" class="card-body mr-2"> <%= film.getValutazioneMedia()%></p> </td>
 
@@ -100,12 +100,13 @@
 <%    
     if ((film.getTrailer()!=null)&&(film.getTrailer()!="")){
     %>
-<div class="card mb-3">
+    <div class="card mb-3" >
 
     <span class="card-header">Trailer</span>
 
-    <div class="card-body text-center">
-        <%= film.getTrailer()%>      
+    <div class="card-body text-center " >
+        
+        <iframe  style=" height: 320px" class="col-sm-6" src="<%= film.getTrailer()%> " frameborder="0" allowfullscreen></iframe
     </div>
 </div>
         <%
