@@ -18,6 +18,11 @@
     </head>
     <jsp:include page="Header.jsp" />
     <body>
+        <% 
+            if (utente==null){
+            response.sendRedirect("Login.jsp");}
+            else{
+        %>   
         Il tuo saldo è: <%= utente.getSaldo()%>
         
         <form action="GestioneSaldoCNT" method="POST">
@@ -26,6 +31,8 @@
             <button type="submit" name="ricarica" value="true">Ricarica</button> 
             
         </form>
+        
+        <% } %>
     </body>
     <jsp:include page="Footer.jsp" />
 </html>

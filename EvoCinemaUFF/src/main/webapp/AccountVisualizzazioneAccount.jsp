@@ -11,17 +11,22 @@
 <%@page import="model.UtenteRegistrato"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% HttpSession s = request.getSession();
-   
+
 UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
-SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yy");
-String dataN= sdf.format(utente.getDataNascita().getTime());
-String a="";
-                String b="";
-                if(utente.getSesso().equals(sesso.M)){
-                    a="checked";
-                }else{
-                    b="checked";
-                }
+
+if (utente==null){
+    response.sendRedirect("Login.jsp");}
+else{
+    
+    SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yyyy");
+    String dataN= sdf.format(utente.getDataNascita().getTime());
+    String a="";
+    String b="";
+    if(utente.getSesso().equals(sesso.M)){
+        a="checked";
+        }else{
+        b="checked";
+        }
     
 %>
 <!DOCTYPE html>
@@ -32,6 +37,7 @@ String a="";
     </head>
     <jsp:include page="Header.jsp" />
     <body>
+
         
         <div>Profilo di <%=utente.getNome()%> <%=utente.getCognome()%></div>
 	
@@ -136,7 +142,7 @@ String a="";
                                   
                         
                             </div>
-         
+         <% } %>
     </body>
     <jsp:include page="Footer.jsp" />
 </html>

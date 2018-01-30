@@ -234,13 +234,25 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
                         <a class="nav-link" href="VisualizzaAcquisti.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">VisualizzaAcquisti</span>
+                            <span class="nav-link-text">Visualizza Acquisti</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
                         <a class="nav-link" href="VisualizzaPrenotazioni.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">VisualizzaPrenotazioni</span>
+                            <span class="nav-link-text">Visualizza Prenotazioni</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="AccountVisualizzazioneSaldo.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza Saldo</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaRecensioniCNT">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza le mie recensioni</span>
                         </a>
                     </li>
                     <!-- fine menù laterale -->       
