@@ -21,27 +21,30 @@
         <div class="card-header">
             <p>Inserisci Sconto</p>
         </div>
-        
-            <%
-      
-         String messaggio = (String) request.getAttribute("messaggioInserisciSconto");
-        if (messaggio != null) { %>
-        
 
+        <%
 
-<% } %>
-            
+            String messaggio = (String) request.getAttribute("messaggioSconto");
+                if (messaggio != null) {%>
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong> <%= messaggio%> </strong>
+            <button class="close" aria-label="Close" type="button" data-dismiss="alert">
+                <span aria-hidden="true">ï¿½</span>
+            </button>
         </div>
-        
-        <div class="card-body mt-5" >
-            
+
+        <% } %>
+
+        <div class="card-body mt-5 align-self-center" >
+
             <form action="aggiuntaSconto" id="formInserisci" method="get">
-                
-                <div class="form-row align-content-center">
+
+                <div class="form-row">
                     <div class="form-group text-center">
                         <label for="nomeSconto"><strong>Nome sconto</strong></label>
                         <p>
-                        <input type="text" class="form-control" name="nomeSconto"  placeholder="Inserisci nome sconto" autocomplete="off" />
+                            <input type="text" class="form-control" name="nomeSconto"  placeholder="Inserisci nome sconto" autocomplete="off" />
                         </p>
                     </div>
                     <div class="form-group ml-5 text-center">
@@ -52,7 +55,7 @@
                             <label class="radio-inline"><input type="radio" name="optTipo" value="fisso" />  Fisso  </label>
                         </p>
                     </div>
-                    <div class="form-group ml-5 text-center" id="divVerificabile">
+                    <div class="form-group ml-5 text-center">
                         <label><strong>Verificabile</strong></label>
                         <p>
                             <label class="radio-inline"><input type="radio" name="optVerificabile" value="True" checked />  Si  </label>
@@ -65,21 +68,21 @@
                 <div class="form-group text-center">
                     <label><strong>Tipologia</strong></label>
                     <p>
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="giorno" checked />  Giorno della settimana  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="genere" />  Genere  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="film" />  Film  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="spettacolo" />  Spettacolo  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="data" />  Data  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" />  Eta'  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="sesso" />  Sesso  </label>
-                    &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="altro" />  Altro  </label>
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="giorno" checked />  Giorno della settimana  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="genere" />  Genere  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="film" />  Film  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="spettacolo" />  Spettacolo  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="data" />  Data  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" />  Eta'  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="sesso" />  Sesso  </label>
+                        &nbsp;&nbsp;
+                        <label class="radio-inline"><input type="radio" name="optTipologia" value="altro" />  Altro  </label>
                     </p>
                 </div>
                 <!-- parte da mostrare in base alle opzioni selezionate -->
@@ -95,16 +98,16 @@
                         <input type="text" class="form-control" name="cifraSconto"  placeholder="Inserisci la cifra da scontare" />
                     </p>
                 </div>
-                
+
                 <div id="divGiorno" class="form-group text-center mt-5 mb-5">
                     <strong>Giorno della settimana: </strong>
                     <select name="giornoDellaSettimana">
-                        
-                        <option value="MONDAY" selected>  Lunedì  </option>
-                        <option value="TUESDAY">  Martedì  </option>
-                        <option value="WEDNESDAY">  Mercoledì  </option>
-                        <option value="THURSDAY"> Giovedì  </option>
-                        <option value="FRIDAY">  Venerdì  </option>
+
+                        <option value="MONDAY" selected>  Lunedï¿½  </option>
+                        <option value="TUESDAY">  Martedï¿½  </option>
+                        <option value="WEDNESDAY">  Mercoledï¿½  </option>
+                        <option value="THURSDAY"> Giovedï¿½  </option>
+                        <option value="FRIDAY">  Venerdï¿½  </option>
                         <option value="SATURDAY">  Sabato  </option>
                         <option value="SUNDAY">  Domenica  </option>
 
@@ -143,41 +146,41 @@
                               
                 <jsp:include page= "/visualizzaValutazioni"/>
 
-<%
-    
-    ArrayList<FilmConValutazioneMedia> array;
-    array = (ArrayList<FilmConValutazioneMedia>) request.getAttribute("listaFilmValutazione");
-        
-    
-%>
-                
+                <%
+
+                    ArrayList<FilmConValutazioneMedia> array;
+                    array = (ArrayList<FilmConValutazioneMedia>) request.getAttribute("listaFilmValutazione");
+
+
+                %>
+
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
                     <select class="js-example-basic-single" name="film">
-                       
-                         <option value="0" >Nessuno</option>
-                          <% for(FilmConValutazioneMedia f:array){
-                          %>
-                                <option value="<%=f.getIdFilm() %>">
-                                    <%=f.getTitolo() %>
-                                </option>
-                               <% }%>
+
+                        <option value="0" >Nessuno</option>
+                        <% for (FilmConValutazioneMedia f : array) {
+                        %>
+                        <option value="<%=f.getIdFilm()%>">
+                            <%=f.getTitolo()%>
+                        </option>
+                        <% }%>
                     </select>
                 </div>
                        
          
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
-                        <strong> Sconta se l'età è:&nbsp;&nbsp; </strong>
+                        <strong> Sconta se l'etï¿½ ï¿½:&nbsp;&nbsp; </strong>
                         <select name="eta">
-                        
+
                             <option value="<" selected>  minore di  </option>
                             <option value=">">  maggiore di  </option>
 
                         </select>
                     </p>
                     <p>
-                        <input type="text" class="form-control" name="cifraEta"  placeholder="Inserisci l'età" />
+                        <input type="text" class="form-control" name="cifraEta"  placeholder="Inserisci l'etï¿½" />
                     </p>
                 </div>
                 <div id="divData" class="text-center mt-5 mb-5">
@@ -189,10 +192,10 @@
                     </p>
                 </div>
                 <div id="divSesso" class="text-center mt-5 mb-5">
-                        <strong>Sesso</strong>
+                    <strong>Sesso</strong>
                     <p>
                         <select name="sesso">
-                        
+
                             <option value="M" selected>  maschio  </option>
                             <option value="F">  femmina  </option>
 
@@ -200,7 +203,7 @@
                     </p>
                 </div>
                 <div id="divAltro" class="text-center mt-5 mb-5">
-                        <strong>Altro</strong>
+                    <strong>Altro</strong>
                     <p>
                         <input type="text" class="form-control" name="altro" placeholder="Inserisci descrizione dello sconto" />                        
                     </p>
@@ -213,7 +216,7 @@
 
         </div>
 
-</div>
+    </div>
 
 <script>
     $(document).ready(function () {
@@ -238,111 +241,126 @@
     $('.datepicker').datepicker({
     });
 
-    $(document).ready(function () {
-        $("input[type=radio][name=optTipo]").change(function () {
-            if (this.value == 'percentuale') {
-                $("#divPercentuale").show("slow");
-                $("#divFisso").hide("slow");
-            }
-            if (this.value == 'fisso') {
-                $("#divPercentuale").hide("slow");
-                $("#divFisso").show("slow");
-            }
+        $("#divFisso").hide("fast");
+
+        $("#divGenere").hide("fast");
+        $("#divFilm").hide("fast");
+        $("#divSpettacolo").hide("fast");
+        $("#divEta").hide("fast");
+        $("#divSesso").hide("fast");
+        $("#divData").hide("fast");
+        $("#divAltro").hide("fast");
+
+
+        $('.datepicker').datepicker({
         });
-        
-        $("input[type=radio][name=optTipologia]").change(function () {
-            if (this.value == 'giorno') {
-                $("#divGiorno").show("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
-            }
-            if (this.value == 'genere') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").show("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
-            }
-            if (this.value == 'film') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").show("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
-            }
-            if (this.value == 'spettacolo') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").show("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
-            }
-            if (this.value == 'eta') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").show("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
-            }
-            if (this.value == 'data') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").show("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
-            }
-            if (this.value == 'sesso') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").show("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").hide("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
-            }
-            if (this.value == 'altro') {
-                $("#divGiorno").hide("slow");
-                $("#divGenere").hide("slow");
-                $("#divFilm").hide("slow");
-                $("#divSpettacolo").hide("slow");
-                $("#divEta").hide("slow");
-                $("#divSesso").hide("slow");
-                $("#divData").hide("slow");
-                $("#divAltro").show("slow");
-                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
-            }
+
+        $(document).ready(function () {
+
+            $("input[type=radio][name=optTipo]").change(function () {
+                if (this.value == 'percentuale') {
+                    $("#divPercentuale").show("slow");
+                    $("#divFisso").hide("slow");
+                }
+                if (this.value == 'fisso') {
+                    $("#divPercentuale").hide("slow");
+                    $("#divFisso").show("slow");
+                }
+            });
+
+            $("input[type=radio][name=optTipologia]").change(function () {
+                if (this.value == 'giorno') {
+                    $("#divGiorno").show("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', false);
+                }
+                if (this.value == 'genere') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").show("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', false);
+                }
+                if (this.value == 'film') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").show("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', false);
+                }
+                if (this.value == 'spettacolo') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").show("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', false);
+                }
+                if (this.value == 'eta') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").show("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', true);
+                }
+                if (this.value == 'data') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").show("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', true);
+                }
+                if (this.value == 'sesso') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").show("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").hide("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', true);
+                }
+                if (this.value == 'altro') {
+                    $("#divGiorno").hide("slow");
+                    $("#divGenere").hide("slow");
+                    $("#divFilm").hide("slow");
+                    $("#divSpettacolo").hide("slow");
+                    $("#divEta").hide("slow");
+                    $("#divSesso").hide("slow");
+                    $("#divData").hide("slow");
+                    $("#divAltro").show("slow");
+                    $("input[type=radio][name=optVerificabile]").prop('disabled', true);
+                }
+            });
+
         });
-        
-    });
-    
-</script>
-<jsp:include page="FooterAdmin.jsp"/>
+
+    </script>
+    <jsp:include page="FooterAdmin.jsp"/>
 
