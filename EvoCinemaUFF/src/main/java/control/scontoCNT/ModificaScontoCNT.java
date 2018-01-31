@@ -87,7 +87,7 @@ public class ModificaScontoCNT extends HttpServlet {
                                tipologia = Sconto.tipologia.SPETTACOLO;
                                break;
             case "eta": parametroTipologia = request.getParameter("eta")+Integer.parseInt(request.getParameter("cifraEta"));
-                        tipologia = Sconto.tipologia.CAT_PERSONE;
+                        tipologia = Sconto.tipologia.ETA;
                         break;
             case "data": parametroTipologia = request.getParameter("data");
                          tipologia = Sconto.tipologia.DATA;

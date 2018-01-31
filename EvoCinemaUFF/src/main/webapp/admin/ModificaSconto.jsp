@@ -84,7 +84,7 @@
                     &nbsp;&nbsp;
                     <label class="radio-inline"><input type="radio" name="optTipologia" value="data" <%if (sconto.getTipologia()==Sconto.tipologia.DATA){ %> checked <%}%> />  Data  </label>
                     &nbsp;&nbsp;
-                    <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" <%if (sconto.getTipologia()==Sconto.tipologia.CAT_PERSONE){ %> checked <%}%> />  Eta'  </label>
+                    <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" <%if (sconto.getTipologia()==Sconto.tipologia.ETA){ %> checked <%}%> />  Eta'  </label>
                     &nbsp;&nbsp;
                     <label class="radio-inline"><input type="radio" name="optTipologia" value="sesso" <%if (sconto.getTipologia()==Sconto.tipologia.SESSO){ %> checked <%}%> />  Sesso  </label>
                     </p>
@@ -146,7 +146,7 @@
                         </select>
                     </p>
                     <p>
-                        <input type="text" class="form-control" name="cifraEta" <% if(sconto.getTipologia()==Sconto.tipologia.CAT_PERSONE) {%> value="<%= sconto.getParametroTipologia().substring(1) %>"<%}%> />
+                        <input type="text" class="form-control" name="cifraEta" <% if(sconto.getTipologia()==Sconto.tipologia.ETA) {%> value="<%= sconto.getParametroTipologia().substring(1) %>"<%}%> />
                     </p>
                 </div>
                 <div id="divData" class="text-center mt-5 mb-5">
