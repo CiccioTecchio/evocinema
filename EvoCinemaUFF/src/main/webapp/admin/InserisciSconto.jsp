@@ -29,15 +29,15 @@
             
         </div>
         
-        <div class="card-body mt-5 align-self-center" >
+        <div class="card-body mt-5" >
             
             <form action="aggiuntaSconto" id="formInserisci" method="get">
                 
-                <div class="form-row">
+                <div class="form-row align-content-center">
                     <div class="form-group text-center">
                         <label for="nomeSconto"><strong>Nome sconto</strong></label>
                         <p>
-                        <input type="text" class="form-control" name="nomeSconto"  placeholder="Inserisci nome sconto" autocomplete="off" maxlength="45" />
+                        <input type="text" class="form-control" name="nomeSconto"  placeholder="Inserisci nome sconto" autocomplete="off" />
                         </p>
                     </div>
                     <div class="form-group ml-5 text-center">
@@ -48,7 +48,7 @@
                             <label class="radio-inline"><input type="radio" name="optTipo" value="fisso" />  Fisso  </label>
                         </p>
                     </div>
-                    <div class="form-group ml-5 text-center">
+                    <div class="form-group ml-5 text-center" id="divVerificabile">
                         <label><strong>Verificabile</strong></label>
                         <p>
                             <label class="radio-inline"><input type="radio" name="optVerificabile" value="True" checked />  Si  </label>
@@ -74,6 +74,8 @@
                     <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" />  Eta'  </label>
                     &nbsp;&nbsp;
                     <label class="radio-inline"><input type="radio" name="optTipologia" value="sesso" />  Sesso  </label>
+                    &nbsp;&nbsp;
+                    <label class="radio-inline"><input type="radio" name="optTipologia" value="altro" />  Altro  </label>
                     </p>
                 </div>
                 <!-- parte da mostrare in base alle opzioni selezionate -->
@@ -168,7 +170,7 @@
 
                     </p>
                 </div>
-                <div id="divSesso" class="form-control text-center mt-5 mb-5">
+                <div id="divSesso" class="text-center mt-5 mb-5">
                         <strong>Sesso</strong>
                     <p>
                         <select name="sesso">
@@ -177,6 +179,12 @@
                             <option value="F">  femmina  </option>
 
                         </select>
+                    </p>
+                </div>
+                <div id="divAltro" class="text-center mt-5 mb-5">
+                        <strong>Altro</strong>
+                    <p>
+                        <input type="text" class="form-control" name="altro" placeholder="Inserisci descrizione dello sconto" />                        
                     </p>
                 </div>
                 <!-- fine parte opzioni -->
@@ -199,6 +207,8 @@
     $("#divEta").hide("fast");
     $("#divSesso").hide("fast");
     $("#divData").hide("fast");
+    $("#divAltro").hide("fast");
+    
     
     $('.datepicker').datepicker({
     });
@@ -224,6 +234,8 @@
                 $("#divEta").hide("slow");
                 $("#divSesso").hide("slow");
                 $("#divData").hide("slow");
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
             }
             if (this.value == 'genere') {
                 $("#divGiorno").hide("slow");
@@ -233,7 +245,8 @@
                 $("#divEta").hide("slow");
                 $("#divSesso").hide("slow");
                 $("#divData").hide("slow");
-
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
             }
             if (this.value == 'film') {
                 $("#divGiorno").hide("slow");
@@ -243,6 +256,8 @@
                 $("#divEta").hide("slow");
                 $("#divSesso").hide("slow");
                 $("#divData").hide("slow");
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
             }
             if (this.value == 'spettacolo') {
                 $("#divGiorno").hide("slow");
@@ -252,6 +267,8 @@
                 $("#divEta").hide("slow");
                 $("#divSesso").hide("slow");
                 $("#divData").hide("slow");
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',false);
             }
             if (this.value == 'eta') {
                 $("#divGiorno").hide("slow");
@@ -261,6 +278,8 @@
                 $("#divEta").show("slow");
                 $("#divSesso").hide("slow");
                 $("#divData").hide("slow");
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
             }
             if (this.value == 'data') {
                 $("#divGiorno").hide("slow");
@@ -270,6 +289,8 @@
                 $("#divEta").hide("slow");
                 $("#divSesso").hide("slow");
                 $("#divData").show("slow");
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
             }
             if (this.value == 'sesso') {
                 $("#divGiorno").hide("slow");
@@ -279,6 +300,19 @@
                 $("#divEta").hide("slow");
                 $("#divSesso").show("slow");
                 $("#divData").hide("slow");
+                $("#divAltro").hide("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
+            }
+            if (this.value == 'altro') {
+                $("#divGiorno").hide("slow");
+                $("#divGenere").hide("slow");
+                $("#divFilm").hide("slow");
+                $("#divSpettacolo").hide("slow");
+                $("#divEta").hide("slow");
+                $("#divSesso").hide("slow");
+                $("#divData").hide("slow");
+                $("#divAltro").show("slow");
+                $("input[type=radio][name=optVerificabile]").prop('disabled',true);
             }
         });
         

@@ -95,6 +95,11 @@ public class ModificaScontoCNT extends HttpServlet {
             case "sesso": parametroTipologia = request.getParameter("sesso");
                           tipologia = Sconto.tipologia.SESSO;
                           break;
+            case "altro": parametroTipologia = request.getParameter("altro");
+                          tipologia = Sconto.tipologia.ALTRO;
+                          break;              
+                          
+            
             default: throw new IOException();
         }
                     

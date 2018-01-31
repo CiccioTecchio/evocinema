@@ -61,11 +61,11 @@
             <img class="card-img-top img-fluid thumbnail " style="max-width: 350px ; max-height: 500px " src="<%= film.getLocandina()%>">
         </div>
 
-    <div class="card mb-3 ml-5">
+    <div class="card mb-3">
         <span class="card-header" > Informazioni Film </span>
 
         <div class="card-body pt-1 mt-4 pl-5 pr-5" >
-                <table>
+            <table class="table-responsive">
                     <tr>
                         <td class="text-right pr-3"> <H3>Voto :</H3></td><td><p id="valutazioneFilm" class="card-body mr-2"> <%= film.getValutazioneMedia()%></p> </td>
 
@@ -94,18 +94,19 @@
     <span class="card-header">Trama</span>
 
     <div class="card-body">
-        <%= film.getTrama()%>
+        <%=film.getTrama() %>
     </div>
 </div>
 <%    
     if ((film.getTrailer()!=null)&&(film.getTrailer()!="")){
     %>
-<div class="card mb-3">
+    <div class="card mb-3" >
 
     <span class="card-header">Trailer</span>
 
-    <div class="card-body text-center">
-        <%= film.getTrailer()%>      
+    <div class="card-body text-center " >
+        
+        <iframe  style=" height: 320px" class="col-sm-6" src="<%= film.getTrailer()%> " frameborder="0" allowfullscreen></iframe
     </div>
 </div>
         <%
@@ -205,7 +206,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Devi completare tutti i campi prima di recensire</div>
+            <div class="modal-body" id="testoModal" >Devi completare tutti i campi prima di recensire</div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-lg btn-block" type="button" data-dismiss="modal">OK</button>
             </div>
@@ -222,16 +223,17 @@
 
         rating: valore,
         readOnly: true
-
+        
 
     });
 
 
     $("#votaUser").rateYo({
-
+        
+        precision : 1, 
         onSet: function (rating, rateYoInstance) {
 
-            alert("Il valore è " + rating);
+            
             $("#valoreRate").attr("value", rating);
 
         }
@@ -248,16 +250,41 @@
     function check() {
 
         var valoreRate = $("#valoreRate").attr("value");
-        // text = $("#testoRecensione").val();
         
-        if ((valoreRate !== "") ) //&& (text !== null && text !== "" && text !== "  ")) {
+        
+        var regExp = /[a-z]+\w*/i; 
+        var testoRecensione = escape($("#testoRecensione").val()); 
+        
+        if ((valoreRate !== "" ) && testoRecensione !== '')
         {
-            $("form").submit();
+            if( testoRecensione.match(regExp)) { 
+                
+                if( valoreRate >= 0.5 ) $("form").submit();
+                
+                else {
+                    
+                $('#testoModal').text("Devi inserire una valutazione superiore o uguale a 0.5"); 
+                $("#erroreCampi").modal({
+                backdrop: true
+                    });
+                    
+                }
+            }else {
+                
+                $('#testoModal').text("Devi inserire una recensione valida"); 
+                $("#erroreCampi").modal({
+                backdrop: true
+                    });
+                
+                
+            }
+            
+            
 
         } else {
 
-
-            $("#erroreCampi").modal({
+           
+           $("#erroreCampi").modal({
                 backdrop: true
             });
 

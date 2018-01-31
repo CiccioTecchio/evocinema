@@ -119,9 +119,9 @@
                             %> 
                          
                 <%
-                               String op=u.getRuolo().name();
+                            int op =u.getRuolo().ordinal();
                 switch(op){
-                    case "OPERATORE":
+                    case 1:
                             %>
                            
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
@@ -201,7 +201,7 @@
                 <!--FINE OPERATORE-->
                 <%
                  switch(op){
-                    case "UTENTE":
+                    case 0:
                             %>
                            
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
@@ -234,13 +234,25 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
                         <a class="nav-link" href="VisualizzaAcquisti.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">VisualizzaAcquisti</span>
+                            <span class="nav-link-text">Visualizza Acquisti</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
                         <a class="nav-link" href="VisualizzaPrenotazioni.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">VisualizzaPrenotazioni</span>
+                            <span class="nav-link-text">Visualizza Prenotazioni</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="AccountVisualizzazioneSaldo.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza Saldo</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="VisualizzaRecensioniCNT">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza le mie recensioni</span>
                         </a>
                     </li>
                     <!-- fine menù laterale -->       
@@ -281,7 +293,7 @@
                 <!--FINE UTENTE-->
                 <%
                  switch(op){
-                    case "GESTORE":
+                    case 2:
                             %>
                            
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
@@ -293,17 +305,57 @@
                 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <!-- inizio menù laterale -->
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                        <a class="nav-link" href="index.jsp">
+                        <a class="nav-link" href="./admin/index.jsp">
                             <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home</span>
+                            <span class="nav-link-text">Home - Admin</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-                        <a class="nav-link" href="VisualizzaLibreria.jsp">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-book"></i>
                             <span class="nav-link-text">Libreria</span>
                         </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents">
+                            <li>
+                                <a href="./admin/inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
+                            </li>
+                            <li><a href="./admin/ModificaLibreria.jsp">Modifica Libreria</a>
+
+                            </li>
+
+                        </ul>
                     </li>
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sconti">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Sconti</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents1">
+                            <li>
+                                <a href="./admin/VisualizzaSconti.jsp">Visualizza Sconti</a>
+                            </li>
+                            <li><a href="./admin/InserisciSconto.jsp">Inserisci Sconto</a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Operatori e Gestori</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
+                            <li>
+                                <a href="VisualizzaOperatoriCNT">Visualizza Operatori</a>
+                            </li>
+                            <li><a href="VisualizzaGestoriCNT">Visualizza Gestori</a>
+
+                            </li>
+
+                        </ul>
+                    </li>
+                    
                     <!-- fine menù laterale -->       
                 </ul>
                 <ul class="navbar-nav sidenav-toggler">
@@ -319,7 +371,7 @@
                             <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente() %>
                         </a>
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                              <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
+                              <a class="dropdown-item" href="./AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                   <strong>
                                     <i class="fa fa-user-circle"></i>Profilo</strong>
@@ -337,7 +389,7 @@
                     </li>
                            <%
                                 }
-}
+                            }
                             %>
                 </ul>
                   <script>

@@ -59,13 +59,16 @@ public class AggiuntaScontoCNT extends HttpServlet {
         
         String ver = request.getParameter("optVerificabile");
         Sconto.verificabile verificabile;      
-        switch(ver){
-            case "True": verificabile = Sconto.verificabile.TRUE;
-                         break;
-            case "False": verificabile = Sconto.verificabile.FALSE;
-                          break;
-            default: throw new IOException();
 
+        if (null == ver) verificabile = Sconto.verificabile.FALSE;
+        else{
+            switch(ver){
+                case "True": verificabile = Sconto.verificabile.TRUE;
+                             break;
+                case "False": verificabile = Sconto.verificabile.FALSE;
+                              break;
+                default: throw new IOException();
+            }
         }
         
         String tip = request.getParameter("optTipologia");
@@ -92,6 +95,9 @@ public class AggiuntaScontoCNT extends HttpServlet {
                          break;
             case "sesso": parametroTipologia = request.getParameter("sesso");
                           tipologia = Sconto.tipologia.SESSO;
+                          break;
+            case "altro": parametroTipologia = request.getParameter("altro");
+                          tipologia = Sconto.tipologia.ALTRO;
                           break;
             default: throw new IOException();
         }

@@ -6,8 +6,6 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.FilmConValutazioneMedia"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%  request.setAttribute("title", "Modifica Libreria"); %>
 <jsp:include page="HeaderAdmin.jsp"/>
 <jsp:include page= "/visualizzaValutazioni"/>
