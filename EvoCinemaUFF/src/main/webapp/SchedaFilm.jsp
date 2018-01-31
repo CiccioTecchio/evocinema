@@ -253,7 +253,7 @@
         
         
         var regExp = /[a-z]+\w*/i; 
-        var testoRecensione = $("#testoRecensione").val(); 
+        var testoRecensione = escape($("#testoRecensione").val()); 
         
         if ((valoreRate !== "" ) && testoRecensione !== '')
         {
