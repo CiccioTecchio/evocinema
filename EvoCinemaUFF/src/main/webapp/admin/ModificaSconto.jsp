@@ -4,6 +4,10 @@
     Author     : Angelo
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Spettacolo"%>
+<%@page import="model.FilmConValutazioneMedia"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Modifica Sconto Esistente"); %>
@@ -123,18 +127,54 @@
                         <input type="text" class="form-control" name="genere" value="<%= sconto.getParametroTipologia() %>" />
                     </p>
                 </div>
+                <jsp:include page= "/VisualizzazioneProgrammazioneCNT"/>
+
+<%
+    
+                List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("spettacoli1");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    
+%>
+                
+                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
+                <strong> Spettacolo </strong>
+                    <select class="js-example-basic-single" name="spettacolo">
+                       
+                         <option value="0" >Nessuno</option>
+                    <% for (Spettacolo s : spettacoli) {
+                          %>
+                          <option value="<%=s.getIdFilm() %>"<% if (sconto.getParametroTipologia().compareTo(Integer.toString(s.getIdFilm())) == 0){ %>selected<%}%>>
+                              <%=s.getTitolo() %> Orario: <%=sdf.format(s.getOraInizio().getTime())%> 
+                                </option>
+                               <% }%>
+                    </select>
+                </div>
+                              
+                <jsp:include page= "/visualizzaValutazioni"/>
+
+<%
+    
+    ArrayList<FilmConValutazioneMedia> film;
+    film = (ArrayList<FilmConValutazioneMedia>) request.getAttribute("listaFilmValutazione");
+        
+    
+%>
+                
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
-                    <p>
-                        <input type="text" class="form-control" name="film" value="<%= sconto.getParametroTipologia() %>" />
-                    </p>
+                    <select class="js-example-basic-single" name="film">
+                       
+                         <option value="0" >Nessuno</option>
+                          <% for(FilmConValutazioneMedia f:film){
+                          %>
+                          
+                          <option value="<%=f.getIdFilm()%>" <% if (sconto.getParametroTipologia().compareTo(Integer.toString(f.getIdFilm())) == 0){ %>selected<%}%>  >
+                                    <%=f.getTitolo() %>
+                                </option>
+                               <% }%>
+                    </select>
                 </div>
-                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
-                    <strong> Spettacolo </strong>
-                    <p>
-                        <input type="text" class="form-control" name="spettacolo" value="<%= sconto.getParametroTipologia() %>" />
-                    </p>
-                </div>
+                       
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
                         <strong> Sconta se l'età è:&nbsp;&nbsp; </strong>
@@ -181,6 +221,12 @@
 
 <% }%>
 </div>
+<script>
+    $(document).ready(function () {
+        // Initialize select2
+        $(".js-example-basic-single").select2();
+    });
+</script>
 <script>
     
     $("#divFisso").hide("fast");

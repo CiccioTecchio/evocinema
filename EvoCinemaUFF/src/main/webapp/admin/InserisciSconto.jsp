@@ -4,6 +4,10 @@
     Author     : Angelo
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Film"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Spettacolo"%>
 <%@page import="model.FilmConValutazioneMedia"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Sconto"%>
@@ -112,12 +116,31 @@
                         <input type="text" class="form-control" name="genere"  placeholder="Inserisci il genere per cui applicare lo sconto" />
                     </p>
                 </div>
-                <script>
-                    $(document).ready(function(){
-                       // Initialize select2
-                       $(".js-example-basic-single").select2();
-                      });
-                </script>
+         
+            
+                <jsp:include page= "/VisualizzazioneProgrammazioneCNT"/>
+
+<%
+    
+                List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("spettacoli1");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    
+%>
+                
+                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
+                <strong> Spettacolo </strong>
+                    <select class="js-example-basic-single" name="spettacolo">
+                       
+                         <option value="0" >Nessuno</option>
+                    <% for (Spettacolo s : spettacoli) {
+                          %>
+                          <option value="<%=s.getIdFilm() %>">
+                              <%=s.getTitolo() %> Orario: <%=sdf.format(s.getOraInizio().getTime())%> 
+                                </option>
+                               <% }%>
+                    </select>
+                </div>
+                              
                 <jsp:include page= "/visualizzaValutazioni"/>
 
 <%
@@ -141,13 +164,8 @@
                                <% }%>
                     </select>
                 </div>
-                
-                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
-                    <strong> Spettacolo </strong>
-                    <p>
-                        <input type="text" class="form-control" name="spettacolo"  placeholder="Inserisci l'id dello spettacolo per cui applicare lo sconto" />
-                    </p>
-                </div>
+                       
+         
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
                         <strong> Sconta se l'età è:&nbsp;&nbsp; </strong>
@@ -196,6 +214,13 @@
         </div>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Initialize select2
+        $(".js-example-basic-single").select2();
+    });
+</script>
 
 <script>
     
