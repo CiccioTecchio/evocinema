@@ -151,7 +151,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="dataUscita"> Data Uscita </label>
+                <%
+                String explorerCompa = ""; 
+                if( request.getHeader("User-Agent").contains("Trident") ) explorerCompa="yyyy-mm-dd";  
+                
+                %>
+                <label for="dataUscita"> Data Uscita <%= explorerCompa %></label>
                 <input name="dataUscita" value="<%= data %>" type="date" class="form-control insfilm" id="dataUscita"  placeholder="Inserisci Data Uscita">
             </div>
             <div class="form-group">

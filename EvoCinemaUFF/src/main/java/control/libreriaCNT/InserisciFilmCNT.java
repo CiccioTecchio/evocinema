@@ -117,9 +117,10 @@ public class InserisciFilmCNT extends HttpServlet {
             
             messageInsert = "Inserimento Completato con Successo"; 
             
-            array.add(film);
+            
+            if ( array != null ) { array.add(film);
 
-            request.getSession().setAttribute("listaFilmValutazione",array);
+            request.getSession().setAttribute("listaFilmValutazione",array); }
                         
         } catch (ParseException ex) {
             Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
