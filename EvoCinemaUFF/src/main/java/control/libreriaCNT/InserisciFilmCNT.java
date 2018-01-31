@@ -26,10 +26,12 @@ import java.text.FieldPosition;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
+import model.FilmConValutazioneMedia;
 
 /**
  *
@@ -93,12 +95,12 @@ public class InserisciFilmCNT extends HttpServlet {
         String messageInsert = ""; 
         int tempo = Integer.parseInt(durata); 
        
-        
+        ArrayList<FilmConValutazioneMedia> array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
         Time minuti = calcolaTime(tempo); 
         System.err.println("la data è "+dataUscita);
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd"); 
-       
+        FilmDAO dao = null; 
         Calendar cal = Calendar.getInstance();
         try { 
             
@@ -107,16 +109,18 @@ public class InserisciFilmCNT extends HttpServlet {
             
            cal.setTime(date);
            
-            Film film = new Film( Film.tipo.valueOf(tipo)  , titolo, "images/locandine/"+locandina, regia, cast, genere, minuti , cal , vistoCensura.valueOf(censura) , distribuzione, produzione, trama, trailer);
+            FilmConValutazioneMedia film = new FilmConValutazioneMedia( Film.tipo.valueOf(tipo)  , titolo, "images/locandine/"+locandina, regia, cast, genere, minuti , cal , vistoCensura.valueOf(censura) , distribuzione, produzione, trama, trailer,0f);
                
-            FilmDAO dao = new FilmDAO();
+            dao = new FilmDAO();
             
             dao.createFilm(film);
             
             messageInsert = "Inserimento Completato con Successo"; 
             
-            
-            
+            array.add(film);
+
+            request.getSession().setAttribute("listaFilmValutazione",array);
+                        
         } catch (ParseException ex) {
             Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
@@ -124,6 +128,7 @@ public class InserisciFilmCNT extends HttpServlet {
         } catch (SQLException ex) {
             messageInsert = "Elemento già esistente"; 
             ex.printStackTrace();
+            
         }
         
        request.setAttribute("messaggioInsert", messageInsert);
