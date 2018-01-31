@@ -317,6 +317,9 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents">
                             <li>
+                                <a href="VisualizzaLibreria.jsp">Visualizza Libreria</a>
+                            </li>
+                            <li>
                                 <a href="./admin/inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
                             </li>
                             <li><a href="./admin/ModificaLibreria.jsp">Modifica Libreria</a>

@@ -46,11 +46,14 @@
                 </div>
                 <div id="divEmail" class="m-4">
                     <lable>Inserisci l'email del cliente </lable>
-                    <input class="form-control" type="text" id="emailUtenteBase" value="" >
+                    <input class="form-control" type="text" id="emailUtenteBase" value="" onblur = "verificaCorrettezzaEmail()">
+                    <input type="hidden" id="correttezzaEmail" value="false">
+                    
                 </div>
                 <%}
                 else{
                 %>
+                <input type="hidden" id="correttezzaEmail" value="true"> 
                 <!--SE E' L'UTENTE INTERESSATO CHE STA ACQUISTANDO ONLINE, RECUPERO L'EMAIL DALLA SESSIONE-->
                 <input type="hidden" id="emailUtenteBase" value="<%=user.getEmail()%>" >
                 <%}
@@ -253,6 +256,7 @@
                 <label class="radio-inline">
                 <input type="radio" name="operazione" value="Acquista" onclick="calcolaPrezzoTotale()" checked> Acquista<br>
                 </label>
+                
                 <label class="radio-inline">
                 <input type="radio" name="operazione" value="Prenota" onclick="calcolaPrezzoTotale()">Prenota<br>  
                 </label>
@@ -287,8 +291,6 @@
 </form>
 <% } %>
 <script>
-
-
     //richiamare la funzione la prima volta
     calcolaPrezzoTotale();   
     function calcolaPrezzoTotale(){
@@ -327,12 +329,16 @@
         //alert("disponibilita saldo");
         var emailAcquirente=document.getElementById('emailUtenteBase').value;
         var importoTotale=document.getElementById("prezzoTotaleHidden").value;
+        if(document.getElementById("correttezzaEmail").value==='false')
+        {
+            alert('Email non corretta');
+            return;
+        }
         var xmht = new XMLHttpRequest();
         xmht.onreadystatechange = function () {
             console.log("readyState: " + this.readyState);
             if (this.readyState == 4 && this.status == 200) {
                  var result = this.responseText;
-                //alert(result);
                 if (result.substring(2,result.lastIndexOf('"')) === 'Saldo insufficiente')
                     alert(result.substring(2,result.lastIndexOf('"')));
                 if (result.substring(2,result.lastIndexOf('"')) === 'Ok')
@@ -378,6 +384,30 @@
             document.getElementById("idProcedi").onclick = disponibilitaSaldo;
         }
             
+    }
+    
+    function verificaCorrettezzaEmail() {
+        var emailAcquirente=document.getElementById('emailUtenteBase').value;
+        var xmht = new XMLHttpRequest();
+        xmht.onreadystatechange = function () {
+            console.log("readyState: " + this.readyState);
+            if (this.readyState == 4 && this.status == 200) {
+                var result = this.responseText;
+                
+                if (result.substring(2,result.lastIndexOf('"')) === 'Email corretta')
+                {
+                    document.getElementById("correttezzaEmail").value="true";
+                    alert(result.substring(2,result.lastIndexOf('"'))+"  "+document.getElementById("correttezzaEmail").value);
+                }
+                else
+                {
+                    document.getElementById("correttezzaEmail").value="false";
+                    alert(result.substring(2,result.lastIndexOf('"'))+"  "+document.getElementById("correttezzaEmail").value);
+                }
+            }
+        };
+        xmht.open("GET", "JSONcorrettezzaEmail?emailAcquirente="+emailAcquirente, true);
+        xmht.send();
     }
 
 </script>
