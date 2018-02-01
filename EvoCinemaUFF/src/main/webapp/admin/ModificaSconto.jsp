@@ -4,6 +4,8 @@
     Author     : Angelo
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.FilmConValutazioneMedia"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Modifica Sconto Esistente"); %>
@@ -60,13 +62,13 @@
                     <div class="form-group text-center">
                         <label for="nomeSconto"><strong>Nome sconto</strong></label>
                         <p>
-                            <input type="text" class="form-control" name="nomeSconto" autocomplete="off" value="<%= sconto.getNome()%>" />
+                            <input type="text" id="nomeSconto" class="form-control" name="nomeSconto" autocomplete="off" value="<%= sconto.getNome()%>" />
                         </p>
                     </div>
                     <div class="form-group ml-5 text-center">
                         <label><strong>Tipo di sconto</strong></label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="optTipo" value="percentuale" <%if (sconto.getTipo() == Sconto.tipo.PERCENTUALE) { %> checked <%}%> />  Percentuale  </label>
+                            <label class="radio-inline"><input type="radio" id="checkPercentuale" name="optTipo" value="percentuale" <%if (sconto.getTipo() == Sconto.tipo.PERCENTUALE) { %> checked <%}%> />  Percentuale  </label>
                             &nbsp;&nbsp;
                             <label class="radio-inline"><input type="radio" name="optTipo" value="fisso" <%if (sconto.getTipo() == Sconto.tipo.FISSO) { %> checked <%}%> />  Fisso  </label>
                         </p>
@@ -84,33 +86,33 @@
                 <div class="form-group text-center">
                     <label><strong>Tipologia</strong></label>
                     <p>
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="giorno" <%if (sconto.getTipologia() == Sconto.tipologia.GIORNO_SETTIMANA) { %> checked <%}%> />  Giorno della settimana  </label>
+                        <label class="radio-inline"><input type="radio" id="checkGiornoSettimana" name="optTipologia" value="giorno" <%if (sconto.getTipologia() == Sconto.tipologia.GIORNO_SETTIMANA) { %> checked <%}%> />  Giorno della settimana  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="genere" <%if (sconto.getTipologia() == Sconto.tipologia.GENERE) { %> checked <%}%> />  Genere  </label>
+                        <label class="radio-inline"><input type="radio" id="checkGenere" name="optTipologia" value="genere" <%if (sconto.getTipologia() == Sconto.tipologia.GENERE) { %> checked <%}%> />  Genere  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="film" <%if (sconto.getTipologia() == Sconto.tipologia.FILM) { %> checked <%}%> />  Film  </label>
+                        <label class="radio-inline"><input type="radio" id="checkFilm" name="optTipologia" value="film" <%if (sconto.getTipologia() == Sconto.tipologia.FILM) { %> checked <%}%> />  Film  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="spettacolo" <%if (sconto.getTipologia() == Sconto.tipologia.SPETTACOLO) { %> checked <%}%> />  Spettacolo  </label>
+                        <label class="radio-inline"><input type="radio" id="checkSpettacolo" name="optTipologia" value="spettacolo" <%if (sconto.getTipologia() == Sconto.tipologia.SPETTACOLO) { %> checked <%}%> />  Spettacolo  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="data" <%if (sconto.getTipologia() == Sconto.tipologia.DATA) { %> checked <%}%> />  Data  </label>
+                        <label class="radio-inline"><input type="radio" id="checkData" name="optTipologia" value="data" <%if (sconto.getTipologia() == Sconto.tipologia.DATA) { %> checked <%}%> />  Data  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" <%if (sconto.getTipologia() == Sconto.tipologia.ETA) { %> checked <%}%> />  Eta'  </label>
+                        <label class="radio-inline"><input type="radio" id="checkEta" name="optTipologia" value="eta" <%if (sconto.getTipologia() == Sconto.tipologia.ETA) { %> checked <%}%> />  Eta'  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="sesso" <%if (sconto.getTipologia() == Sconto.tipologia.SESSO) { %> checked <%}%> />  Sesso  </label>
+                        <label class="radio-inline"><input type="radio" id="checkSesso" name="optTipologia" value="sesso" <%if (sconto.getTipologia() == Sconto.tipologia.SESSO) { %> checked <%}%> />  Sesso  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="altro" <%if (sconto.getTipologia() == Sconto.tipologia.ALTRO) { %> checked <%}%> />  Altro  </label></p>
+                        <label class="radio-inline"><input type="radio" id="checkAltro" name="optTipologia" value="altro" <%if (sconto.getTipologia() == Sconto.tipologia.ALTRO) { %> checked <%}%> />  Altro  </label></p>
                 </div>
                 <!-- parte da mostrare in base alle opzioni selezionate -->
                 <div id="divPercentuale" class="form-group text-center mt-5">
                     <strong>Percentuale di sconto: </strong>
                     <p>
-                        <input type="text" class="form-control" name="percentualeSconto" value="<%= sconto.getPercentuale()%>" />
+                        <input type="text" class="form-control" id="percentualeSconto" name="percentualeSconto" value="<%= sconto.getPercentuale()%>" />
                     </p>
                 </div>
                 <div id="divFisso" class="form-group text-center mt-5">
                     <strong>Sconto fisso di euro: </strong>
                     <p>
-                        <input type="text" class="form-control" name="cifraSconto" value="<%= sconto.getPrezzo()%>" />
+                        <input type="text" class="form-control" id="scontoFisso" name="cifraSconto" value="<%= sconto.getPrezzo()%>" />
                     </p>
                 </div>
 
@@ -131,19 +133,44 @@
                 <div id="divGenere" class="form-group text-center mt-5 mb-5">
                     <strong> Genere </strong>
                     <p>
-                        <input type="text" class="form-control" name="genere" value="<%= sconto.getParametroTipologia()%>" />
+                        <input type="text" class="form-control" id="genereText" name="genere" value="<%= sconto.getParametroTipologia()%>" />
                     </p>
                 </div>
+                
+                <script>
+                    $(document).ready(function () {
+                        $(".js-example-basic-single").select2();
+                    });
+                </script>
+                <jsp:include page= "/visualizzaValutazioni"/>
+
+                <%
+
+                    ArrayList<FilmConValutazioneMedia> arr;
+                    arr = (ArrayList<FilmConValutazioneMedia>) request.getAttribute("listaFilmValutazione");
+
+                %>
+
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
-                    <p>
-                        <input type="text" class="form-control" name="film" value="<%= sconto.getParametroTipologia()%>" />
-                    </p>
+                    <select class="js-example-basic-single" id="selectFilm" name="film">
+
+                        <option value="0" >Nessuno</option>
+                        <% for (FilmConValutazioneMedia f : arr) {
+                            Integer id=f.getIdFilm();
+                        %>
+                        <option value="<%= id %>" <% if (sconto.getParametroTipologia().equals(id.toString())){%>selected<%}%> >
+                            <%=f.getTitolo()%>
+                        </option>
+                        <% }%>
+                    </select>
                 </div>
+                    
+                    
                 <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
                     <strong> Spettacolo </strong>
                     <p>
-                        <input type="text" class="form-control" name="spettacolo" value="<%= sconto.getParametroTipologia()%>" />
+                        <input type="text" class="form-control" id="spettacoloNum" name="spettacolo" value="<%= sconto.getParametroTipologia()%>" />
                     </p>
                 </div>
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
@@ -157,13 +184,13 @@
                         </select>
                     </p>
                     <p>
-                        <input type="text" class="form-control" name="cifraEta" <% if (sconto.getTipologia() == Sconto.tipologia.ETA) {%> value="<%= sconto.getParametroTipologia().substring(1)%>"<%}%> >
+                        <input type="text" class="form-control" id="etaNum" name="cifraEta" <% if (sconto.getTipologia() == Sconto.tipologia.ETA) {%> value="<%= sconto.getParametroTipologia().substring(1)%>"<%}%> >
                     </p>
                 </div>
                 <div id="divData" class="text-center mt-5 mb-5">
                     <strong> Data </strong>
                     <p>
-                        <input type="text" name="data" class="datepicker">
+                        <input type="text" name="data" id="dataText" class="datepicker">
                         <img class="calendar-icon" src="../images/calendar.png" height="26" width="26">
                         <!-- caricare data nel date picker -->
                     </p>
@@ -182,12 +209,12 @@
                 <div id="divAltro" class="text-center mt-5 mb-5">
                     <strong>Altro</strong>
                     <p>
-                        <input type="text" class="form-control" name="altro" value="<%= sconto.getParametroTipologia()%>" />                        
+                        <input type="text" id="descrizioneSconto" class="form-control" name="altro" value="<%= sconto.getParametroTipologia()%>" />                        
                     </p>
                 </div>
                 <!-- fine parte opzioni -->
                 <div class="form-group text-center">
-                    <input type="submit" id="modificaSconto" class="btn-primary" value="Modifica Sconto">
+                    <input type="button" id="modificaSconto" onclick="validation()" class="btn-primary" value="Modifica Sconto">
                 </div>
             </form>
 
@@ -200,6 +227,111 @@
 </div>
 <script>
 
+        function validation() {
+
+            var fl = 0;
+
+            if (isEmpty($('#nomeSconto'))) fl++;
+
+            if ($("#checkPercentuale").is(":not(:checked)")) {
+                
+                
+                if (isNumber($('#scontoFisso'))) fl++; 
+                
+            } else {
+                 
+                  
+                  if(isNumber($('#percentualeSconto'))) fl++;
+                  
+            }
+          
+          if ($("#checkGiornoSettimana").is(":checked")) fl++;
+
+          if ($("#checkGenere").is(":checked")) 
+              if( ! isEmpty($('#genereText'))) fl++; 
+          
+          if ($("#checkFilm").is(":checked")) 
+              if(!($("#selectFilm").val() === '0'))fl++;
+          
+          if ($("#checkSpettacolo").is(":checked"))
+              
+              if(! isNumber($('#spettacoloNum'))) fl++; 
+          
+          if ($("#checkData").is(":checked"))
+              
+              if( checkCalendar($('#dataText'))) fl++;
+          
+          if ($("#checkEta").is(":checked"))
+              
+              if(! isNumber($('#etaNum'))) fl++; 
+          
+          if ($("#checkSesso").is(":checked")) fl++; 
+
+          if ($("#checkAltro").is(":checked"))
+              
+              if(! isEmpty($('#descrizioneSconto'))) fl++; 
+              
+          
+         
+         
+         if(fl===1 ) $('#formInserisci').submit(); 
+
+          
+
+        }; 
+        
+        function checkCalendar( x ){
+        
+        var regExp = / [0-3][0-9]\\(0?[1-9]|1[012])\\\d{4} /;  
+        var value = x.val();  
+        console.log(value.match(regExp)); 
+       if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");     return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+            x.addClass("is-valid"); 
+            
+            return false;} 
+        
+    };
+
+        function isNumber( x ){
+	
+        var regExp =  /^[0-9]+$/;
+	var value = x.val(); 
+	console.log(value); 
+	
+	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+              x.addClass("is-valid"); 
+            return false;}
+        
+        }
+        
+        function isEmpty(x) {
+
+            console.log(x);
+            var value = x.val();
+            console.log(value);
+
+            var regExp = /[a-z]+\w*/i;
+
+            if (value === '' || !value.match(regExp)) {
+                x.addClass("is-invalid");
+                return true;
+            } else {
+
+                x.removeClass("is-invalid");
+                x.addClass("is-valid");
+                return false;
+            }
+
+        };
+        
     $("#divFisso").hide("fast");
     $("#divPercentuale").hide("fast");
 
