@@ -144,7 +144,7 @@ public class FilmDAO {
     List<Film> film = new LinkedList<>();
 
     try {
-        stmt = (PreparedStatement) connection.prepareStatement("SELECT titolo, data_nascita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
+        stmt = (PreparedStatement) connection.prepareStatement("SELECT titolo, data_uscita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {

@@ -82,7 +82,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AggiungiSpettacoloCNT</servlet-name>
-        <url-pattern>/AggiungiSpettacoloCNT</url-pattern>
+        <url-pattern>/admin/AggiungiSpettacoloCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificaSpettacoloCNT</servlet-name>
