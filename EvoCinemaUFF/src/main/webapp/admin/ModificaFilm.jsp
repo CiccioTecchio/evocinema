@@ -112,19 +112,19 @@
         
             <img id="locandina" class='card-img-top img-fluid thumbnail ' style='max-width: 350px ; max-height: 500px ' src="../<%= film.getLocandina()  %>"/>
         
-        <form action="modificaLibreria" method="POST" >
+            <form action="modificaLibreria" id="formModifica" method="POST" >
             
             <div class="form-group">
                 <label for="titolo">Titolo</label>
-                <input name="titolo" value="<%= film.getTitolo() %>" required="true" type="text" class="form-control insfilm" id="titolo" placeholder="Inserisci Titolo">
+                <input name="titolo" value="<%= film.getTitolo() %>" type="text" class="form-control insfilm" id="titolo" placeholder="Inserisci Titolo">
             </div>
             <div class="form-group">
                 <label for="durata">Durata MIN</label>
-                <input name="durata" required="true" value="<%= tempo %>" type="number" class="form-control insfilm" id="durata" placeholder="Inserisci Durata"> 
+                <input name="durata"  value="<%= tempo %>" type="number" class="form-control insfilm" id="durata" placeholder="Inserisci Durata"> 
             </div>
             <div class="form-group">
                 <label for="regia">Regia</label>
-                <input name="regia" type="text" value="<%= film.getRegia() %>" required="true" class="form-control insfilm" id="regia" placeholder="Inserisci Regia">
+                <input name="regia" type="text" value="<%= film.getRegia() %>"  class="form-control insfilm" id="regia" placeholder="Inserisci Regia">
             </div>
             <div class="form-group">
                 <label for="cast"> Cast </label>
@@ -132,7 +132,7 @@
             </div>
             <div class="form-group">
                 <label for="genere"> Genere </label>
-                <input name="genere" required="true" value="<%= film.getGenere() %>" type="text" class="form-control insfilm" id="genere" placeholder="Inserisci Genere">
+                <input name="genere"  value="<%= film.getGenere() %>" type="text" class="form-control insfilm" id="genere" placeholder="Inserisci Genere">
             </div>
             <div class="form-group" >
                 <label for="tipo"> Tipo </label>
@@ -151,7 +151,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="dataUscita"> Data Uscita </label>
+                <%
+                String explorerCompa = ""; 
+                if( request.getHeader("User-Agent").contains("Trident") ) explorerCompa="yyyy-mm-dd";  
+                
+                %>
+                <label for="dataUscita"> Data Uscita <%= explorerCompa %></label>
                 <input name="dataUscita" value="<%= data %>" type="date" class="form-control insfilm" id="dataUscita"  placeholder="Inserisci Data Uscita">
             </div>
             <div class="form-group">
@@ -173,7 +178,7 @@
             <input type="hidden" name="Nomelocandina" id="locandinaform" value="<%= film.getLocandina() %>" >
             <input type="hidden" name="idOpera" id="locandinaform" value="<%= film.getIdFilm() %>" >
             <input type="hidden" name="index" value="<%= idFilmAr %>"/>
-            <button type="submit" class="btn btn-primary insfilm">Modifica</button>
+            <button type="button" onclick="validation()" class="btn btn-primary insfilm">Modifica</button>
             
             
             
@@ -183,6 +188,115 @@
     </div>
     
 </div>
+            <div class="modal fade" id="erroreCampi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Errore</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="testoModal" >Controlla i campi. Sono presenti uno o piu errori</div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-lg btn-block" type="button" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    
+    function validation() {
+        
+       
+        
+        var fl=0; 
+        
+        if(  ! isEmpty($('#titolo')))  fl++;  
+        
+        if( ! isNumber($('#durata') )) fl++; 
+        
+        if(  ! isEmpty($('#regia')))  fl++;  
+        
+        if( ! checkCalendar($('#dataUscita')) ) fl++; 
+        
+        if( ! isEmpty($('#cast')) ) fl++;
+        
+        if( ! isEmpty($('#genere')) ) fl++; 
+        
+        if( ! isEmpty($('#trama') )) fl++; 
+        
+        console.log(fl); 
+        
+        if( fl === 7 ) $('#formModifica').submit(); 
+         else{
+             
+             $("#erroreCampi").modal({
+                backdrop: true
+                    });
+             
+         }
+    }; 
+    
+    
+    function checkCalendar( x ){
+        
+        var regExp = /\d{4}\-(0?[1-9]|1[012])\-[0-3][0-9]/; 
+        var value = x.val();  
+        console.log(value.match(regExp)); 
+       if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+            x.addClass("is-valid"); 
+            
+            return false;} 
+        
+    };
+    
+    function isNumber( x ){
+	
+        var regExp =  /^[0-9]+$/;
+	var value = x.val(); 
+	console.log(value); 
+	
+	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+              x.addClass("is-valid"); 
+            return false;} 
+	
+};
+    function isEmpty( x ){
+	
+        console.log(x); 
+	var value = x.val(); 
+	console.log(value); 
+        
+         var regExp = /[a-z]+\w*/i;
+	
+	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+              x.addClass("is-valid"); 
+            return false;} 
+	
+};
+    
+   
+	    
+       
+	
+
+  
+</script> 
     
     
             <% }  %>

@@ -260,10 +260,6 @@
         <servlet-class>control.scontoCNT.ModificaScontoCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>VisualizzaScontoCNT</servlet-name>
-        <servlet-class>control.scontoCNT.VisualizzaScontoCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PrenotazioneBigliettoCNT</servlet-name>
         <servlet-class>control.prenotazioneCNT.PrenotazioneBigliettoCNT</servlet-class>
     </servlet>

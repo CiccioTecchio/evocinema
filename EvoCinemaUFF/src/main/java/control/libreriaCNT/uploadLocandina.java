@@ -45,7 +45,8 @@ public class uploadLocandina extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+                String browserType = request.getHeader("User-Agent");
+            
 		response.setContentType("application/json");
 		String pathServer = request.getServletContext().getRealPath("")+"images"+File.separator+"locandine"; 
                 System.out.println("path server-->"+pathServer);
@@ -53,6 +54,8 @@ public class uploadLocandina extends HttpServlet {
 		String nameFile="vuoto"; 
                 
                 String action = (String) request.getParameter("action");
+                
+                
                 
                 if( action.equals("change") ){
                 
@@ -80,7 +83,7 @@ public class uploadLocandina extends HttpServlet {
 			
 			System.out.println("lungezza parti "+part.getContentType()+part.getName());
 			
-			nameFile = this.extractFileName(part);
+			nameFile = this.extractFileName(part , browserType );
 			System.out.println("Nome File --> "+nameFile);
 			part.write(pathServer+File.separator+nameFile );
 			System.out.println("Nome inseriemtn ..."+pathServer+File.separator+nameFile);
@@ -116,13 +119,15 @@ public class uploadLocandina extends HttpServlet {
 		
 	}
 	
-	private String extractFileName(Part part) {
+	private String extractFileName(Part part , String broswer) {
 		
 		String contentDisp = part.getHeader("content-disposition");
 		String[] items = contentDisp.split(";");
 		for (String s : items) {
+                    
 			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length() - 1);
+                                if( broswer.contains("Edge") || broswer.contains("Trident") ){ return s.substring(s.lastIndexOf(File.separator)+1 , s.length()-1 ); }
+                                else return s.substring(s.indexOf("=") + 2, s.length() - 1);
 			}
 		}
 		return "";

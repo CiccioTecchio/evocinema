@@ -78,6 +78,7 @@ public class RecensioniCNT extends HttpServlet {
         ArrayList<FilmConValutazioneMedia> array = (ArrayList<FilmConValutazioneMedia>) request.getSession().getAttribute("listaFilmValutazione");
         Film film = array.get(Integer.parseInt(index));
         
+        if( recensione== null ) recensione=""; 
         
         if( ut != null ){
         

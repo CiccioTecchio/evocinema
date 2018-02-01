@@ -96,6 +96,9 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents">
                             <li>
+                                <a href="../VisualizzaLibreria.jsp">Visualizza Libreria</a>
+                            </li>
+                            <li>
                                 <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
                             </li>
                             <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
