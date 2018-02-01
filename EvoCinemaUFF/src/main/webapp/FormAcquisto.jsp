@@ -217,10 +217,10 @@
             
             %>
                 <tr>
-                    <td><%=posto%></td>
-                    <td>
+                    <td class="classePosti"><%=posto%></td>
+                    <td class="classeSconti">
                         <select onchange="calcolaPrezzoTotale()">
-                            <option value="0" >Nessuno</option>
+                            <option value="0" selected >Nessuno</option>
                             <%for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
                                 {
                                     if(s.getDisponibile()==disponibile.TRUE)
@@ -287,7 +287,9 @@
                 CHE IN BASE AL VALORE PASSATO REDIRECT BACK, SE ANNULLA, ALTRIMENTI REDIRECT AVANTI-->
         </div>
     </div>             
-              
+   
+            <input type="hidden" id="stringaPostiESconti" name="stringaPostiESconti" value="">        
+            
 </form>
 <% } %>
 <script>
@@ -343,6 +345,8 @@
                     alert(result.substring(2,result.lastIndexOf('"')));
                 if (result.substring(2,result.lastIndexOf('"')) === 'Ok')
                     {
+                        generaStringaPostiSconti();
+    
                         var operazione=document.querySelector('input[name="operazione"]:checked').value;
                         if(operazione==="Prenota")
                             prenotazioneFunction();
@@ -408,6 +412,32 @@
         };
         xmht.open("GET", "JSONcorrettezzaEmail?emailAcquirente="+emailAcquirente, true);
         xmht.send();
+    }
+    
+    
+    function generaStringaPostiSconti(){
+        var sconti=[];
+        var posti =[];
+        $(".classeSconti option:selected").each(function () {
+            var x = $(this).val();
+            sconti.push(x);
+        });
+        
+        $(".classePosti").each(function () {
+            var x = $(this).text();
+            posti.push(x);
+        });
+        
+        var stringaDaPassare = '';
+        
+        for (var i = 0; i < posti.length; i++) {
+            stringaDaPassare = stringaDaPassare + posti[i]+"-"+sconti[i]+"-";
+           
+        }
+        //alert(stringaDaPassare);
+        
+        document.getElementById("stringaPostiESconti").value=stringaDaPassare;
+        /*alert(document.getElementById("stringaPostiESconti").value);*/
     }
 
 </script>
