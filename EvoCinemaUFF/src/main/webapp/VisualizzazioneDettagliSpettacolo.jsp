@@ -92,13 +92,15 @@
                                 <div class="row">
                                     <div class="col">
                                         <form id="target" method="POST" action="FormAcquisto.jsp">
-                                            <input name="idSpettacolo" value="<%= spettacolo.getIdSpettacolo() %>" hidden/>
-                                            <input id="p" name="posti" value="" hidden />
+                                            <input name="idSpettacolo" type="hidden" value="<%= spettacolo.getIdSpettacolo() %>"/>
+                                            <input id="p" type="hidden" name="posti" value=""/>
                                             <button class="btn btn-primary" >Procedi con l'ordine</button>
                                         </form>
                                     </div>
                                     <div class="col">
-                                        <p id="totale" class="btn btn-dark">Totale = 0.00&euro;</p>
+                                        <form>
+                                            <p id="totale" class="btn btn-dark">Totale = 0.00&euro;</p>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
