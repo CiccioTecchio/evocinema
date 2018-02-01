@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
 package database;
 
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import static org.junit.Assert.*;
  *
  * @author Giuseppe
  */
+/*
 public class FilmDAOTest {
     
     public FilmDAOTest() {
@@ -74,3 +76,4 @@ public class FilmDAOTest {
     // @Test
     // public void hello() {}
 }
+*/

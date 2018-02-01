@@ -138,6 +138,33 @@ public class FilmDAO {
         return film;
     }
 
+    public synchronized List<Film> getFilmNameAndDate() throws SQLException, ParseException, NamingException {
+
+    PreparedStatement stmt = null;
+    List<Film> film = new LinkedList<>();
+
+    try {
+        stmt = (PreparedStatement) connection.prepareStatement("SELECT titolo, data_uscita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Film f = new Film();
+            f.setTitolo(rs.getString("titolo"));
+            Calendar dataUscita = Calendar.getInstance();
+            Date newDate = rs.getDate("data_uscita");
+            dataUscita.setTime(newDate);
+            f.setDataUscita(dataUscita);
+            film.add(f);
+        }
+    } finally {
+        if (stmt != null) {
+            stmt.close();
+        }
+    }
+    return film;
+}
+
+    
     /**
      * Permette di estrarre le tuple di tipo {@link Film} dal DB.
      *
@@ -233,6 +260,40 @@ public class FilmDAO {
         }
         return f;
     }
+    
+     /**
+     * Metodo la ricerca di un film in base al titolo nel DB
+     *
+     * @param s Oggetto di String titolo Film {@link String}
+     * @return 'true' se un elemento esiste con questo nome o 'false' in caso contrario.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
+    public synchronized boolean isExistByTitolo(String s) throws SQLException, ParseException, NamingException {
+
+        boolean esiste = false; 
+        PreparedStatement stmt = null;
+        
+
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("select titolo from Opera where titolo = ? "); 
+
+            stmt.setString(1, s);
+            
+            
+            ResultSet rs = stmt.executeQuery(); 
+
+            if ( rs.next() ) esiste = true; 
+            
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return esiste; 
+    }
+
 
     /**
      * Metodo per l'inserimento di una nuova Opera nel DB

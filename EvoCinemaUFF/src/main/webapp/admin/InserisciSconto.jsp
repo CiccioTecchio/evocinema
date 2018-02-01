@@ -156,7 +156,7 @@
 
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
-                    <select class="js-example-basic-single" name="film">
+                    <select class="js-example-basic-single" id="selectFilm" name="film">
 
                         <option value="0" >Nessuno</option>
                         <% for (FilmConValutazioneMedia f : array) {
@@ -253,10 +253,10 @@
                 if (isNumber($('#scontoFisso'))) fl++; 
                 
             } else {
-                 
-                  
-                  if(isNumber($('#percentualeSconto'))) fl++;
-                  
+                                   
+                  if(isNumber($('#percentualeSconto')))
+                        if (($('#percentualeSconto').val()>0)&&($('#percentualeSconto').val()<=100)) fl++;
+
             }
           
           if ($("#checkGiornoSettimana").is(":checked")) fl++;
@@ -264,7 +264,8 @@
           if ($("#checkGenere").is(":checked")) 
               if( ! isEmpty($('#genereText'))) fl++; 
           
-          if ($("#checkFilm").is(":checked")) fl++;
+          if ($("#checkFilm").is(":checked")) 
+              if(!($("#selectFilm").val() === '0'))fl++;
           
           if ($("#checkSpettacolo").is(":checked"))
               
@@ -343,10 +344,7 @@
                 return false;
             }
 
-        }
-        ;
-
-
+        };
 
         $("#divFisso").hide("fast");
 
