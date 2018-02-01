@@ -221,7 +221,7 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
                         <a class="nav-link" href="VisualizzazioneProgrammazione.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Porgrammazione</span>
+                            <span class="nav-link-text">Programmazione</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
