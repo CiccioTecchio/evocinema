@@ -39,6 +39,15 @@ public class UtenteRegistratoDAO {
     public UtenteRegistratoDAO() throws NamingException, SQLException {
         connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
     }
+    
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public UtenteRegistratoDAO(Connection conn) throws NamingException, SQLException {
+        connection = conn;
+    }
 
     public Connection getDAOConnection() {
         return this.connection;
@@ -347,7 +356,7 @@ public class UtenteRegistratoDAO {
                 UtenteBase ut= (UtenteBase) u;
                 stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('" + ut.getEmail() + "', '" + ut.getNomeUtente() + "', '" + ut.getPassword() + "', '" + ut.getRuolo() + "', '" + ut.getNome() + "', '" + ut.getCognome() + "', '" + dataN + "', '" + ut.getSesso() + "', '" + ut.getCellulare() + "', '" + ut.getCittà() + "', '" + ut.getIndirizzo() + "' , '"+ut.getSaldo()+"')");
             }else{
-                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('" + u.getEmail() + "', '" + u.getNomeUtente() + "', '" + u.getPassword() + "', '" + u.getRuolo() + "', '" + u.getNome() + "', '" + u.getCognome() + "', '" + dataN + "', '" + u.getSesso() + "', '" + u.getCellulare() + "', '" + u.getCittà() + "', '" + u.getIndirizzo() + "')");
+                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo)VALUES ('" + u.getEmail() + "', '" + u.getNomeUtente() + "', '" + u.getPassword() + "', '" + u.getRuolo() + "', '" + u.getNome() + "', '" + u.getCognome() + "', '" + dataN + "', '" + u.getSesso() + "', '" + u.getCellulare() + "', '" + u.getCittà() + "', '" + u.getIndirizzo() + "')");
             }
             stmt.executeUpdate();
             inserito = true;
