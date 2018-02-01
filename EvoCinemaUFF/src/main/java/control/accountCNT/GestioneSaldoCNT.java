@@ -73,7 +73,8 @@ public class GestioneSaldoCNT extends HttpServlet {
         
         HttpSession s = request.getSession();
         UtenteBase utente = (UtenteBase) s.getAttribute("user");
-        float ricarica = Float.parseFloat(request.getParameter("ricaricaSaldo"));
+        float ricarica = 0.0f;
+        ricarica = Float.parseFloat(request.getParameter("ricaricaSaldo"));
         
         
         

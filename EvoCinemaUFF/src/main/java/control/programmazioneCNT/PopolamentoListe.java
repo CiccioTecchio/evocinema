@@ -27,7 +27,7 @@ import model.Sala;
  *
  * @author luca
  */
-@WebServlet(name = "PopolamentoListe", urlPatterns = {"/PopolamentoListe"})
+@WebServlet(name = "PopolamentoListe", urlPatterns = {"/admin/PopolamentoListe"})
 public class PopolamentoListe extends HttpServlet {
 
     /**
@@ -47,7 +47,7 @@ public class PopolamentoListe extends HttpServlet {
             List<Sala> sale = salaDao.getAllSale();
             FilmDAO filmDao = new FilmDAO();
             List<Film> film = filmDao.getFilmNameAndDate();
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             request.setAttribute("sdf", sdf);
             request.setAttribute("sale", sale);
             request.setAttribute("film", film);

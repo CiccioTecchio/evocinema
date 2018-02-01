@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 <% request.setAttribute("title", "Aggiungi Spettacolo"); %>
 <jsp:include page="HeaderAdmin.jsp" />
-<jsp:include page="../PopolamentoListe"/>
+<jsp:include page="PopolamentoListe"/>
 <% List<Sala> sale = (List<Sala>) request.getAttribute("sale"); 
    List<Film> film = (List<Film>) request.getAttribute("film");
    SimpleDateFormat sdf = (SimpleDateFormat) request.getAttribute("sdf");
@@ -13,13 +13,13 @@
     <h6 class="card-header">Form Inserimento Spettacolo</h6>
     <div class="card-body">
 
-        <form method="POST" action="">
+        <form method="POST" action="AggiungiSpettacoloCNT">
           <div class="form-group">
             <label for="select-film" class="col-form-label">Opera: </label>
             <select class="form-control" id="select-film" required>
                 <% 
                 for(Film f : film){
-                    out.print("<option>" + f.getTitolo() + " " + sdf.format(f.getDataUscita().getTime()) + "</option>");
+                    out.print("<option value=\"" + f.getTitolo() +"\">" + f.getTitolo() + " - " + sdf.format(f.getDataUscita().getTime()) + "</option>");
                 }
                 %>
             </select>

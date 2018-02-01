@@ -58,7 +58,7 @@
                     <th>Locandina</th>
                     <th>Titolo</th>
                     <th>Data</th>   
-                    <th>Ora inizio proiezione</th>
+                    <th>Ora inizio</th>
                     <th>Posto</th>
                     <th>Sala</th>
                     <th>Prezzo spettacolo</th>

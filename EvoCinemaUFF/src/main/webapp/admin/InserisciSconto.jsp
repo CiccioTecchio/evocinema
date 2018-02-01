@@ -117,7 +117,6 @@
                 </div>
                 <script>
                     $(document).ready(function () {
-                        // Initialize select2
                         $(".js-example-basic-single").select2();
                     });
                 </script>
@@ -133,7 +132,7 @@
 
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
-                    <select class="js-example-basic-single" name="film">
+                    <select class="js-example-basic-single" id="selectFilm" name="film">
 
                         <option value="0" >Nessuno</option>
                         <% for (FilmConValutazioneMedia f : array) {
@@ -225,7 +224,8 @@
           if ($("#checkGenere").is(":checked")) 
               if( ! isEmpty($('#genereText'))) fl++; 
           
-          if ($("#checkFilm").is(":checked")) fl++;
+          if ($("#checkFilm").is(":checked")) 
+              if(!($("#selectFilm").val() === '0'))fl++;
           
           if ($("#checkSpettacolo").is(":checked"))
               
@@ -304,10 +304,7 @@
                 return false;
             }
 
-        }
-        ;
-
-
+        };
 
         $("#divFisso").hide("fast");
 

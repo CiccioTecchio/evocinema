@@ -5,9 +5,13 @@
  */
 package control.acquistoCNT;
 
+import database.SalaDAO;
+import database.SpettacoloDAO;
 import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -18,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Acquisto;
 import model.Operazione;
+import model.Sala;
+import model.Sconto;
 import model.UtenteRegistrato;
 
 /**
@@ -36,34 +42,56 @@ public class AcquistoBigliettoCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, NamingException, SQLException {
+            throws ServletException, IOException, NamingException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         
         System.out.println("Servlet acquistobigliettocnt");
-        /*
+        
         HttpSession s = request.getSession();
         UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
-        String emailAcquirente="";
-        Acquisto op = new Acquisto();
+        SalaDAO salaDAO = new SalaDAO();
+        SpettacoloDAO spettDAO = new SpettacoloDAO();
+        //int numeroBiglietti = Integer.parseInt( request.getParameter("numeroBiglietti") );
+        System.out.println("Numero biglietti nell servlet:"+request.getParameter("numeroBiglietti"));
+        System.out.println("Id sala nella servlet:"+request.getParameter("idSala"));
         
-        //L'EMAIL LA PRENDO NELLA JSP, NON LA PRELEVO QUI DALLA SESSIONE
+        String email;
+        int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
+        int posto = 1;  //DA FARE
+        int offset = 1; //DA FARE
+        Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+        Operazione.prenotato prenotato = null;
+        Operazione.acquistato acquistato = null;
+        float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
+        float prezzoFinale; //DA FARE
+        Calendar data = Calendar.getInstance();
+        Sconto sconto = null; //DA FARE
         
-        if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE)
-        {
-            //IL CREDITO E' SUFFICIENTE, CONTROLLO EFFETTUATO PRIMA CON JSON
-            emailAcquirente=user.getEmail();
-            System.out.println("IDSPETTAOOLO"+request.getAttribute("idSpettacolo"));
-            //GET EMAIL UTENTE DA SESSION
-            //SCALA SOLDI
-        }
-        else //OPERATORE
-        {
-            emailAcquirente=request.getParameter("emailAcquirente");
-            //soldi in contanti
-            //op.set..
-            //operazioneDAO.createOperazione(op);
-        }
+        /*
+        
+        Sconto sconto = operazione.getSconto();
+            if(sconto.getIdSconto() == 0){
+                utbase.setSaldo(saldo - price + 2.0f);
+            }
+            if(sconto.getTipo().equals(tipo.FISSO)){
+                utbase.setSaldo(saldo - sconto.getPrezzo() + 2.0f);
+            }
+            if(sconto.getTipo().equals(tipo.PERCENTUALE)){
+               float percentuale =(float) operazione.getSconto().getPercentuale();
+               float dascalare = (price * percentuale) /100;  
+               utbase.setSaldo(saldo - (price-dascalare) + 2.0f);
+            }
+        
         */
+        
+        if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
+            email = user.getEmail();
+        }
+        else{ //OPERATORE
+            email = request.getParameter("emailUtenteBase");
+        }
+        Acquisto crea = new Acquisto (email, idSpettacolo,posto,offset,sala,prenotato.FALSE, acquistato.TRUE, prezzoSpettacolo, data, sconto);
+        System.out.println("Acquisto creato nella servlet:\n"+crea.toString());
         
     }
 
@@ -85,6 +113,8 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -104,6 +134,8 @@ public class AcquistoBigliettoCNT extends HttpServlet {
         } catch (NamingException ex) {
             Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(AcquistoBigliettoCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
