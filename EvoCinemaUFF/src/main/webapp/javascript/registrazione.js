@@ -50,7 +50,7 @@
                      }
                      
                      if(indirizzo.length<2){
-                         $('#errorIndirizzo').show()
+                         $('#errorIndirizzo').show();
                          bool=false;   
                      }
                      else{

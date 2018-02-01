@@ -70,7 +70,7 @@
                         <input  class="btn btn-primary btn-block" type="submit" name="bottoneLogin" id="login" value="Login">
                         <div class="form-input-validation is-error" id ="error">
                             <span>
-                                <p class="error-psw">Siamo spiacenti, la password non è corretta. Riprova.</p>
+                                <p class="error-psw">Email o password errati. Riprova.</p>
                             </span>
                         </div>
                     </form>

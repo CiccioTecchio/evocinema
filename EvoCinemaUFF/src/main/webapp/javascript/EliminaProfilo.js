@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
-	$(".bottoni").click(function() {
+	$(".cancellaAccount").click(function() {
 
 		var email = $(this).attr('id');
 
-		$.post('../CancellazioneGestore', {
-			"emailCancellaUtente" : email
+		$.post('CancellazioneAccountCNT', {
+			"emailCancellaProfilo" : email
 		}, function() {
 
 			alert("Account eliminato.");
@@ -16,3 +16,4 @@ $(document).ready(function() {
 	});
 
 });
+

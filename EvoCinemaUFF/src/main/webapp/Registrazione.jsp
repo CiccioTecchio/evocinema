@@ -122,7 +122,7 @@
                                     <input class="form-control" type="text" id="cittaRegistrazione" name="cittaRegistrazione" maxlength="50">
                                     <div class="form-input-validation is-error" id ="errorCitta">
                                         <span>
-                                            <p class="error-psw">Questo campo non può contenere meno di 5 caratteri.</p>
+                                            <p class="error-psw">Questo campo non può contenere meno di 2 caratteri.</p>
                                         </span>
                                     </div>
                                 </div>

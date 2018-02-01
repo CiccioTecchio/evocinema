@@ -13,6 +13,13 @@ public class FilmConValutazioneMedia extends Film {
         
         this.valutazioneMedia=valutazione;
     }
+    
+    public FilmConValutazioneMedia( tipo myTipo, String titolo, String locandina, String regia, String cast, String genere, Time durata, Calendar dataUscita, vistoCensura myVistoCensura, String distribuzione, String produzione, String trama, String trailer, float valutazione){
+        
+        super( myTipo , titolo , locandina , regia , cast , genere , durata , dataUscita , myVistoCensura , distribuzione , produzione , trama , trailer  ); 
+        
+        this.valutazioneMedia=valutazione;
+    }
 
     public FilmConValutazioneMedia() {
     }
