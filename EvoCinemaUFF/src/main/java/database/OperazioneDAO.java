@@ -291,7 +291,7 @@ public class OperazioneDAO {
        PreparedStatement stmt=null;
        List<Acquisto> acquisti = new LinkedList<>();
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE prenotato= 'FALSE' AND acquistato='TRUE' AND email= '"+emailParam+"'");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Operazione WHERE acquistato='TRUE' AND email= '"+emailParam+"'");
 
             ResultSet rs = stmt.executeQuery();
 

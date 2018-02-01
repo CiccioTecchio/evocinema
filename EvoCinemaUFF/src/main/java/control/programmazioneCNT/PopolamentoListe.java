@@ -3,32 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control.accountCNT;
+package control.programmazioneCNT;
 
-import database.UtenteRegistratoDAO;
+import database.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.UtenteBase;
-import model.UtenteRegistrato;
+import model.Film;
+import model.Sala;
 
 /**
  *
- * @author Michele
+ * @author luca
  */
-
-public class CancellazioneAccountCNT extends HttpServlet {
+@WebServlet(name = "PopolamentoListe", urlPatterns = {"/PopolamentoListe"})
+public class PopolamentoListe extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +42,22 @@ public class CancellazioneAccountCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try {
+            SalaDAO salaDao = new SalaDAO();
+            List<Sala> sale = salaDao.getAllSale();
+            FilmDAO filmDao = new FilmDAO();
+            List<Film> film = filmDao.getFilmNameAndDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            request.setAttribute("sdf", sdf);
+            request.setAttribute("sale", sale);
+            request.setAttribute("film", film);
+        } catch (NamingException ex) {
+            Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -72,33 +87,6 @@ public class CancellazioneAccountCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        HttpSession s = request.getSession();
-        UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
-        String email = (String) request.getParameter("emailCancellaProfilo");
-        boolean cancellato=false;
-        System.out.println("utente in sessione: "+utente);
-        
-        if(utente.getEmail().equals(email)){
-            try {
-                
-                UtenteRegistratoDAO model = new UtenteRegistratoDAO();
-                cancellato=model.deleteUtenteRegistrato(utente.getEmail());
-                
-
-            } catch (NamingException | SQLException | ParseException ex) {
-                Logger.getLogger(CancellazioneAccountCNT.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if (cancellato==true){
-            s.removeAttribute("user");
-        }
-        
-        
-        String page="index.jsp";
-        response.sendRedirect(page);
-        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        //dispatcher.forward(request, response);
     }
 
     /**

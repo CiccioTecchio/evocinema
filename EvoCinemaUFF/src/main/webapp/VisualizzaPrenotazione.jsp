@@ -4,6 +4,8 @@
     Author     : giuseppeapuzzo
 --%>
 
+<%@page import="database.UtenteRegistratoDAO"%>
+<%@page import="model.UtenteBase"%>
 <%@page import="model.UtenteRegistrato.ruolo"%>
 <%@page import="model.UtenteRegistrato"%>
 <%@page import="model.Sconto.tipo"%>
@@ -34,6 +36,11 @@
     System.out.println("Operazione:"+x.toString());
     Spettacolo spett = spettDAO.foundByID(x.getIdSpettacolo());
     session.setAttribute("operazione", x);
+    UtenteRegistratoDAO utDAO = new UtenteRegistratoDAO();
+    HttpSession s = request.getSession();
+    UtenteRegistrato utente =(UtenteRegistrato) s.getAttribute("user");
+    String email = utente.getEmail() ;
+    UtenteBase utbase = utDAO.foundUtenteBaseByEmail(email) ;
 %>
 
 <form id="idform" method="POST" onclick="return OnSubmit()">
@@ -93,7 +100,7 @@
         
         <div class="ml-4">
             <label>Costo spettacolo</label>
-            <label class="float-right" id="idImporto" name="importo"><%= x.getPrezzoFinale() %></label>
+            <label class="float-right" id="idImporto" name="importo"><%= spett.getPrezzo() %></label>
         </div>
         <br><br>
         
@@ -115,11 +122,16 @@
             <label class="float-right" id="idImporto" name="importo"><%= sconto %></label>
         </div>
         <br><br>
+        
+        <div class="ml-4">
+            <label>Costo biglietto</label>
+            <label class="float-right" id="idImporto" name="importo"><%= x.getPrezzoFinale() %></label>
+        </div>
+        <br><br>
 
         </br></br>
         <%
-            HttpSession s = request.getSession();
-            UtenteRegistrato utente =(UtenteRegistrato) s.getAttribute("user");
+            
             String indietro ="";
             if( (utente.getRuolo()).equals(ruolo.OPERATORE) ) {
                 indietro = "VisualizzaPrenotazioniOperatore.jsp";
@@ -136,8 +148,13 @@
             <%
                 indietro = "VisualizzaPrenotazioniOperatore.jsp";
             }
-            if( (utente.getRuolo()).equals(ruolo.UTENTE) ) { %>
+            if( (utente.getRuolo().equals(ruolo.UTENTE)) && (utbase.getSaldo() > (x.getPrezzoFinale() -2.0f) ) ) { %>
                 <input class="mr-3" type="submit" name="Esito" value="Acquista prenotazione" onclick="document.pressed=this.value" />  
+                <input type="submit" name="Esito" value="Cancella prenotazione" onclick="if(confirm('Sei sicuro di voler cancellare la prenotazione?'))document.pressed=this.value"/>
+            <%
+            }
+            if( (utente.getRuolo().equals(ruolo.UTENTE)) && (utbase.getSaldo() < (x.getPrezzoFinale() -2.0f) ) ) { %>
+                <input class="mr-3" type="submit" name="SaldoInsufficiente" value="Acquista prenotazione" onclick="document.pressed=this.name" />  
                 <input type="submit" name="Esito" value="Cancella prenotazione" onclick="if(confirm('Sei sicuro di voler cancellare la prenotazione?'))document.pressed=this.value"/>
             <%
             }
@@ -149,6 +166,9 @@
 </form>
 <script>
       function OnSubmit(){
+        if(document.pressed == "SaldoInsufficiente"){
+            alert("Saldo insufficiente per acquistare la prenotazione");
+        }
         if(document.pressed == "Vendi la prenotazione all'utente"){
             document.getElementById("idform").action="AcquistoConPrenotazioneCNT";
         }

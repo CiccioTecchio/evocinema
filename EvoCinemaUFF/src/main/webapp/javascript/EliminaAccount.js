@@ -3,7 +3,6 @@ $(document).ready(function() {
 	$(".bottoni").click(function() {
 
 		var email = $(this).attr('id');
-                var page = $(this).attr('value')
 
 		$.post('../CancellazioneGestore', {
 			"emailCancellaUtente" : email

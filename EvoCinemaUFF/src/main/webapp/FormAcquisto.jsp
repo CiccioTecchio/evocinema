@@ -46,7 +46,7 @@
                 </div>
                 <div id="divEmail" class="m-4">
                     <lable>Inserisci l'email del cliente </lable>
-                    <input class="form-control" type="text" id="emailUtenteBase" value="" onblur = "verificaCorrettezzaEmail()">
+                    <input class="form-control" type="text" id="emailUtenteBase" name="emailUtenteBase" onblur = "verificaCorrettezzaEmail()">
                     <input type="hidden" id="correttezzaEmail" value="false">
                     
                 </div>
@@ -145,7 +145,7 @@
             
             
 
-            <input id="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
+            <input id="spettacoloScelto" name="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
             
             <%  cal = Calendar.getInstance();
                  orario = "";
@@ -179,15 +179,15 @@
 
             <div class="m-4">
                 <lable>Data corrente: </lable>
-                <label class="float-right" nome="dataPrenotazione" value="<%=data%>"><%=data%></label>
+                <label class="float-right" nome="dataOperazione" value="<%=data%>"><%=data%></label>
             </div>
 
             <!--STAMARE COL E RIG POSTI SELEZIONATI-->
 
             <div class="m-4">
                 <lable>N° sala: </lable>
-                <label class="float-right" name="idSala" value="<%=spettacoloSelezionato.getIdSala()%>"
-                       ><%=spettacoloSelezionato.getIdSala()%></label>
+                <input type="text" class="float-right" name="idSala" value="<%=spettacoloSelezionato.getIdSala()%>"
+                       ><%=spettacoloSelezionato.getIdSala()%>
             </div>
             
             
@@ -216,6 +216,7 @@
                     posti=posti.substring(posti.indexOf('-')+1);
             
             %>
+            <input type="hidden" name="numeroBiglietti" value=" <%= numeroBiglietti%> " >
                 <tr>
                     <td class="classePosti"><%=posto%></td>
                     <td class="classeSconti">
@@ -276,7 +277,7 @@
             <div class="m-4">
                 <lable>Importo da pagare: </lable>
                 <label id="prezzoTotale" class="float-right"></label>
-                <input type="hidden" id="prezzoTotaleHidden" value="">
+                <input type="hidden" id="prezzoTotaleHidden" name="prezzoTotaleHidden" value="">
             </div>
         </div>    
             
@@ -364,7 +365,8 @@
         //alert("Acquisto function");
         var r = confirm("Sei di voler procedere?");
         if (r == true) {
-            window.location.href="AcquistoBigliettoCNT";
+            document.getElementById("myform").action = "AcquistoBigliettoCNT";
+            document.getElementById("myform").submit();
         }
 
     }
@@ -372,7 +374,8 @@
     function prenotazioneFunction() {
         var r = confirm("Sei sicuro di voler prenotare il biglietto?");
         if (r == true) {
-            window.location.href="PrenotazioneBigliettoCNT";
+            document.getElementById("myform").action = "PrenotazioneBigliettoCNT";
+            document.getElementById("myform").submit();
         }
 
     }
