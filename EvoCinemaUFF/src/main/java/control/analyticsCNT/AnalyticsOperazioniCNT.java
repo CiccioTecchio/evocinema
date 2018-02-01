@@ -5,12 +5,20 @@
  */
 package control.analyticsCNT;
 
+import database.OperazioneDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -28,8 +36,27 @@ public class AnalyticsOperazioniCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException, NamingException, SQLException, ParseException {
+        
+        response.setContentType("application/json;charset=UTF-8");
+        //PrintWriter out = response.getWriter();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate localDate = LocalDate.now();//2016/11/16        
+        
+        //DAO operazione con parametro esterno Date
+        /*
+        OperazioneDAO opdao=new OperazioneDAO();
+        String dati=opdao.analitycsGetDatiAcquisti();
+        */
+        
+        String dati="2018_0_18_1_27_2_29_3_15_4_16_5_50_6_66_7_34_8_5_9_9_10_44_11_10";//Stringa realizzata scorrendo la lista di operazioni ritornata dalla DAO
+        
+        
+        JSONObject jsonObject = new JSONObject();
+        
+        jsonObject.put(dati, 0);
+        
+        response.getWriter().write(jsonObject.toString());
         
     }
 
@@ -45,7 +72,15 @@ public class AnalyticsOperazioniCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(AnalyticsOperazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnalyticsOperazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AnalyticsOperazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -59,7 +94,15 @@ public class AnalyticsOperazioniCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(AnalyticsOperazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnalyticsOperazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AnalyticsOperazioniCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

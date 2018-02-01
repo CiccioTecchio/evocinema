@@ -12,5 +12,7 @@
 
 
 
+<div id="container" style="height: 300px"></div>
 
 <jsp:include page="FooterAdmin.jsp"/>
+
