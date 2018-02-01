@@ -233,6 +233,40 @@ public class FilmDAO {
         }
         return f;
     }
+    
+     /**
+     * Metodo la ricerca di un film in base al titolo nel DB
+     *
+     * @param s Oggetto di String titolo Film {@link String}
+     * @return 'true' se un elemento esiste con questo nome o 'false' in caso contrario.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
+    public synchronized boolean isExistByTitolo(String s) throws SQLException, ParseException, NamingException {
+
+        boolean esiste = false; 
+        PreparedStatement stmt = null;
+        
+
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("select titolo from Opera where titolo = ? "); 
+
+            stmt.setString(1, s);
+            
+            
+            ResultSet rs = stmt.executeQuery(); 
+
+            if ( rs.next() ) esiste = true; 
+            
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return esiste; 
+    }
+
 
     /**
      * Metodo per l'inserimento di una nuova Opera nel DB
