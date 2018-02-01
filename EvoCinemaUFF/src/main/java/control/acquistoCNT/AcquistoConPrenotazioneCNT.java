@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Operazione;
-import model.Sconto;
-import model.Sconto.tipo;
 import model.UtenteBase;
 import model.UtenteRegistrato;
 import model.UtenteRegistrato.ruolo;
@@ -59,22 +57,10 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
             OperazioneDAO opDAO = new OperazioneDAO();
             float price = operazione.getPrezzoFinale();
             float saldo = utbase.getSaldo();
-            Sconto sconto = operazione.getSconto();
-            if(sconto.getIdSconto() == 0){
-                utbase.setSaldo(saldo - price + 2.0f);
-            }
-            if(sconto.getTipo().equals(tipo.FISSO)){
-                utbase.setSaldo(saldo - sconto.getPrezzo() + 2.0f);
-            }
-            if(sconto.getTipo().equals(tipo.PERCENTUALE)){
-               float percentuale =(float) operazione.getSconto().getPercentuale();
-               float dascalare = (price * percentuale) /100;  
-               utbase.setSaldo(saldo - (price-dascalare) + 2.0f);
-            }
+            utbase.setSaldo(saldo - price + 2.0f);
             boolean responso = utenteDAO.updateUtenteBase(utbase);
             if(responso){
                 operazione.setAcquistato(Operazione.acquistato.TRUE);
-                //operazione.setPrenotato(Operazione.prenotato.FALSE);
                 opDAO.updateOperazione(operazione);
                 response.sendRedirect("ResocontoAcquisto.jsp");
             }else{
@@ -88,7 +74,6 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
             OperazioneDAO opDAO = new OperazioneDAO();
         
             operazione.setAcquistato(Operazione.acquistato.TRUE);
-            //operazione.setPrenotato(Operazione.prenotato.FALSE);
             opDAO.updateOperazione(operazione);
             response.sendRedirect("ResocontoAcquisto.jsp");
         }

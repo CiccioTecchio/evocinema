@@ -46,7 +46,7 @@
                 </div>
                 <div id="divEmail" class="m-4">
                     <lable>Inserisci l'email del cliente </lable>
-                    <input class="form-control" type="text" id="emailUtenteBase" value="" onblur = "verificaCorrettezzaEmail()">
+                    <input class="form-control" type="text" id="emailUtenteBase" name="emailUtenteBase" onblur = "verificaCorrettezzaEmail()">
                     <input type="hidden" id="correttezzaEmail" value="false">
                     
                 </div>
@@ -145,7 +145,7 @@
             
             
 
-            <input id="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
+            <input id="spettacoloScelto" name="spettacoloScelto" type="hidden" value="<%=spettacoloSelezionato.getIdSpettacolo()%>">
             
             <%  cal = Calendar.getInstance();
                  orario = "";
@@ -179,15 +179,15 @@
 
             <div class="m-4">
                 <lable>Data corrente: </lable>
-                <label class="float-right" nome="dataPrenotazione" value="<%=data%>"><%=data%></label>
+                <label class="float-right" nome="dataOperazione" value="<%=data%>"><%=data%></label>
             </div>
 
             <!--STAMARE COL E RIG POSTI SELEZIONATI-->
 
             <div class="m-4">
                 <lable>N° sala: </lable>
-                <label class="float-right" name="idSala" value="<%=spettacoloSelezionato.getIdSala()%>"
-                       ><%=spettacoloSelezionato.getIdSala()%></label>
+                <input type="text" class="float-right" name="idSala" value="<%=spettacoloSelezionato.getIdSala()%>"
+                       ><%=spettacoloSelezionato.getIdSala()%>
             </div>
             
             
@@ -216,11 +216,12 @@
                     posti=posti.substring(posti.indexOf('-')+1);
             
             %>
+            <input type="hidden" name="numeroBiglietti" value=" <%= numeroBiglietti%> " >
                 <tr>
-                    <td><%=posto%></td>
-                    <td>
+                    <td class="classePosti"><%=posto%></td>
+                    <td class="classeSconti">
                         <select onchange="calcolaPrezzoTotale()">
-                            <option value="0" >Nessuno</option>
+                            <option value="0" selected >Nessuno</option>
                             <%for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
                                 {
                                     if(s.getDisponibile()==disponibile.TRUE)
@@ -276,7 +277,7 @@
             <div class="m-4">
                 <lable>Importo da pagare: </lable>
                 <label id="prezzoTotale" class="float-right"></label>
-                <input type="hidden" id="prezzoTotaleHidden" value="">
+                <input type="hidden" id="prezzoTotaleHidden" name="prezzoTotaleHidden" value="">
             </div>
         </div>    
             
@@ -287,7 +288,9 @@
                 CHE IN BASE AL VALORE PASSATO REDIRECT BACK, SE ANNULLA, ALTRIMENTI REDIRECT AVANTI-->
         </div>
     </div>             
-              
+   
+            <input type="hidden" id="stringaPostiESconti" name="stringaPostiESconti" value="">        
+            
 </form>
 <% } %>
 <script>
@@ -343,6 +346,8 @@
                     alert(result.substring(2,result.lastIndexOf('"')));
                 if (result.substring(2,result.lastIndexOf('"')) === 'Ok')
                     {
+                        generaStringaPostiSconti();
+    
                         var operazione=document.querySelector('input[name="operazione"]:checked').value;
                         if(operazione==="Prenota")
                             prenotazioneFunction();
@@ -360,7 +365,8 @@
         //alert("Acquisto function");
         var r = confirm("Sei di voler procedere?");
         if (r == true) {
-            window.location.href="AcquistoBigliettoCNT";
+            document.getElementById("myform").action = "AcquistoBigliettoCNT";
+            document.getElementById("myform").submit();
         }
 
     }
@@ -368,7 +374,8 @@
     function prenotazioneFunction() {
         var r = confirm("Sei sicuro di voler prenotare il biglietto?");
         if (r == true) {
-            window.location.href="PrenotazioneBigliettoCNT";
+            document.getElementById("myform").action = "PrenotazioneBigliettoCNT";
+            document.getElementById("myform").submit();
         }
 
     }
@@ -408,6 +415,32 @@
         };
         xmht.open("GET", "JSONcorrettezzaEmail?emailAcquirente="+emailAcquirente, true);
         xmht.send();
+    }
+    
+    
+    function generaStringaPostiSconti(){
+        var sconti=[];
+        var posti =[];
+        $(".classeSconti option:selected").each(function () {
+            var x = $(this).val();
+            sconti.push(x);
+        });
+        
+        $(".classePosti").each(function () {
+            var x = $(this).text();
+            posti.push(x);
+        });
+        
+        var stringaDaPassare = '';
+        
+        for (var i = 0; i < posti.length; i++) {
+            stringaDaPassare = stringaDaPassare + posti[i]+"-"+sconti[i]+"-";
+           
+        }
+        //alert(stringaDaPassare);
+        
+        document.getElementById("stringaPostiESconti").value=stringaDaPassare;
+        /*alert(document.getElementById("stringaPostiESconti").value);*/
     }
 
 </script>
