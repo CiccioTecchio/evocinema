@@ -1,32 +1,34 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package control.accountCNT;
+package control.programmazioneCNT;
 
-import database.UtenteRegistratoDAO;
+import database.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.UtenteBase;
+import model.Film;
+import model.Sala;
 
 /**
  *
- * @author Michele
+ * @author luca
  */
-public class GestioneSaldoCNT extends HttpServlet {
+@WebServlet(name = "PopolamentoListe", urlPatterns = {"/PopolamentoListe"})
+public class PopolamentoListe extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +42,22 @@ public class GestioneSaldoCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
+        try {
+            SalaDAO salaDao = new SalaDAO();
+            List<Sala> sale = salaDao.getAllSale();
+            FilmDAO filmDao = new FilmDAO();
+            List<Film> film = filmDao.getFilmNameAndDate();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            request.setAttribute("sdf", sdf);
+            request.setAttribute("sale", sale);
+            request.setAttribute("film", film);
+        } catch (NamingException ex) {
+            Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,35 +87,6 @@ public class GestioneSaldoCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        HttpSession s = request.getSession();
-        UtenteBase utente = (UtenteBase) s.getAttribute("user");
-        float ricarica = 0.0f;
-        ricarica = Float.parseFloat(request.getParameter("ricaricaSaldo"));
-        
-        
-        
-        try {
-            UtenteRegistratoDAO model = new UtenteRegistratoDAO();
-            
-            if(ricarica>0){
-            float saldo = utente.getSaldo();
-            System.out.println("saldo: "+saldo);
-            System.out.println("importo da ricaricare: "+ricarica);
-            saldo = saldo + ricarica;
-            System.out.println("saldo dopo ricarica: "+saldo);
-            utente.setSaldo(saldo);
-            System.out.println("saldo utente: "+utente.getSaldo());
-            model.updateUtenteRegistrato(utente);
-            }
-            
-        } catch (NamingException | SQLException | ParseException ex) {
-            Logger.getLogger(GestioneSaldoCNT.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        String page="/AccountVisualizzazioneSaldo.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(request, response);
     }
 
     /**

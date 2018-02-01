@@ -138,6 +138,33 @@ public class FilmDAO {
         return film;
     }
 
+    public synchronized List<Film> getFilmNameAndDate() throws SQLException, ParseException, NamingException {
+
+    PreparedStatement stmt = null;
+    List<Film> film = new LinkedList<>();
+
+    try {
+        stmt = (PreparedStatement) connection.prepareStatement("SELECT titolo, data_nascita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Film f = new Film();
+            f.setTitolo(rs.getString("titolo"));
+            Calendar dataUscita = Calendar.getInstance();
+            Date newDate = rs.getDate("data_uscita");
+            dataUscita.setTime(newDate);
+            f.setDataUscita(dataUscita);
+            film.add(f);
+        }
+    } finally {
+        if (stmt != null) {
+            stmt.close();
+        }
+    }
+    return film;
+}
+
+    
     /**
      * Permette di estrarre le tuple di tipo {@link Film} dal DB.
      *
