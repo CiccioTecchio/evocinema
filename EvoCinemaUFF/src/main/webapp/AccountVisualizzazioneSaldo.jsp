@@ -25,12 +25,38 @@
         %>   
         Il tuo saldo è: <%= utente.getSaldo()%>
         
-        <form action="GestioneSaldoCNT" method="POST">
+        
             Inserisci importo da ricaricare:<br>
-            <input type="text" name="ricaricaSaldo"><br>
-            <button type="submit" name="ricarica" value="true">Ricarica</button> 
             
-        </form>
+            <input type="text" id="ricaricaSaldo" name="ricaricaSaldo"><br><br>
+            
+        
+        <button onclick="confermaRicarica()" class="btn btn-primary btn-block" type="sumbit">Ricarica</button>
+                                
+                                <script>
+                                    function confermaRicarica() {
+                                        var txt;
+                                        if (confirm("Sei sicuro di voler ricaricare il saldo?")) {
+                                            txt = "OK";
+                                        } else {
+                                            txt = "ANNULLA";
+                                        }
+
+                                    if(txt==="OK"){
+                                        var ricarica= $('#ricaricaSaldo').val();
+                                        
+                                        $.post('GestioneSaldoCNT', {
+                                         "ricaricaSaldo" : ricarica
+                                        }, function() {
+                                                
+                                                alert("Ricarica effettuata.");
+                                                location.reload();
+                                        }).fail(function() {
+                                                alert("Impossibile ricaricare.");
+                                        });
+                                    }
+                                }
+                                </script>
         
         <% } %>
     </body>
