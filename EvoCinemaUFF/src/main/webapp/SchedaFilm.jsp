@@ -206,7 +206,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body" id="testoModal" >Devi completare tutti i campi prima di recensire</div>
+            <div class="modal-body" id="testoModal" >Devi inserire almeno una valutazione prima di recensire</div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-lg btn-block" type="button" data-dismiss="modal">OK</button>
             </div>
@@ -252,12 +252,12 @@
         var valoreRate = $("#valoreRate").attr("value");
         
         
-        var regExp = /[a-z]+\w*/i; 
+        
         var testoRecensione = escape($("#testoRecensione").val()); 
         
-        if ((valoreRate !== "" ) && testoRecensione !== '')
+        if ((valoreRate !== "" ))
         {
-            if( testoRecensione.match(regExp)) { 
+            
                 
                 if( valoreRate >= 0.5 ) $("form").submit();
                 
@@ -269,15 +269,7 @@
                     });
                     
                 }
-            }else {
-                
-                $('#testoModal').text("Devi inserire una recensione valida"); 
-                $("#erroreCampi").modal({
-                backdrop: true
-                    });
-                
-                
-            }
+            
             
             
 

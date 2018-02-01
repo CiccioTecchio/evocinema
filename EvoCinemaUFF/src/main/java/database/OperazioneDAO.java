@@ -531,5 +531,44 @@ public class OperazioneDAO {
 		}
 		return eliminato;
 	}
-}
+
+
+/**
+     * Permette di estrarre le tuple di tipo {@link Operazione} con data compresa tra mese corrente ed il mese corrente 
+     * dell'anno prima
+     * @return Lista delle Operazioni di tipo {@link Acquisto} e {@link Prenotazione} presenti all'interno del DB.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public synchronized String analitycsGetDatiAcquisti() throws SQLException, ParseException, NamingException {
+      
+    PreparedStatement stmt=null;
+       String datiAcquisti =  "";
+       try {
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT MONTH(Operazione.data) as mese, "
+                    + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Operazione where Operazione.data>? "
+                    + " group by MONTH(Operazione.data);");
+            Calendar dataCorrente = Calendar.getInstance();
+            stmt.setString(1, dataCorrente.get(Calendar.YEAR)-1+"-"+dataCorrente.get(Calendar.MONTH)+
+                    "-"+dataCorrente.get(Calendar.DAY_OF_MONTH));
+            ResultSet rs = stmt.executeQuery();
+
+                datiAcquisti = dataCorrente.get(Calendar.YEAR)+"_";
+		while (rs.next()) {
+                    datiAcquisti=rs.getString("mese")+"_";
+                    datiAcquisti=rs.getString("num")+"_";
+                    //CREO LA STRINGA CON ANNO+MESE+VALORE
+                   
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
+		}
+    return datiAcquisti;
+
+    }
    
+}

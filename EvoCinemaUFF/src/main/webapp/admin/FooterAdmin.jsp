@@ -97,6 +97,74 @@
     <script src="../Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.js"></script>
     <script src="../Template%20Sb%20Admin/js/sb-admin-datatables.min.js"></script>
 </div>
+
+<script>
+    var datiOperazioni=[];
+    prelevaDatiOperazioni();
+    function prelevaDatiOperazioni() {
+      
+        $.ajax({
+            url: "${pageContext.request.contextPath}/AnalyticsOperazioniCNT",
+            success: function(result){
+             
+              result =JSON.stringify(result).replace("{\"", "");
+              result= result.replace("\":0}","");
+                datiOperazioni=result.split("_");
+                console.info(datiOperazioni);
+                 
+                for (var i=0; i < datiOperazioni.length; i++) {
+                    datiOperazioni[i]=parseFloat(datiOperazioni[i]);
+                }    
+                 
+                creaGraficoOperazioni();
+            }
+            
+            });
+   
+           
+   }
+    
+    function creaGraficoOperazioni(){
+    Highcharts.chart('container', {
+    yAxis: {
+        title: {
+	            text: 'Num. operazioni'
+	        }
+    },
+    xAxis: {
+        type: 'datetime',
+        title: {
+	            text: 'Mesi'
+	        }
+    },
+    title: {
+        text:'Analitycs acquisti'
+            },
+    series: [{
+            name: 'Score',
+        data: [
+            //DEVO PASSARE ANCHE IL MESE OLTRE AL VALORE PERCHE' NON SI PARTE SEMPRE DA GENNAIO
+            [Date.UTC(datiOperazioni[0], datiOperazioni[1], 0), datiOperazioni[2]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[3], 0), datiOperazioni[4]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[5], 0), datiOperazioni[6]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[7], 0), datiOperazioni[8]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[9], 0), datiOperazioni[10]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[11], 0), datiOperazioni[12]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[13], 0), datiOperazioni[14]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[15], 0), datiOperazioni[16]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[17], 0), datiOperazioni[18]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[19], 0), datiOperazioni[20]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[21], 0), datiOperazioni[22]],
+            [Date.UTC(datiOperazioni[0], datiOperazioni[23], 0), datiOperazioni[24]]
+        ]
+    }]
+    
+
+});
+    }
+    
+</script>
+
 </body>
 
 </html>
