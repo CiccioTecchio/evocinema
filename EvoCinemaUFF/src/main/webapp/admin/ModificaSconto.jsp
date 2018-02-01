@@ -4,8 +4,10 @@
     Author     : Angelo
 --%>
 
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Spettacolo"%>
 <%@page import="model.FilmConValutazioneMedia"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Modifica Sconto Esistente"); %>
@@ -47,7 +49,7 @@
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong> <%= messaggio%> </strong>
             <button class="close" aria-label="Close" type="button" data-dismiss="alert">
-                <span aria-hidden="true">×</span>
+                <span aria-hidden="true">ï¿½</span>
             </button>
         </div>
 
@@ -120,11 +122,11 @@
                     <strong>Giorno della settimana: </strong>
                     <select id="giornoDellaSettimana" name="giornoDellaSettimana" >
 
-                        <option value="MONDAY" <% if (sconto.getParametroTipologia().compareTo("MONDAY") == 0) { %>selected<%}%> >  Lunedì  </option>
-                        <option value="TUESDAY" <% if (sconto.getParametroTipologia().compareTo("TUESDAY") == 0) { %>selected<%}%> >  Martedì  </option>
-                        <option value="WEDNESDAY" <% if (sconto.getParametroTipologia().compareTo("WEDNESDAY") == 0) { %>selected<%}%> >  Mercoledì  </option>
-                        <option value="THURSDAY" <% if (sconto.getParametroTipologia().compareTo("THURSDAY") == 0) { %>selected<%}%> > Giovedì  </option>
-                        <option value="FRIDAY" <% if (sconto.getParametroTipologia().compareTo("FRIDAY") == 0) { %>selected<%}%> >  Venerdì  </option>
+                        <option value="MONDAY" <% if (sconto.getParametroTipologia().compareTo("MONDAY") == 0) { %>selected<%}%> >  Lunedï¿½  </option>
+                        <option value="TUESDAY" <% if (sconto.getParametroTipologia().compareTo("TUESDAY") == 0) { %>selected<%}%> >  Martedï¿½  </option>
+                        <option value="WEDNESDAY" <% if (sconto.getParametroTipologia().compareTo("WEDNESDAY") == 0) { %>selected<%}%> >  Mercoledï¿½  </option>
+                        <option value="THURSDAY" <% if (sconto.getParametroTipologia().compareTo("THURSDAY") == 0) { %>selected<%}%> > Giovedï¿½  </option>
+                        <option value="FRIDAY" <% if (sconto.getParametroTipologia().compareTo("FRIDAY") == 0) { %>selected<%}%> >  Venerdï¿½  </option>
                         <option value="SATURDAY" <% if (sconto.getParametroTipologia().compareTo("SATURDAY") == 0) { %>selected<%}%> > Sabato  </option>
                         <option value="SUNDAY" <% if (sconto.getParametroTipologia().compareTo("SUNDAY") == 0) { %>selected<%}%>>  Domenica  </option>
 
@@ -136,46 +138,24 @@
                         <input type="text" class="form-control" id="genereText" name="genere" value="<%= sconto.getParametroTipologia()%>" />
                     </p>
                 </div>
-                
-                <script>
-                    $(document).ready(function () {
-                        $(".js-example-basic-single").select2();
-                    });
-                </script>
-                <jsp:include page= "/visualizzaValutazioni"/>
-
-                <%
-
-                    ArrayList<FilmConValutazioneMedia> arr;
-                    arr = (ArrayList<FilmConValutazioneMedia>) request.getAttribute("listaFilmValutazione");
-
-                %>
-
                 <div id="divFilm" class="form-group text-center mt-5 mb-5">
                     <strong> Film </strong>
-                    <select class="js-example-basic-single" id="selectFilm" name="film">
-
-                        <option value="0" >Nessuno</option>
-                        <% for (FilmConValutazioneMedia f : arr) {
-                            Integer id=f.getIdFilm();
-                        %>
-                        <option value="<%= id %>" <% if (sconto.getParametroTipologia().equals(id.toString())){%>selected<%}%> >
-                            <%=f.getTitolo()%>
-                        </option>
-                        <% }%>
+                    <select class="js-example-basic-single" name="film">
+                       
+                         <option value="0" >Nessuno</option>
+                          <% for(FilmConValutazioneMedia f:film){
+                          %>
+                          
+                          <option value="<%=f.getIdFilm()%>" <% if (sconto.getParametroTipologia().compareTo(Integer.toString(f.getIdFilm())) == 0){ %>selected<%}%>  >
+                                    <%=f.getTitolo() %>
+                                </option>
+                               <% }%>
                     </select>
                 </div>
-                    
-                    
-                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
-                    <strong> Spettacolo </strong>
-                    <p>
-                        <input type="text" class="form-control" id="spettacoloNum" name="spettacolo" value="<%= sconto.getParametroTipologia()%>" />
-                    </p>
-                </div>
+                       
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
-                        <strong> Sconta se l'età è:&nbsp;&nbsp; </strong>
+                        <strong> Sconta se l'etï¿½ ï¿½:&nbsp;&nbsp; </strong>
                         <select name="eta">
 
                             <option value="<" <% if (sconto.getParametroTipologia().charAt(0) == '<') {%>selected<% } %> >  minore di  </option>
@@ -226,6 +206,13 @@
     <% }%>
 </div>
 <script>
+    $(document).ready(function () {
+        // Initialize select2
+        $(".js-example-basic-single").select2();
+    });
+</script>
+<script>
+    
 
         function validation() {
 
@@ -239,9 +226,9 @@
                 if (isNumber($('#scontoFisso'))) fl++; 
                 
             } else {
-                 
-                  
-                  if(isNumber($('#percentualeSconto'))) fl++;
+                                  
+                  if(isNumber($('#percentualeSconto')))
+                      if (($('#percentualeSconto').val()>0)&&($('#percentualeSconto').val()<=100)) fl++;
                   
             }
           
