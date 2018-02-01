@@ -68,8 +68,9 @@
                     <th>Ora inizio proiezione</th>
                     <th>Posto</th>
                     <th>Sala</th>
-                    <th>Prezzo</th>
-                    <th>Sconto</th>
+                    <th>Prezzo spettacolo</th>
+                    <th>Sconto ricevuto</th>
+                    <th>Costo biglietto</th>
 
                 </tr>
             </thead>
@@ -123,7 +124,7 @@
                         int idSala = sala.getIdSala();
                     %>
                     <td><%= idSala %></td>
-                    <td><%= prenotazioni.get(i).getPrezzoFinale()%></td>
+                    <td><%= x.getPrezzo() %></td>
                     <%
                         String ScontoPercentuale ="";
                         Sconto sc = prenotazioni.get(i).getSconto();
@@ -138,6 +139,7 @@
                         }
                     %>
                     <td><%= ScontoPercentuale %></td>
+                    <td><%= prenotazioni.get(i).getPrezzoFinale()%></td>
 
                 </tr>
 
