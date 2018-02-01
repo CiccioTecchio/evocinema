@@ -21,7 +21,7 @@
         <%
 
             String messaggio = (String) request.getAttribute("messaggioSconto");
-                if (messaggio != null) {%>
+            if (messaggio != null) {%>
 
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong> <%= messaggio%> </strong>
@@ -40,13 +40,13 @@
                     <div class="form-group text-center">
                         <label for="nomeSconto"><strong>Nome sconto</strong></label>
                         <p>
-                            <input type="text" class="form-control" name="nomeSconto"  placeholder="Inserisci nome sconto" autocomplete="off" />
+                            <input type="text" id="nomeSconto" class="form-control" name="nomeSconto"  placeholder="Inserisci nome sconto" autocomplete="off" />
                         </p>
                     </div>
                     <div class="form-group ml-5 text-center">
                         <label><strong>Tipo di sconto</strong></label>
                         <p>
-                            <label class="radio-inline"><input type="radio" name="optTipo" value="percentuale" checked />  Percentuale  </label>
+                            <label class="radio-inline"><input id="checkPercentuale" type="radio" name="optTipo" value="percentuale" checked />  Percentuale  </label>
                             &nbsp;&nbsp;
                             <label class="radio-inline"><input type="radio" name="optTipo" value="fisso" />  Fisso  </label>
                         </p>
@@ -64,34 +64,34 @@
                 <div class="form-group text-center">
                     <label><strong>Tipologia</strong></label>
                     <p>
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="giorno" checked />  Giorno della settimana  </label>
+                        <label class="radio-inline"><input type="radio" id="checkGiornoSettimana" name="optTipologia" value="giorno" checked />  Giorno della settimana  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="genere" />  Genere  </label>
+                        <label class="radio-inline"><input type="radio" id="checkGenere" name="optTipologia" value="genere" />  Genere  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="film" />  Film  </label>
+                        <label class="radio-inline"><input type="radio" id="checkFilm" name="optTipologia" value="film" />  Film  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="spettacolo" />  Spettacolo  </label>
+                        <label class="radio-inline"><input type="radio" id="checkSpettacolo" name="optTipologia" value="spettacolo" />  Spettacolo  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="data" />  Data  </label>
+                        <label class="radio-inline"><input type="radio" id="checkData" name="optTipologia" value="data" />  Data  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="eta" />  Eta'  </label>
+                        <label class="radio-inline"><input type="radio"  id="checkEta" name="optTipologia" value="eta" />  Eta'  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="sesso" />  Sesso  </label>
+                        <label class="radio-inline"><input type="radio" id="checkSesso" name="optTipologia" value="sesso" />  Sesso  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" name="optTipologia" value="altro" />  Altro  </label>
+                        <label class="radio-inline"><input type="radio" id="checkAltro" name="optTipologia" value="altro" />  Altro  </label>
                     </p>
                 </div>
                 <!-- parte da mostrare in base alle opzioni selezionate -->
                 <div id="divPercentuale" class="form-group text-center mt-5">
                     <strong>Percentuale di sconto: </strong>
                     <p>
-                        <input type="text" class="form-control" name="percentualeSconto"  placeholder="Inserisci percentuale da scontare" />
+                        <input type="text" class="form-control" id="percentualeSconto" name="percentualeSconto"  placeholder="Inserisci percentuale da scontare" />
                     </p>
                 </div>
                 <div id="divFisso" class="form-group text-center mt-5">
                     <strong>Sconto fisso di euro: </strong>
                     <p>
-                        <input type="text" class="form-control" name="cifraSconto"  placeholder="Inserisci la cifra da scontare" />
+                        <input type="text" class="form-control" id="scontoFisso" name="cifraSconto"  placeholder="Inserisci la cifra da scontare" />
                     </p>
                 </div>
 
@@ -112,7 +112,7 @@
                 <div id="divGenere" class="form-group text-center mt-5 mb-5">
                     <strong> Genere </strong>
                     <p>
-                        <input type="text" class="form-control" name="genere"  placeholder="Inserisci il genere per cui applicare lo sconto" />
+                        <input type="text" class="form-control" name="genere" id="genereText"  placeholder="Inserisci il genere per cui applicare lo sconto" />
                     </p>
                 </div>
                 <script>
@@ -148,7 +148,7 @@
                 <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
                     <strong> Spettacolo </strong>
                     <p>
-                        <input type="text" class="form-control" name="spettacolo"  placeholder="Inserisci l'id dello spettacolo per cui applicare lo sconto" />
+                        <input type="number" class="form-control" name="spettacolo" id="spettacoloNum"  placeholder="Inserisci l'id dello spettacolo per cui applicare lo sconto" />
                     </p>
                 </div>
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
@@ -162,13 +162,13 @@
                         </select>
                     </p>
                     <p>
-                        <input type="text" class="form-control" name="cifraEta"  placeholder="Inserisci l'età" />
+                        <input type="number" id="etaNum" class="form-control" name="cifraEta"  placeholder="Inserisci l'età" />
                     </p>
                 </div>
                 <div id="divData" class="text-center mt-5 mb-5">
                     <strong> Data </strong>
                     <p>
-                        <input type="text" name="data" class="datepicker">
+                        <input type="text" id="dataText" name="data" class="datepicker">
                         <img class="calendar-icon" src="../images/calendar.png" height="26" width="26">
 
                     </p>
@@ -187,12 +187,12 @@
                 <div id="divAltro" class="text-center mt-5 mb-5">
                     <strong>Altro</strong>
                     <p>
-                        <input type="text" class="form-control" name="altro" placeholder="Inserisci descrizione dello sconto" />                        
+                        <input type="text" id="descrizioneSconto" class="form-control" name="altro" placeholder="Inserisci descrizione dello sconto" />                        
                     </p>
                 </div>
                 <!-- fine parte opzioni -->
                 <div class="form-group text-center">
-                    <input type="submit" id="inserisciSconto" class="btn-primary" value="Inserisci Sconto">
+                    <input type="button" onclick="validation()" id="inserisciSconto" class="btn-primary" value="Inserisci Sconto">
                 </div>
             </form>
 
@@ -201,6 +201,113 @@
     </div>
 
     <script>
+
+        function validation() {
+
+            var fl = 0;
+
+            if (isEmpty($('#nomeSconto'))) fl++;
+
+            if ($("#checkPercentuale").is(":not(:checked)")) {
+                
+                
+                if (isNumber($('#scontoFisso'))) fl++; 
+                
+            } else {
+                 
+                  
+                  if(isNumber($('#percentualeSconto'))) fl++;
+                  
+            }
+          
+          if ($("#checkGiornoSettimana").is(":checked")) fl++;
+
+          if ($("#checkGenere").is(":checked")) 
+              if( ! isEmpty($('#genereText'))) fl++; 
+          
+          if ($("#checkFilm").is(":checked")) fl++;
+          
+          if ($("#checkSpettacolo").is(":checked"))
+              
+              if(! isNumber($('#spettacoloNum'))) fl++; 
+          
+          if ($("#checkData").is(":checked"))
+              
+              if( checkCalendar($('#dataText'))) fl++;
+          
+          if ($("#checkEta").is(":checked"))
+              
+              if(! isNumber($('#etaNum'))) fl++; 
+          
+          if ($("#checkSesso").is(":checked")) fl++; 
+
+          if ($("#checkAltro").is(":checked"))
+              
+              if(! isEmpty($('#descrizioneSconto'))) fl++; 
+              
+          
+         
+         
+         if(fl===1 ) $('#formInserisci').submit(); 
+
+          
+
+        }; 
+        
+        function checkCalendar( x ){
+        
+        var regExp = / [0-3][0-9]\\(0?[1-9]|1[012])\\\d{4} /;  
+        var value = x.val();  
+        console.log(value.match(regExp)); 
+       if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");     return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+            x.addClass("is-valid"); 
+            
+            return false;} 
+        
+    };
+
+        function isNumber( x ){
+	
+        var regExp =  /^[0-9]+$/;
+	var value = x.val(); 
+	console.log(value); 
+	
+	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+              x.addClass("is-valid"); 
+            return false;}
+        
+        }
+        
+        function isEmpty(x) {
+
+            console.log(x);
+            var value = x.val();
+            console.log(value);
+
+            var regExp = /[a-z]+\w*/i;
+
+            if (value === '' || !value.match(regExp)) {
+                x.addClass("is-invalid");
+                return true;
+            } else {
+
+                x.removeClass("is-invalid");
+                x.addClass("is-valid");
+                return false;
+            }
+
+        }
+        ;
+
+
 
         $("#divFisso").hide("fast");
 
