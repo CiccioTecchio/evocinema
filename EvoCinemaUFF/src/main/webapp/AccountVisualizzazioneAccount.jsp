@@ -37,6 +37,8 @@ else{
     </head>
     <jsp:include page="Header.jsp" />
     <body>
+       
+        
 
         
         <div>Profilo di <%=utente.getNome()%> <%=utente.getCognome()%></div>
@@ -134,9 +136,34 @@ else{
                                 <button class="btn btn-primary btn-block" type="submit">Salva</button>
                         </form>
                                 <br>
-                                <form action="CancellazioneAccountCNT" method="POST">
-                                <button class="btn btn-primary btn-block" value="Cancella Account" type="sumbit">Cancella Account</button>
-                                </form>
+                                
+                                <% if(utente.getRuolo().equals(UtenteRegistrato.ruolo.UTENTE)){ %>
+                                
+                                <button onclick="confermaEliminazione()" class="btn btn-primary btn-block" name="<%=utente.getEmail()%>" id="<%=utente.getEmail()%>" type="sumbit">Cancella Account</button>
+                                
+                                <script>
+                                    function confermaEliminazione() {
+                                        var txt;
+                                        if (confirm("Sei sicuro di voler eliminare l'account?")) {
+                                            txt = "OK";
+                                        } else {
+                                            txt = "ANNULLA";
+                                        }
+
+                                    if(txt==="OK"){
+                                        $.post('CancellazioneAccountCNT', {
+
+                                        }, function() {
+                                                location.reload();
+                                                alert("Account eliminato.");
+                                                
+                                        }).fail(function() {
+                                                alert("Impossibile eliminare.");
+                                        });
+                                    }
+                                }
+                                </script>
+                                <%}%>
                                 </div>
                                
                                   
