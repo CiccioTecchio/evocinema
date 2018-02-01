@@ -53,6 +53,7 @@
                                                 location.reload();
                                         }).fail(function() {
                                                 alert("Impossibile ricaricare.");
+                                                location.reload();
                                         });
                                     }
                                 }
