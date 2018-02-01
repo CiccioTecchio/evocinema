@@ -213,10 +213,10 @@
                 if (isNumber($('#scontoFisso'))) fl++; 
                 
             } else {
-                 
-                  
-                  if(isNumber($('#percentualeSconto'))) fl++;
-                  
+                                   
+                  if(isNumber($('#percentualeSconto')))
+                        if (($('#percentualeSconto').val()>0)&&($('#percentualeSconto').val()<=100)) fl++;
+
             }
           
           if ($("#checkGiornoSettimana").is(":checked")) fl++;
