@@ -19,7 +19,8 @@
     $( "#datepicker" ).datepicker();
   } );
   </script>
-        <%            HttpSession s = request.getSession();
+        <%           
+            HttpSession s = request.getSession();
 
             UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
 

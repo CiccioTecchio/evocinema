@@ -149,7 +149,7 @@ else{
                                         } else {
                                             txt = "ANNULLA";
                                         }
-
+                                            
                                     if(txt==="OK"){
                                         $.post('CancellazioneAccountCNT', {
 
