@@ -8,7 +8,6 @@ package control.programmazioneCNT;
 import database.SalaDAO;
 import database.SpettacoloDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Calendar;

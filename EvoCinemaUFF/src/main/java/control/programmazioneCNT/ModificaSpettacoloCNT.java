@@ -46,7 +46,7 @@ public class ModificaSpettacoloCNT extends HttpServlet {
             Film film = filmDao.foundByID(idF);
             request.setAttribute("spettacolo", spettacolo);
             request.setAttribute("film", film);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/modificaProdotto.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/modificaProdotto.jsp");//perchè pages?
             dispatcher.forward(request, response);
         } catch (SQLException | ParseException | NamingException e) {
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);

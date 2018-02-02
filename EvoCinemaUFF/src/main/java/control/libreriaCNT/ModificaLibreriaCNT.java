@@ -128,7 +128,7 @@ public class ModificaLibreriaCNT extends HttpServlet {
        
        request.setAttribute("index", ritorno );
        
-       RequestDispatcher dispacher = request.getRequestDispatcher("/admin/ModificaFilm.jsp");
+       RequestDispatcher dispacher = request.getRequestDispatcher("/gestore/ModificaFilm.jsp");
        dispacher.forward(request, response);
         
         

@@ -112,7 +112,7 @@ public class AggiungiSpettacoloCNT extends HttpServlet {
             
             logger.info("spettacolo inserito");
             
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/admin/AggiuntaSuccesso.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiuntaSuccesso.jsp");
             dispatcher.forward(request,response);
             
         } catch (SQLException | ParseException | NamingException e){

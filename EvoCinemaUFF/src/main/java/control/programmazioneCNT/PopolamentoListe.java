@@ -7,7 +7,6 @@ package control.programmazioneCNT;
 
 import database.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +26,7 @@ import model.Sala;
  *
  * @author luca
  */
-@WebServlet(name = "PopolamentoListe", urlPatterns = {"/admin/PopolamentoListe"})
+@WebServlet(name = "PopolamentoListe", urlPatterns = {"/gestore/PopolamentoListe"})
 public class PopolamentoListe extends HttpServlet {
 
     /**

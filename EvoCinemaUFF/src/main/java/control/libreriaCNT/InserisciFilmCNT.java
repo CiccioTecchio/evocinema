@@ -38,7 +38,7 @@ import model.FilmConValutazioneMedia;
  * @author GiuseppeDelGaudio
  *
  */
-@WebServlet(name = "inserisciLibreria", urlPatterns = {"/admin/inserisciLibreria"})
+@WebServlet(name = "inserisciLibreria", urlPatterns = {"/gestore/inserisciLibreria"})
 public class InserisciFilmCNT extends HttpServlet {
 
     /**
