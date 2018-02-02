@@ -1,9 +1,3 @@
-<%-- 
-    Document   : VisualizzaLibreria
-    Created on : 13-gen-2018, 18.42.05
-    Author     : GiuseppeDelGaudio
---%>
-
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="model.Recensione"%>
@@ -58,7 +52,7 @@
     <div class="row ml-3 mt-5">
 
         <div class="card mb-3">
-            <img class="card-img-top img-fluid thumbnail " style="max-width: 350px ; max-height: 500px " src="<%= film.getLocandina()%>">
+            <img class="card-img-top img-fluid thumbnail " style="max-width: 350px ; max-height: 500px " src="../<%= film.getLocandina()%>">
         </div>
 
     <div class="card mb-3">

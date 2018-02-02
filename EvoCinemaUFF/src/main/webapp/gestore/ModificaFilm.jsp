@@ -173,7 +173,7 @@
             </div>
             <div class="form-group">
                 <label for="trailer"> Trailer </label>
-                <input name="trailer" value="<%= film.getTrailer() %>" type="text" class="form-control insfilm" id="genere" placeholder="Inserisci Codice Incorporamento">
+                <input name="trailer" value="<%= film.getTrailer() %>" type="text" class="form-control insfilm" id="trailer" placeholder="Inserisci Codice Incorporamento">
             </div>
             <input type="hidden" name="Nomelocandina" id="locandinaform" value="<%= film.getLocandina() %>" >
             <input type="hidden" name="idOpera" id="locandinaform" value="<%= film.getIdFilm() %>" >
@@ -228,6 +228,20 @@
         
         if( ! isEmpty($('#trama') )) fl++; 
         
+        if(  $('#distribuzione').val().length !== 0 ){
+          
+            if( !isEmpty($('#distribuzione')) ){} 
+                else fl--;}
+        if(  $('#produzione').val().length !== 0  ){ 
+            
+            if( !isEmpty($('#produzione')) ){} 
+                else fl--;}
+            
+        if(  $('#trailer').val().length !== 0  ){ 
+           
+            if( !checkUrl($('#trailer')) ){} 
+                else fl--;}
+        
         console.log(fl); 
         
         if( fl === 7 ) $('#formModifica').submit(); 
@@ -240,7 +254,20 @@
          }
     }; 
     
-    
+    function checkUrl( x ){
+        
+        var regExp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/; 
+        var value = x.val();   
+       if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+            x.addClass("is-valid"); 
+            
+            return false;} 
+        
+    };
     function checkCalendar( x ){
         
         var regExp = /\d{4}\-(0?[1-9]|1[012])\-[0-3][0-9]/; 

@@ -63,7 +63,7 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
             idScontoAttuale = Integer.parseInt(idSconti.substring(0,idSconti.indexOf('-')));
             idSconti=idSconti.substring(idSconti.indexOf('-')+1);
             
-            if(idScontoAttuale==0) 
+            if(idScontoAttuale==41) 
                 prezzoTotale+=prezzoBiglietto; //SE NESSUNO SCONTO E' STATO SELEZIONATO
             else{
                 sc=scdao.foundByID(idScontoAttuale);

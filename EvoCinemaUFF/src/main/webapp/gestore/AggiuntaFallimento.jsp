@@ -4,7 +4,7 @@
     Author     : luca
 --%>
 
-<% request.setAttribute("title", "Aggiungi Spettacolo"); %>
+<% request.setAttribute("title", request.getAttribute("title")); %>
 <jsp:include page="Header.jsp" />
 <% String msg = (String) request.getAttribute("messaggio"); %>
 <div class="container">

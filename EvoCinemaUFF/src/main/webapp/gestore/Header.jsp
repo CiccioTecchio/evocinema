@@ -3,7 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -86,33 +86,54 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
                         <a class="nav-link" href="index.jsp">
                             <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home - Admin</span>
+                            <span class="nav-link-text">Home</span>
                         </a>
                     </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Libreria</span>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Analytics">
+                        <a class="nav-link" href="Analytics.jsp">
+                            <i class="fa fa-fw fa-area-chart"></i>
+                            <span class="nav-link-text">Analytics</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents">
+                    </li>                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione programmazione">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-calendar"></i>
+                            <span class="nav-link-text">Gestione programmazione</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents" >
+ 
                             <li>
-                                <a href="../VisualizzaLibreria.jsp">Visualizza Libreria</a>
+                                <a href="../VisualizzazioneProgrammazione.jsp">Visualizzazione programmazione</a>
                             </li>
                             <li>
-                                <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
-                            </li>
-                            <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
-
+                                <a href="AggiungiSpettacolo.jsp">Inserisci spettacolo in programmazione</a>
                             </li>
 
                         </ul>
                     </li>
-                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sconti">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione libreria">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-book"></i>
+                            <i class="fa fa-fw fa-film"></i>
+                            <span class="nav-link-text">Gestione libreria</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents1" >
+                            <li>
+                                <a href="VisualizzaLibreria.jsp">Visualizza Libreria</a>
+                            </li>
+                            <li>
+                                <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
+                            </li>
+                            <li>
+                                <a href="ModificaLibreria.jsp">Modifica Libreria</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione sconti">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-bars"></i>
                             <span class="nav-link-text">Sconti</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents1">
+                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
                             <li>
                                 <a href="VisualizzaSconti.jsp">Visualizza Sconti</a>
                             </li>
@@ -123,14 +144,11 @@
                         </ul>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-book"></i>
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents3" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-child"></i>
                             <span class="nav-link-text">Operatori e Gestori</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
-                            <li>
-                                <a href="AggiungiOperatore.jsp">Registra nuovo Operatore o Gestore</a>
-                            </li>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents3">
                             <li>
                                 <a href="Operatori.jsp">Operatori</a>
                             </li>
@@ -140,7 +158,38 @@
 
                         </ul>
                     </li>
-                    
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="GestioneSala">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents4" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-building"></i>
+                            <span class="nav-link-text">Gestione Sala</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents4">
+                            <li>
+                                <a href="ModificaSala.jsp?id=1">Sala 1</a>
+                            </li>
+                            <li>
+                                <a href="ModificaSala.jsp?id=2">Sala 2</a>
+                            </li>
+                            <li>
+                                <a href="ModificaSala.jsp?id=3">Sala 3</a>
+                            </li>
+                            <li>
+                                <a href="ModificaSala.jsp?id=4">Sala 4</a>
+                            </li>
+                                                        <li>
+                                <a href="ModificaSala.jsp?id=5">Sala 5</a>
+                            </li>
+                            <li>
+                                <a href="ModificaSala.jsp?id=6">Sala 6</a>
+                            </li>
+                            <li>
+                                <a href="ModificaSala.jsp?id=7">Sala 7</a>
+                            </li>
+                            <li>
+                                <a href="ModificaSala.jsp?id=8">Sala 8</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
 
@@ -173,7 +222,7 @@
                             <i class="fa fa-user-circle fa-lg"></i> <%= u.getNomeUtente()%>
                         </a>
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                            <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
+                            <a class="dropdown-item" href="../AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                     <strong>
                                         <i class="fa fa-user-circle"></i> Profilo </strong>
@@ -205,13 +254,6 @@
             </div>
         </nav>
 
-
-
-
-
         <div class="content-wrapper">
             <div class="container-fluid">
-
-
-
 

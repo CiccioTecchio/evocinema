@@ -15,7 +15,7 @@
 <%  
     Spettacolo spettacolo = (Spettacolo) request.getAttribute("spettacolo");
     Sala sala = (Sala) request.getAttribute("sala");
-    int offset = 0;//(int) request.getAttribute("offset");
+    int offset = (int) request.getAttribute("offset");
     RappresentazioneSala rs = new RappresentazioneSala(spettacolo, sala, offset);
     int endRiga = rs.getEndRiga();
     int endColonna = rs.getEndColonna();
@@ -34,7 +34,7 @@
     String url = null, classe = null;
     int y = 0;
 
-    offset = 0;//offset * sala.getNumeroPosti() - 1;
+    offset = offset * sala.getNumeroPosti();
     for(int i = rs.getBeginRiga(); i <= endRiga; i++){
 %>
                <div class="row">
@@ -67,13 +67,14 @@
                         default :
                             url = "xyz";
                     }
+                    y++;
                     break;
                 default :
                     url = String.valueOf(matSala[i][j]);
             }
 %>
             <img data-pos ="" class="vds-posto <%= classe %> cell" src="<%= url %>" />
-<%          y++;
+<%
         }
  %>
                     </div>
@@ -106,8 +107,8 @@
                             </div>
                         </div>
                     </div>
-    
                 </div>
             </div>
+        </div>
 <script src="javascript/visualizzazione_dettagli_spettacolo.js"></script>
 <jsp:include page="Footer.jsp" />

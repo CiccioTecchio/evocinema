@@ -533,10 +533,11 @@ public class OperazioneDAO {
 	}
 
 
+
 /**
      * Permette di estrarre le tuple di tipo {@link Operazione} con data compresa tra mese corrente ed il mese corrente 
      * dell'anno prima
-     * @return Lista delle Operazioni di tipo {@link Acquisto} e {@link Prenotazione} presenti all'interno del DB.
+     * @return stringa che rappresenta il numero delle operazioni fatte in un determinato periodo
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
@@ -544,30 +545,48 @@ public class OperazioneDAO {
    public synchronized String analitycsGetDatiAcquisti() throws SQLException, ParseException, NamingException {
       
     PreparedStatement stmt=null;
-       String datiAcquisti =  "";
-       try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT MONTH(Operazione.data) as mese, "
+       String datiAcquisti =  "",datiPrenotazioni="";
+       try {//calcolo acquisti
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT YEAR(Operazione.data) as anno, "
+                    + " MONTH(Operazione.data) as mese, "
                     + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Operazione where Operazione.data>? "
-                    + " group by MONTH(Operazione.data);");
+                    + " AND Operazione.acquistato='true' group by YEAR(Operazione.data), MONTH(Operazione.data);");
             Calendar dataCorrente = Calendar.getInstance();
-            stmt.setString(1, dataCorrente.get(Calendar.YEAR)-1+"-"+dataCorrente.get(Calendar.MONTH)+
+            stmt.setString(1, (dataCorrente.get(Calendar.YEAR)-1)+"-"+dataCorrente.get(Calendar.MONTH)+
                     "-"+dataCorrente.get(Calendar.DAY_OF_MONTH));
             ResultSet rs = stmt.executeQuery();
 
-                datiAcquisti = dataCorrente.get(Calendar.YEAR)+"_";
 		while (rs.next()) {
-                    datiAcquisti=rs.getString("mese")+"_";
-                    datiAcquisti=rs.getString("num")+"_";
-                    //CREO LA STRINGA CON ANNO+MESE+VALORE
-                   
+                    datiAcquisti=datiAcquisti+rs.getString("anno")+"_";
+                    datiAcquisti=datiAcquisti+rs.getString("mese")+"_";
+                    datiAcquisti=datiAcquisti+rs.getString("num")+"_";
                 }
+            //calcolo prenotazioni    
+            
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT YEAR(Operazione.data) as anno, "
+                    + " MONTH(Operazione.data) as mese, "
+                    + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Operazione where Operazione.data>? "
+                    + " AND Operazione.prenotato='true' group by YEAR(Operazione.data), MONTH(Operazione.data);");
+
+            stmt.setString(1, (dataCorrente.get(Calendar.YEAR)-1)+"-"+dataCorrente.get(Calendar.MONTH)+
+                    "-"+dataCorrente.get(Calendar.DAY_OF_MONTH));
+             rs = stmt.executeQuery();
+
+                datiPrenotazioni = "10000_";//DATO FITTIZIO PER SPEZZARE L'ARRAY
+		while (rs.next()) {
+                    datiPrenotazioni=datiPrenotazioni+rs.getString("anno")+"_";
+                    datiPrenotazioni=datiPrenotazioni+rs.getString("mese")+"_";
+                    datiPrenotazioni=datiPrenotazioni+rs.getString("num")+"_";
+                }
+                
             } catch(Exception e){
                 e.printStackTrace();
             } finally {
 		if (stmt != null)
 			stmt.close();
 		}
-    return datiAcquisti;
+       //System.out.println(datiAcquisti+datiPrenotazioni);
+       return datiAcquisti+datiPrenotazioni;
 
     }
    

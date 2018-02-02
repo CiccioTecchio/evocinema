@@ -45,10 +45,6 @@
         <url-pattern>/AggiuntaSalaCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ModificaSalaCNT</servlet-name>
-        <url-pattern>/ModificaSalaCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PrenotazioneSalaCNT</servlet-name>
         <url-pattern>/PrenotazioneSalaCNT</url-pattern>
     </servlet-mapping>
@@ -194,10 +190,6 @@
     <servlet>
         <servlet-name>AggiuntaSalaCNT</servlet-name>
         <servlet-class>control.salaCNT.AggiuntaSalaCNT</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ModificaSalaCNT</servlet-name>
-        <servlet-class>control.salaCNT.ModificaSalaCNT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PrenotazioneSalaCNT</servlet-name>

@@ -8,16 +8,32 @@
 <% List<Sala> sale = (List<Sala>) request.getAttribute("sale"); 
    List<Film> film = (List<Film>) request.getAttribute("film");
    SimpleDateFormat sdf = (SimpleDateFormat) request.getAttribute("sdf");
+   
+
+      // inizio inserimento da libreria
+    
+    String idFilmLib = request.getParameter("idFilmLib");
+    String disable =""; 
+     
+    String titolo=""; 
+    if (idFilmLib != null ) {
+
+            disable="disabled"; 
+            titolo=request.getParameter("titoloLib");
+            if( titolo == null ) titolo=""; 
+        }else idFilmLib=""; 
+
+        // fine inserimento da libreria
 %>
 <div class="card">
     <h6 class="card-header">Form Inserimento Spettacolo</h6>
     <div class="card-body">
 
         <form accept-charset="utf-8" method="POST" action="AggiungiSpettacolo">
-          <input id="id-film" type="hidden" name="id-film" value="" />
+          <input id="id-film" type="hidden" name="id-film" value="<%= idFilmLib %>" />
           <div class="form-group">
             <label for="select-film" class="col-form-label">Opera: </label>
-            <select class="form-control" id="select-film" required>
+            <select <%= disable %> di  class="form-control" id="select-film" required>
                 <% 
                 for(Film f : film){
                     out.print("<option data-id=\"" + f.getIdFilm() +"\" value=\"" + f.getTitolo() +"\">" + f.getTitolo() + " - " + sdf.format(f.getDataUscita().getTime()) + "</option>");
@@ -29,7 +45,7 @@
           </div>
           <div class="form-group">
             <label for="titolo-spettacolo" >Titolo dello spettacolo:</label>
-            <input name="titolo"type="text" class="form-control" placeholder="Titolo" id="titolo-spettacolo" required>
+            <input name="titolo"type="text" value="<%= titolo %>" class="form-control" placeholder="Titolo" id="titolo-spettacolo" required>
           </div>
           <div class="form-group">
             <label for="select-sala" >Sala </label>

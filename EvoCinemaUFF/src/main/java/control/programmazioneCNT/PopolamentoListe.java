@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Film;
 import model.Sala;
+import model.Spettacolo;
 
 /**
  *
@@ -41,12 +42,18 @@ public class PopolamentoListe extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String id;
         try {
             SalaDAO salaDao = new SalaDAO();
             List<Sala> sale = salaDao.getAllSale();
             FilmDAO filmDao = new FilmDAO();
             List<Film> film = filmDao.getFilmNameAndDate();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            if((id = request.getParameter("idSpettacolo")) != null){
+                SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+                Spettacolo s = spettacoloDao.foundByID(Integer.parseInt(id));
+                request.setAttribute("spettacolo", s);
+            }
             request.setAttribute("sdf", sdf);
             request.setAttribute("sale", sale);
             request.setAttribute("film", film);
