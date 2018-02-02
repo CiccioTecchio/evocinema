@@ -23,7 +23,7 @@ import model.Sconto;
  *
  * @author Michele
  */
-@WebServlet( name = "ModificaSconto" , urlPatterns = { "/admin/modificaSconto" } )
+@WebServlet( name = "ModificaSconto" , urlPatterns = { "/gestore/modificaSconto" } )
 
 public class ModificaScontoCNT extends HttpServlet {
 

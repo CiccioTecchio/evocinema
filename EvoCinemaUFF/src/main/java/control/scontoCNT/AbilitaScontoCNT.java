@@ -7,16 +7,12 @@ package control.scontoCNT;
 
 import database.ScontoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.Clock;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +25,7 @@ import org.json.JSONObject;
  *
  * @author Michele
  */
-@WebServlet(name = "abilitaSconto", urlPatterns = {"/admin/abilitaSconto"})
+@WebServlet(name = "abilitaSconto", urlPatterns = {"/gestore/abilitaSconto"})
 public class AbilitaScontoCNT extends HttpServlet {
 
     /**
@@ -62,8 +58,6 @@ public class AbilitaScontoCNT extends HttpServlet {
         String position = request.getParameter("position");
         String swi = request.getParameter("switch");
         String messaggio = "Cambiato correttamente";
-        System.out.println("posizione -->" + position);
-        System.out.println("stato " + swi);
 
         List<Sconto> array = (List<Sconto>) request.getSession().getAttribute("listaSconti");
 
