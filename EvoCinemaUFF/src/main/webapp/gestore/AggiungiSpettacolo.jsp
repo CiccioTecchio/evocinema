@@ -13,7 +13,7 @@
     <h6 class="card-header">Form Inserimento Spettacolo</h6>
     <div class="card-body">
 
-        <form accept-charset="utf-8" method="POST" action="AggiungiSpettacoloCNT">
+        <form accept-charset="utf-8" method="POST" action="AggiungiSpettacolo">
           <input id="id-film" type="hidden" name="id-film" value="" />
           <div class="form-group">
             <label for="select-film" class="col-form-label">Opera: </label>

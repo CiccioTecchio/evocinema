@@ -81,10 +81,6 @@
         <url-pattern>/VisualizzazioneDettagliSpettacoloCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AggiungiSpettacoloCNT</servlet-name>
-        <url-pattern>/admin/AggiungiSpettacoloCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ModificaSpettacoloCNT</servlet-name>
         <url-pattern>/ModificaSpettacoloCNT</url-pattern>
     </servlet-mapping>
@@ -236,10 +232,6 @@
         <servlet-class>control.programmazioneCNT.VisualizzazioneDettagliSpettacoloCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AggiungiSpettacoloCNT</servlet-name>
-        <servlet-class>control.programmazioneCNT.AggiungiSpettacoloCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ModificaSpettacoloCNT</servlet-name>
         <servlet-class>control.programmazioneCNT.ModificaSpettacoloCNT</servlet-class>
     </servlet>
@@ -328,10 +320,10 @@
         <filter-name>FiltroUtente</filter-name>
         <url-pattern>/utente/*</url-pattern>
     </filter-mapping>
-    -->
+    
     <error-page>
         <location>/Errore.jsp</location>
-    </error-page>
+    </error-page>-->
     <resource-ref>
         <description>JNDI reference to a data source</description>
         <res-ref-name>jdbc/evo_cinema</res-ref-name>

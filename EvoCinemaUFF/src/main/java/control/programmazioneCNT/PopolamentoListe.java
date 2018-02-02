@@ -27,7 +27,7 @@ import model.Sala;
  *
  * @author luca
  */
-@WebServlet(name = "PopolamentoListe", urlPatterns = {"/admin/PopolamentoListe"})
+@WebServlet(name = "PopolamentoListe", urlPatterns = {"/gestore/PopolamentoListe"})
 public class PopolamentoListe extends HttpServlet {
 
     /**

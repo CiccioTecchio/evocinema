@@ -14,15 +14,15 @@
     SimpleDateFormat sdfOra = new SimpleDateFormat("HH:mm");
 %>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <p><h6>Aggiunta dello spettacolo avvenuta con successo.</h6></p>
+        <div class="alert alert-primary" ><h6>Aggiunta dello spettacolo avvenuta con successo.</h6></div>
     </div>
     <div class="row">
         <div class="card">
             <h5 class="card-header">Riepilogo</h5>
             <div class="card-body">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col">
                             ID del film rappresentato:
@@ -52,7 +52,7 @@
                             Data inizio:
                         </div>
                         <div class="col">
-                            <%= sdf.format(s.getDataInizio()) %>
+                            <%= sdf.format(s.getDataInizio().getTime()) %>
                         </div>
                     </div>
                     <div class="row">
@@ -60,7 +60,7 @@
                             Data fine:
                         </div>
                         <div class="col">
-                            <%= sdf.format(s.getDataFine())  %>
+                            <%= sdf.format(s.getDataFine().getTime())  %>
                         </div>
                     </div>
                     <div class="row">
@@ -68,7 +68,7 @@
                             Ora inizio:
                         </div>
                         <div class="col">
-                            <%= sdfOra.format(s.getOraInizio()) %>
+                            <%= sdfOra.format(s.getOraInizio().getTime()) %>
                         </div>
                     </div>
                     <div class="row">
@@ -76,7 +76,7 @@
                             Ora fine:
                         </div>
                         <div class="col">
-                            <%= sdfOra.format(s.getOraFine()) %>
+                            <%= sdfOra.format(s.getOraFine().getTime()) %>
                         </div>
                     </div>
                     <div class="row">
