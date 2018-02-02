@@ -5,12 +5,30 @@
  */
 package control.acquistoCNT;
 
+import database.OperazioneDAO;
+import database.SalaDAO;
+import database.ScontoDAO;
+import database.SpettacoloDAO;
+import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Operazione;
+import model.Prenotazione;
+import model.Sala;
+import model.Sconto;
+import model.UtenteBase;
+import model.UtenteRegistrato;
 
 /**
  *
@@ -28,8 +46,64 @@ public class PrenotazioneCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, NamingException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        HttpSession s = request.getSession();
+        UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
+        UtenteRegistratoDAO utDAO = new UtenteRegistratoDAO();
+        String email = user.getEmail();
+        
+        UtenteBase utbase = utDAO.foundUtenteBaseByEmail(email);
+        SalaDAO salaDAO = new SalaDAO();
+        SpettacoloDAO spettDAO = new SpettacoloDAO();
+        String PostiSconti = request.getParameter("stringaPostiESconti");
+        int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
+        int offset = 1; //DA FARE
+        Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+        Operazione.prenotato prenotato = null;
+        Operazione.acquistato acquistato = null;
+        float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
+        float prezzoFinale = 0; //DA FARE
+        Calendar data = Calendar.getInstance();
+        ScontoDAO scontoDAO = new ScontoDAO(); //DA FARE
+
+        while(!PostiSconti.equals("")){
+            int posto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
+            PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
+            int Idsconto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
+            PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
+            Sconto sconto = scontoDAO.foundByID(Idsconto);
+
+            float saldo = utbase.getSaldo();
+                //Scalo il credito all'utente
+            if(Idsconto == 41){ //Se non ci sono sconti
+                prezzoFinale = prezzoSpettacolo;
+                utbase.setSaldo( saldo - prezzoSpettacolo );
+            }else{
+                if(sconto.getTipo().equals(Sconto.tipo.FISSO) ){  //Se lo sconto e fisso
+                    prezzoFinale = sconto.getPrezzo();
+                }
+                if(sconto.getTipo().equals(Sconto.tipo.PERCENTUALE) ){
+                    float percentuale =(float) sconto.getPercentuale();
+                    float dascalare = (prezzoSpettacolo * percentuale) /100;  
+                    prezzoFinale = prezzoSpettacolo-dascalare;
+                }
+            }
+            utbase.setSaldo(saldo - 2.0f);
+            Prenotazione crea = new Prenotazione (email, idSpettacolo,posto,offset,sala,prenotato.TRUE, acquistato.FALSE, prezzoFinale, data, sconto);
+            OperazioneDAO opDAO = new OperazioneDAO();
+            opDAO.createOperazione(crea);
+            utDAO.updateUtenteBase(utbase);
+                /*
+                s.removeAttribute("user");
+                s.setAttribute("user", utbase);
+                */
+                //Aggiornare lo stao del posto
+        }
+
+        response.sendRedirect("VisualizzaAcquisti.jsp");
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -44,7 +118,15 @@ public class PrenotazioneCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(PrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -58,7 +140,15 @@ public class PrenotazioneCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(PrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PrenotazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

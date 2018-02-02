@@ -5,7 +5,9 @@
  */
 package control.acquistoCNT;
 
+import database.OperazioneDAO;
 import database.SalaDAO;
+import database.ScontoDAO;
 import database.SpettacoloDAO;
 import database.UtenteRegistratoDAO;
 import java.io.IOException;
@@ -24,6 +26,8 @@ import model.Acquisto;
 import model.Operazione;
 import model.Sala;
 import model.Sconto;
+import model.Sconto.tipo;
+import model.UtenteBase;
 import model.UtenteRegistrato;
 
 /**
@@ -45,54 +49,111 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             throws ServletException, IOException, NamingException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         
-        System.out.println("Servlet acquistobigliettocnt");
-        
-        HttpSession s = request.getSession();
-        UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
-        SalaDAO salaDAO = new SalaDAO();
-        SpettacoloDAO spettDAO = new SpettacoloDAO();
-        //int numeroBiglietti = Integer.parseInt( request.getParameter("numeroBiglietti") );
-        System.out.println("Numero biglietti nell servlet:"+request.getParameter("numeroBiglietti"));
-        System.out.println("Id sala nella servlet:"+request.getParameter("idSala"));
         
         String email;
-        int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
-        int posto = 1;  //DA FARE
-        int offset = 1; //DA FARE
-        Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
-        Operazione.prenotato prenotato = null;
-        Operazione.acquistato acquistato = null;
-        float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
-        float prezzoFinale; //DA FARE
-        Calendar data = Calendar.getInstance();
-        Sconto sconto = null; //DA FARE
+        HttpSession s = request.getSession();
+        UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
+        UtenteRegistratoDAO utDAO = new UtenteRegistratoDAO();
+        String radiobutton = request.getParameter("pagamento");
         
-        /*
-        
-        Sconto sconto = operazione.getSconto();
-            if(sconto.getIdSconto() == 0){
-                utbase.setSaldo(saldo - price + 2.0f);
-            }
-            if(sconto.getTipo().equals(tipo.FISSO)){
-                utbase.setSaldo(saldo - sconto.getPrezzo() + 2.0f);
-            }
-            if(sconto.getTipo().equals(tipo.PERCENTUALE)){
-               float percentuale =(float) operazione.getSconto().getPercentuale();
-               float dascalare = (price * percentuale) /100;  
-               utbase.setSaldo(saldo - (price-dascalare) + 2.0f);
-            }
-        
-        */
-        
-        if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
+        if( (radiobutton!=null) && (radiobutton.equals("Contanti")) ){//Se radiobutton è pagamento per contanti
             email = user.getEmail();
+            SalaDAO salaDAO = new SalaDAO();
+            SpettacoloDAO spettDAO = new SpettacoloDAO();
+            String PostiSconti = request.getParameter("stringaPostiESconti");
+            int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
+            int offset = 1; //DA FARE
+            Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+            Operazione.prenotato prenotato = null;
+            Operazione.acquistato acquistato = null;
+            float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
+            float prezzoFinale = 0; //DA FARE
+            Calendar data = Calendar.getInstance();
+            ScontoDAO scontoDAO = new ScontoDAO(); //DA FARE
+            while(!PostiSconti.equals("")){
+                int posto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
+                PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
+                int Idsconto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
+                PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
+                Sconto sconto = scontoDAO.foundByID(Idsconto);
+                if(Idsconto == 41){ //Se non ci sono sconti
+                    prezzoFinale = prezzoSpettacolo;
+                }else{
+                    if(sconto.getTipo().equals(tipo.FISSO) ){  //Se lo sconto e fisso
+                        prezzoFinale = sconto.getPrezzo();
+                    }
+                    if(sconto.getTipo().equals(tipo.PERCENTUALE) ){
+                       float percentuale =(float) sconto.getPercentuale();
+                       float dascalare = (prezzoSpettacolo * percentuale) /100;  
+                       prezzoFinale = prezzoSpettacolo-dascalare;
+                    }
+                }
+                Acquisto crea = new Acquisto (email, idSpettacolo,posto,offset,sala,prenotato.FALSE, acquistato.TRUE, prezzoFinale, data, sconto);
+                OperazioneDAO opDAO = new OperazioneDAO();
+                opDAO.createOperazione(crea);
+            }
+            
+            response.sendRedirect("VisualizzazioneProgrammazione.jsp");
+            
+        }else{  //Pagamento dall'account utente
+            if(user.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
+                email = user.getEmail();
+            }
+            else{ //OPERATORE
+                email = request.getParameter("emailUtenteBase");
+            }
+            UtenteBase utbase = utDAO.foundUtenteBaseByEmail(email);
+
+            SalaDAO salaDAO = new SalaDAO();
+            SpettacoloDAO spettDAO = new SpettacoloDAO();
+            String PostiSconti = request.getParameter("stringaPostiESconti");
+            int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
+            int offset = 1; //DA FARE
+            Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+            Operazione.prenotato prenotato = null;
+            Operazione.acquistato acquistato = null;
+            float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
+            float prezzoFinale = 0; //DA FARE
+            Calendar data = Calendar.getInstance();
+            ScontoDAO scontoDAO = new ScontoDAO(); //DA FARE
+
+            while(!PostiSconti.equals("")){
+                int posto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
+                PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
+                int Idsconto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
+                PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
+                Sconto sconto = scontoDAO.foundByID(Idsconto);
+
+                float saldo = utbase.getSaldo();
+                //Scalo il credito all'utente
+                if(Idsconto == 41){ //Se non ci sono sconti
+                    prezzoFinale = prezzoSpettacolo;
+                    utbase.setSaldo( saldo - prezzoSpettacolo );
+                }else{
+                    if(sconto.getTipo().equals(tipo.FISSO) ){  //Se lo sconto e fisso
+                        prezzoFinale = sconto.getPrezzo();
+                        utbase.setSaldo(saldo - sconto.getPrezzo() );
+                    }
+                    if(sconto.getTipo().equals(tipo.PERCENTUALE) ){
+                       float percentuale =(float) sconto.getPercentuale();
+                       float dascalare = (prezzoSpettacolo * percentuale) /100;  
+                       prezzoFinale = prezzoSpettacolo-dascalare;
+                       utbase.setSaldo(saldo - (prezzoSpettacolo-dascalare) );
+                    }
+                }
+                Acquisto crea = new Acquisto (email, idSpettacolo,posto,offset,sala,prenotato.FALSE, acquistato.TRUE, prezzoFinale, data, sconto);
+                OperazioneDAO opDAO = new OperazioneDAO();
+                opDAO.createOperazione(crea);
+                utDAO.updateUtenteBase(utbase);
+                s.removeAttribute("user");
+                s.setAttribute("user", utbase);
+                //Aggiornare lo stao del posto
+            }
+
+            response.sendRedirect("VisualizzaAcquisti.jsp");
         }
-        else{ //OPERATORE
-            email = request.getParameter("emailUtenteBase");
-        }
-        Acquisto crea = new Acquisto (email, idSpettacolo,posto,offset,sala,prenotato.FALSE, acquistato.TRUE, prezzoSpettacolo, data, sconto);
-        System.out.println("Acquisto creato nella servlet:\n"+crea.toString());
         
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
