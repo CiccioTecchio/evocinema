@@ -103,7 +103,7 @@
             </div>
             <div class="form-group">
                 <label for="trailer"> Trailer </label>
-                <input name="trailer" type="text" class="form-control insfilm" id="genere" placeholder="Inserisci Codice Incorporamento">
+                <input name="trailer" type="text" class="form-control insfilm" id="trailer" placeholder="Inserisci Codice Incorporamento">
             </div>
             <input type="hidden" name="Nomelocandina" id="locandinaform" value="" >
             <button type="button" onclick="validation()" class="btn btn-primary insfilm">Inserisci</button>
@@ -149,6 +149,8 @@
         
         if(  ! isEmpty($('#regia')))  fl++;  
         
+        
+        
         if( ! checkCalendar($('#dataUscita')) ) fl++; 
         
         if( ! isEmpty($('#cast')) ) fl++;
@@ -157,7 +159,23 @@
         
         if( ! isEmpty($('#trama') )) fl++; 
         
+        if(  $('#distribuzione').val().length !== 0 ){
+          
+            if( !isEmpty($('#distribuzione')) ){} 
+                else fl--;}
+        if(  $('#produzione').val().length !== 0  ){ 
+            
+            if( !isEmpty($('#produzione')) ){} 
+                else fl--;}
+            
+        if(  $('#trailer').val().length !== 0  ){ 
+           
+            if( !checkUrl($('#trailer')) ){} 
+                else fl--;}
+            
         console.log(fl); 
+        
+        
         
         if( fl === 7 ) $('#formInsertLibreria').submit(); 
          else{
@@ -169,12 +187,25 @@
          }
     }; 
     
+    function checkUrl( x ){
+        
+        var regExp = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/; 
+        var value = x.val();   
+       if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+            x.addClass("is-valid"); 
+            
+            return false;} 
+        
+    };
     
     function checkCalendar( x ){
         
         var regExp = /\d{4}\-(0?[1-9]|1[012])\-[0-3][0-9]/; 
         var value = x.val();  
-        console.log(value.match(regExp)); 
        if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
 	
 	else{ 
@@ -190,7 +221,7 @@
 	
         var regExp =  /^[0-9]+$/;
 	var value = x.val(); 
-	console.log(value); 
+	
 	
 	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
 	
@@ -203,10 +234,9 @@
 };
     function isEmpty( x ){
 	
-        console.log(x); 
-	var value = x.val(); 
-	console.log(value); 
         
+	var value = x.val(); 
+	
          var regExp = /[a-z]+\w*/i;
 	
 	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 

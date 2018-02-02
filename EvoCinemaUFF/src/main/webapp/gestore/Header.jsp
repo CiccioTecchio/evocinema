@@ -3,7 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -89,12 +89,28 @@
                             <span class="nav-link-text">Home - Admin</span>
                         </a>
                     </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione programmazione">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Libreria</span>
+                            <span class="nav-link-text">Gestione programmazione</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents">
+                        <ul class="sidenav-second-level collapse" id="collapseComponents" >
+ 
+                            <li>
+                                <a href="../VisualizzazioneProgrammazione.jsp">Visualizzazione programmazione</a>
+                            </li>
+                            <li>
+                                <a href="AggiungiSpettacolo.jsp">Inserisci spettacolo in programmazione</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione libreria">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Gestione libreria</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents1" >
                             <li>
                                 <a href="../VisualizzaLibreria.jsp">Visualizza Libreria</a>
                             </li>
@@ -107,12 +123,12 @@
 
                         </ul>
                     </li>
-                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sconti">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
+                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione sconti">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-book"></i>
                             <span class="nav-link-text">Sconti</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents1">
+                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
                             <li>
                                 <a href="VisualizzaSconti.jsp">Visualizza Sconti</a>
                             </li>
@@ -123,14 +139,11 @@
                         </ul>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents3" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-book"></i>
                             <span class="nav-link-text">Operatori e Gestori</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
-                            <li>
-                                <a href="AggiungiOperatore.jsp">Registra nuovo Operatore o Gestore</a>
-                            </li>
+                        <ul class="sidenav-second-level collapse" id="collapseComponents3">
                             <li>
                                 <a href="Operatori.jsp">Operatori</a>
                             </li>
@@ -173,7 +186,7 @@
                             <i class="fa fa-user-circle fa-lg"></i> <%= u.getNomeUtente()%>
                         </a>
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                            <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
+                            <a class="dropdown-item" href="../AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                     <strong>
                                         <i class="fa fa-user-circle"></i> Profilo </strong>
@@ -211,7 +224,4 @@
 
         <div class="content-wrapper">
             <div class="container-fluid">
-
-
-
 

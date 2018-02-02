@@ -42,18 +42,21 @@ public class PopolamentoListe extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String id;
         try {
             SalaDAO salaDao = new SalaDAO();
             List<Sala> sale = salaDao.getAllSale();
             FilmDAO filmDao = new FilmDAO();
             List<Film> film = filmDao.getFilmNameAndDate();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
-            Spettacolo s = spettacoloDao.foundByID(Integer.parseInt(request.getParameter("idSpettacolo")));
+            if((id = request.getParameter("idSpettacolo")) != null){
+                SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+                Spettacolo s = spettacoloDao.foundByID(Integer.parseInt(id));
+                request.setAttribute("spettacolo", s);
+            }
             request.setAttribute("sdf", sdf);
             request.setAttribute("sale", sale);
             request.setAttribute("film", film);
-            request.setAttribute("spettacolo", s);
         } catch (NamingException ex) {
             Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

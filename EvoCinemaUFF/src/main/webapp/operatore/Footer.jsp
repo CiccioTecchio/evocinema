@@ -99,7 +99,7 @@
 </div>
 
 <script>
-    var datiOperazioni=[];
+    var datiOperazioni=[],datiAcquisti=[],datiPrenotazioni=[];
     prelevaDatiOperazioni();
     function prelevaDatiOperazioni() {
       
@@ -110,10 +110,23 @@
               result =JSON.stringify(result).replace("{\"", "");
               result= result.replace("\":0}","");
                 datiOperazioni=result.split("_");
-                console.info(datiOperazioni);
+                //console.info(datiOperazioni);
                  
                 for (var i=0; i < datiOperazioni.length; i++) {
                     datiOperazioni[i]=parseFloat(datiOperazioni[i]);
+                }    
+                
+                var j=0; 
+                while(datiOperazioni[j]!='10000'){
+                datiAcquisti[j]=datiOperazioni[j];
+                j++;
+                }
+                j++;
+                var i=1;
+                datiPrenotazioni[0]=datiOperazioni[0];
+                for (z=j; z < datiOperazioni.length; z++) {
+                    datiPrenotazioni[i]=datiOperazioni[z];
+                    i++;
                 }    
                  
                 creaGraficoOperazioni();
@@ -138,29 +151,47 @@
 	        }
     },
     title: {
-        text:'Analitycs acquisti'
+        text:'Analytics operazioni'
             },
     series: [{
-            name: 'Score',
+            color: '#00FF00',
+            name: 'Acquisti',
         data: [
             //DEVO PASSARE ANCHE IL MESE OLTRE AL VALORE PERCHE' NON SI PARTE SEMPRE DA GENNAIO
-            [Date.UTC(datiOperazioni[0], datiOperazioni[1], 0), datiOperazioni[2]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[3], 0), datiOperazioni[4]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[5], 0), datiOperazioni[6]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[7], 0), datiOperazioni[8]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[9], 0), datiOperazioni[10]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[11], 0), datiOperazioni[12]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[13], 0), datiOperazioni[14]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[15], 0), datiOperazioni[16]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[17], 0), datiOperazioni[18]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[19], 0), datiOperazioni[20]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[21], 0), datiOperazioni[22]],
-            [Date.UTC(datiOperazioni[0], datiOperazioni[23], 0), datiOperazioni[24]]
+            [Date.UTC(datiAcquisti[0], datiAcquisti[1], 0), datiAcquisti[2]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[3], 0), datiAcquisti[4]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[5], 0), datiAcquisti[6]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[7], 0), datiAcquisti[8]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[9], 0), datiAcquisti[10]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[11], 0), datiAcquisti[12]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[13], 0), datiAcquisti[14]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[15], 0), datiAcquisti[16]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[17], 0), datiAcquisti[18]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[19], 0), datiAcquisti[20]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[21], 0), datiAcquisti[22]],
+            [Date.UTC(datiAcquisti[0], datiAcquisti[23], 0), datiAcquisti[24]]
+        ]
+    },
+    {
+            name: 'Prenotazioni',
+        data: [
+            //DEVO PASSARE ANCHE IL MESE OLTRE AL VALORE PERCHE' NON SI PARTE SEMPRE DA GENNAIO
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[1], 0), datiPrenotazioni[2]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[3], 0), datiPrenotazioni[4]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[5], 0), datiPrenotazioni[6]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[7], 0), datiPrenotazioni[8]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[9], 0), datiPrenotazioni[10]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[11], 0), datiPrenotazioni[12]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[13], 0), datiPrenotazioni[14]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[15], 0), datiPrenotazioni[16]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[17], 0), datiPrenotazioni[18]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[19], 0), datiPrenotazioni[20]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[21], 0), datiPrenotazioni[22]],
+            [Date.UTC(datiPrenotazioni[0], datiPrenotazioni[23], 0), datiPrenotazioni[24]]
         ]
     }]
     
-
-});
+    });
     }
     
 </script>
