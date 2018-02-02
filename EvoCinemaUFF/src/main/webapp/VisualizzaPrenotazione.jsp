@@ -112,7 +112,7 @@
                 if(sc.getTipo().equals(tipo.FISSO)){
                     sconto =  "Prezzo fisso: "+sc.getPrezzo();
                 }
-                if(sc.getIdSconto()==0){
+                if(sc.getIdSconto()==41){
                     sconto = "Nessuno sconto";
                 }
                 if(sc.getTipo().equals(tipo.PERCENTUALE)){

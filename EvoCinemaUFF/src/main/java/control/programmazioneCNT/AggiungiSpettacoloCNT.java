@@ -121,8 +121,7 @@ public class AggiungiSpettacoloCNT extends HttpServlet {
             spettacoloDao.createSpettacolo(s);
             
             request.setAttribute("spettacolo", s);
-            
-            logger.info("spettacolo inserito");
+            request.setAttribute("title", "Aggiunta avvenuta con Successo");            
             
             dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiuntaSuccesso.jsp");
             dispatcher.forward(request,response);

@@ -6,7 +6,7 @@
 
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Spettacolo"%>
-<% request.setAttribute("title", "Aggiunta Spettacolo con Successo"); %>
+<% request.setAttribute("title", request.getAttribute("title")); %>
 <jsp:include page="Header.jsp" />
 <% 
     Spettacolo s = (Spettacolo) request.getAttribute("spettacolo"); 
@@ -16,7 +16,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="alert alert-primary" ><h6>Aggiunta dello spettacolo avvenuta con successo.</h6></div>
+        <div class="alert alert-primary" ><h6>Operazione effettuata con successo.</h6></div>
     </div>
     <div class="row">
         <div class="card">
@@ -92,4 +92,5 @@
         </div>
     </div>
 </div>
+                            
 <jsp:include page="Footer.jsp" />
