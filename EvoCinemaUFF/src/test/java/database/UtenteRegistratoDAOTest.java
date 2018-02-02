@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/*
 package database;
 
 import java.sql.Connection;
@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  *
  * @author Giuseppe
  */
-
+/*
 public class UtenteRegistratoDAOTest {
     
     private static final String EMAIL = "email22@email.it";
@@ -44,6 +44,7 @@ public class UtenteRegistratoDAOTest {
      * @return
      * @throws SQLException 
      */
+/*
     private static Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
@@ -56,6 +57,7 @@ public class UtenteRegistratoDAOTest {
      * @throws SQLException
      * @throws NamingException 
      */
+/*
     @BeforeClass
     public static void setUpClass() throws SQLException, NamingException {
         connection = getTestConnection();
@@ -109,6 +111,7 @@ public class UtenteRegistratoDAOTest {
      * E' buona norma rollbackare sempre le istruzioni non committate (appositamente) prima di chiduere la connessione.
      * @throws SQLException 
      */
+/*
     @After
     public void tearDown() throws SQLException {
         connection.rollback();
@@ -121,3 +124,4 @@ public class UtenteRegistratoDAOTest {
     // @Test
     // public void hello() {}
 }
+*/
