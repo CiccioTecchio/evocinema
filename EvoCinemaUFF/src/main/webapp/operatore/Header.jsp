@@ -84,60 +84,35 @@
                 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <!-- inizio menù laterale -->
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                        <a class="nav-link" href="index.jsp">
+                        <a class="nav-link" href="../index.jsp">
                             <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home - Operatore</span>
+                            <span class="nav-link-text">Home</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                        <a class="nav-link" href="../VisualizzazioneProgrammazione.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Programmazione</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../VisualizzaLibreria.jsp">
                             <i class="fa fa-fw fa-book"></i>
                             <span class="nav-link-text">Libreria</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents">
-                            <li>
-                                <a href="../VisualizzaLibreria.jsp">Visualizza Libreria</a>
-                            </li>
-                            <li>
-                                <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
-                            </li>
-                            <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
-
-                            </li>
-
-                        </ul>
                     </li>
-                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sconti">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../VisualizzaAcquisti.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Sconti</span>
+                            <span class="nav-link-text">Vendite</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents1">
-                            <li>
-                                <a href="VisualizzaSconti.jsp">Visualizza Sconti</a>
-                            </li>
-                            <li><a href="InserisciSconto.jsp">Inserisci Sconto</a>
-
-                            </li>
-
-                        </ul>
                     </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href=../OperatorePrelevaEmailUtente.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Operatori e Gestori</span>
+                            <span class="nav-link-text">Prenotazioni</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
-                            <li>
-                                <a href="Operatori.jsp">Visualizza Operatori</a>
-                            </li>
-                            <li><a href="Gestori.jsp">Visualizza Gestori</a>
-
-                            </li>
-
-                        </ul>
                     </li>
-                    
                     
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="RicaricaSaldo">
                         <a class="nav-link" href="RicaricaSaldoOperatore.jsp">

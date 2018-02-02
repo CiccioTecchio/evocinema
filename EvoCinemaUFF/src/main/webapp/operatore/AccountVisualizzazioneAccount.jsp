@@ -12,22 +12,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% HttpSession s = request.getSession();
 
-UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
+    UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
 
-if (utente==null){
-    response.sendRedirect("Login.jsp");}
-else{
-    
-    SimpleDateFormat sdf= new SimpleDateFormat("MM/dd/yyyy");
-    String dataN= sdf.format(utente.getDataNascita().getTime());
-    String a="";
-    String b="";
-    if(utente.getSesso().equals(sesso.M)){
-        a="checked";
-        }else{
-        b="checked";
+    if (utente == null) {
+        response.sendRedirect("Login.jsp");
+    } else {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        String dataN = sdf.format(utente.getDataNascita().getTime());
+        String a = "";
+        String b = "";
+        if (utente.getSesso().equals(sesso.M)) {
+            a = "checked";
+        } else {
+            b = "checked";
         }
-    
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -37,144 +38,203 @@ else{
     </head>
     <jsp:include page="Header.jsp" />
     <body>
-       
-        
 
-        
-        <div>Profilo di <%=utente.getNome()%> <%=utente.getCognome()%></div>
-	
-        
-        
-        Email: <%=utente.getEmail()%><br><br>
-        Nome Utente: <%=utente.getNomeUtente()%><br><br>
-        
-        
 
-        <div>Dati Personali: <br><br>
-            
-            
-        <div class="container-left col-md-4">
-            
 
-                    <div class="card-body">
-                        <form action="ModificaDettagliCNT" method="POST">
-                            
-                            <div class="form-group">
 
-                                <div class="form-row">
-                                    <label for="exampleInputName">Nome </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaNome" maxlength="50"  value="<%=utente.getNome()%>" >
-                                </div>
+        <div class="container" style="padding-top: 60px;">
+            <h1 class="page-header">Modifica profilo</h1>
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="text-center">
+                        <img src="images/photoUser.png" class=" img-circle img-thumbnail" alt="avatar">
+
+
+                    </div>
+                </div>
+                <!-- edit form column -->
+                <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+
+
+                    <form  class="form-horizontal" >
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Username</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" name="modificaUsername" maxlength="50"  value="<%=utente.getNomeUtente()%>" disabled="true" >
                             </div>
-                            <div class="form-group">
-                                <div class="form-row">
-                                    <label for="exampleInputEmail1">Cognome</label>
-                                    <input class="form-control" type="text" name="modificaCognome" maxlength="50" value="<%=utente.getCognome()%>" >
+                        </div>
 
-                                </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Nome</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" id="nomeRegistrazioneVisualizza" name="nomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getNomeUtente()%>" >
                             </div>
-                          
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Data di nascita </label>
-                                    <input class="form-control" name="modificaData" type="text" id="datepicker" value="<%=dataN%>">
-                                    
-                                </div>
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorNomeVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 2 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Cognome</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" id="cognomeRegistrazioneVisualizza" name="cognomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getCognome()%>" >
                             </div>
-
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Indirizzo </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaIndirizzo" maxlength="50"value="<%=utente.getIndirizzo()%>" >
-                                </div>
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorCognomeVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 2 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Data di nascita</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" name="dataRegistrazioneVisualizza" type="text" id="datepicker" value="<%=dataN%>">
                             </div>
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Città </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaCitta" maxlength="50" value="<%=utente.getCittà()%>" >
-                                </div>
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorDataNascitaVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 2 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Indirizzo</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" id="indirizzoRegistrazioneVisualizza" name="indirizzoRegistrazioneVisualizza" maxlength="50"value="<%=utente.getIndirizzo()%>" >
                             </div>
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Cellulare </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaCellulare" maxlength="50" value="<%=utente.getCellulare()%>" >
-                                </div>
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorIndirizzoVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 2 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Città</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" id="cittaRegistrazioneVisualizza" name="cittaRegistrazioneVisualizza" maxlength="50" value="<%=utente.getCittà()%>" >
                             </div>
-                                
-                            
-                                
-                                
-                                <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Password </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaPassword" maxlength="50" >
-                                </div>
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorCittaVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 2 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Cellulare</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" id="cellulareRegistrazioneVisualizza" name="cellulareRegistrazioneVisualizza" value="<%=utente.getCellulare()%>" maxlength="10" onkeypress="onlyNumbers(event)" >
                             </div>
-                                <div class="form-group">
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorCellulareVisualizza">
 
-                                <div class="form-row">
-                                    <label for="exampleInputName">Conferma Password </label>
-                                    <input class="form-control" type="text" id="nomeRegistrazione" name="modificaPassword1" maxlength="50"  >
-                                </div>
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 9 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Email</label>
+                            <div class="col-lg-10">
+
+                                <input class="form-control" type="text" id="emailRegistrazioneVisualizza" name="emailRegistrazioneVisualizza" value="<%=utente.getEmail()%>" maxlength="50">
                             </div>
-                            
-                            <div class="form-group">
-
-                                <div class="form-row">
-                                    <label for="exampleInputName">Sesso     </label>
-                                    <input type="radio" name="modificaSesso" value="maschio" <%= a %> > Maschio   
-                                    <input type="radio" name="modificaSesso" value="femmina" <%= b %> > Femmina     
-                                </div>
+                            <div class="form-input-validation is-error" id ="errorEmail2Visualizza">
+                                <span>
+                                    <p class="error-pswVisualizza">Questo campo non può contenere meno di 5 caratteri!</p>
+                                </span>
                             </div>
-                                
-                                <br>
-                                <button class="btn btn-primary btn-block" type="submit">Salva</button>
-                        </form>
-                                <br>
-                                
-                                <% if(utente.getRuolo().equals(UtenteRegistrato.ruolo.UTENTE)){ %>
-                                
-                                <button onclick="confermaEliminazione()" class="btn btn-primary btn-block" name="<%=utente.getEmail()%>" id="<%=utente.getEmail()%>" type="sumbit">Cancella Account</button>
-                                
-                                <script>
-                                    function confermaEliminazione() {
-                                        var txt;
-                                        if (confirm("Sei sicuro di voler eliminare l'account?")) {
-                                            txt = "OK";
-                                        } else {
-                                            txt = "ANNULLA";
-                                        }
-                                            
-                                    if(txt==="OK"){
-                                        $.post('CancellazioneAccountCNT', {
+                            <div class="form-input-validation is-error" id ="errorEmail3Visualizza">
+                                <span>
+                                    <p class="error-pswVisualizza">Attenzione! Inserisci una mail corretta.</p>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Password</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="password" id="passwordRegistrazioneVisualizza" name="passwordRegistrazioneVisualizza" maxlength="50" value="<%=utente.getPassword()%>">
+                            </div>
+                        </div>
 
-                                        }, function() {
-                                                location.reload();
-                                                alert("Account eliminato.");
-                                                
-                                        }).fail(function() {
-                                                alert("Impossibile eliminare.");
-                                        });
-                                    }
-                                }
-                                </script>
-                                <%}%>
-                                </div>
-                               
-                                  
+                        <div class="form-input-validation is-error" id ="errorPasswordVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 8 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Conferma password</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="password" id="passwordRegistrazione2Visualizza" name="passwordRegistrazione2Visualizza" maxlength="50" value="<%=utente.getPassword()%>" >
+                            </div>
+                        </div>
+                        <div class="form-input-validation is-error" id ="errorPassword2Visualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Questo campo non può contenere meno di 8 caratteri!</p>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                             <div class="col-md-10">
+                            <label for="exampleInputName">Sesso</label>
+                                    <select id= "sessoRegistrazioneVisualizza" name="sessoRegistrazioneVisualizza" class="form-control">
+                                        <option value="maschio">Maschio</option>
+                                        <option value="femmina">Femmina</option>
+                                    </select>
+                        </div>
+                        </div>
                         
+                        <br> 
+                        <div class="form-group">
+
+                            <div class="col-md-10">
+                                <button id="dettagli" class="btn btn-primary btn-block" type="submit">Salva</button>
                             </div>
-         <% } %>
-    </body>
-    <jsp:include page="Footer.jsp" />
+
+                        </div>
+                    </form>
+
+
+                    <% if (utente.getRuolo().equals(UtenteRegistrato.ruolo.UTENTE)) {%>
+                    <div class="col-md-10">
+                        <button onclick="confermaEliminazione()" class="btn btn-primary btn-block" name="<%=utente.getEmail()%>" id="<%=utente.getEmail()%>" type="sumbit">Cancella Account</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <br><br><br>
+
+        <script>
+            function confermaEliminazione() {
+            var txt;
+            if (confirm("Sei sicuro di voler eliminare l'account?")) {
+            txt = "OK";
+            } else {
+            txt = "ANNULLA";
+            }
+            
+            if (txt === "OK"){
+            $.post('CancellazioneAccountCNT', {
+
+            }, function() {
+            location.reload();
+            alert("Account eliminato.");
+            }).fail(function() {
+            alert("Impossibile eliminare.");
+            });
+            }
+            }
+        </script>
+        <%}%>
+    </div>
+
+
+
+</div>
+<% }%>
+</body>
+<jsp:include page="Footer.jsp" />
 </html>
 <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+    $(function() {
+    $("#datepicker").datepicker(){ minDate: - 20, maxDate: "+1M +10D" };
+    });
+</script>

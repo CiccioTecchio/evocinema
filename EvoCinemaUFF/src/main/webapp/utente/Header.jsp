@@ -76,7 +76,7 @@
 
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
-            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="../images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema ADMIN</a>
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="../images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -84,66 +84,48 @@
                 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <!-- inizio menù laterale -->
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                        <a class="nav-link" href="index.jsp">
+                        <a class="nav-link" href="../index.jsp">
                             <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home - Admin</span>
+                            <span class="nav-link-text">Home</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                        <a class="nav-link" href="../VisualizzazioneProgrammazione.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Programmazione</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../VisualizzaLibreria.jsp">
                             <i class="fa fa-fw fa-book"></i>
                             <span class="nav-link-text">Libreria</span>
                         </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents">
-                            <li>
-                                <a href="../VisualizzaLibreria.jsp">Visualizza Libreria</a>
-                            </li>
-                            <li>
-                                <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
-                            </li>
-                            <li><a href="ModificaLibreria.jsp">Modifica Libreria</a>
-
-                            </li>
-
-                        </ul>
-                    </li>
-                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sconti">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Sconti</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents1">
-                            <li>
-                                <a href="VisualizzaSconti.jsp">Visualizza Sconti</a>
-                            </li>
-                            <li><a href="InserisciSconto.jsp">Inserisci Sconto</a>
-
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Operatori e Gestori</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
-                            <li>
-                                <a href="AggiungiOperatore.jsp">Registra Operatore o Gestore</a>
-                            </li>
-                            <li>
-                                <a href="../VisualizzaOperatoriCNT">Visualizza Operatori</a>
-                            </li>
-                            <li><a href="../VisualizzaGestoriCNT">Visualizza Gestori</a>
-
-                            </li>
-
-                        </ul>
                     </li>
                     
-
-
-
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../VisualizzaAcquisti.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza Acquisti</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../VisualizzaPrenotazioni.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza Prenotazioni</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../AccountVisualizzazioneSaldo.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza Saldo</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
+                        <a class="nav-link" href="../VisualizzaRecensioniCNT">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Visualizza le mie recensioni</span>
+                        </a>
+                    </li>
                     <!-- fine menù laterale -->       
                 </ul>
 
