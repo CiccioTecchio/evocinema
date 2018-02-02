@@ -590,4 +590,47 @@ public class OperazioneDAO {
 
     }
    
+   
+   
+/**
+     * Permette di estrarre il numero di biglietti venduti per ogni spettacolo in programmazione oppure no
+     * dell'anno prima
+     * @return stringa che rappresenta numero di biglietti venduti per ogni spettacolo
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public synchronized String analitycsGetDatiAffluenzeSpettacolo() throws SQLException, ParseException, NamingException {
+      
+    PreparedStatement stmt=null;
+       String datiAffluenze =  "";
+       int maxAffluenza=0;
+       int numeroFilm=0;
+       try {
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT Spettacolo.titolo, "
+                    + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Spettacolo INNER JOIN "
+                    + " evo_cinema.Operazione ON Spettacolo.idSpettacolo=Operazione.idSpettacolo "+
+            " group by Spettacolo.titolo; ");
+            ResultSet rs = stmt.executeQuery();
+                
+		while (rs.next()) {
+                    datiAffluenze=datiAffluenze+rs.getString("titolo")+"_";
+                    int numeroAffluenze=Integer.parseInt(rs.getString("num"));
+                    datiAffluenze=datiAffluenze+numeroAffluenze+"_";
+                    if(numeroAffluenze>maxAffluenza)
+                        maxAffluenza=numeroAffluenze;
+                    
+                    numeroFilm++;
+                }
+                
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
+		}
+       //System.out.println(maxAffluenza+"_"+numeroFilm+"_"+datiAffluenze);
+       return maxAffluenza+"_"+numeroFilm+"_"+datiAffluenze;
+       
+    }
 }

@@ -99,7 +99,8 @@
 </div>
 
 <script>
-    var datiOperazioni=[],datiAcquisti=[],datiPrenotazioni=[];
+    var arrayAffluenza=[]; //Analytics per vendita biglietti per ogni spettacolo
+    var datiOperazioni=[],datiAcquisti=[],datiPrenotazioni=[]; //Analytics operazioni
     prelevaDatiOperazioni();
     function prelevaDatiOperazioni() {
       
@@ -134,8 +135,6 @@
             }
             
             });
-   
-           
    }
     
     function creaGraficoOperazioni(){
@@ -196,6 +195,91 @@
     
 
 });
+    }
+    
+    prelevaDatiAffluenzaFilm();
+    function prelevaDatiAffluenzaFilm() {
+      
+        $.ajax({
+            url: "${pageContext.request.contextPath}/AnalyticsFilmCNT",
+            success: function(result){
+             
+              result =JSON.stringify(result).replace("{\"", "");
+              result= result.replace("\":0}","");
+                arrayAffluenza=result.split("_");
+                //console.info(datiOperazioni);
+                
+                arrayAffluenza[0]=parseFloat(arrayAffluenza[0]);    
+                for (var i=1; i < arrayAffluenza.length; i+=2) {
+                    arrayAffluenza[i]=parseFloat(arrayAffluenza[i]);
+                }    
+                //console.info(arrayAffluenza);
+                creaGraficoAffluenzaSpettacoli();
+            }
+            
+            });
+   }
+    
+    
+    function creaGraficoAffluenzaSpettacoli(){
+        Highcharts.chart('scatter', {
+	    chart: {
+	        type: 'column',
+	      //  renderTo: 'scatter',
+	    },
+	    title: {
+	        text: title='Analytics affluenza per film' //'World\'s largest cities per 2014'
+	    },
+            
+	    xAxis: {
+	        type: 'category',
+	        min: 0,
+	        max: arrayAffluenza[1],
+                labels: {
+	            rotation: -45,
+	            style: {
+	                fontSize: '10px',
+	                fontFamily: 'Verdana, sans-serif'
+	            }
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        max: arrayAffluenza[0],
+	        title: {
+	            text: 'Numero biglietti venduti'
+	        }
+	    },
+	    legend: {
+	        enabled: false
+	    },
+	    series: [{
+	        name: 'Biglietti venduti',
+	        data: (function () {
+                        // generate an array of random data
+                        var data = [],
+                        i;
+                        for (i = 2; i <= arrayAffluenza.length; i +=2) {
+                        data.push([
+                            arrayAffluenza[i],arrayAffluenza[i+1]
+                            ]);   
+                        }
+            return data;
+        }()),
+	        dataLabels: {
+	            enabled: true,
+	            rotation: -90,
+	            color: '#FFFFFF',
+	            align: 'right',
+	            y: 10, // 10 pixels down from the top
+	            style: {
+	                fontSize: '10px',
+	                fontFamily: 'Verdana, sans-serif'
+	            }
+	        }
+	    }]
+	});	
+    
     }
     
     

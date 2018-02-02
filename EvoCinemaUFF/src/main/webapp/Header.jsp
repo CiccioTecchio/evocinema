@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="visualizzazione_dettagli_spettacolo.css">
         <link rel="stylesheet" href="visualizzazione_programmazione.css">
         <link rel="stylesheet" href="Gestione_operazione_sala.css">
-
+        
         <link rel="icon" href="images/logo.png" type="image/png" />
 
 
