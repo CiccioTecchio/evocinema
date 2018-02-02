@@ -11,8 +11,8 @@
 <jsp:include page="HeaderAdmin.jsp"/>
 
 
-
-<div id="container" style="height: 300px"></div>
-
+<div class="card">
+    <div class="p-5" id="container" style="height: 450px"></div>
+</div>
 <jsp:include page="FooterAdmin.jsp"/>
 

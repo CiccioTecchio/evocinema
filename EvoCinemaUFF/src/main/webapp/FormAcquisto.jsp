@@ -221,10 +221,10 @@
                     <td class="classePosti"><%=posto%></td>
                     <td class="classeSconti">
                         <select onchange="calcolaPrezzoTotale()">
-                            <option value="0" selected >Nessuno</option>
+                            <option value="41" selected >Nessuno</option>
                             <%for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
                                 {
-                                    if(s.getDisponibile()==disponibile.TRUE)
+                                    if( (s.getDisponibile()==disponibile.TRUE)&&(s.getIdSconto()!=41))
                                     {
                                         if(((s.getVerificabile()==verificabile.FALSE)&&
                                                 (user.getRuolo()==ruolo.OPERATORE))||(
