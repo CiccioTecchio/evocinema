@@ -144,11 +144,12 @@ public class FilmDAO {
     List<Film> film = new LinkedList<>();
 
     try {
-        stmt = (PreparedStatement) connection.prepareStatement("SELECT titolo, data_nascita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
+        stmt = (PreparedStatement) connection.prepareStatement("SELECT idOpera, titolo, data_uscita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
             Film f = new Film();
+            f.setIdFilm(rs.getInt("idOpera"));
             f.setTitolo(rs.getString("titolo"));
             Calendar dataUscita = Calendar.getInstance();
             Date newDate = rs.getDate("data_uscita");

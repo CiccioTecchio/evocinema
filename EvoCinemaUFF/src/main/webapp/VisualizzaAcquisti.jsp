@@ -28,7 +28,7 @@
     if ((utente == null)){
         response.sendRedirect("Login.jsp");
     }
-    if( (utente!=null) && ((utente.getRuolo()).equals(ruolo.UTENTE))  ) {
+    if( (utente!=null)/* && ((utente.getRuolo()).equals(ruolo.UTENTE)) */ ) {
         String email =utente.getEmail(); 
         OperazioneDAO opdao = new OperazioneDAO();
         List<Acquisto> acquisti = opdao.getAcquistiUtente(email);
@@ -48,7 +48,14 @@
 
 
 <div class="card-header">
-    <i class="fa fa-table"></i> Lista acquisti utente</div>
+    <i class="fa fa-table"></i><%
+        if(utente.getRuolo().equals(ruolo.UTENTE)){
+            %>Lista acquisti utente<%
+        }
+        if(utente.getRuolo().equals(ruolo.OPERATORE)){
+            %>Lista vendite operatore<%
+        }
+                %></div>
 <div class="card-body">
 
     <div class="table-responsive">
@@ -62,8 +69,26 @@
                     <th>Posto</th>
                     <th>Sala</th>
                     <th>Prezzo spettacolo</th>
-                    <th>Sconto ricevuto</th>
-                    <th>Importo pagato</th>
+                    <th>
+                    <%
+                        if(utente.getRuolo().equals(ruolo.UTENTE)){
+                            %>Sconto ricevuto<%
+                        }
+                        if(utente.getRuolo().equals(ruolo.OPERATORE)){
+                            %>Sconto applicato<%
+                        }
+                    %>
+                    </th>
+                    <th>
+                    <%
+                        if(utente.getRuolo().equals(ruolo.UTENTE)){
+                            %>Importo pagato<%
+                        }
+                        if(utente.getRuolo().equals(ruolo.OPERATORE)){
+                            %>Importo incassato<%
+                        }
+                    %>    
+                    </th>
 
                 </tr>
             </thead>
@@ -117,28 +142,26 @@
                         int idSala = sala.getIdSala();
                     %>
                     <td><%= idSala %></td>
-                    <td><%= acquisti.get(i).getPrezzoFinale()%></td>
+                    <td><%= x.getPrezzo() %></td>
                     <%
                         String ScontoPercentuale ="";
                         Sconto sc = acquisti.get(i).getSconto();
-                        if(sc.getTipo().equals(tipo.FISSO)){
+                        if( (sc.getTipo().equals(tipo.FISSO)) && (sc.getIdSconto()!=41) ){
                             ScontoPercentuale =  "Prezzo fisso"; %>
                             <td><%= ScontoPercentuale %></td>
                             <td><%= sc.getPrezzo() %></td>
                         <%    
                         }
-                        if(sc.getIdSconto()==0){
+                        if(sc.getIdSconto()==41){
                             ScontoPercentuale = "Nessuno sconto"; %>
                             <td><%= ScontoPercentuale %></td>
                             <td><%= acquisti.get(i).getPrezzoFinale()%></td>
                         <%    
                         }
-                        if(sc.getTipo().equals(tipo.PERCENTUALE)){
+                        if( (sc.getTipo().equals(tipo.PERCENTUALE)) && (sc.getIdSconto()!=41) ){
                             ScontoPercentuale = ""+sc.getPercentuale()+"%"; 
-                            float percentuale = (float) sc.getPercentuale();
                             float price = acquisti.get(i).getPrezzoFinale();
-                            float dascalare = (price * percentuale) /100;  
-                            String xs = ""+(price-dascalare)+ "€";
+                            String xs = ""+price+"€";
                         %>
                             <td><%= ScontoPercentuale %></td>
                             <td><%= xs %></td>

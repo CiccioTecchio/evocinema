@@ -1,4 +1,0 @@
-/*  $( function() {
-    $( "#data-inizio" ).datepicker();
-  } );
-*/

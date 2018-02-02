@@ -4,15 +4,18 @@
     Author     : GiuseppeDelGaudio
 --%>
 
-<%@page contentType="text/html"%>
 
 <%  request.setAttribute("title", "Home - Admin"); %>
 
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 
+<<<<<<< HEAD:EvoCinemaUFF/src/main/webapp/admin/index.jsp
 
 <div class="card">
     <div class="p-5" id="container" style="height: 450px"></div>
 </div>
 <jsp:include page="FooterAdmin.jsp"/>
+=======
+<jsp:include page="Footer.jsp"/>
+>>>>>>> master:EvoCinemaUFF/src/main/webapp/gestore/index.jsp
 

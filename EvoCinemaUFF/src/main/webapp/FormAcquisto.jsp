@@ -186,8 +186,8 @@
 
             <div class="m-4">
                 <lable>N° sala: </lable>
-                <input type="text" class="float-right" name="idSala" value="<%=spettacoloSelezionato.getIdSala()%>"
-                       ><%=spettacoloSelezionato.getIdSala()%>
+                <label class="float-right"> <%=spettacoloSelezionato.getIdSala()%> </label>
+                <input type="hidden" class="float-right" name="idSala" value="<%=spettacoloSelezionato.getIdSala()%>">
             </div>
             
             
@@ -216,7 +216,6 @@
                     posti=posti.substring(posti.indexOf('-')+1);
             
             %>
-            <input type="hidden" name="numeroBiglietti" value=" <%= numeroBiglietti%> " >
                 <tr>
                     <td class="classePosti"><%=posto%></td>
                     <td class="classeSconti">
@@ -224,7 +223,7 @@
                             <option value="41" selected >Nessuno</option>
                             <%for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
                                 {
-                                    if( (s.getDisponibile()==disponibile.TRUE)&&(s.getIdSconto()!=41))
+                                    if( (s.getDisponibile()==disponibile.TRUE) && (s.getIdSconto()!=41))
                                     {
                                         if(((s.getVerificabile()==verificabile.FALSE)&&
                                                 (user.getRuolo()==ruolo.OPERATORE))||(
@@ -244,7 +243,7 @@
                 </tr>
 
             <%}%>   
-                
+            <input type="hidden" name="numeroBiglietti" value=" <%= numeroBiglietti%> " >    
             </tbody>
         </table>
     </div>
@@ -346,7 +345,7 @@
                     alert(result.substring(2,result.lastIndexOf('"')));
                 if (result.substring(2,result.lastIndexOf('"')) === 'Ok')
                     {
-                        generaStringaPostiSconti();
+                        //generaStringaPostiSconti();
     
                         var operazione=document.querySelector('input[name="operazione"]:checked').value;
                         if(operazione==="Prenota")
@@ -365,6 +364,7 @@
         //alert("Acquisto function");
         var r = confirm("Sei di voler procedere?");
         if (r == true) {
+            generaStringaPostiSconti();
             document.getElementById("myform").action = "AcquistoBigliettoCNT";
             document.getElementById("myform").submit();
         }
@@ -374,6 +374,7 @@
     function prenotazioneFunction() {
         var r = confirm("Sei sicuro di voler prenotare il biglietto?");
         if (r == true) {
+            generaStringaPostiSconti();
             document.getElementById("myform").action = "PrenotazioneBigliettoCNT";
             document.getElementById("myform").submit();
         }
@@ -437,10 +438,10 @@
             stringaDaPassare = stringaDaPassare + posti[i]+"-"+sconti[i]+"-";
            
         }
-        //alert(stringaDaPassare);
+        // alert(stringaDaPassare);
         
         document.getElementById("stringaPostiESconti").value=stringaDaPassare;
-        /*alert(document.getElementById("stringaPostiESconti").value);*/
+        //alert(document.getElementById("stringaPostiESconti").value);
     }
 
 </script>

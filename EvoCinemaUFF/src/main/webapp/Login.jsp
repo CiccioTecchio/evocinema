@@ -5,16 +5,8 @@
 --%>
 
 <%@page import="model.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% request.setAttribute("title", "Login"); %>
 <jsp:include page="Header.jsp"/>
-<!DOCTYPE html>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    </head>
 
     <body>
         <%
@@ -48,7 +40,7 @@
                         </div>
                         <div class="form-input-validation is-error" id ="errorEmail">
                             <span>
-                                <p class="error-psw">Questo campo non puÃ² essere vuoto!</p>
+                                <p class="error-psw">Questo campo non può essere vuoto!</p>
                             </span>
                         </div>
                         <div class="form-group">
@@ -57,7 +49,7 @@
                         </div>
                         <div class="form-input-validation is-error" id ="errorPsw">
                             <span>
-                                <p class="error-psw">Questo campo non puÃ² essere vuoto!</p>
+                                <p class="error-psw">Questo campo non può essere vuoto!</p>
                             </span>
                         </div>
                         <div class="form-group">
@@ -108,7 +100,7 @@
                         <input class="btn btn-primary btn-block" type="submit" name="bottoneLogin" value="Login" disabled="">
                         <div class="form-input-validation is-error" id ="error">
                             <span>
-                                <p class="error-psw">Siamo spiacenti, la password non Ã¨ corretta. Riprova.</p>
+                                <p class="error-psw">Siamo spiacenti, la password non è corretta. Riprova.</p>
                             </span>
                         </div>
 
@@ -126,7 +118,4 @@
             }
         %>
 
-    </body>
     <%@ include file="Footer.jsp"%>
-
-</html>

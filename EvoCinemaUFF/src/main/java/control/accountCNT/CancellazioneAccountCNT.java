@@ -75,11 +75,11 @@ public class CancellazioneAccountCNT extends HttpServlet {
         
         HttpSession s = request.getSession();
         UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
-        String email = (String) request.getParameter("emailCancellaProfilo");
+        
         boolean cancellato=false;
         System.out.println("utente in sessione: "+utente);
         
-        if(utente.getEmail().equals(email)){
+        
             try {
                 
                 UtenteRegistratoDAO model = new UtenteRegistratoDAO();
@@ -89,7 +89,7 @@ public class CancellazioneAccountCNT extends HttpServlet {
             } catch (NamingException | SQLException | ParseException ex) {
                 Logger.getLogger(CancellazioneAccountCNT.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        
         if (cancellato==true){
             s.removeAttribute("user");
         }

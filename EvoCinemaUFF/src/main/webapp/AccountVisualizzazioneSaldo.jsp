@@ -23,7 +23,7 @@
             response.sendRedirect("Login.jsp");}
             else{
         %>   
-        Il tuo saldo è: <%= utente.getSaldo()%>
+        Il tuo saldo è: <p id="saldo"><%= utente.getSaldo()%></p>
         
         
             Inserisci importo da ricaricare:<br>
@@ -44,6 +44,11 @@
 
                                     if(txt==="OK"){
                                         var ricarica= $('#ricaricaSaldo').val();
+                                        var saldo= $('#saldo').val();
+                                        
+                                        if(ricarica+saldo>=999.99){
+                                            alert("Impossibile ricaricare l'importo inserito");
+                                        }else{
                                         
                                         $.post('GestioneSaldoCNT', {
                                          "ricaricaSaldo" : ricarica
@@ -55,6 +60,7 @@
                                                 alert("Impossibile ricaricare.");
                                                 location.reload();
                                         });
+                                    }
                                     }
                                 }
                                 </script>
