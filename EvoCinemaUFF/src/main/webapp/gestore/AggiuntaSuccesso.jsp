@@ -7,7 +7,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Spettacolo"%>
 <% request.setAttribute("title", "Aggiunta Spettacolo con Successo"); %>
-<jsp:include page="HeaderAdmin.jsp" />
+<jsp:include page="Header.jsp" />
 <% 
     Spettacolo s = (Spettacolo) request.getAttribute("spettacolo"); 
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -92,4 +92,4 @@
         </div>
     </div>
 </div>
-<jsp:include page="FooterAdmin.jsp" />
+<jsp:include page="Footer.jsp" />

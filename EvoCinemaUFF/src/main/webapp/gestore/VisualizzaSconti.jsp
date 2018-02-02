@@ -10,7 +10,7 @@
 <%@page import="model.Sconto"%>
 <%@page contentType="text/html"%>
 <%  request.setAttribute("title", "Sconti"); %>
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 <jsp:include page= "/visualizzaSconto"/>
 
 
@@ -233,6 +233,6 @@
     }%>
 
 
-<jsp:include page="FooterAdmin.jsp"/>
+<jsp:include page="Footer.jsp"/>
 
 

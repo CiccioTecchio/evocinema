@@ -3,7 +3,7 @@
 <%@page import="model.Sala"%>
 <%@page import="java.util.List"%>
 <% request.setAttribute("title", "Aggiungi Spettacolo"); %>
-<jsp:include page="HeaderAdmin.jsp" />
+<jsp:include page="Header.jsp" />
 <jsp:include page="PopolamentoListe"/>
 <% List<Sala> sale = (List<Sala>) request.getAttribute("sale"); 
    List<Film> film = (List<Film>) request.getAttribute("film");
@@ -71,4 +71,4 @@
 </div>
 <script src="aggiungi_spettacolo.js"></script>
 
-<jsp:include page="FooterAdmin.jsp" />
+<jsp:include page="Footer.jsp" />
