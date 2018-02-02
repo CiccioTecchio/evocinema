@@ -210,8 +210,8 @@
                         if (u == null) {
                     %>
                     <li class="nav-item">
-                        <a class="nav-link" href="Login.jsp">
-                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i> Login </a>
+                        <a class="nav-link" href="../Login.jsp">
+                            <i class="fa fa-fw fa-sign-in" href="../Login.jsp"></i> Login </a>
                     </li>
                     <%
                     } else {
