@@ -1,6 +1,6 @@
 <%-- 
-    Document   : VisualizzaOperatori
-    Created on : 30-gen-2018, 15.54.07
+    Document   : VisualizzaGestori
+    Created on : 30-gen-2018, 16.16.27
     Author     : Michele
 --%>
 
@@ -11,16 +11,15 @@
 <% 
    HttpSession s = request.getSession();
    UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
-   List<UtenteRegistrato> operatori = (List<UtenteRegistrato>)s.getAttribute("operatori");
+   List<UtenteRegistrato> gestori = (List<UtenteRegistrato>)s.getAttribute("gestori");
 %>
 <!DOCTYPE html>
 <html>
     <head>
-        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Visualizza Operatori</title>
     </head>
-     <jsp:include page="HeaderAdmin.jsp" />
+     <jsp:include page="Header.jsp" />
     <body>
         <% 
             if (utente==null){
@@ -29,21 +28,21 @@
         %> 
         
         <%
-            if(operatori==null){
+            if(gestori==null){
                 
         %>       
-        <h1>Non sono presenti Operatori registrati.</h1>
+        <h1>Non sono presenti Gestori registrati.</h1>
         <%
             }else{
-                if(operatori.size()==0){
+                if(gestori.size()==0){
         %>    
-        <h1>Non sono presenti Operatori registrati.</h1>
+        <h1>Non sono presenti Gestori registrati.</h1>
         <%
             }else{      
         %>
         
         <%      
-                Iterator<?> itt = operatori.iterator();
+                Iterator<?> itt = gestori.iterator();
                 String disabled="";
                 while (itt.hasNext()) {
 		UtenteRegistrato ut = (UtenteRegistrato) itt.next();
@@ -72,17 +71,17 @@
                 </td>
                 <td>
                     
-                        <button class="bottoni" type="submit" name="<%=ut.getEmail()%>" id="<%="o"+ut.getEmail()%>" <%= disabled %>>Cancella</button>
-                    
+                        <button class="bottoni" type="submit" name="<%=ut.getEmail()%>" id="<%="g"+ut.getEmail()%>" <%= disabled %>>Cancella</button>
+                   
                 </td>
                 
             </tr><br>
         </table>
                 
         <%
-            }
+            disabled="";}
         %>
         <%} } } %>
     </body>
-     <jsp:include page="FooterAdmin.jsp" />
+     <jsp:include page="Footer.jsp" />
 </html>

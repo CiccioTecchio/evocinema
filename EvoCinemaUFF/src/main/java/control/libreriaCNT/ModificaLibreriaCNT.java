@@ -7,7 +7,6 @@ package control.libreriaCNT;
 
 import database.FilmDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
@@ -31,7 +30,7 @@ import model.FilmConValutazioneMedia;
  *
  * @author user
  */
-@WebServlet(name = "ModificaLibreriaCNT", urlPatterns = {"/admin/modificaLibreria"})
+@WebServlet(name = "ModificaLibreriaCNT", urlPatterns = {"/gestore/modificaLibreria"})
 public class ModificaLibreriaCNT extends HttpServlet {
 
     
@@ -128,7 +127,7 @@ public class ModificaLibreriaCNT extends HttpServlet {
        
        request.setAttribute("index", ritorno );
        
-       RequestDispatcher dispacher = request.getRequestDispatcher("/admin/ModificaFilm.jsp");
+       RequestDispatcher dispacher = request.getRequestDispatcher("/gestore/ModificaFilm.jsp");
        dispacher.forward(request, response);
         
         

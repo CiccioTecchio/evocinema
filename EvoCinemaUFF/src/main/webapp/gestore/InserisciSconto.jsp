@@ -12,7 +12,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Inserimento Nuovo Sconto");%>
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 
 <div class="container-fluid">
 
@@ -467,5 +467,5 @@
         });
 
     </script>
-    <jsp:include page="FooterAdmin.jsp"/>
+    <jsp:include page="Footer.jsp"/>
 

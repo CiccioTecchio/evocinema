@@ -7,7 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.FilmConValutazioneMedia"%>
 <%  request.setAttribute("title", "Modifica Libreria"); %>
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 <jsp:include page= "/visualizzaValutazioni"/>
 
 <%
@@ -221,6 +221,6 @@
 
 
 
-<jsp:include page="FooterAdmin.jsp"/>
+<jsp:include page="Footer.jsp"/>
 
 

@@ -4,15 +4,11 @@
     Author     : GiuseppeDelGaudio
 --%>
 
-<%@page contentType="text/html"%>
 
 <%  request.setAttribute("title", "Home - Admin"); %>
 
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 
 
-
-<div id="container" style="height: 300px"></div>
-
-<jsp:include page="FooterAdmin.jsp"/>
+<jsp:include page="Footer.jsp"/>
 

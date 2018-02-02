@@ -7,7 +7,6 @@ package control.programmazioneCNT;
 
 import database.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,12 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Film;
 import model.Sala;
+import model.Spettacolo;
 
 /**
  *
  * @author luca
  */
-@WebServlet(name = "PopolamentoListe", urlPatterns = {"/admin/PopolamentoListe"})
+@WebServlet(name = "PopolamentoListe", urlPatterns = {"/gestore/PopolamentoListe"})
 public class PopolamentoListe extends HttpServlet {
 
     /**
@@ -48,9 +48,12 @@ public class PopolamentoListe extends HttpServlet {
             FilmDAO filmDao = new FilmDAO();
             List<Film> film = filmDao.getFilmNameAndDate();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+            Spettacolo s = spettacoloDao.foundByID(Integer.parseInt(request.getParameter("idSpettacolo")));
             request.setAttribute("sdf", sdf);
             request.setAttribute("sale", sale);
             request.setAttribute("film", film);
+            request.setAttribute("spettacolo", s);
         } catch (NamingException ex) {
             Logger.getLogger(PopolamentoListe.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

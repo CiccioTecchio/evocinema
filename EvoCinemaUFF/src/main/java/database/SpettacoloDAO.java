@@ -302,7 +302,7 @@ public class SpettacoloDAO {
        
         try {
             stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Spettacolo ( id_sala, idOpera, titolo, data_inizio, data_fine, prezzo, ora_inizio, ora_fine, matrice_posti) "
-                    + "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
+                    + "VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? )");
             
             stmt.setInt(1, s.getIdSala());
             stmt.setInt(2, s.getIdFilm());

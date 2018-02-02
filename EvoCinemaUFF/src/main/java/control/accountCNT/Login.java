@@ -9,7 +9,6 @@ package control.accountCNT;
  *
  * @author Giuseppe
  */
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,16 +41,22 @@ public class Login extends HttpServlet {
         char c;
         for (int i = 0; i < input.length(); i++) {
             c = input.charAt(i);
-            if (c == '<') {
-                filtered.append("&lt;");
-            } else if (c == '>') {
-                filtered.append("&gt;");
-            } else if (c == '"') {
-                filtered.append("&quot;");
-            } else if (c == '&') {
-                filtered.append("&amp;");
-            } else {
-                filtered.append(c);
+            switch (c) {
+                case '<':
+                    filtered.append("&lt;");
+                    break;
+                case '>':
+                    filtered.append("&gt;");
+                    break;
+                case '"':
+                    filtered.append("&quot;");
+                    break;
+                case '&':
+                    filtered.append("&amp;");
+                    break;
+                default:
+                    filtered.append(c);
+                    break;
             }
         }
         return (filtered.toString());
@@ -89,18 +94,24 @@ public class Login extends HttpServlet {
         if (!utenteIsNull) {
             response.getWriter().write("loginErrato");
             
-            //s.setAttribute("loginErrato", true);
-            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
-            //dispatcher.forward(request, response);
         } else {
-            //s.removeAttribute("loginErrato");
             s.setAttribute("user", utente);
-            if (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE) {
-                response.getWriter().write("admin/index.jsp");
-            } else {
-                //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(re);
+            
+            if (null == utente.getRuolo()) {
                 response.getWriter().write("index.jsp");
-                //dispatcher.forward(request, response);
+            } else switch (utente.getRuolo()) {
+                case GESTORE:
+                    response.getWriter().write("gestore/index.jsp");
+                    break;
+                case OPERATORE:
+                    response.getWriter().write("operatore/index.jsp");
+                    break;
+                case UTENTE:
+                    response.getWriter().write("utente/index.jsp");
+                    break;
+                default:
+                    response.getWriter().write("index.jsp");
+                    break;
             }
         }
     }

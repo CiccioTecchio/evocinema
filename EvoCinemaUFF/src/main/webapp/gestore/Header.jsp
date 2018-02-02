@@ -129,9 +129,12 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents2">
                             <li>
-                                <a href="../VisualizzaOperatoriCNT">Visualizza Operatori</a>
+                                <a href="AggiungiOperatore.jsp">Registra nuovo Operatore o Gestore</a>
                             </li>
-                            <li><a href="../VisualizzaGestoriCNT">Visualizza Gestori</a>
+                            <li>
+                                <a href="Operatori.jsp">Operatori</a>
+                            </li>
+                            <li><a href="Gestori.jsp">Gestori</a>
 
                             </li>
 
@@ -159,7 +162,7 @@
                     %>
                     <li class="nav-item">
                         <a class="nav-link" href="Login.jsp">
-                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
+                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i> Login </a>
                     </li>
                     <%
                     } else {
@@ -167,13 +170,13 @@
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente()%>
+                            <i class="fa fa-user-circle fa-lg"></i> <%= u.getNomeUtente()%>
                         </a>
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                            <a class="dropdown-item" href="../AccountVisualizzazioneAccount.jsp">
+                            <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                     <strong>
-                                        <i class="fa fa-user-circle"></i>Profilo</strong>
+                                        <i class="fa fa-user-circle"></i> Profilo </strong>
                                 </span>
 
                             </a>
@@ -181,7 +184,7 @@
                             <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">
                                 <span class="text-danger">
                                     <strong>
-                                        <i class="fa fa-fw fa-sign-out"></i>Logout</strong>
+                                        <i class="fa fa-fw fa-sign-out"></i> Logout </strong>
                                 </span>
                             </a>
                         </div>

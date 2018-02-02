@@ -122,16 +122,17 @@
                     <%
                         String ScontoPercentuale ="";
                         Sconto sc = prenotazioni.get(i).getSconto();
-                        if(sc.getTipo().equals(tipo.FISSO)){
+                        if( (sc.getTipo().equals(tipo.FISSO)) && (sc.getIdSconto()!=41) ){
                             ScontoPercentuale =  "Prezzo fisso";
                         }
-                        if(sc.getIdSconto()==0){
+                        if(sc.getIdSconto()==41){
                             ScontoPercentuale = "Nessuno sconto";
                         }
-                        if(sc.getTipo().equals(tipo.PERCENTUALE)){
-                            ScontoPercentuale = ""+sc.getPercentuale()+"%";
-                        }
-                    %>
+                        if( (sc.getTipo().equals(tipo.PERCENTUALE)) && (sc.getIdSconto()!=41) ){
+                            ScontoPercentuale = ""+sc.getPercentuale()+"%"; 
+                            float price = prenotazioni.get(i).getPrezzoFinale();
+                            String xs = ""+price+"€";
+                        }%>
                     <td><%= ScontoPercentuale %></td>
                     <td><%= prenotazioni.get(i).getPrezzoFinale()%></td>
 
@@ -176,6 +177,8 @@
 </div>
 
 <% }
-}%>
+
+}
+%>
 
 <jsp:include page= "/Footer.jsp"/>

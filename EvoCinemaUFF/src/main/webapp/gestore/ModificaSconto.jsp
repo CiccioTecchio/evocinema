@@ -11,7 +11,7 @@
 <%@page import="java.util.List"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Modifica Sconto Esistente"); %>
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 
 <div class="container-fluid">
     <%
@@ -468,5 +468,5 @@
     });
 
 </script>
-<jsp:include page="FooterAdmin.jsp"/>
+<jsp:include page="Footer.jsp"/>
 

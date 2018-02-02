@@ -20,6 +20,10 @@
         <servlet-name>CancellazioneGestore</servlet-name>
         <servlet-class>control.accountCNT.CancellazioneGestore</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistrazioneGestoreCNT</servlet-name>
+        <servlet-class>control.accountCNT.RegistrazioneGestoreCNT</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RecuperoPasswordCNT</servlet-name>
         <url-pattern>/RecuperoPasswordCNT</url-pattern>
@@ -79,10 +83,6 @@
     <servlet-mapping>
         <servlet-name>VisualizzazioneDettagliSpettacoloCNT</servlet-name>
         <url-pattern>/VisualizzazioneDettagliSpettacoloCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AggiungiSpettacoloCNT</servlet-name>
-        <url-pattern>/admin/AggiungiSpettacoloCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ModificaSpettacoloCNT</servlet-name>
@@ -160,6 +160,10 @@
         <servlet-name>CancellazioneGestore</servlet-name>
         <url-pattern>/CancellazioneGestore</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrazioneGestoreCNT</servlet-name>
+        <url-pattern>/RegistrazioneGestoreCNT</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -236,10 +240,6 @@
         <servlet-class>control.programmazioneCNT.VisualizzazioneDettagliSpettacoloCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AggiungiSpettacoloCNT</servlet-name>
-        <servlet-class>control.programmazioneCNT.AggiungiSpettacoloCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ModificaSpettacoloCNT</servlet-name>
         <servlet-class>control.programmazioneCNT.ModificaSpettacoloCNT</servlet-class>
     </servlet>
@@ -304,13 +304,34 @@
         <url-pattern>/ConfigServlet</url-pattern>
     </servlet-mapping>
     <filter>
-        <filter-name>FiltroAdmin</filter-name>
-        <filter-class>control.libreriaCNT.FiltroAdmin</filter-class>
+        <filter-name>FiltroGestore</filter-name>
+        <filter-class>control.accountCNT.FiltroGestore</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>FiltroAdmin</filter-name>
-        <url-pattern>/admin/*</url-pattern>
+        <filter-name>FiltroGestore</filter-name>
+        <url-pattern>/gestore/*</url-pattern>
     </filter-mapping>
+    <!--
+    <filter>
+        <filter-name>FiltroOperatore</filter-name>
+        <filter-class>control.accountCNT.FiltroOperatore</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroOperatore</filter-name>
+        <url-pattern>/operatore/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FiltroUtente</filter-name>
+        <filter-class>control.accountCNT.FiltroUtente</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroUtente</filter-name>
+        <url-pattern>/utente/*</url-pattern>
+    </filter-mapping>
+    
+    <error-page>
+        <location>/Errore.jsp</location>
+    </error-page>-->
     <resource-ref>
         <description>JNDI reference to a data source</description>
         <res-ref-name>jdbc/evo_cinema</res-ref-name>
