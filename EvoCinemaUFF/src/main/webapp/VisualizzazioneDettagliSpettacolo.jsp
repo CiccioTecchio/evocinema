@@ -67,13 +67,14 @@
                         default :
                             url = "xyz";
                     }
+                    y++;
                     break;
                 default :
                     url = String.valueOf(matSala[i][j]);
             }
 %>
             <img data-pos ="" class="vds-posto <%= classe %> cell" src="<%= url %>" />
-<%          y++;
+<%
         }
  %>
                     </div>
@@ -106,8 +107,8 @@
                             </div>
                         </div>
                     </div>
-    
                 </div>
             </div>
+        </div>
 <script src="javascript/visualizzazione_dettagli_spettacolo.js"></script>
 <jsp:include page="Footer.jsp" />
