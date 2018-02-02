@@ -43,6 +43,7 @@
     <script src="javascript/login.js" type="text/javascript"></script>
     <script src="javascript/registrazione.js" type="text/javascript"></script>
     <script src="javascript/EliminaProfilo.js" type="text/javascript"></script>
+    <script src="javascript/dettagliUtente.js" type="text/javascript"></script>
     <script>
        
         var swiper = new Swiper('.swiper-container', {
