@@ -4,7 +4,7 @@
 <%@page import="java.util.Collection"%>
 <% request.setAttribute("title", "Home"); %>
 <jsp:include page="Header.jsp" />
-<jsp:include page="VisualizzazioneProgrammazioneCNT" /> 
+<jsp:include page="../VisualizzazioneProgrammazioneCNT" /> 
 
 
         <header>
@@ -17,7 +17,7 @@
       
                     %>
                     
-                    <div class="swiper-slide" ><img src="<%=f.getLocandina()%>" height="300px" width="250px" alt=""/></div>
+                    <div class="swiper-slide" ><img src="../<%=f.getLocandina()%>" height="300px" width="250px" alt=""/></div>
                     <%
                      }%>
                 </div>  
