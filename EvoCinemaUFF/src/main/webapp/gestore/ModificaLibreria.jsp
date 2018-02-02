@@ -121,6 +121,9 @@
                                 <button class="btn btn-primary btn-md mt-2" >Modifica</button>
                                 <input type="hidden" name="position" value="<%= i%>" >
                             </form>
+                            
+                            <button onclick="window.location.href='AggiungiSpettacolo.jsp?idFilmLib=<%= film.getIdFilm() %>&titoloLib=<%= film.getTitolo() %>'" class="btn btn-primary btn-md mt-2" >Inserisci in programmazione</button>
+                            
                         </div>
                     </td>
 
