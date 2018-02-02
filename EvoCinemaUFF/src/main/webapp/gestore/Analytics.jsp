@@ -13,6 +13,8 @@
     <div class="p-5" id="container" style="height: 450px"></div>
 
     <div class="p-5" id="scatter" style="height: 450px"></div>
+    
+    <div class="p-5" id="container2" style="height: 450px"></div>
 
 </div>
 

@@ -102,6 +102,7 @@
 <script>
     var arrayAffluenza=[]; //Analytics per vendita biglietti per ogni spettacolo
     var datiOperazioni=[],datiAcquisti=[],datiPrenotazioni=[]; //Analytics operazioni
+    var datiIncassi=[];//Analytics incassi
     prelevaDatiOperazioni();
     function prelevaDatiOperazioni() {
       
@@ -283,6 +284,67 @@
     
     }
     
+    
+    prelevaDatiIncassi();
+    function prelevaDatiIncassi() {
+      
+        $.ajax({
+            url: "${pageContext.request.contextPath}/AnalyticsIncasiCNT",
+            success: function(result){
+             
+              result =JSON.stringify(result).replace("{\"", "");
+              result= result.replace("\":0}","");
+                datiIncassi=result.split("_");
+                //console.info(datiOperazioni);
+                 
+                for (var i=0; i < datiIncassi.length; i++) {
+                    datiIncassi[i]=parseFloat(datiIncassi[i]);
+                }    
+                //console.info(datiIncassi);
+                creaGraficoIncassi();
+            }
+            
+            });
+   }
+    
+    function creaGraficoIncassi(){
+    Highcharts.chart('container2', {
+    yAxis: {
+        title: {
+	            text: 'Guadagno'
+	        }
+    },
+    xAxis: {
+        type: 'datetime',
+        title: {
+	            text: 'Mesi'
+	        }
+    },
+    title: {
+        text:'Analytics incassi' 
+            },
+    series: [{ 
+            color: '#FF0000',
+            name: 'Incassi', 
+            data: [ 
+            //DEVO PASSARE ANCHE IL MESE OLTRE AL VALORE PERCHE' NON SI PARTE SEMPRE DA GENNAIO 
+            [Date.UTC(datiIncassi[0], datiIncassi[1], 0), datiIncassi[2]], 
+            [Date.UTC(datiIncassi[3], datiIncassi[4], 0), datiIncassi[5]], 
+            [Date.UTC(datiIncassi[6], datiIncassi[7], 0), datiIncassi[8]], 
+            [Date.UTC(datiIncassi[9], datiIncassi[10], 0), datiIncassi[11]], 
+            [Date.UTC(datiIncassi[12], datiIncassi[13], 0), datiIncassi[14]], 
+            [Date.UTC(datiIncassi[15], datiIncassi[16], 0), datiIncassi[17]], 
+            [Date.UTC(datiIncassi[18], datiIncassi[19], 0), datiIncassi[20]], 
+            [Date.UTC(datiIncassi[21], datiIncassi[22], 0), datiIncassi[23]], 
+            [Date.UTC(datiIncassi[24], datiIncassi[25], 0), datiIncassi[26]], 
+            [Date.UTC(datiIncassi[27], datiIncassi[28], 0), datiIncassi[29]], 
+            [Date.UTC(datiIncassi[30], datiIncassi[31], 0), datiIncassi[32]], 
+            [Date.UTC(datiIncassi[33], datiIncassi[34], 0), datiIncassi[35]], 
+            [Date.UTC(datiIncassi[36], datiIncassi[37], 0), datiIncassi[38]]  
+        ]
+    }]
+    });
+    }
     
 </script>
 
