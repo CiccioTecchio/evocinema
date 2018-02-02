@@ -7,24 +7,18 @@ package control.libreriaCNT;
 
 import database.FilmDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 import model.Film;
 import model.Film.vistoCensura;
-import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,7 +66,7 @@ public class InserisciFilmCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String rh= "/admin/inserisciFilmLibreria.jsp";
+        String rh= "/gestore/inserisciFilmLibreria.jsp";
         String tipo = request.getParameter("tipo");
         String titolo = request.getParameter("titolo");
         String durata = request.getParameter("durata");
