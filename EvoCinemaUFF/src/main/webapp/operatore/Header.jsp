@@ -76,7 +76,7 @@
 
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
-            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="../images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema ADMIN</a>
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="../images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema OPERATORE</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -86,7 +86,7 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
                         <a class="nav-link" href="index.jsp">
                             <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home - Admin</span>
+                            <span class="nav-link-text">Home - Operatore</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
@@ -138,6 +138,14 @@
                         </ul>
                     </li>
                     
+                    
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="RicaricaSaldo">
+                        <a class="nav-link" href="RicaricaSaldoOperatore.jsp">
+                            <i class="fa fa-fw fa-book"></i>
+                            <span class="nav-link-text">Ricarica saldo</span>
+                        </a>
+                    </li>
+                    
 
 
 
@@ -158,8 +166,8 @@
                         if (u == null) {
                     %>
                     <li class="nav-item">
-                        <a class="nav-link" href="Login.jsp">
-                            <i class="fa fa-fw fa-sign-in" href="Login.jsp"></i>Login</a>
+                        <a class="nav-link" href="../Login.jsp">
+                            <i class="fa fa-fw fa-sign-in" href="../Login.jsp"></i>Login</a>
                     </li>
                     <%
                     } else {

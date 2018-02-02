@@ -24,6 +24,10 @@
         <servlet-name>RegistrazioneGestoreCNT</servlet-name>
         <servlet-class>control.accountCNT.RegistrazioneGestoreCNT</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RicaricaSaldoOperatoreCNT</servlet-name>
+        <servlet-class>control.accountCNT.RicaricaSaldoOperatoreCNT</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RecuperoPasswordCNT</servlet-name>
         <url-pattern>/RecuperoPasswordCNT</url-pattern>
@@ -163,6 +167,10 @@
     <servlet-mapping>
         <servlet-name>RegistrazioneGestoreCNT</servlet-name>
         <url-pattern>/RegistrazioneGestoreCNT</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RicaricaSaldoOperatoreCNT</servlet-name>
+        <url-pattern>/RicaricaSaldoOperatoreCNT</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
