@@ -129,6 +129,9 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents2">
                             <li>
+                                <a href="AggiungiOperatore.jsp">Registra Operatore o Gestore</a>
+                            </li>
+                            <li>
                                 <a href="../VisualizzaOperatoriCNT">Visualizza Operatori</a>
                             </li>
                             <li><a href="../VisualizzaGestoriCNT">Visualizza Gestori</a>
@@ -170,7 +173,7 @@
                             <i class="fa fa-user-circle fa-lg"></i><%= u.getNomeUtente()%>
                         </a>
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                            <a class="dropdown-item" href="../AccountVisualizzazioneAccount.jsp">
+                            <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                     <strong>
                                         <i class="fa fa-user-circle"></i>Profilo</strong>

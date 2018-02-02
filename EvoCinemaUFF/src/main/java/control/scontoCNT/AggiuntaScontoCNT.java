@@ -23,7 +23,7 @@ import javax.naming.NamingException;
  *
  * @author francescodefeo
  */
-@WebServlet( name = "AggiuntaSconto" , urlPatterns = { "/admin/aggiuntaSconto" } )
+@WebServlet( name = "AggiuntaSconto" , urlPatterns = { "/gestore/aggiuntaSconto" } )
 
 public class AggiuntaScontoCNT extends HttpServlet {
 

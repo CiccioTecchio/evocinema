@@ -40,7 +40,7 @@
     <script src="../javascript/login.js" type="text/javascript"></script>
     <script src="../javascript/registrazione.js" type="text/javascript"></script>
     <script src="../javascript/EliminaAccount.js" type="text/javascript"></script>
-   
+   <script src="../javascript/registraGestore.js" type="text/javascript"></script>
 
     <script>
         var swiper = new Swiper('.swiper-container', {

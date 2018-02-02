@@ -107,7 +107,7 @@ public class Login extends HttpServlet {
                     response.getWriter().write("operatore/index.jsp");
                     break;
                 case UTENTE:
-                    response.getWriter().write("utentee/index.jsp");
+                    response.getWriter().write("utente/index.jsp");
                     break;
                 default:
                     response.getWriter().write("index.jsp");
