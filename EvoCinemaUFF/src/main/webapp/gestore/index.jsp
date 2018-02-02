@@ -28,10 +28,10 @@
             <div align="center">
                 <strong><label for="from" >Dal</label></strong>
                 <input type="text" id="from" name="from" style="width:100px">
-                <img class="calendar-icon" src="images/calendar.png" height="26" width="26">
+                <img class="calendar-icon" src="../images/calendar.png" height="26" width="26">
                 <strong><label for="to">al</label>
                 <input type="text" id="to" name="to"style="width:100px">
-                <img class="calendar-icon" src="images/calendar.png" height="26" width="26">
+                <img class="calendar-icon" src="../images/calendar.png" height="26" width="26">
                
             </div>
         </div>
