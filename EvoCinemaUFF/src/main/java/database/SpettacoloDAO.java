@@ -123,7 +123,7 @@ public class SpettacoloDAO {
                 oraInizio.setTime(rs.getTime("ora_inizio"));
                 spettacoloFound.setOraInizio(oraInizio);
                 Calendar oraFine= Calendar.getInstance();
-                oraInizio.setTime(rs.getTime("ora_fine"));
+                oraFine.setTime(rs.getTime("ora_fine"));
                 spettacoloFound.setOraFine(oraFine);
                 spettacoloFound.setMatricePosti(rs.getString("matrice_posti"));
            }

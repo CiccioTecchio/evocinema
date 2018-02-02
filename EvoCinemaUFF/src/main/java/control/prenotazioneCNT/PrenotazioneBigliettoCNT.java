@@ -13,7 +13,10 @@ import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import static java.time.LocalDate.now;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -26,6 +29,7 @@ import model.Operazione;
 import model.Prenotazione;
 import model.Sala;
 import model.Sconto;
+import model.Spettacolo;
 import model.UtenteBase;
 import model.UtenteRegistrato;
 
@@ -58,15 +62,21 @@ public class PrenotazioneBigliettoCNT extends HttpServlet {
         SpettacoloDAO spettDAO = new SpettacoloDAO();
         String PostiSconti = request.getParameter("stringaPostiESconti");
         int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
-        int offset = 1; //DA FARE
+        Spettacolo spettacolo = spettDAO.foundByID(idSpettacolo);
+        String MatricePosti = spettacolo.getMatricePosti();
+        Calendar start = spettacolo.getDataInizio();
+        Calendar now = Calendar.getInstance();
+        now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+        int offset = (int) ((now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24));
+        System.out.println("Offset:"+offset);
         Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
         Operazione.prenotato prenotato = null;
         Operazione.acquistato acquistato = null;
         float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
         float prezzoFinale = 0; //DA FARE
         Calendar data = Calendar.getInstance();
-        ScontoDAO scontoDAO = new ScontoDAO(); //DA FARE
-        System.out.println("Stringa posti:"+PostiSconti);
+        ScontoDAO scontoDAO = new ScontoDAO(); 
+        char [] ArrayPosti = MatricePosti.toCharArray();
         while(!PostiSconti.equals("")){
             int posto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
             PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
@@ -96,9 +106,19 @@ public class PrenotazioneBigliettoCNT extends HttpServlet {
             utDAO.updateUtenteBase(utbase);
             s.removeAttribute("user");
             s.setAttribute("user", utbase);
-                //Aggiornare lo stao del posto
+            
+            //Aggiornare lo stao del posto
+            
+            int daCambiare = ( offset * sala.getNumeroPosti() ) + posto ; 
+            ArrayPosti[daCambiare] = 'p';
+            
         }
-
+        String newPosti = "";
+        for(int i=0; i<ArrayPosti.length; i++){
+            newPosti += (ArrayPosti[i]);
+        }
+        spettacolo.setMatricePosti(newPosti);
+        spettDAO.updateSpettacolo(spettacolo);
         response.sendRedirect("VisualizzaPrenotazioni.jsp");
         
     }

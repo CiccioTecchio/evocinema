@@ -251,15 +251,41 @@
 
         var valoreRate = $("#valoreRate").attr("value");
         
+        var recensionePresente = false; 
         
+        var recensioneStato = false; 
         
         var testoRecensione = escape($("#testoRecensione").val()); 
+        
+        if( testoRecensione.length !== 0 )
+        {
+            recensionePresente=true; 
+            
+            if( isEmpty($("#testoRecensione")) ){ recensioneStato= false; }
+            else recensioneStato=true; 
+        }
         
         if ((valoreRate !== "" ))
         {
             
                 
-                if( valoreRate >= 0.5 ) $("form").submit();
+                if( valoreRate >= 0.5 ){
+                    
+                    
+                    if(recensionePresente === false) $("form").submit();
+                    
+                    else if( recensioneStato === true ) $("form").submit();
+                        
+                        else{
+                            
+                            $('#testoModal').text("Devi inserire una recensione valida"); 
+                            $("#erroreCampi").modal({
+                             backdrop: true
+                                });
+                            
+                        }
+                    
+                } 
                 
                 else {
                     
@@ -283,7 +309,25 @@
         }
 
 
-    }
+    }; 
+    
+    function isEmpty( x ){
+	
+        console.log(x); 
+	var value = x.val(); 
+	console.log(value); 
+        
+         var regExp = /[a-z]+\w*/i;
+	
+	if(  value === '' || ! value.match(regExp)  ){ x.addClass("is-invalid");    return true;} 
+	
+	else{ 
+            
+            x.removeClass("is-invalid"); 
+              x.addClass("is-valid"); 
+            return false;} 
+	
+}
 
 </script>
 <jsp:include page="Footer.jsp" />
