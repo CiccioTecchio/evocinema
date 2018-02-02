@@ -29,7 +29,7 @@ import model.Film;
  * @author GiuseppeDelGaudio
  */
 
-@WebServlet( name = "RimozioneFilm" , urlPatterns = { "/admin/rimuoviFilm" } )
+@WebServlet( name = "RimozioneFilm" , urlPatterns = { "/gestore/rimuoviFilm" } )
 public class RimozioneFilmCNT extends HttpServlet {
 
     /**
@@ -86,7 +86,7 @@ public class RimozioneFilmCNT extends HttpServlet {
             Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-        RequestDispatcher res = request.getRequestDispatcher("/admin/ModificaLibreria.jsp");
+        RequestDispatcher res = request.getRequestDispatcher("/gestore/ModificaLibreria.jsp");
         request.setAttribute("messageDelete", messageDelete);
         
         res.forward(request, response);

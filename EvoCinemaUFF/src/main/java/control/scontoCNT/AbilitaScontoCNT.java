@@ -25,7 +25,7 @@ import org.json.JSONObject;
  *
  * @author Michele
  */
-@WebServlet(name = "abilitaSconto", urlPatterns = {"/admin/abilitaSconto"})
+@WebServlet(name = "abilitaSconto", urlPatterns = {"/gestore/abilitaSconto"})
 public class AbilitaScontoCNT extends HttpServlet {
 
     /**

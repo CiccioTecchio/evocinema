@@ -221,7 +221,7 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
                         <a class="nav-link" href="VisualizzazioneProgrammazione.jsp">
                             <i class="fa fa-fw fa-book"></i>
-                            <span class="nav-link-text">Porgrammazione</span>
+                            <span class="nav-link-text">Programmazione</span>
                         </a>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Libreria">
@@ -305,7 +305,7 @@
                 <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <!-- inizio menù laterale -->
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                        <a class="nav-link" href="./admin/index.jsp">
+                        <a class="nav-link" href="gestore/index.jsp">
                             <i class="fa fa-fw fa-home"></i>
                             <span class="nav-link-text">Home - Admin</span>
                         </a>
@@ -320,9 +320,9 @@
                                 <a href="VisualizzaLibreria.jsp">Visualizza Libreria</a>
                             </li>
                             <li>
-                                <a href="./admin/inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
+                                <a href="gestore/inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
                             </li>
-                            <li><a href="./admin/ModificaLibreria.jsp">Modifica Libreria</a>
+                            <li><a href="gestore/ModificaLibreria.jsp">Modifica Libreria</a>
 
                             </li>
 
@@ -335,9 +335,9 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents1">
                             <li>
-                                <a href="./admin/VisualizzaSconti.jsp">Visualizza Sconti</a>
+                                <a href="gestore/VisualizzaSconti.jsp">Visualizza Sconti</a>
                             </li>
-                            <li><a href="./admin/InserisciSconto.jsp">Inserisci Sconto</a>
+                            <li><a href="gestore/InserisciSconto.jsp">Inserisci Sconto</a>
 
                             </li>
 

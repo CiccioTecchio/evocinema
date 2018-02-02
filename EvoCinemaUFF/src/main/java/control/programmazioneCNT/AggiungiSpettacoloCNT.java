@@ -12,20 +12,18 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Spettacolo;
 
-/**
- *
- * @author Michele
- */
 public class AggiungiSpettacoloCNT extends HttpServlet {
 
     /**
@@ -39,19 +37,84 @@ public class AggiungiSpettacoloCNT extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        Spettacolo s = new Spettacolo();
+        String titolo, dataInizio, dataFine, oraInizio, oraFine;
+        int idFilm = 0, sala = 0;
+        float prezzo = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Logger logger = Logger.getLogger("global");
+        logger.info("aggiunta spettacolo cnt");
         try {
-            response.setContentType("text/html;charset=UTF-8");
-            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
-            SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+            try {
+                idFilm = Integer.parseInt(request.getParameter("id-film"));
+            } catch (NumberFormatException e){
+                
+            }
+            s.setIdFilm(idFilm);
             
-            int sala = Integer.parseInt(request.getParameter("id_sala"));
-            int opera = Integer.parseInt(request.getParameter("idOpera"));
-            Calendar dataInizio = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("data_inizio")));
-            Calendar dataFine = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("data_fine")));
-            float prezzo = Float.parseFloat(request.getParameter("prezzo"));
-            Calendar oraInizio = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("ora_inizio")));
-            Calendar oraFine = AggiungiSpettacoloCNT.toCalendar(sdf.parse(request.getParameter("ora_fine")));
-            spettacoloDao.createSpettacolo(new Spettacolo(sala, opera, dataInizio, dataFine, prezzo, oraInizio, oraFine));
+            if((titolo = request.getParameter("titolo")) != null){
+                s.setTitolo(titolo);
+            } else {
+                
+            }
+            
+            try {
+                sala = Integer.parseInt(request.getParameter("sala"));
+            } catch (NumberFormatException e){
+                
+            }
+            s.setIdSala(sala);
+            
+            if((dataInizio = request.getParameter("data-inizio")) != null)
+                s.setDataInizio(toCalendar(sdf.parse(dataInizio)));
+            else {
+                
+            }
+
+            if((dataFine = request.getParameter("data-fine")) != null)
+                s.setDataFine(toCalendar(sdf.parse(dataFine)));
+            else {
+                
+            }
+            
+            sdf = new SimpleDateFormat("HH:mm");
+            
+            if((oraInizio = request.getParameter("ora-inizio")) != null)
+                s.setOraInizio(toCalendar(sdf.parse(oraInizio)));
+            else {
+                
+            }
+            
+            if((oraFine = request.getParameter("ora-fine")) != null)
+                s.setOraFine(toCalendar(sdf.parse(oraFine)));
+            else {
+                
+            }
+            
+            try {
+                prezzo = Float.parseFloat(request.getParameter("prezzo"));
+            } catch (NumberFormatException e){
+                
+            }
+            s.setPrezzo(prezzo);
+            
+            char[] posti = new char[18000];
+            for(int i = 0; i < 18000; i++){
+                posti[i] = 'd';
+            }
+            s.setMatricePosti(Arrays.toString(posti));
+            
+            SpettacoloDAO spettacoloDao = new SpettacoloDAO();
+            spettacoloDao.createSpettacolo(s);
+            
+            request.setAttribute("spettacolo", s);
+            
+            logger.info("spettacolo inserito");
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiuntaSuccesso.jsp");
+            dispatcher.forward(request,response);
+            
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
         }    

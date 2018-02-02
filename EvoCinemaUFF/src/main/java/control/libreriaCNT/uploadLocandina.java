@@ -24,7 +24,7 @@ import org.json.JSONObject;
  * @author GiuseppeDelGaudio
  */
 @WebServlet( name ="uploadLocandina" , 
-			 urlPatterns = { "/admin/uploadLocandina" })
+			 urlPatterns = { "/gestore/uploadLocandina" })
 @MultipartConfig ( fileSizeThreshold = 1024 * 1024 * 2 , // Threshold  1mb
 						
 					maxFileSize = 1024*1024*5, //  5mb file max size 
@@ -63,7 +63,7 @@ public class uploadLocandina extends HttpServlet {
             
                     String namefile = old.substring(old.lastIndexOf("/")+1);
                     String path =  request.getServletContext().getRealPath("")+"images"+File.separator+"locandine"+File.separator+namefile;
-                    System.out.println("la path del file è -->"+path);
+
                     File oldFile = new File(path); 
                     
                     if(oldFile.exists()) oldFile.delete(); 
@@ -80,19 +80,15 @@ public class uploadLocandina extends HttpServlet {
 		if( request.getParts() != null && request.getParts().size() > 0 ) {
 			
 			Part part = request.getPart("locandina"); 
-			
-			System.out.println("lungezza parti "+part.getContentType()+part.getName());
-			
+						
 			nameFile = this.extractFileName(part , browserType );
-			System.out.println("Nome File --> "+nameFile);
-			part.write(pathServer+File.separator+nameFile );
-			System.out.println("Nome inseriemtn ..."+pathServer+File.separator+nameFile);
+
+                        part.write(pathServer+File.separator+nameFile );
            
 			JSONObject json = new JSONObject();
                         
                         json.put("nomeFile", nameFile); 
                         
-                        System.out.println("Ho creato il json " + json.toString() );
 			
                         response.getWriter().print(json.toString());
 			
@@ -108,14 +104,7 @@ public class uploadLocandina extends HttpServlet {
 			
 			
 		}
-		
-		
-		
-		
-		
-                
-		
-		
+			
 		
 	}
 	

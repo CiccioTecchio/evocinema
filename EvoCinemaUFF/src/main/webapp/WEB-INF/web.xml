@@ -312,13 +312,34 @@
         <url-pattern>/ConfigServlet</url-pattern>
     </servlet-mapping>
     <filter>
-        <filter-name>FiltroAdmin</filter-name>
-        <filter-class>control.libreriaCNT.FiltroAdmin</filter-class>
+        <filter-name>FiltroGestore</filter-name>
+        <filter-class>control.accountCNT.FiltroGestore</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>FiltroAdmin</filter-name>
-        <url-pattern>/admin/*</url-pattern>
+        <filter-name>FiltroGestore</filter-name>
+        <url-pattern>/gestore/*</url-pattern>
     </filter-mapping>
+    <!--
+    <filter>
+        <filter-name>FiltroOperatore</filter-name>
+        <filter-class>control.accountCNT.FiltroOperatore</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroOperatore</filter-name>
+        <url-pattern>/operatore/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FiltroUtente</filter-name>
+        <filter-class>control.accountCNT.FiltroUtente</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroUtente</filter-name>
+        <url-pattern>/utente/*</url-pattern>
+    </filter-mapping>
+    -->
+    <error-page>
+        <location>/Errore.jsp</location>
+    </error-page>
     <resource-ref>
         <description>JNDI reference to a data source</description>
         <res-ref-name>jdbc/evo_cinema</res-ref-name>
