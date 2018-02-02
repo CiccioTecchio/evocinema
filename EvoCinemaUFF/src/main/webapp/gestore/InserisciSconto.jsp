@@ -4,11 +4,15 @@
     Author     : Angelo
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Film"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Spettacolo"%>
 <%@page import="model.FilmConValutazioneMedia"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Sconto"%>
 <% request.setAttribute("title", "Inserimento Nuovo Sconto");%>
-<jsp:include page="HeaderAdmin.jsp"/>
+<jsp:include page="Header.jsp"/>
 
 <div class="container-fluid">
 
@@ -26,7 +30,7 @@
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong> <%= messaggio%> </strong>
             <button class="close" aria-label="Close" type="button" data-dismiss="alert">
-                <span aria-hidden="true">×</span>
+                <span aria-hidden="true">ï¿½</span>
             </button>
         </div>
 
@@ -99,11 +103,11 @@
                     <strong>Giorno della settimana: </strong>
                     <select name="giornoDellaSettimana">
 
-                        <option value="MONDAY" selected>  Lunedì  </option>
-                        <option value="TUESDAY">  Martedì  </option>
-                        <option value="WEDNESDAY">  Mercoledì  </option>
-                        <option value="THURSDAY"> Giovedì  </option>
-                        <option value="FRIDAY">  Venerdì  </option>
+                        <option value="MONDAY" selected>  Lunedï¿½  </option>
+                        <option value="TUESDAY">  Martedï¿½  </option>
+                        <option value="WEDNESDAY">  Mercoledï¿½  </option>
+                        <option value="THURSDAY"> Giovedï¿½  </option>
+                        <option value="FRIDAY">  Venerdï¿½  </option>
                         <option value="SATURDAY">  Sabato  </option>
                         <option value="SUNDAY">  Domenica  </option>
 
@@ -115,11 +119,31 @@
                         <input type="text" class="form-control" name="genere" id="genereText"  placeholder="Inserisci il genere per cui applicare lo sconto" />
                     </p>
                 </div>
-                <script>
-                    $(document).ready(function () {
-                        $(".js-example-basic-single").select2();
-                    });
-                </script>
+         
+            
+                <jsp:include page= "/VisualizzazioneProgrammazioneCNT"/>
+
+<%
+    
+                List<Spettacolo> spettacoli = (List<Spettacolo>) request.getAttribute("spettacoli1");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+    
+%>
+                
+                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
+                <strong> Spettacolo </strong>
+                    <select class="js-example-basic-single" name="spettacolo">
+                       
+                         <option value="0" >Nessuno</option>
+                    <% for (Spettacolo s : spettacoli) {
+                          %>
+                          <option value="<%=s.getIdFilm() %>">
+                              <%=s.getTitolo() %> Orario: <%=sdf.format(s.getOraInizio().getTime())%> 
+                                </option>
+                               <% }%>
+                    </select>
+                </div>
+                              
                 <jsp:include page= "/visualizzaValutazioni"/>
 
                 <%
@@ -143,16 +167,11 @@
                         <% }%>
                     </select>
                 </div>
-
-                <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
-                    <strong> Spettacolo </strong>
-                    <p>
-                        <input type="number" class="form-control" name="spettacolo" id="spettacoloNum"  placeholder="Inserisci l'id dello spettacolo per cui applicare lo sconto" />
-                    </p>
-                </div>
+                       
+         
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
-                        <strong> Sconta se l'età è:&nbsp;&nbsp; </strong>
+                        <strong> Sconta se l'etï¿½ ï¿½:&nbsp;&nbsp; </strong>
                         <select name="eta">
 
                             <option value="<" selected>  minore di  </option>
@@ -161,7 +180,7 @@
                         </select>
                     </p>
                     <p>
-                        <input type="number" id="etaNum" class="form-control" name="cifraEta"  placeholder="Inserisci l'età" />
+                        <input type="number" id="etaNum" class="form-control" name="cifraEta"  placeholder="Inserisci l'etï¿½" />
                     </p>
                 </div>
                 <div id="divData" class="text-center mt-5 mb-5">
@@ -199,7 +218,28 @@
 
     </div>
 
-    <script>
+<script>
+    $(document).ready(function () {
+        // Initialize select2
+        $(".js-example-basic-single").select2();
+    });
+</script>
+
+<script>
+    
+    $("#divFisso").hide("fast");
+    
+    $("#divGenere").hide("fast");
+    $("#divFilm").hide("fast");
+    $("#divSpettacolo").hide("fast");
+    $("#divEta").hide("fast");
+    $("#divSesso").hide("fast");
+    $("#divData").hide("fast");
+    $("#divAltro").hide("fast");
+    
+    
+    $('.datepicker').datepicker({
+    });
 
         function validation() {
 
@@ -213,10 +253,10 @@
                 if (isNumber($('#scontoFisso'))) fl++; 
                 
             } else {
-                 
-                  
-                  if(isNumber($('#percentualeSconto'))) fl++;
-                  
+                                   
+                  if(isNumber($('#percentualeSconto')))
+                        if (($('#percentualeSconto').val()>0)&&($('#percentualeSconto').val()<=100)) fl++;
+
             }
           
           if ($("#checkGiornoSettimana").is(":checked")) fl++;
@@ -427,5 +467,5 @@
         });
 
     </script>
-    <jsp:include page="FooterAdmin.jsp"/>
+    <jsp:include page="Footer.jsp"/>
 
