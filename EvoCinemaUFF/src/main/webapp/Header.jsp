@@ -350,6 +350,9 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents2">
                             <li>
+                                <a href="admin/AggiungiOperatore.jsp">Registra Operatore o Gestore</a>
+                            </li>
+                            <li>
                                 <a href="VisualizzaOperatoriCNT">Visualizza Operatori</a>
                             </li>
                             <li><a href="VisualizzaGestoriCNT">Visualizza Gestori</a>
