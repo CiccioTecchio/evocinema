@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registra nuovo gestore</title>
     </head>
-    <jsp:include page="HeaderAdmin.jsp" />
+    <jsp:include page="Header.jsp" />
     <body>
     <script>
     $( function() {
@@ -199,5 +199,5 @@
                     
                 <% } %>    
     </body>
-    <jsp:include page="FooterAdmin.jsp" />
+    <jsp:include page="Footer.jsp" />
 </html>
