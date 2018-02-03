@@ -73,7 +73,7 @@ public class VisualizzaOperatoriCNT extends HttpServlet {
 
         }
         
-        response.sendRedirect("admin/VisualizzaOperatori.jsp");
+        response.sendRedirect("gestore/Operatori.jsp");
     }
 
     /**

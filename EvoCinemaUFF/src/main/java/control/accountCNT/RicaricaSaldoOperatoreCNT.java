@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +26,7 @@ import model.UtenteRegistrato;
  *
  * @author Michele
  */
-
-public class CancellazioneAccountCNT extends HttpServlet {
+public class RicaricaSaldoOperatoreCNT extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -74,32 +72,63 @@ public class CancellazioneAccountCNT extends HttpServlet {
         processRequest(request, response);
         
         HttpSession s = request.getSession();
-        UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
+        UtenteRegistrato u = (UtenteRegistrato) s.getAttribute("user");
+        UtenteBase utente=null;
+        float ricarica = 0.0f;
+        ricarica = Float.parseFloat(request.getParameter("ricaricaSaldo"));
         
-        boolean cancellato=false;
-        System.out.println("utente in sessione: "+utente);
+        String emailUtente = request.getParameter("ricaricaEmail");
         
         
-            try {
-                
-                UtenteRegistratoDAO model = new UtenteRegistratoDAO();
-                cancellato=model.deleteUtenteRegistrato(utente.getEmail());
-                
-
+        try {
+            UtenteRegistratoDAO model = new UtenteRegistratoDAO();
+            utente = model.foundUtenteBaseByEmail(emailUtente);
             } catch (NamingException | SQLException | ParseException ex) {
-                Logger.getLogger(CancellazioneAccountCNT.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestioneSaldoCNT.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
-        if (cancellato==true){
-            s.removeAttribute("user");
-        }
-        
-        
-        String page="../index.jsp";
-        response.sendRedirect(page);
-        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        //dispatcher.forward(request, response);
-    }
+            
+            if(utente==null){
+                s.setAttribute("emailNonValida", "true");
+                s.setAttribute("ricaricaEffettuata", "false");
+                String page="/operatore/RicaricaSaldoOperatore.jsp";
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            }else{
+            
+                if(ricarica+utente.getSaldo()>=999.99){
+                    s.setAttribute("ImportoNonValido", "true");
+                    s.setAttribute("ricaricaEffettuata", "false");
+                    String page="/operatore/RicaricaSaldoOperatore.jsp";
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                }else{
+
+                    if(ricarica>0){
+                        float saldo = utente.getSaldo();
+                        System.out.println("saldo: "+saldo);
+                        System.out.println("importo da ricaricare: "+ricarica);
+                        saldo = saldo + ricarica;
+                        System.out.println("saldo dopo ricarica: "+saldo);
+                        utente.setSaldo(saldo);
+                        System.out.println("saldo utente: "+utente.getSaldo());
+
+                        try{
+                            UtenteRegistratoDAO model = new UtenteRegistratoDAO();
+                            model.updateUtenteRegistrato(utente);}
+                        catch (NamingException | SQLException | ParseException ex) {
+                            Logger.getLogger(GestioneSaldoCNT.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        s.setAttribute("emailNonValida", "false");
+                        s.setAttribute("ImportoNonValido", "false");
+                        s.setAttribute("ricaricaEffettuata", "true");
+                        
+                        String page="/operatore/RicaricaSaldoOperatore.jsp";
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                        
+                    }
+                }
+            
+
+            
+    }}
 
     /**
      * Returns a short description of the servlet.

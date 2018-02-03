@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$(".bottoni").click(function() {
+	$(".bottoneEliminaGestore").click(function() {
 
 		var email = $(this).attr('id');
 

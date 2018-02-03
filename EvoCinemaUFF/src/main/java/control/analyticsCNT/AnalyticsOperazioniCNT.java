@@ -46,7 +46,7 @@ public class AnalyticsOperazioniCNT extends HttpServlet {
         //DAO operazione con parametro esterno Date
         
         OperazioneDAO opdao=new OperazioneDAO();
-        String dati=opdao.analitycsGetDatiAcquisti();
+        String dati=opdao.analyticsGetDatiAcquisti();
         
         //String dati="2018_0_18_1_27_2_29_3_15_4_16_5_50_6_66_7_34_8_5_9_9_10_44_11_10";//Stringa realizzata scorrendo la lista di operazioni ritornata dalla DAO
         

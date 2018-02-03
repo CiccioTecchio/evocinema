@@ -1,5 +1,5 @@
 
-
+</div>
 </div>
 <footer class="sticky-footer">
     <div class="container">
@@ -40,6 +40,7 @@
     <script src="../javascript/login.js" type="text/javascript"></script>
     <script src="../javascript/registrazione.js" type="text/javascript"></script>
     <script src="../javascript/EliminaAccount.js" type="text/javascript"></script>
+    <script src="../javascript/dettagliUtente.js" type="text/javascript"></script>
    
 
     <script>

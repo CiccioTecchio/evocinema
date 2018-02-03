@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Gestore;
 import model.UtenteRegistrato;
 
 /**
@@ -77,10 +78,11 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
             }
 
             HttpSession s = request.getSession();
+            boolean aggiunto=false;
 
            
             
-            UtenteRegistrato u = new UtenteRegistrato() {};
+            Gestore u = new Gestore() ;
             
             String ruolo=((String)request.getParameter("ruoloRegistrazione"));
                 if(ruolo.equalsIgnoreCase("gestore")){
@@ -100,7 +102,7 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
                 String myData = request.getParameter("dataRegistrazione");
                 
                 int giorno = Integer.parseInt(myData.substring(3, 5));
-                int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
+                int mese = Integer.parseInt(myData.substring(0, 2))-1 ;
                 int anno = Integer.parseInt(myData.substring(6, 10));
                 Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
                 data.set(anno, mese, giorno);                
@@ -132,12 +134,14 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
                 }           */    
                 
                 try {
-                    model.createUtenteRegistrato(u);
+                    aggiunto=model.createUtenteRegistrato(u);
+                    
                 } catch (SQLException | ParseException | NamingException ex) {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("admin/AggiungiOperatore.jsp");
+                s.setAttribute("accountRegistrato", aggiunto);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiungiOperatore.jsp");
                 dispatcher.forward(request, response);
 
                 

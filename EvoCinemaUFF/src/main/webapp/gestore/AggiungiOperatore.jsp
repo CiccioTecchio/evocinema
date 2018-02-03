@@ -21,13 +21,32 @@
     </script>
         <%            
             HttpSession s = request.getSession();
-
+            
+            Boolean aggiunto=null;
+            aggiunto=(Boolean) s.getAttribute("accountRegistrato");
+            s.removeAttribute("accountRegistrato");
+            String a="";
+            String b="";
+            if(aggiunto==null){
+                a="";b="";
+            }else{
+                if(aggiunto.equals(true)){
+                    a+="Account registrato.";
+                    b+="green";
+                }else{
+                    if(aggiunto.equals(false)){
+                        a+="Impossibile registrare.";
+                        b+="red";
+                    }
+                }} 
+            
             UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
             if (utente==null){
-                response.sendRedirect("Login.jsp");
+                response.sendRedirect("../Login.jsp");
             }else{    
         %>    
         
+        <h1><font color="<%=b%>"><%=a%></font></h1>
         <div class="container">
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">Registra un nuovo account</div>
@@ -188,6 +207,7 @@
                                 <p class="error-psw2">Siamo spiacenti, esiste già un altro account con questo nome utente</p>
                             </span>
                         </div>
+                        <center><h1><font color="<%=b%>"><%=a%></font></h1></center>
                         
                     </form>
                     

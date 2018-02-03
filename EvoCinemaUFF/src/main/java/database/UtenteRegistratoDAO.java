@@ -12,7 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -354,10 +357,13 @@ public class UtenteRegistratoDAO {
         try {
             if(u.getRuolo().equals(UTENTE)){
                 UtenteBase ut= (UtenteBase) u;
-                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)VALUES ('" + ut.getEmail() + "', '" + ut.getNomeUtente() + "', '" + ut.getPassword() + "', '" + ut.getRuolo() + "', '" + ut.getNome() + "', '" + ut.getCognome() + "', '" + dataN + "', '" + ut.getSesso() + "', '" + ut.getCellulare() + "', '" + ut.getCittà() + "', '" + ut.getIndirizzo() + "' , '"+ut.getSaldo()+"')");
+                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo , dataIscrizione )VALUES ('" + ut.getEmail() + "', '" + ut.getNomeUtente() + "', '" + ut.getPassword() + "', '" + ut.getRuolo() + "', '" + ut.getNome() + "', '" + ut.getCognome() + "', '" + dataN + "', '" + ut.getSesso() + "', '" + ut.getCellulare() + "', '" + ut.getCittà() + "', '" + ut.getIndirizzo() + "' , '"+ut.getSaldo()+"' , ? )");
             }else{
-                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo)VALUES ('" + u.getEmail() + "', '" + u.getNomeUtente() + "', '" + u.getPassword() + "', '" + u.getRuolo() + "', '" + u.getNome() + "', '" + u.getCognome() + "', '" + dataN + "', '" + u.getSesso() + "', '" + u.getCellulare() + "', '" + u.getCittà() + "', '" + u.getIndirizzo() + "')");
+                stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Utente ( email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo , dataIscrizione )VALUES ('" + u.getEmail() + "', '" + u.getNomeUtente() + "', '" + u.getPassword() + "', '" + u.getRuolo() + "', '" + u.getNome() + "', '" + u.getCognome() + "', '" + dataN + "', '" + u.getSesso() + "', '" + u.getCellulare() + "', '" + u.getCittà() + "', '" + u.getIndirizzo() + "' , ? )");
             }
+            
+            stmt.setDate(1, new Date(System.currentTimeMillis()) );
+            
             stmt.executeUpdate();
             inserito = true;
         } finally {
@@ -501,6 +507,116 @@ public class UtenteRegistratoDAO {
             }
         }
         
+    }
+    
+    
+     /**
+     * Metodo per la raccolta di Analytics inerenti il numero di iscrizioni utenti
+     * 
+     *
+     * 
+     * @return restituisce una {@link ArrayList} con la data e il numero di occorrenze in quel giorno. 
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
+    public synchronized ArrayList getIscrizioniAnalyticsAll() throws SQLException, ParseException, NamingException {
+
+        PreparedStatement stmt = null;
+        ArrayList array = new ArrayList();
+        try {
+
+            stmt = (PreparedStatement) connection.prepareStatement("select count(email) as occorrenze , dataIscrizione from Utente "
+                                            + "WHERE ruolo = 'UTENTE' group by dataIscrizione order by dataIscrizione");
+           
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            while(rs.next()){
+            
+                array.add(rs.getDate("dataIscrizione")); 
+                array.add(rs.getInt("occorrenze")); 
+                
+            }
+            
+            
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return array;
+    }
+    
+    public synchronized ArrayList getIscrizioniAnalyticsMaggioredi( int anni ) throws SQLException, ParseException, NamingException {
+
+        PreparedStatement stmt = null;
+        ArrayList array = new ArrayList();
+        
+        Date date = new Date(System.currentTimeMillis()); 
+        
+        date.setYear( date.getYear() - anni );
+        
+        try {
+
+            stmt = (PreparedStatement) connection.prepareStatement("select count(email) as occorrenze , dataIscrizione from Utente "
+                                            + "WHERE ruolo = 'UTENTE' AND data_nascita >= ? group by dataIscrizione order by dataIscrizione");
+           
+            stmt.setDate(1, date);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            while(rs.next()){
+            
+                array.add(rs.getDate("dataIscrizione")); 
+                array.add(rs.getInt("occorrenze")); 
+                
+            }
+            
+            
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return array;
+    }
+    
+    
+    public synchronized ArrayList getIscrizioniAnalyticsMinoredi( int anni ) throws SQLException, ParseException, NamingException {
+
+        PreparedStatement stmt = null;
+        ArrayList array = new ArrayList();
+        
+        Date date = new Date(System.currentTimeMillis()); 
+        
+        date.setYear( date.getYear() - anni );
+        
+        try {
+
+            stmt = (PreparedStatement) connection.prepareStatement("select count(email) as occorrenze , dataIscrizione from Utente "
+                                            + "WHERE ruolo = 'UTENTE' AND data_nascita <= ? group by dataIscrizione order by dataIscrizione");
+           
+            stmt.setDate(1, date);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            
+            while(rs.next()){
+            
+                array.add(rs.getDate("dataIscrizione")); 
+                array.add(rs.getInt("occorrenze")); 
+                
+            }
+            
+            
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return array;
     }
 
 }

@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Utente` (
   `città` VARCHAR(45) NULL,
   `indirizzo` VARCHAR(100) NULL,
   `saldo` DECIMAL(5,2) NULL DEFAULT 0,
+  `dataIscrizione` DATE ,
   PRIMARY KEY (`email`),
   UNIQUE INDEX `nome_utente_UNIQUE` (`nome_utente` ASC))
 ENGINE = InnoDB;
