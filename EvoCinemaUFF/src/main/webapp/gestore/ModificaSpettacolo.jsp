@@ -10,7 +10,7 @@
 <%@page import="model.Film"%>
 <%@page import="model.Sala"%>
 <%@page import="java.util.List"%>
-<% request.setAttribute("title", "Aggiungi Spettacolo"); %>
+<% request.setAttribute("title", "Modifica Spettacolo"); %>
 <jsp:include page="Header.jsp" />
 <jsp:include page="PopolamentoListe"/>
 <% List<Sala> sale = (List<Sala>) request.getAttribute("sale"); 
@@ -24,8 +24,8 @@
     <div class="card-body">
 
         <form accept-charset="utf-8" method="POST" action="ModificaSpettacolo">
-          <input id="id-film" type="hidden" name="id-film" value="" />
-          <input id="id-spettacolo" type="hidden" name="id-spettacolo" value="<%= spettacolo.getIdSpettacolo() %>" />
+          <input id="id-film" type="hidden" name="id-film" value="<%=spettacolo.getIdFilm() %>" />
+          <input id="id-spettacolo" type="hidden" name="id-spettacolo" value="<%=spettacolo.getIdSpettacolo()%>" />
           <div class="form-group">
             <label for="select-film" class="col-form-label">Opera: </label>
             <select class="form-control" id="select-film" required>
@@ -43,7 +43,7 @@
           </div>
           <div class="form-group">
             <label for="titolo-spettacolo" >Titolo dello spettacolo:</label>
-            <input name="titolo"type="text" class="form-control" placeholder="Titolo" id="titolo-spettacolo" required>
+            <input name="titolo"type="text" class="form-control" value="<%= spettacolo.getTitolo()%>" id="titolo-spettacolo" required>
           </div>
           <div class="form-group">
             <label for="select-sala" >Sala </label>
@@ -70,12 +70,12 @@
           </div>
           <div class="form-group">
             <label for="ora-inizio" >Ora Inizio:</label>
-            <input type="time" name="ora-inizio" class="form-control" id="ora-inizio" value="<%= sdf.format(spettacolo.getOraInizio().getTime())%>" required>
+            <input type="time" name="ora-inizio" class="form-control" id="ora-inizio" value="<%= sdfOra.format(spettacolo.getOraInizio().getTime())%>" required>
             <small id="ora-inizio-help" class="form-text text-muted">Seleziona l'orario in cui è consentito l'ingresso in sala.</small>
           </div>
           <div class="form-group">
             <label for="ora-fine" >Ora Fine:</label>
-            <input type="time" name="ora-fine" class="form-control" id="ora-fine" value="<%= sdf.format(spettacolo.getOraFine().getTime())%>" required>
+            <input type="time" name="ora-fine" class="form-control" id="ora-fine" value="<%= sdfOra.format(spettacolo.getOraFine().getTime())%>" required>
             <small id="ora-fine-help" class="form-text text-muted">Seleziona l'orario in cui lo spettacolo terminerà.</small>
           </div>
           <div class="form-group">
