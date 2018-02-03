@@ -542,7 +542,7 @@ public class OperazioneDAO {
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized String analitycsGetDatiAcquisti() throws SQLException, ParseException, NamingException {
+   public synchronized String analyticsGetDatiAcquisti() throws SQLException, ParseException, NamingException {
       
     PreparedStatement stmt=null;
        String datiAcquisti =  "",datiPrenotazioni="";
@@ -589,5 +589,90 @@ public class OperazioneDAO {
        return datiAcquisti+datiPrenotazioni;
 
     }
+   
+   
+   
+/**
+     * Permette di estrarre il numero di biglietti venduti per ogni spettacolo in programmazione oppure no
+     * dell'anno prima
+     * @return stringa che rappresenta numero di biglietti venduti per ogni spettacolo
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public synchronized String analyticsGetDatiAffluenzeSpettacolo() throws SQLException, ParseException, NamingException {
+      
+    PreparedStatement stmt=null;
+       String datiAffluenze =  "";
+       int maxAffluenza=0;
+       int numeroFilm=0;
+       try {
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT Spettacolo.titolo, "
+                    + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Spettacolo INNER JOIN "
+                    + " evo_cinema.Operazione ON Spettacolo.idSpettacolo=Operazione.idSpettacolo "+
+            " group by Spettacolo.titolo; ");
+            ResultSet rs = stmt.executeQuery();
+                
+		while (rs.next()) {
+                    datiAffluenze=datiAffluenze+rs.getString("titolo")+"_";
+                    int numeroAffluenze=Integer.parseInt(rs.getString("num"));
+                    datiAffluenze=datiAffluenze+numeroAffluenze+"_";
+                    if(numeroAffluenze>maxAffluenza)
+                        maxAffluenza=numeroAffluenze;
+                    
+                    numeroFilm++;
+                }
+                
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
+		}
+       //System.out.println(maxAffluenza+"_"+numeroFilm+"_"+datiAffluenze);
+       return maxAffluenza+"_"+numeroFilm+"_"+datiAffluenze;
+       
+    }
+   
+      
+/**
+     * Permette di estrarre il guadagno mensile per ogni biglietto acquistato 
+     * dell'anno prima
+     * @return stringa che rappresenta data, mese e utile guadagnato
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public synchronized String analyticsGetDatiIncassi() throws SQLException, ParseException, NamingException {
+      
+    PreparedStatement stmt=null;
+       String datiIncassi =  "";
+      
+       try {
+            stmt = (PreparedStatement) connection.prepareStatement(
+                    " SELECT YEAR(Operazione.data) as anno, MONTH(Operazione.data) as mese, "+ 
+                    " SUM(Operazione.prezzo_finale) as utile "+
+                    " FROM evo_cinema.Operazione where Operazione.data>'2017-02-02' "+
+                    " AND Operazione.acquistato='true' group by YEAR(Operazione.data), MONTH(Operazione.data); "
+                    );
+            ResultSet rs = stmt.executeQuery();
+                
+		while (rs.next()) {
+                    datiIncassi = datiIncassi+rs.getString("anno")+"_";
+                    datiIncassi = datiIncassi+rs.getString("mese")+"_";
+                    datiIncassi = datiIncassi+rs.getString("utile")+"_";
+                }
+                
+            } catch(Exception e){
+                e.printStackTrace();
+            } finally {
+		if (stmt != null)
+			stmt.close();
+		}
+       //System.out.println(datiIncassi);
+       return datiIncassi;
+       
+    }
+   
    
 }

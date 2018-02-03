@@ -120,11 +120,7 @@
         <servlet-name>PrenotazioneCNT</servlet-name>
         <url-pattern>/PrenotazioneCNT</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AnalyticsIscrizioniCNT</servlet-name>
-        <url-pattern>/AnalyticsIscrizioniCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+       <servlet-mapping>
         <servlet-name>AnalyticsFilmCNT</servlet-name>
         <url-pattern>/AnalyticsFilmCNT</url-pattern>
     </servlet-mapping>
@@ -279,11 +275,7 @@
         <servlet-name>PrenotazioneCNT</servlet-name>
         <servlet-class>control.acquistoCNT.PrenotazioneCNT</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AnalyticsIscrizioniCNT</servlet-name>
-        <servlet-class>control.analyticsCNT.AnalyticsIscrizioniCNT</servlet-class>
-    </servlet>
-    <servlet>
+        <servlet>
         <servlet-name>AnalyticsFilmCNT</servlet-name>
         <servlet-class>control.analyticsCNT.AnalyticsFilmCNT</servlet-class>
     </servlet>
