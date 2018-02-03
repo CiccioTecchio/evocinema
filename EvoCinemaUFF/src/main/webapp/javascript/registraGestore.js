@@ -160,14 +160,13 @@
                      $.ajax({
                          
                               type: "POST",
-                              url:"../RegistrazioneGestoreCNT",
+                              url:"RegistrazioneGestoreCNT",
                               data:{"nomeRegistrazione":nome, "cognomeRegistrazione":cognome, "ruoloRegistrazione":ruolo,
                               "emailRegistrazione":email, "indirizzoRegistrazione":indirizzo,
                               "cittaRegistrazione":citta, "passwordRegistrazione":password, "password1Registrazione":password2, "cellulareRegistrazione":cellulare,
                               "userRegistrazione":username, "dataRegistrazione":dataNascita, "sessoRegistrazione":sesso},
                               dataType: "text",
-                              success: function () { 
-                                     alert("Account registrato.");
+                              success: function () {
                                      location.reload();
                                  },error: function(){
                                      alert("Impossibile registrare.");

@@ -23,9 +23,9 @@
         String a = "";
         String b = "";
         if (utente.getSesso().equals(sesso.M)) {
-            a = "checked";
+            a = "selected";
         } else {
-            b = "checked";
+            b = "selected";
         }
 
 
@@ -48,7 +48,7 @@
                 <!-- left column -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="text-center">
-                        <img src="images/photoUser.png" class=" img-circle img-thumbnail" alt="avatar">
+                        <img src="../images/photoUser.png" class=" img-circle img-thumbnail" alt="avatar">
 
 
                     </div>
@@ -58,6 +58,14 @@
 
 
                     <form  class="form-horizontal" >
+                        
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Email</label>
+                            <div class="col-lg-10">
+                                <input class="form-control" type="text" name="modificaEmail" maxlength="50"  value="<%=utente.getEmail()%>" disabled="true" >
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Username</label>
                             <div class="col-lg-10">
@@ -68,7 +76,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Nome</label>
                             <div class="col-lg-10">
-                                <input class="form-control" type="text" id="nomeRegistrazioneVisualizza" name="nomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getNomeUtente()%>" >
+                                <input class="form-control" type="text" id="nomeRegistrazioneVisualizza" name="nomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getNome()%>" >
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorNomeVisualizza">
@@ -132,7 +140,7 @@
                                 <p class="error-pswVisualizza">Questo campo non può contenere meno di 9 caratteri!</p>
                             </span>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label class="col-lg-3 control-label">Email</label>
                             <div class="col-lg-10">
 
@@ -148,11 +156,11 @@
                                     <p class="error-pswVisualizza">Attenzione! Inserisci una mail corretta.</p>
                                 </span>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="col-md-3 control-label">Password</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" id="passwordRegistrazioneVisualizza" name="passwordRegistrazioneVisualizza" maxlength="50" value="<%=utente.getPassword()%>">
+                                <input class="form-control" type="password" id="passwordRegistrazioneVisualizza" name="passwordRegistrazioneVisualizza" maxlength="50">
                             </div>
                         </div>
 
@@ -164,7 +172,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Conferma password</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" id="passwordRegistrazione2Visualizza" name="passwordRegistrazione2Visualizza" maxlength="50" value="<%=utente.getPassword()%>" >
+                                <input class="form-control" type="password" id="passwordRegistrazione2Visualizza" name="passwordRegistrazione2Visualizza" maxlength="50" >
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorPassword2Visualizza">
@@ -176,8 +184,8 @@
                              <div class="col-md-10">
                             <label for="exampleInputName">Sesso</label>
                                     <select id= "sessoRegistrazioneVisualizza" name="sessoRegistrazioneVisualizza" class="form-control">
-                                        <option value="maschio">Maschio</option>
-                                        <option value="femmina">Femmina</option>
+                                        <option value="maschio" <%=a%> >Maschio</option>
+                                        <option value="femmina" <%=b%> >Femmina</option>
                                     </select>
                         </div>
                         </div>
@@ -186,7 +194,7 @@
                         <div class="form-group">
 
                             <div class="col-md-10">
-                                <button id="dettagli" class="btn btn-primary btn-block" type="submit">Salva</button>
+                                <button id="dettagliUtente" class="btn btn-primary btn-block" type="submit">Salva</button>
                             </div>
 
                         </div>
@@ -212,7 +220,7 @@
             }
             
             if (txt === "OK"){
-            $.post('CancellazioneAccountCNT', {
+            $.post('../CancellazioneAccountCNT', {
 
             }, function() {
             location.reload();
