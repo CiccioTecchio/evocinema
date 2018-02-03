@@ -13,13 +13,13 @@
                     $('#errorPassword2Visualizza').hide();
                     $('#errorMatchVisualizza').hide();
                     
-                    $("#dettagli").click(function(e) {   
+                    $("#dettagliUtente").click(function(e) {   
                      
                      e.preventDefault();
                      
                      var nome =  $('#nomeRegistrazioneVisualizza').val();
                      var cognome = $('#cognomeRegistrazioneVisualizza').val();
-                     var email =  $('#emailRegistrazioneVisualizza').val();
+                    
                      var indirizzo = $('#indirizzoRegistrazioneVisualizza').val();
                      var citta =  $('#cittaRegistrazioneVisualizza').val();
                      var cellulare = $('#cellulareRegistrazioneVisualizza').val();
@@ -28,7 +28,7 @@
                      var password = $('#passwordRegistrazioneVisualizza').val();
                      var password2 = $('#passwordRegistrazione2Visualizza').val();
                      var bool=true;
-                     alert(dataNascita);
+                     
                      if(nome.length<2){
                          $('#errorNomeVisualizza').show(); 
                          bool=false;
@@ -64,7 +64,7 @@
                          $('#errorCellulareVisualizza').hide();
                          bool=true;
                      }
-                     if(email.length<5){
+                     /*if(email.length<5){
                          $('#errorEmail2Visualizza').show();
                          bool=false;
                      }
@@ -111,7 +111,7 @@
                                 $('#errorEmail3Visualizza').hide();
                                 bool=true;
                             }
-                     }
+                     }*/
                      if(password.length<8){
                          $('#errorPasswordVisualizza').show();  
                          bool=false;
@@ -152,21 +152,22 @@
                      $.ajax({
                         
                               type: "POST",
-                              url:"ModificaDettagliCNT",
-                              data:{"a":nome,
-                                    "cognomeRegistrazioneVisualizza":cognome,
-                                    "emailRegistrazioneVisualizza":email,
-                                    "indirizzoRegistrazioneVisualizza":indirizzo,
-                                    "cittaRegistrazioneVisualizza":citta,
-                                    "cellulareRegistrazioneVisualizza":cellulare,
-                                    "dataRegistrazioneVisualizza":dataNascita,
-                                    "passwordRegistrazioneVisualizza":password,
-                                    "passwordRegistrazione2Visualizza":password2,
-                                    "sessoRegistrazioneVisualizza":sesso},
-                              success: function (data) { 
-                                  
+                              url:"/ModificaDettagliCNT",
+                              data:{"modificaNome":nome,
+                                    "modificaCognome":cognome,
+                                    "modificaIndirizzo":indirizzo,
+                                    "modificaCitta":citta,
+                                    "modificaCellulare":cellulare,
+                                    "modificaData":dataNascita,
+                                    "modificaPassword":password,
+                                    "modificaPassword1":password2,
+                                    "modificaSesso":sesso},
+                              success: function () { 
+                                  location.reload();
                                   alert("Le modifiche sono state salvate!");
-                                 }                    
+                                 },  error: function(){
+                                    alert("Impossibile modificare!");
+                                 }              
                             });
                      }       
     });

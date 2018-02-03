@@ -145,9 +145,16 @@ public class ModificaDettagliCNT extends HttpServlet {
         s.removeAttribute("user");
         s.setAttribute("user", utente);
         
+        String page="";
+        
+        int ruolo = utente.getRuolo().ordinal();
+          switch (ruolo){
+              case 0 : page+="utente/AccountVisualizzazioneAccount.jsp";
+              case 1: page+="operatore/AccountVisualizzazioneAccount.jsp";
+              case 2: page+="gestore/AccountVisualizzazioneAccount.jsp";
+        }
         
         
-        String page="/AccountVisualizzazioneAccount.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
         dispatcher.forward(request, response);
     }
