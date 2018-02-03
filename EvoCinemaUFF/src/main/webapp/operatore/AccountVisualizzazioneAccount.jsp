@@ -23,9 +23,9 @@
         String a = "";
         String b = "";
         if (utente.getSesso().equals(sesso.M)) {
-            a = "checked";
+            a = "selected";
         } else {
-            b = "checked";
+            b = "selected";
         }
 
 
@@ -184,8 +184,8 @@
                              <div class="col-md-10">
                             <label for="exampleInputName">Sesso</label>
                                     <select id= "sessoRegistrazioneVisualizza" name="sessoRegistrazioneVisualizza" class="form-control">
-                                        <option value="maschio">Maschio</option>
-                                        <option value="femmina">Femmina</option>
+                                        <option value="maschio" <%=a%> >Maschio</option>
+                                        <option value="femmina" <%=b%> >Femmina</option>
                                     </select>
                         </div>
                         </div>
@@ -194,7 +194,7 @@
                         <div class="form-group">
 
                             <div class="col-md-10">
-                                <button id="dettagli" class="btn btn-primary btn-block" type="submit">Salva</button>
+                                <button id="dettagliUtente" class="btn btn-primary btn-block" type="submit">Salva</button>
                             </div>
 
                         </div>
@@ -220,7 +220,7 @@
             }
             
             if (txt === "OK"){
-            $.post('CancellazioneAccountCNT', {
+            $.post('../CancellazioneAccountCNT', {
 
             }, function() {
             location.reload();

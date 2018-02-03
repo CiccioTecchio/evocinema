@@ -78,6 +78,7 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
             }
 
             HttpSession s = request.getSession();
+            boolean aggiunto=false;
 
            
             
@@ -133,11 +134,13 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
                 }           */    
                 
                 try {
-                    model.createUtenteRegistrato(u);
+                    aggiunto=model.createUtenteRegistrato(u);
+                    
                 } catch (SQLException | ParseException | NamingException ex) {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                s.setAttribute("accountRegistrato", aggiunto);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiungiOperatore.jsp");
                 dispatcher.forward(request, response);
 
