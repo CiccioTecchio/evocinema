@@ -96,10 +96,10 @@ public class CancellazioneGestore extends HttpServlet {
                 
 
                 if(ruolo.equals("o")){
-                    page="VisualizzaOperatoriCNT";
+                    page="../VisualizzaOperatoriCNT";
                 }else{
                     if(ruolo.equals("g")){
-                        page="VisualizzaGestoriCNT";
+                        page="../VisualizzaGestoriCNT";
                     }
                 }
 

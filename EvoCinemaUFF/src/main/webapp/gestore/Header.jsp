@@ -150,9 +150,12 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents3">
                             <li>
-                                <a href="Operatori.jsp">Operatori</a>
+                                <a href="AggiungiOperatore.jsp">Registra nuovo Operatore o Gestore</a>
                             </li>
-                            <li><a href="Gestori.jsp">Gestori</a>
+                            <li>
+                                <a href="../VisualizzaOperatoriCNT">Operatori</a>
+                            </li>
+                            <li><a href="../VisualizzaGestoriCNT">Gestori</a>
 
                             </li>
 

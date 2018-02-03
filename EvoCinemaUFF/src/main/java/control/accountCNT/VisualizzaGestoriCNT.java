@@ -72,7 +72,7 @@ public class VisualizzaGestoriCNT extends HttpServlet {
 
         }
         
-        response.sendRedirect("admin/VisualizzaGestori.jsp");
+        response.sendRedirect("gestore/Gestori.jsp");
     }
 
     /**
