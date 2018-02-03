@@ -11,13 +11,18 @@
 
 <div class="card">
     <div class="p-5" id="container" style="height: 450px"></div>
+</div>
 
+<div class="card">
     <div class="p-5" id="scatter" style="height: 450px"></div>
-    
-    <div class="p-5" id="container2" style="height: 450px"></div>
-    
-    <div class="p-5" id="sconti" style="height: 450px"></div>
+</div>    
 
+<div class="card">
+    <div class="p-5" id="container2" style="height: 450px"></div>
+</div>    
+
+<div class="card">
+    <div class="p-5" id="sconti" style="height: 450px"></div>
 </div>
 
 <div class="card" >
@@ -185,6 +190,9 @@ $.getJSON(
     
     function creaGraficoOperazioni(){
     Highcharts.chart('container', {
+    chart: {
+                zoomType: 'x'
+            },        
     yAxis: {
         title: {
 	            text: 'Num. operazioni'
@@ -199,6 +207,10 @@ $.getJSON(
     title: {
         text:'Analytics operazioni' 
             },
+    subtitle: {
+        text: document.ontouchstart === undefined ?
+                        'Clicca e trascina per ingrandire i contenuti' : ''
+    },
     series: [{
             color: '#00FF00', 
             name: 'Acquisti', 
@@ -269,13 +281,17 @@ $.getJSON(
     
     function creaGraficoAffluenzaSpettacoli(){
         Highcharts.chart('scatter', {
-	    chart: {
-	        type: 'column'
+            chart: {
+                zoomType: 'x',
+                type: 'column'
 	    },
 	    title: {
 	        text: title='Analytics affluenza per film' 
 	    },
-            
+            subtitle: {
+                    text: document.ontouchstart === undefined ?
+                                    'Clicca e trascina per ingrandire i contenuti' : ''
+                },            
 	    xAxis: {
 	        type: 'category',
 	        min: 0,
@@ -286,6 +302,9 @@ $.getJSON(
 	                fontSize: '10px',
 	                fontFamily: 'Verdana, sans-serif'
 	            }
+	        },
+                title: {
+	            text: 'Film'
 	        }
 	    },
 	    yAxis: {
@@ -351,6 +370,9 @@ $.getJSON(
     
     function creaGraficoIncassi(){
     Highcharts.chart('container2', {
+    chart: {
+                zoomType: 'x'
+            },
     yAxis: {
         title: {
 	            text: 'Guadagno'
@@ -365,6 +387,10 @@ $.getJSON(
     title: {
         text:'Analytics incassi' 
             },
+    subtitle: {
+        text: document.ontouchstart === undefined ?
+                        'Clicca e trascina per ingrandire i contenuti' : ''
+    },
     series: [{ 
             color: '#FF0000',
             name: 'Incassi', 
@@ -397,14 +423,14 @@ function prelevaDatiSconti(){
               result =JSON.stringify(result).replace("{\"", "");
               result= result.replace("\":0}","");
                arraySconti=result.split("*");
-                console.info(arraySconti);
-                
-                for (var i=0; i < arraySconti.length; i+=5) {
+                var i=0;
+                while( i < arraySconti.length) {
                     var ii=i+4;
                     arraySconti[i]=parseFloat(arraySconti[i]);
                     arraySconti[ii]=parseFloat(arraySconti[ii]);
-                }    
-                
+                    i+=5;
+                }
+                //console.info(arraySconti);
                 creaGraficoSconti();
             }
             
@@ -413,64 +439,49 @@ function prelevaDatiSconti(){
 }
 
 
-function creaGraficoSconti(){
-     Highcharts.chart('sconti', {
-	    chart: {
-	        type: 'column'
-	    },
-	    title: {
-	        text: title='Analytics frequenza utilizzo sconti'
-	    },
-            
-	    xAxis: {
-	        type: 'category',
-                labels: {
-	            rotation: -45,
-	            style: {
-	                fontSize: '10px',
-	                fontFamily: 'Verdana, sans-serif'
-	            }
-	        }
-	    },
-	    yAxis: {
-	        title: {
-	            text: 'Frequenza di utilizzo'
-	        }
-	    },
-	    legend: {
-	        enabled: false
-	    },
-	    series: [{
-	        name: 'Frequenza',
-                color: '#C200FF',
-	        data: (function () {
-                        var data = [],
-                        i;
-                        for (i = 0; i <= arraySconti.length; i +=5) {
-                        var ii=i+4,j=i+1;
-                        data.push([
-                            arraySconti[j],
-                            arraySconti[ii]
-                            ]);
-                        
-                        
+
+creaGraficoSconti();
+function creaGraficoSconti(){ 
+   Highcharts.chart('sconti', {
+        chart: {
+            type: 'variablepie'
+        },
+        title: {
+            text: 'Frequenza di utilizzo degli sconti'
+        },
+        tooltip: {
+            headerFormat: '',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                    'IdSconto : <b>{point.idSconto}</b><br/>' +
+                        'Disponibilità : <b>{point.disponibilita}</b><br/>' +
+                'Tipologia : <b>{point.tipologia}</b><br/>'+
+        'Frequenza utilizzo : <b>{point.z}</b><br/>' 
+        },
+        series: [{
+            minPointSize: 10,
+            innerSize: '14%',
+            zMin: 0,
+            name: 'sconti',
+            data: (function () {
+                        var data = [];
+                        for(var i=0;i<arraySconti.length;i+=5){
+                            var j=i;
+                            //console.info(arraySconti[i]);
+                            if(isNaN(arraySconti[i]))break;
+                            data.push({
+                            idSconto: arraySconti[j] ,
+                            name:arraySconti[j+1],
+                            disponibilita: arraySconti[j+2],     
+                            tipologia:arraySconti[j+3],
+                            y: 1,
+                            z: arraySconti[j+4]
+                            });
                         }
-            return data;
-        }()),
-	        dataLabels: {
-	            enabled: true,
-	            rotation: -90,
-	            color: '#FFFFFF',
-	            align: 'right',
-	            y: 10, // 10 pixels down from the top
-	            style: {
-	                fontSize: '10px',
-	                fontFamily: 'Verdana, sans-serif'
-	            }
-	        }
-	    }]
-	});	
-        
+                    return data;
+                }())
+                    
+        }] //fine serie
+    });
 
 }
 

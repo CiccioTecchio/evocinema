@@ -61,12 +61,13 @@
 
 
         <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
     </head>
 
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
         <script src="../HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -76,7 +77,7 @@
 
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
-            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="../images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 50px">Evo Cinema ADMIN</a>
+            <a class="navbar-brand" style="color: white" href="index.jsp" ><span></span><img src="../images/logo.png" class="img-fluid" style="max-height: 40px; max-width: 40px"> Evo Cinema </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -113,17 +114,17 @@
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione libreria">
                         <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
                             <i class="fa fa-fw fa-film"></i>
-                            <span class="nav-link-text">Gestione libreria</span>
+                            <span class="nav-link-text">Gestione libreria film</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents1" >
                             <li>
-                                <a href="VisualizzaLibreria.jsp">Visualizza Libreria</a>
+                                <a href="VisualizzaLibreria.jsp">Visualizza libreria</a>
                             </li>
                             <li>
-                                <a href="inserisciFilmLibreria.jsp">Inserisci un Film in Libreria</a>
+                                <a href="inserisciFilmLibreria.jsp">Inserisci un film in libreria</a>
                             </li>
                             <li>
-                                <a href="ModificaLibreria.jsp">Modifica Libreria</a>
+                                <a href="ModificaLibreria.jsp">Modifica libreria</a>
                             </li>
 
                         </ul>
@@ -135,9 +136,9 @@
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents2">
                             <li>
-                                <a href="VisualizzaSconti.jsp">Visualizza Sconti</a>
+                                <a href="VisualizzaSconti.jsp">Visualizza sconti</a>
                             </li>
-                            <li><a href="InserisciSconto.jsp">Inserisci Sconto</a>
+                            <li><a href="InserisciSconto.jsp">Inserisci sconto</a>
 
                             </li>
 
@@ -179,7 +180,7 @@
                             <li>
                                 <a href="ModificaSala.jsp?id=4">Sala 4</a>
                             </li>
-                                                        <li>
+                            <li>
                                 <a href="ModificaSala.jsp?id=5">Sala 5</a>
                             </li>
                             <li>
@@ -220,26 +221,23 @@
                     } else {
                     %> 
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <i class="fa fa-user-circle fa-lg"></i> <%= u.getNomeUtente()%>
-                        </a>
+                    <li class="nav-item dropdown mr-3" data-placement="right">
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
                             <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
-                                    <strong>
-                                        <i class="fa fa-user-circle"></i> Profilo </strong>
+                                    <i class="fa fa-user-circle"></i> Profilo
                                 </span>
-
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">
                                 <span class="text-danger">
-                                    <strong>
-                                        <i class="fa fa-fw fa-sign-out"></i> Logout </strong>
+                                    <i class="fa fa-fw fa-sign-out"></i> Logout
                                 </span>
                             </a>
                         </div>
+                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-user-circle fa-lg"></i> &nbsp; <%= u.getNomeUtente()%>
+                        </a>
                     </li>
 
                     <%
