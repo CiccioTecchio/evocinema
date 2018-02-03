@@ -1,0 +1,13 @@
+/* 
+    Created on : 11-gen-2018, 14.46.39
+    Author     : luca
+*/
+
+.vds-posto {
+    margin : 0.5px;
+    margin-bottom:5px;
+}
+
+#riepilogo-ordine span {
+    text:5em;
+}

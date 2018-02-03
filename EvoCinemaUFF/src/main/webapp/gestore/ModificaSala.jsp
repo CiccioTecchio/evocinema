@@ -42,7 +42,7 @@
                                     break;
                             }
                             %>
-                    <img data-pos ="" class="vds-posto <%= classe %> cell" src="<%= url %>" />
+                    <img data-row="<%=i%>" data-col="<%=j%>" class="ms-casella <%= classe %> cell" src="<%= url %>" />
                     <%
                         }
                     %> </div>    <%
@@ -53,5 +53,5 @@
         </div>
     </div>
 </div>
-
+<script src="../javascript/modifica_sala.js"></script>
 <jsp:include page="Footer.jsp"/>
