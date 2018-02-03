@@ -38,12 +38,12 @@
                             <div class="card-body">
                                 <label>Seleziona l'importo da ricaricare</label>
                                 <div class="btn-group bootstrap-select base__select select_value light open">
-                                    <button class="btn btn-secondary btn-lg dropdown-toggle" id="bottone1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-secondary btn-lg dropdown-toggle" style="width: 200px" id="bottone1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                          <span class="filter-option pull-left" >
-                                                15
+                                                Nessun Importo
                                             </span>
                                     </button>
-                                    <ul class="dropdown-menu"id="showtogglemenu" style="max-height: 246px; overflow-y: auto;" aria-labelledby="dropdownMenu">
+                                    <ul class="dropdown-menu"id="showtogglemenu" style=" width: 200px; max-height: 246px; overflow-y: auto;" aria-labelledby="dropdownMenu">
                                         <li><a class="dropdown-item" style="text-align: center " >
                                             <span class="text-success" >
                                                 15
