@@ -13,20 +13,23 @@
    
     String ricaricaEffettuata="";
     ricaricaEffettuata+=(String) s.getAttribute("ricaricaEffettuata");
+    s.removeAttribute("ricaricaEffettuata");
     String c="";
     
-    if(ricaricaEffettuata==null){ 
+    if(ricaricaEffettuata.equals("")){ 
         c="";
+        System.out.println(c);
     }else{
         if(ricaricaEffettuata.equals("true")){
-            c="";
+            c="Ricarica effettuata.";
+            System.out.println(c);
         }else{
              if(ricaricaEffettuata.equals("false")){
-            c="La ricarica non è andata a buon fine. Impossibile ricaricare l'importo inserito.";
+                c="La ricarica non è andata a buon fine. Impossibile ricaricare l'importo inserito.";
+                System.out.println(c);
             }
         }
     }
-    
     
 %>
 <!DOCTYPE html>
@@ -43,26 +46,83 @@
             else{
         %>
         
+       <div class="col-lg-8">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Ricarica Saldo</div>
+            <div class="card-body"> 
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            
         
+                <label>Inserisci email utente da ricaricare:</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="ricaricaEmail" name="ricaricaEmail" ><br><br>
+                    </div>
+        
+        
+        <div class="card-body">
+                                <label>Seleziona l'importo da ricaricare</label>
+                                <div class="btn-group bootstrap-select base__select select_value light open">
+                                    <button class="btn btn-secondary btn-lg dropdown-toggle" id="bottone1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <span class="filter-option pull-left" >
+                                                15
+                                            </span>
+                                    </button>
+                                    <ul class="dropdown-menu"id="showtogglemenu" style="max-height: 246px; overflow-y: auto;" aria-labelledby="dropdownMenu">
+                                        <li><a class="dropdown-item" style="text-align: center " >
+                                            <span class="text-success" >
+                                                15
+                                            </span>
+                                        </a></li>
+                                        <li><a class="dropdown-item"  style="text-align: center " >
+                                            <span class="text-success" >
+                                                25
+                                            </span>
+                                        </a></li>
+                                        <li><a class="dropdown-item"  style="text-align: center ">
+                                            <span class="text-success" >
+                                                30
+                                            </span>
+                                        </a></li>
+                                        <li><a class="dropdown-item"  style="text-align: center ">
+                                            <span class="text-success" >
+                                                50
+                                            </span>
+                                        </a></li>
+                                         <li><a class="dropdown-item"  style="text-align: center ">
+                                            <span class="text-success" >
+                                                100
+                                            </span>
+                                        </a></li>
+                                    </ul>
+                                </div>
+                            </div>
             
-        <h1>Ricarica saldo</h1><br>
-        
-        Inserisci email utente da ricaricare:<br>
-            
-        <input type="text" id="ricaricaEmail" name="ricaricaEmail" ><br><br>
-        
-        
-        Inserisci importo da ricaricare:<br>
-            
-        <input type="text" id="ricaricaSaldo" name="ricaricaSaldo"><br>
-        <p></p><br><br>
-            
-        
+        <div class="card-footer" style="background-color:#ffffff ">
         <button onclick="confermaRicarica()" class="btn btn-primary btn-block" type="sumbit">Ricarica</button><br>
+        </div>
         <p><font color="red"><%=c%></font></p><br>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+       
         
                                 
                                 <script>
+                                    $(function(){
+
+                                    $(".dropdown-menu li a").click(function(){
+
+                                      $("#bottone1").text($(this).text());
+                                      $("#bottone1").val($(this).text());
+
+                                      });
+
+                                    });
+                                    
                                     function confermaRicarica() {
                                         var txt;
                                         if (confirm("Sei sicuro di voler ricaricare il saldo?")) {
@@ -72,15 +132,15 @@
                                         }
 
                                     if(txt==="OK"){
-                                        var ricarica= $('#ricaricaSaldo').val();
+                                        var ricarica= $('#bottone1').val();
                                         var email = $('#ricaricaEmail').val();
                                          
                                         $.post('../RicaricaSaldoOperatoreCNT', {
                                          "ricaricaSaldo" : ricarica, "ricaricaEmail": email
                                         }, function() {
-                                               location.reload();
+                                            location.reload();
                                         }).fail(function() {
-                                                alert("Impossibile ricaricare.");
+                                                alert("Impossibile ricaricare. Inserisci un'email valida.");
                                                 
                                                 location.reload();
                                                 

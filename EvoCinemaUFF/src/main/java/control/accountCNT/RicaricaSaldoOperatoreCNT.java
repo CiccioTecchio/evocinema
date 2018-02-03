@@ -119,13 +119,15 @@ public class RicaricaSaldoOperatoreCNT extends HttpServlet {
                         s.setAttribute("emailNonValida", "false");
                         s.setAttribute("ImportoNonValido", "false");
                         s.setAttribute("ricaricaEffettuata", "true");
+                        
+                        String page="/operatore/RicaricaSaldoOperatore.jsp";
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+                        
                     }
                 }
             
 
-            String page="/operatore/RicaricaSaldoOperatore.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-            dispatcher.forward(request, response);
+            
     }}
 
     /**
