@@ -55,6 +55,9 @@ public class AnalyticsIscrizioniCNT extends HttpServlet {
         
         response.setContentType("text/html");
         
+        String scelta = request.getParameter("scelta"); 
+        
+        
         String json = "[\n";
         
         Date date; 
@@ -65,7 +68,23 @@ public class AnalyticsIscrizioniCNT extends HttpServlet {
              
             UtenteRegistratoDAO dao = new UtenteRegistratoDAO();
             
-            ArrayList array = dao.getIscrizioniAnalytics();
+            ArrayList array= null; 
+            
+            if( scelta.equals("tutti") ) array = dao.getIscrizioniAnalyticsAll();
+            
+            if( scelta.equals("maggiore") ) {
+            
+                int eta = Integer.parseInt(request.getParameter("eta"));
+                array = dao.getIscrizioniAnalyticsMaggioredi(eta);
+            
+            }
+            
+            if( scelta.equals("minore") ) {
+            
+                int eta = Integer.parseInt(request.getParameter("eta"));
+                array = dao.getIscrizioniAnalyticsMinoredi(eta);
+            
+            }
             
             int i= 0; 
             

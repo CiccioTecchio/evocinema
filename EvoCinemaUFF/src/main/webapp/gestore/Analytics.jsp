@@ -20,14 +20,63 @@
 
 <div class="card" >
     
+    
+    
     <div class="p-5" id="iscrizioniUtenti" style="height: 450px"></div>
+    <div class="form-group text-center">
+                <label for="censura"> Seleziona Eta </label>
+                <select id="selectUtentiEta" onchange="cambioSelectUtenti()" >
+                     <option value="maggiore">Maggiore di </option>
+                    <option value="minore">Minore di</option>
+                    <option value="tutti" selected> Tutti </option>
+                 </select>
+                
+                
+                <input type="number" min="1" disabled="true" onchange="insertEta()" style=" width: 5%" id="utentiEta" >
+     </div>
 </div>
-
 <script>
     
 // inizio script iscrizioni utenti
+
+$( document ).ready(function() {
+    
+    aggiornaGraficoUtenti("tutti","");
+    
+});
+
+function insertEta(){
+    
+    var param = $('#utentiEta').val();
+    
+    var passa ="&eta="+param;
+    
+    var scelta = $('#selectUtentiEta').val();
+    
+    aggiornaGraficoUtenti(scelta , passa);
+    
+};
+
+function cambioSelectUtenti(){
+    
+  var select = $('#selectUtentiEta').val();
+  $('#utentiEta').val("");
+    if( select === 'tutti' ){ 
+            $('#utentiEta').attr("disabled",true);
+            aggiornaGraficoUtenti(select , "");}
+    else {
+        
+        $('#utentiEta').attr("disabled",false);
+        
+    }
+    
+};
+
+function aggiornaGraficoUtenti(scelta , parametro){
+   
+
 $.getJSON(
-    "${pageContext.request.contextPath}/gestore/IscrizioniUtenti",
+    "${pageContext.request.contextPath}/gestore/IscrizioniUtenti?scelta="+scelta+parametro,
     function (data) {
 
         Highcharts.chart('iscrizioniUtenti', {
@@ -86,7 +135,7 @@ $.getJSON(
             }]
         });
     }
-);
+);};
 // fine script iscrizione utenti
 </script>
 <jsp:include page="Footer.jsp"/>
