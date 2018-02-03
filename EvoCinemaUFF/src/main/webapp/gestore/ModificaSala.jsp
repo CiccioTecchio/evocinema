@@ -16,7 +16,7 @@
         <div class ="col">
             <div id="seats" class="card">
                 <h5 class="card-header">Configurazione Sala</h5>
-                <div class="card-body">
+                <div class="card-body" id="seats">
                     <%
                     for(int i = 0; i < 30; i++){
                         %>
@@ -49,9 +49,17 @@
                     }
                     %>
                 </div>
+                <div class="card-footer">
+                    <button onclick="popolaForm();" form="form" class="btn btn-primary">Applica Modifiche</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<form id="form" action="ApplicaModificheSala" method="POST" hidden>
+    <input id="form-input" type="text" name="posti" value=""/>
+</form>
+                
 <script src="../javascript/modifica_sala.js"></script>
 <jsp:include page="Footer.jsp"/>

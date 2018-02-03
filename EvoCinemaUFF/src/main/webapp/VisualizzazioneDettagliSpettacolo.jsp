@@ -32,9 +32,9 @@
                 <div class="col-8">
                     <div class="card">
                         <div class="card-header" ><h5>Dettagli Spettacolo</h5>
-                        <%if((utente != null) && utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE) {%>
-                        <a href="/gestore/ModificaSpettacolo?idSpettacolo=<%=spettacolo.getIdSpettacolo()%>" ><button class="btn btn-primary">Modifica SPettacolo</button></a>
-                        <%}%>
+                        <%if((utente != null) && (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE)) { %>
+                            <a href="/gestore/ModificaSpettacolo?idSpettacolo=<%=spettacolo.getIdSpettacolo()%>" ><!--<button class="btn btn-primary">Modifica Spettacolo</button>-->gdfigh</a>
+                        <%} %>
                         </div>
                         <div class="card-body">
                             <div class="row">

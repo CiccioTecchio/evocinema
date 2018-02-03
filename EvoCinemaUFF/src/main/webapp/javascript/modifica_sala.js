@@ -1,8 +1,6 @@
 
-var caselle = document.querySelectorAll(".ms-posto");
-var seats = document.getElementById("seats");
-var prezzo = seats.getAttribute("data-prezzo");
-var ro = document.querySelector("#riepilogo-ordine .container");
+var caselle = document.querySelectorAll(".ms-casella");
+var input = document.getElementById("form-input");
 
 setIdPosto(seats.getAttribute("data-num-posti"));
 
@@ -18,49 +16,34 @@ function handleMouseOver(e){
 
 function handleClick(e) {
     var el = e.target;
-    if(el.getAttribute("src") == "images/poltrona_disponibile_v2.png"){
-        el.setAttribute("src", "images/poltrona_selezionata_v2.png");
-        addToRiepilogo(e);
-        calcolaTotale();
-        setPosti();
-    } else if(el.getAttribute("src") == "images/poltrona_selezionata_v2.png"){
-        el.setAttribute("src", "images/poltrona_disponibile_v2.png");
-        removeFromRiepilogo(e);
-        calcolaTotale();
-        setPosti();
+    if(el.getAttribute("src") == "../images/poltrona_non_disponibile_v2.png"){
+        el.setAttribute("src", "../images/poltrona_disponibile_v2.png");
+    } else if(el.getAttribute("src") == "../images/poltrona_disponibile_v2.png"){
+        el.setAttribute("src", "../images/poltrona_occupata_v2.png");
+    } else {
+        el.setAttribute("src", "../images/poltrona_non_disponibile_v2.png");
     }
 }
 
-function setIdPosto(id){
-    var posti = document.querySelectorAll("#seats img[class*='vds-posto-']");
-    for(i = 0; i < id; i++){
-        posti[i].setAttribute("data-pos", i);
+function popolaForm(){
+    var values="";
+    var pre = "http://" + location.hostname + ":8080/EvoCinemaUFF/images/";
+    for(i = 0; i < caselle.length; i++){
+       var src = caselle[i].src; //getAttribute("src");
+       switch(src){
+           case (pre + "poltrona_non_disponibile_v2.png") :
+               values += '0';
+               break;
+           case (pre + "poltrona_disponibile_v2.png") :
+               values += '1';
+               break;
+           case (pre + "poltrona_occupata_v2.png") :
+               values += '2';
+               break;
+           default :
+               values += 'e';
+               break;
+       }
+       input.setAttribute("value", values);
     }
-}
-
-function addToRiepilogo(e){
-    var el = e.target;
-    var str = "<div class='row'><div class='col'><p data-pos='" + el.getAttribute("data-pos") + "'>Posto: " + el.getAttribute("data-pos") + 
-                "</p></div><div class='col'><p class='prezzo'>Prezzo: " + prezzo + "&euro;</p></div></div>";
-    str = str + ro.innerHTML;
-    ro.innerHTML = str;
-}
-
-function removeFromRiepilogo(e){
-    var el = e.target;
-    var pos = el.getAttribute("data-pos");
-    $("p[data-pos='"+pos+"'").parent().parent().remove();
-}
-
-function calcolaTotale(){
-    $("#totale").html("Totale = " + $(".prezzo").length * prezzo + "&euro;");
-}
-
-function setPosti(){
-    var posti = "";
-    var ps = ro.querySelectorAll("p[data-pos]");
-    for(i = 0; i < ps.length; i++){
-        posti += (ps[i].getAttribute("data-pos") + "-");
-    }
-    $("#p").attr("value", posti);
 }
