@@ -190,6 +190,9 @@ $.getJSON(
     
     function creaGraficoOperazioni(){
     Highcharts.chart('container', {
+    chart: {
+                zoomType: 'x'
+            },        
     yAxis: {
         title: {
 	            text: 'Num. operazioni'
@@ -204,6 +207,10 @@ $.getJSON(
     title: {
         text:'Analytics operazioni' 
             },
+    subtitle: {
+        text: document.ontouchstart === undefined ?
+                        'Clicca e trascina per ingrandire i contenuti' : ''
+    },
     series: [{
             color: '#00FF00', 
             name: 'Acquisti', 
@@ -274,13 +281,17 @@ $.getJSON(
     
     function creaGraficoAffluenzaSpettacoli(){
         Highcharts.chart('scatter', {
-	    chart: {
-	        type: 'column'
+            chart: {
+                zoomType: 'x',
+                type: 'column'
 	    },
 	    title: {
 	        text: title='Analytics affluenza per film' 
 	    },
-            
+            subtitle: {
+                    text: document.ontouchstart === undefined ?
+                                    'Clicca e trascina per ingrandire i contenuti' : ''
+                },            
 	    xAxis: {
 	        type: 'category',
 	        min: 0,
@@ -359,6 +370,9 @@ $.getJSON(
     
     function creaGraficoIncassi(){
     Highcharts.chart('container2', {
+    chart: {
+                zoomType: 'x'
+            },
     yAxis: {
         title: {
 	            text: 'Guadagno'
@@ -373,6 +387,10 @@ $.getJSON(
     title: {
         text:'Analytics incassi' 
             },
+    subtitle: {
+        text: document.ontouchstart === undefined ?
+                        'Clicca e trascina per ingrandire i contenuti' : ''
+    },
     series: [{ 
             color: '#FF0000',
             name: 'Incassi', 
