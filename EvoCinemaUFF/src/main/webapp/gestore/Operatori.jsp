@@ -24,7 +24,7 @@
     <body>
         <% 
             if (utente==null){
-            response.sendRedirect("Login.jsp");}
+            response.sendRedirect("../Login.jsp");}
             else{
         %> 
         
@@ -72,7 +72,7 @@
                 </td>
                 <td>
                     
-                        <button class="bottoni" type="submit" name="<%=ut.getEmail()%>" id="<%="o"+ut.getEmail()%>" <%= disabled %>>Cancella</button>
+                        <button class="bottoneEliminaGestore" type="submit" name="<%=ut.getEmail()%>" id="<%="o"+ut.getEmail()%>" <%= disabled %>>Cancella</button>
                     
                 </td>
                 

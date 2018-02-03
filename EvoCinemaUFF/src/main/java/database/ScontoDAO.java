@@ -351,4 +351,44 @@ public class ScontoDAO {
     return delete;
     }
    
+   
+   
+   /**
+     * Metodo che restituisce una stringa che descrive gli sconti utilizzati con nome, disponibilità e tipologia
+     * @return stringa che descrive sconti utilizzati con nome, disponibilità e tipologia
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException 
+     */
+   public synchronized String analyticsFrequenzaSconti() throws SQLException, ParseException, NamingException {
+      
+       PreparedStatement stmt=null;
+       String sconti="";
+       
+       try {
+           stmt = (PreparedStatement) connection.prepareStatement(
+                   " SELECT Sconto.idSconto,Sconto.nome,Sconto.disponibile, "+
+                    " Sconto.tipologia,COUNT(Sconto.idSconto) as frequenza "+
+           " FROM evo_cinema.Operazione INNER JOIN evo_cinema.Sconto ON Sconto.idSconto = Operazione.sconto_applicato "+
+            " AND Sconto.idSconto!=41 GROUP BY Sconto.idSconto; ");
+           ResultSet rs = stmt.executeQuery();
+           
+           while (rs.next()) {
+               
+           sconti+=rs.getString("idSconto")+"*";
+           sconti+=rs.getString("nome")+"*";
+           sconti+=rs.getString("disponibile")+"*";
+           sconti+=rs.getString("tipologia")+"*";
+           sconti+=rs.getString("frequenza")+"*";
+           }
+           } finally{
+           if (stmt != null)
+                        stmt.close();
+       }       
+       System.out.println(sconti);
+    return sconti;
+    }
+   
+   
+   
 }

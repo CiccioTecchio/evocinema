@@ -24,7 +24,7 @@
 
             UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
             if (utente==null){
-                response.sendRedirect("Login.jsp");
+                response.sendRedirect("../Login.jsp");
             }else{    
         %>    
         
