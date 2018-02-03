@@ -5,6 +5,7 @@
  */
 package control.programmazioneCNT;
 
+import database.FilmDAO;
 import database.SalaDAO;
 import database.SpettacoloDAO;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Film;
 import model.Sala;
 import model.Spettacolo;
 
@@ -51,12 +53,14 @@ public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
             now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
             Calendar start = spettacolo.getDataInizio();
             int offset = (int) ((now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24));
-            
+            FilmDAO filmDao = new FilmDAO();
+            Film film = filmDao.foundByID(spettacolo.getIdFilm());
             
             request.setAttribute("spettacolo", spettacolo);
+            request.setAttribute("film", film);
             request.setAttribute("sala", sala);
             request.setAttribute("offset", offset);
-            request.setAttribute("title", "Programmazione");
+            request.setAttribute("title", "Dettagli Spettacolo");
         } catch (SQLException | ParseException | NamingException e){
             Logger.getLogger(VisualizzazioneDettagliSpettacoloCNT.class.getName()).log(Level.SEVERE, null, e);
         }    

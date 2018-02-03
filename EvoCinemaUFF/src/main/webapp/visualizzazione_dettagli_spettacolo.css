@@ -8,20 +8,17 @@
     margin-bottom:5px;
 }
 
-.vds-posto-non-disponibile {
-    
+.container-fluid > .row {
+    margin-bottom: 3%;
 }
 
-.vds-posto-disponibile {
-    
+.card-header h5 {
+    float:left;
 }
 
-.vds-posto-prenotato {
-    
-}
 
-.vds-posto-occupato {
-    
+.card-header a {
+    float:right;
 }
 
 #riepilogo-ordine span {
