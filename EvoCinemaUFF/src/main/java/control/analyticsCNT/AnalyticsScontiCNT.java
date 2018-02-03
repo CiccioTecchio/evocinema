@@ -5,12 +5,20 @@
  */
 package control.analyticsCNT;
 
+import database.OperazioneDAO;
+import database.ScontoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -28,8 +36,19 @@ public class AnalyticsScontiCNT extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException, NamingException, SQLException, ParseException {
+        response.setContentType("application/json;charset=UTF-8");
+        
+        ScontoDAO scdao=new ScontoDAO();
+        String dati=scdao.analyticsFrequenzaSconti();
+             
+        JSONObject jsonObject = new JSONObject();
+        
+        jsonObject.put(dati, 0);
+        
+        response.getWriter().write(jsonObject.toString());
+        
+        
         
     }
 
@@ -45,7 +64,15 @@ public class AnalyticsScontiCNT extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(AnalyticsScontiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnalyticsScontiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AnalyticsScontiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -59,7 +86,15 @@ public class AnalyticsScontiCNT extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NamingException ex) {
+            Logger.getLogger(AnalyticsScontiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnalyticsScontiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(AnalyticsScontiCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
