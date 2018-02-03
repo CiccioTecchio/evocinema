@@ -385,7 +385,7 @@ public class ScontoDAO {
            if (stmt != null)
                         stmt.close();
        }       
-       System.out.println(sconti);
+       //System.out.println(sconti);
     return sconti;
     }
    
