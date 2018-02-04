@@ -35,6 +35,15 @@ public class SpettacoloDAO {
     public SpettacoloDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
+    
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public SpettacoloDAO(Connection conn){
+        connection = conn;
+    }
    
     /**
      * Metodo per il preliezo dell'istanza della connessione attuale.

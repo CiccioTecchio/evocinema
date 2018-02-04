@@ -35,6 +35,11 @@ public class FilmDAO {
         connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
     }
     
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
     public FilmDAO(Connection conn) {
         connection = conn;
     }
