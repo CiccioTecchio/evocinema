@@ -17,10 +17,6 @@
         <servlet-class>control.accountCNT.VisualizzaGestoriCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CancellazioneGestore</servlet-name>
-        <servlet-class>control.accountCNT.CancellazioneGestore</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RegistrazioneGestoreCNT</servlet-name>
         <servlet-class>control.accountCNT.RegistrazioneGestoreCNT</servlet-class>
     </servlet>
@@ -152,10 +148,7 @@
         <servlet-name>VisualizzaGestoriCNT</servlet-name>
         <url-pattern>/VisualizzaGestoriCNT</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CancellazioneGestore</servlet-name>
-        <url-pattern>/CancellazioneGestore</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>RegistrazioneGestoreCNT</servlet-name>
         <url-pattern>/RegistrazioneGestoreCNT</url-pattern>

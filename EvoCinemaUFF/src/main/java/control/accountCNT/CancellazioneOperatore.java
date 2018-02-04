@@ -29,10 +29,10 @@ import static model.UtenteRegistrato.ruolo.OPERATORE;
 
 /**
  *
- * @author Michele
+ * @author francescodefeo
  */
-@WebServlet( name = "CancellazioneGestore" , urlPatterns = { "/gestore/cancellazioneGestore" } )
-public class CancellazioneGestore extends HttpServlet {
+@WebServlet(name = "CancellazioneOperatore", urlPatterns = {"/gestore/cancellazioneOperatore"})
+public class CancellazioneOperatore extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,34 +61,30 @@ public class CancellazioneGestore extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-         int position = Integer.parseInt(request.getParameter("position"));
-        
-        List<UtenteRegistrato> array = (List<UtenteRegistrato>) request.getSession().getAttribute("gestori");
-        
+        int position = Integer.parseInt(request.getParameter("position"));
+
+        List<UtenteRegistrato> array = (List<UtenteRegistrato>) request.getSession().getAttribute("operatori");
+
         UtenteRegistrato ut = array.get(position);
-        
-        String messageDelete = ""; 
-       
-        
-        if(ut!=null){
+
+        String messageDelete = "";
+        if (ut != null) {
 
             try {
                 UtenteRegistratoDAO model = new UtenteRegistratoDAO();
-                 model.deleteUtenteRegistrato(ut.getEmail());
-                 messageDelete="Eliminato con successo";
-                 array.remove(position);
-                 request.getSession().setAttribute("operatori",array);
-                
-                
+                model.deleteUtenteRegistrato(ut.getEmail());
+                messageDelete = "Eliminato con successo";
+                array.remove(position);
+                request.getSession().setAttribute("operatori", array);
+
             } catch (NamingException | SQLException | ParseException ex) {
                 messageDelete = "Errore durante l'eliminazione NamingException ";
                 Logger.getLogger(VisualizzaRecensioniCNT.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
-       // RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/gestore/Gestori.jsp");
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/gestore/Operatori.jsp");
         request.setAttribute("messageDelete", messageDelete);
         dispatcher.forward(request, response);
     }
@@ -105,8 +101,6 @@ public class CancellazioneGestore extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-       
     }
 
     /**

@@ -211,7 +211,7 @@ public class UtenteRegistratoDAO {
         PreparedStatement stmt = null;
         UtenteBase utenteFound= new UtenteBase();
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE email= ? ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE email= ? AND ruolo='UTENTE'");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             
@@ -323,7 +323,7 @@ public class UtenteRegistratoDAO {
             stmt.setString(3, ut.getRuolo().toString());
             stmt.setString(4, ut.getNome());
             stmt.setString(5, ut.getCognome());
-            stmt.setDate(6, new Date(ut.getDataNascita().getTimeInMillis()));
+            stmt.setString(6, dataN);
             stmt.setString(7, ut.getSesso().toString());
             stmt.setString(8, ut.getCellulare());
             stmt.setString(9, ut.getCittà());
