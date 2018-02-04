@@ -48,7 +48,7 @@ public class PopolamentoListe extends HttpServlet {
             List<Sala> sale = salaDao.getAllSale();
             FilmDAO filmDao = new FilmDAO();
             List<Film> film = filmDao.getFilmNameAndDate();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             if((id = request.getParameter("idSpettacolo")) != null){
                 SpettacoloDAO spettacoloDao = new SpettacoloDAO();
                 Spettacolo s = spettacoloDao.foundByID(Integer.parseInt(id));

@@ -55,6 +55,7 @@ public class ModificaSalaCNT extends HttpServlet {
                 }
             }
             request.setAttribute("matSala", matSala);
+            request.getSession().setAttribute("sala", sala);
         } catch (NamingException ex) {
             Logger.getLogger(ModificaSalaCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

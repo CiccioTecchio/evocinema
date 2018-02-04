@@ -40,7 +40,9 @@ public class AnalyticsFilmCNT extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         
         OperazioneDAO opdao=new OperazioneDAO();
-        String dati=opdao.analyticsGetDatiAffluenzeSpettacolo();
+        
+        String minAffluenza=request.getParameter("numMinAffluenza");
+        String dati=opdao.analyticsGetDatiAffluenzeSpettacolo(minAffluenza);
              
         JSONObject jsonObject = new JSONObject();
         

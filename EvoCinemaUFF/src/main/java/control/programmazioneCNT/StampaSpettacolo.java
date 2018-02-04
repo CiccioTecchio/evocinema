@@ -58,7 +58,7 @@ public class StampaSpettacolo {
     static String close = "</div></div></div><hr/>";
     static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 }
-/*
+/* pure html code
                   <div class="row">
                     <div class="col-3">
                         <img class="img-fluid" src="https://images-na.ssl-images-amazon.com/images/M/MV5BZGE3ZjZiMTgtYmY1ZS00YTBjLWI2Y2MtOTgxNGY4ZDg4ZTE3XkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SY1000_CR0,0,772,1000_AL_.jpg" />

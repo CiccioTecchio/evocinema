@@ -11,18 +11,46 @@
 
 <div class="card">
     <div class="p-5" id="container" style="height: 450px"></div>
+    <div class="form-group text-center">
+                <label> Visualizza </label>
+                <select id="selectOperazioni" onchange="prelevaDatiOperazioni()" >
+                    <option value="Operazioni"> Operazioni </option>
+                    <option value="Acquisti" >Acquisti </option>
+                    <option value="Prenotazioni">Prenotazioni</option>
+                 </select>
+    </div>
 </div>
 
 <div class="card">
     <div class="p-5" id="scatter" style="height: 450px"></div>
+    <div class="form-group text-center">
+                <label> Biglietti venduti maggiori di</label>
+                <input type="number" min="0" value="0" id="sceltaAffluenzaFilm" 
+                       style=" width: 5%" onchange="prelevaDatiAffluenzaFilm()">
+    </div>
+
 </div>    
 
 <div class="card">
     <div class="p-5" id="container2" style="height: 450px"></div>
+
+    <div class="form-group text-center">
+                <label> Visualizza mesi con incassi maggiori di</label>
+                <input type="number" min="0" value="0" id="sceltaMinIncassi" 
+                       style=" width: 5%" onchange="prelevaDatiIncassi()">
+    </div>
 </div>    
 
 <div class="card">
     <div class="p-5" id="sconti" style="height: 450px"></div>
+    <div class="form-group text-center">
+                <label> Visualizza Sconti</label>
+                <select id="selectSconti" onchange="prelevaDatiSconti()" >
+                    <option value="Tutti">Tutti</option>
+                    <option value="Disponibili"> Disponibili </option>
+                    <option value="Non disponibili" >Non disponibili </option>
+                 </select>
+    </div>
 </div>
 
 <div class="card" >
@@ -154,32 +182,32 @@ $.getJSON(
     var datiIncassi=[];//Analytics incassi
     prelevaDatiOperazioni();
     function prelevaDatiOperazioni() {
-      
         $.ajax({
-            url: "${pageContext.request.contextPath}/AnalyticsOperazioniCNT",
+            url: "${pageContext.request.contextPath}/AnalyticsOperazioniCNT?scelta="+
+                    document.getElementById("selectOperazioni").value,
             success: function(result){
              
               result =JSON.stringify(result).replace("{\"", "");
               result= result.replace("\":0}","");
                 datiOperazioni=result.split("_");
-                //console.info(datiOperazioni);
-                 
                 for (var i=0; i < datiOperazioni.length; i++) {
                     datiOperazioni[i]=parseFloat(datiOperazioni[i]);
                 }    
-                 
-                var j=0;  
+                
+                datiAcquisti=[];    
+                datiPrenotazioni=[];       
+                var j=0;
                 while(datiOperazioni[j]!='10000'){ 
-                datiAcquisti[j]=datiOperazioni[j]; 
-                j++; 
+                    datiAcquisti[j]=datiOperazioni[j]; 
+                    j++; 
                 } 
+                
                 j++; 
                 var i=0; 
                 for (z=j; z < datiOperazioni.length; z++) { 
                     datiPrenotazioni[i]=datiOperazioni[z]; 
                     i++; 
                 }     
-                 
                 //console.info(datiAcquisti);
                 //console.info(datiPrenotazioni);
                 creaGraficoOperazioni();
@@ -257,9 +285,9 @@ $.getJSON(
     
     prelevaDatiAffluenzaFilm();
     function prelevaDatiAffluenzaFilm() {
-      
         $.ajax({
-            url: "${pageContext.request.contextPath}/AnalyticsFilmCNT",
+            url: "${pageContext.request.contextPath}/AnalyticsFilmCNT?numMinAffluenza="+
+                    document.getElementById("sceltaAffluenzaFilm").value,
             success: function(result){
              
               result =JSON.stringify(result).replace("{\"", "");
@@ -350,7 +378,8 @@ $.getJSON(
     function prelevaDatiIncassi() {
       
         $.ajax({
-            url: "${pageContext.request.contextPath}/AnalyticsIncasiCNT",
+            url: "${pageContext.request.contextPath}/AnalyticsIncasiCNT?sceltaMinIncassi="+
+                    document.getElementById("sceltaMinIncassi").value,
             success: function(result){
              
               result =JSON.stringify(result).replace("{\"", "");
@@ -417,7 +446,8 @@ prelevaDatiSconti();
 function prelevaDatiSconti(){
 
         $.ajax({
-            url: "${pageContext.request.contextPath}/AnalyticsScontiCNT",
+            url: "${pageContext.request.contextPath}/AnalyticsScontiCNT?selectSconti="+
+                    document.getElementById("selectSconti").value,
             success: function(result){
              
               result =JSON.stringify(result).replace("{\"", "");

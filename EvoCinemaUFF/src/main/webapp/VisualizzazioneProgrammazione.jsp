@@ -30,7 +30,7 @@
         <a data-toggle="tab" class="nav-link active" href="#oggi">Oggi - <%= giorni[(day.get(Calendar.DAY_OF_WEEK) - 1) % 7]%></a>
       </li>
       <li class="nav-item">
-        <a data-toggle="tab" class="nav-link" href="#domani"><%= giorni[day.get(Calendar.DAY_OF_WEEK)]%></a>
+        <a data-toggle="tab" class="nav-link" href="#domani"><%= giorni[day.get(Calendar.DAY_OF_WEEK) % 7]%></a>
       </li>
       <li class="nav-item">
         <a data-toggle="tab" class="nav-link" href="#bo"><%= giorni[(day.get(Calendar.DAY_OF_WEEK) + 1) % 7]%></a>
