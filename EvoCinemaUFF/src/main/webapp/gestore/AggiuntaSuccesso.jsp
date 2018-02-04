@@ -16,7 +16,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="alert alert-primary" ><h6>Operazione effettuata con successo.</h6></div>
+        <div class="alert alert-success" ><h6>Operazione effettuata con successo.</h6></div>
     </div>
     <div class="row">
         <div class="card">

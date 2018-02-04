@@ -2,8 +2,6 @@
 var caselle = document.querySelectorAll(".ms-casella");
 var input = document.getElementById("form-input");
 
-setIdPosto(seats.getAttribute("data-num-posti"));
-
 for(i = 0; i < caselle.length; i++){
     caselle[i].onclick = handleClick;
     caselle[i].onmouseover = handleMouseOver;

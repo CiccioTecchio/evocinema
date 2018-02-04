@@ -10,8 +10,14 @@
 <jsp:include page="ModificaSala"/>
 <% char[][] matSala = (char[][]) request.getAttribute("matSala");
    String url, classe;
+   Boolean modificato = (Boolean) request.getAttribute("modificato");
 %>
 <div class="container-fluid">
+    <% if((modificato != null) && (modificato == true)){
+        out.print("<div class=\"row\">");
+            out.print("<div class=\"alert alert-success\" ><h6>Modifica effettuata con successo.</h6></div>");
+        out.print("</div>");
+    } %>
     <div class="row">
         <div class ="col">
             <div id="seats" class="card">
