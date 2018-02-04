@@ -10,13 +10,19 @@
 <jsp:include page="ModificaSala"/>
 <% char[][] matSala = (char[][]) request.getAttribute("matSala");
    String url, classe;
+   Boolean modificato = (Boolean) request.getAttribute("modificato");
 %>
 <div class="container-fluid">
+    <% if((modificato != null) && (modificato == true)){
+        out.print("<div class=\"row\">");
+            out.print("<div class=\"alert alert-success\" ><h6>Modifica effettuata con successo.</h6></div>");
+        out.print("</div>");
+    } %>
     <div class="row">
         <div class ="col">
             <div id="seats" class="card">
                 <h5 class="card-header">Configurazione Sala</h5>
-                <div class="card-body">
+                <div class="card-body" id="seats">
                     <%
                     for(int i = 0; i < 30; i++){
                         %>
@@ -42,16 +48,24 @@
                                     break;
                             }
                             %>
-                    <img data-pos ="" class="vds-posto <%= classe %> cell" src="<%= url %>" />
+                    <img data-row="<%=i%>" data-col="<%=j%>" class="ms-casella <%= classe %> cell" src="<%= url %>" />
                     <%
                         }
                     %> </div>    <%
                     }
                     %>
                 </div>
+                <div class="card-footer">
+                    <button onclick="popolaForm();" form="form" class="btn btn-primary">Applica Modifiche</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<form id="form" action="ApplicaModificheSala" method="POST" hidden>
+    <input id="form-input" type="text" name="posti" value=""/>
+</form>
+                
+<script src="../javascript/modifica_sala.js"></script>
 <jsp:include page="Footer.jsp"/>

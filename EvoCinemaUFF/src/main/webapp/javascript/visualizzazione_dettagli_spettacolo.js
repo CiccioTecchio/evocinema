@@ -3,6 +3,7 @@ var posti_disponibili = document.querySelectorAll(".vds-posto-disponibile");
 var seats = document.getElementById("seats");
 var prezzo = seats.getAttribute("data-prezzo");
 var ro = document.querySelector("#riepilogo-ordine .container");
+var clickable = 0;
 
 setIdPosto(seats.getAttribute("data-num-posti"));
 
@@ -23,11 +24,13 @@ function handleClick(e) {
         addToRiepilogo(e);
         calcolaTotale();
         setPosti();
+        checkClickable();
     } else if(el.getAttribute("src") == "images/poltrona_selezionata_v2.png"){
         el.setAttribute("src", "images/poltrona_disponibile_v2.png");
         removeFromRiepilogo(e);
         calcolaTotale();
         setPosti();
+        checkClickable();
     }
 }
 
@@ -44,12 +47,14 @@ function addToRiepilogo(e){
                 "</p></div><div class='col'><p class='prezzo'>Prezzo: " + prezzo + "&euro;</p></div></div>";
     str = str + ro.innerHTML;
     ro.innerHTML = str;
+    clickable++;
 }
 
 function removeFromRiepilogo(e){
     var el = e.target;
     var pos = el.getAttribute("data-pos");
     $("p[data-pos='"+pos+"'").parent().parent().remove();
+    clickable--;
 }
 
 function calcolaTotale(){
@@ -63,4 +68,12 @@ function setPosti(){
         posti += (ps[i].getAttribute("data-pos") + "-");
     }
     $("#p").attr("value", posti);
+}
+
+function checkClickable(){
+    if(clickable !== 0){
+        document.querySelector("#clickable").removeAttribute("disabled");
+    } else {
+        document.querySelector("#clickable").setAttribute("disabled", "true");
+    }
 }

@@ -39,7 +39,9 @@ public class AnalyticsIncasiCNT extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         
         OperazioneDAO opdao=new OperazioneDAO();
-        String dati=opdao.analyticsGetDatiIncassi();
+        
+        String sceltaMinIncassi=request.getParameter("sceltaMinIncassi");
+        String dati=opdao.analyticsGetDatiIncassi(sceltaMinIncassi);
              
         JSONObject jsonObject = new JSONObject();
         

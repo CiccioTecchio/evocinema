@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
+
 package database;
 
 import java.sql.Connection;
@@ -25,10 +25,10 @@ import static org.junit.Assert.*;
  *
  * @author Giuseppe
  */
-/*
+
 public class UtenteRegistratoDAOTest {
     
-    private static final String EMAIL = "email22@email.it";
+    private static final String EMAIL = "emai222@email.it";
     private static final String NOMEUTENTE = "nomeUtente23";
     private static final String PASSWORD = "password";
     private static final String NOME = "nome";
@@ -44,7 +44,7 @@ public class UtenteRegistratoDAOTest {
      * @return
      * @throws SQLException 
      */
-/*
+
     private static Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
@@ -57,7 +57,7 @@ public class UtenteRegistratoDAOTest {
      * @throws SQLException
      * @throws NamingException 
      */
-/*
+
     @BeforeClass
     public static void setUpClass() throws SQLException, NamingException {
         connection = getTestConnection();
@@ -77,11 +77,12 @@ public class UtenteRegistratoDAOTest {
         Calendar dataNascita = Calendar.getInstance();
         dataNascita.set(2000, 1, 1);
         
-        UtenteBase a = new UtenteBase(Float.NaN, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, dataNascita, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
+        UtenteBase a = new UtenteBase(0f, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, dataNascita, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
         utenteRegistratoDAO.createUtenteRegistrato(a);
         UtenteBase b = utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL);
         assertNotNull(b);
         assertEquals(a.getEmail(), b.getEmail());
+        utenteRegistratoDAO.deleteUtenteRegistrato(EMAIL);
     }
     
     @Test
@@ -95,12 +96,15 @@ public class UtenteRegistratoDAOTest {
         UtenteBase b = utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL);
         assertNotNull(b);
         assertEquals(a.getEmail(), b.getEmail());
+        utenteRegistratoDAO.deleteUtenteRegistrato(EMAIL);
     }
     
     
     
     @AfterClass
-    public static void tearDownClass() {
+    public static void tearDownClass() throws SQLException {
+         connection.rollback();
+        connection.close();
     }
     
     @Before
@@ -111,11 +115,9 @@ public class UtenteRegistratoDAOTest {
      * E' buona norma rollbackare sempre le istruzioni non committate (appositamente) prima di chiduere la connessione.
      * @throws SQLException 
      */
-/*
+
     @After
-    public void tearDown() throws SQLException {
-        connection.rollback();
-        connection.close();
+    public void tearDown() {
     }
 
     // TODO add test methods here.
@@ -124,4 +126,3 @@ public class UtenteRegistratoDAOTest {
     // @Test
     // public void hello() {}
 }
-*/

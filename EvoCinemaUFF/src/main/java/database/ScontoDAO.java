@@ -355,22 +355,46 @@ public class ScontoDAO {
    
    /**
      * Metodo che restituisce una stringa che descrive gli sconti utilizzati con nome, disponibilità e tipologia
+     * @param selectSconti indica quali sconti visualizzare, quelli disponibili, non disponibili o entrambi
      * @return stringa che descrive sconti utilizzati con nome, disponibilità e tipologia
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized String analyticsFrequenzaSconti() throws SQLException, ParseException, NamingException {
-      
+   public synchronized String analyticsFrequenzaSconti(String selectSconti) throws SQLException, ParseException, NamingException {
+      //System.out.println(selectSconti);
        PreparedStatement stmt=null;
        String sconti="";
        
        try {
-           stmt = (PreparedStatement) connection.prepareStatement(
-                   " SELECT Sconto.idSconto,Sconto.nome,Sconto.disponibile, "+
-                    " Sconto.tipologia,COUNT(Sconto.idSconto) as frequenza "+
-           " FROM evo_cinema.Operazione INNER JOIN evo_cinema.Sconto ON Sconto.idSconto = Operazione.sconto_applicato "+
-            " AND Sconto.idSconto!=41 GROUP BY Sconto.idSconto; ");
+           if(selectSconti.equals("Tutti"))
+           {
+               //RITORNA LA FREQUENZA DI UTILIZZO DI TUTTO GLI SCONTI
+                stmt = (PreparedStatement) connection.prepareStatement(
+                        " SELECT Sconto.idSconto,Sconto.nome,Sconto.disponibile, "+
+                         " Sconto.tipologia,COUNT(Sconto.idSconto) as frequenza "+
+                " FROM evo_cinema.Operazione INNER JOIN evo_cinema.Sconto ON Sconto.idSconto = Operazione.sconto_applicato "+
+                 " AND Sconto.idSconto!=41 GROUP BY Sconto.idSconto; ");
+            }
+           else
+           {
+                stmt = (PreparedStatement) connection.prepareStatement(
+                        " SELECT Sconto.idSconto,Sconto.nome,Sconto.disponibile, "+
+                         " Sconto.tipologia,COUNT(Sconto.idSconto) as frequenza "+
+                " FROM evo_cinema.Operazione INNER JOIN evo_cinema.Sconto ON Sconto.idSconto = Operazione.sconto_applicato "+
+                 " AND Sconto.idSconto!=41 AND Sconto.disponibile=? GROUP BY Sconto.idSconto; ");
+                
+                if(selectSconti.equals("Disponibili"))
+                {
+                    //RITORNA LA FREQUENZA DI UTILIZZO DEGLI SCONTI DISPONIBILI
+                    stmt.setString(1, "TRUE");
+                }
+                if(selectSconti.equals("Non disponibili"))
+                {
+                    //RITORNA LA FREQUENZA DI UTILIZZO DEGLI SCONTI NON DISPONIBILI
+                    stmt.setString(1, "false");
+                }
+           }
            ResultSet rs = stmt.executeQuery();
            
            while (rs.next()) {
@@ -385,7 +409,7 @@ public class ScontoDAO {
            if (stmt != null)
                         stmt.close();
        }       
-       //System.out.println(sconti);
+       System.out.println(sconti);
     return sconti;
     }
    

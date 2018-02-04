@@ -69,6 +69,9 @@
                     <div class="text-center">
                         <a class="d-block small mt-3" href="Registrazione.jsp">Registra un account</a>
                     </div>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="RecuperoPassword.jsp">Recupera password</a>
+                    </div>
                 </div>
             </div>
         </div>

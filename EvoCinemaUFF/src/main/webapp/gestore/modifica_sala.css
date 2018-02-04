@@ -8,19 +8,6 @@
     margin-bottom:5px;
 }
 
-.container-fluid > .row {
-    margin-bottom: 3%;
-}
-
-.card-header h5 {
-    float:left;
-}
-
-
-.card-header a {
-    float:right;
-}
-
 #riepilogo-ordine span {
     text:5em;
 }
