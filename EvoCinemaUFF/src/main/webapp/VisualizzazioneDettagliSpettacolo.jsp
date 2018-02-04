@@ -4,6 +4,7 @@
     Author     : luca
 --%>
 
+<%@page import="model.Gestore"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Film"%>
 <%@page import="model.UtenteRegistrato"%>
@@ -32,9 +33,12 @@
                 <div class="col-8">
                     <div class="card">
                         <div class="card-header" ><h5>Dettagli Spettacolo</h5>
-                        <%if((utente != null) && (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE)) { %>
-                            <a href="/gestore/ModificaSpettacolo?idSpettacolo=<%=spettacolo.getIdSpettacolo()%>" ><!--<button class="btn btn-primary">Modifica Spettacolo</button>-->gdfigh</a>
-                        <%} %>
+                        <%//if((utente != null) && (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE)) { 
+                            if(utente instanceof Gestore){ 
+                                out.print("<a href=\"/gestore/ModificaSpettacolo?idSpettacolo=\"");
+                                out.print(spettacolo.getIdSpettacolo() + "\"><button class=\"btn btn-primary\">Modifica Spettacolo</button></a>");
+                            }
+                        %>
                         </div>
                         <div class="card-body">
                             <div class="row">
