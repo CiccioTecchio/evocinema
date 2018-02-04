@@ -141,7 +141,7 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
                 }
                 
                 s.setAttribute("accountRegistrato", aggiunto);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiungiOperatore.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("../gestore/AggiungiOperatore.jsp");
                 dispatcher.forward(request, response);
 
                 
