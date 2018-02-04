@@ -34,6 +34,10 @@ public class FilmDAO {
     public FilmDAO() throws NamingException, SQLException {
         connection = (Connection) SingletonDBConnection.getInstance().getConnInst();
     }
+    
+    public FilmDAO(Connection conn) {
+        connection = conn;
+    }
 
     /*
      * Metodo che restituisce la connessione di tipo {@link Connection}.
@@ -293,7 +297,7 @@ public class FilmDAO {
             }
         }
         return esiste; 
-    }
+    }   
 
 
     /**
