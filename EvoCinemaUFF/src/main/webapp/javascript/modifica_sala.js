@@ -16,26 +16,29 @@ function handleClick(e) {
     var el = e.target;
     if(el.getAttribute("src") == "../images/poltrona_non_disponibile_v2.png"){
         el.setAttribute("src", "../images/poltrona_disponibile_v2.png");
+        el.setAttribute("data-stato", "selezionata");
     } else if(el.getAttribute("src") == "../images/poltrona_disponibile_v2.png"){
         el.setAttribute("src", "../images/poltrona_occupata_v2.png");
+        el.setAttribute("data-stato", "danneggiata");
     } else {
         el.setAttribute("src", "../images/poltrona_non_disponibile_v2.png");
+        el.setAttribute("data-stato", "non-selezionata");
     }
 }
 
 function popolaForm(){
     var values="";
-    var pre = "http://" + location.hostname + ":8080/EvoCinemaUFF/images/";
+    //var pre = location.protocol + "//" + location.hostname + location.port + "/EvoCinemaUFF/images/";
     for(i = 0; i < caselle.length; i++){
-       var src = caselle[i].src; //getAttribute("src");
-       switch(src){
-           case (pre + "poltrona_non_disponibile_v2.png") :
+       var stato = caselle[i].getAttribute("data-stato");
+       switch(stato){
+           case "non-selezionata" :
                values += '0';
                break;
-           case (pre + "poltrona_disponibile_v2.png") :
+           case "selezionata" :
                values += '1';
                break;
-           case (pre + "poltrona_occupata_v2.png") :
+           case "danneggiata" :
                values += '2';
                break;
            default :
