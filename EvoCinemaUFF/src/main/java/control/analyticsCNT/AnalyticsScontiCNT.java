@@ -5,10 +5,8 @@
  */
 package control.analyticsCNT;
 
-import database.OperazioneDAO;
 import database.ScontoDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -40,7 +38,9 @@ public class AnalyticsScontiCNT extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         
         ScontoDAO scdao=new ScontoDAO();
-        String dati=scdao.analyticsFrequenzaSconti();
+        
+        String selectSconti=request.getParameter("selectSconti");
+        String dati=scdao.analyticsFrequenzaSconti(selectSconti);
              
         JSONObject jsonObject = new JSONObject();
         

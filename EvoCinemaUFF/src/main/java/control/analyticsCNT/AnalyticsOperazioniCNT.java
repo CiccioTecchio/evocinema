@@ -44,9 +44,10 @@ public class AnalyticsOperazioniCNT extends HttpServlet {
         LocalDate localDate = LocalDate.now();//2016/11/16        
         
         //DAO operazione con parametro esterno Date
+        String scelta=request.getParameter("scelta");
         
         OperazioneDAO opdao=new OperazioneDAO();
-        String dati=opdao.analyticsGetDatiAcquisti();
+        String dati=opdao.analyticsGetDatiOperazioni(scelta);
         
         //String dati="2018_0_18_1_27_2_29_3_15_4_16_5_50_6_66_7_34_8_5_9_9_10_44_11_10";//Stringa realizzata scorrendo la lista di operazioni ritornata dalla DAO
         

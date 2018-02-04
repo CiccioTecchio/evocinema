@@ -537,32 +537,39 @@ public class OperazioneDAO {
 /**
      * Permette di estrarre le tuple di tipo {@link Operazione} con data compresa tra mese corrente ed il mese corrente 
      * dell'anno prima
+     * @param scelta che rappresenta i dati da visualizzare acquisti, prenotazioni, operazioni(entrambi)
      * @return stringa che rappresenta il numero delle operazioni fatte in un determinato periodo
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized String analyticsGetDatiAcquisti() throws SQLException, ParseException, NamingException {
-      
+   public synchronized String analyticsGetDatiOperazioni(String scelta) throws SQLException, ParseException, NamingException {
     PreparedStatement stmt=null;
        String datiAcquisti =  "",datiPrenotazioni="";
-       try {//calcolo acquisti
+       Calendar dataCorrente = Calendar.getInstance();
+       ResultSet rs=null;     
+       try {
+            if((scelta.equals("Operazioni"))||(scelta.equals("Acquisti"))){
+            //calcolo acquisti
             stmt = (PreparedStatement) connection.prepareStatement("SELECT YEAR(Operazione.data) as anno, "
                     + " MONTH(Operazione.data) as mese, "
                     + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Operazione where Operazione.data>? "
                     + " AND Operazione.acquistato='true' group by YEAR(Operazione.data), MONTH(Operazione.data);");
-            Calendar dataCorrente = Calendar.getInstance();
             stmt.setString(1, (dataCorrente.get(Calendar.YEAR)-1)+"-"+dataCorrente.get(Calendar.MONTH)+
                     "-"+dataCorrente.get(Calendar.DAY_OF_MONTH));
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 
 		while (rs.next()) {
                     datiAcquisti=datiAcquisti+rs.getString("anno")+"_";
                     datiAcquisti=datiAcquisti+rs.getString("mese")+"_";
                     datiAcquisti=datiAcquisti+rs.getString("num")+"_";
                 }
-            //calcolo prenotazioni    
+            }//end if
             
+            datiPrenotazioni = "10000_";//DATO FITTIZIO PER SPEZZARE L'ARRAY
+            
+            if((scelta.equals("Operazioni"))||(scelta.equals("Prenotazioni"))){
+            //calcolo prenotazioni    
             stmt = (PreparedStatement) connection.prepareStatement("SELECT YEAR(Operazione.data) as anno, "
                     + " MONTH(Operazione.data) as mese, "
                     + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Operazione where Operazione.data>? "
@@ -572,13 +579,13 @@ public class OperazioneDAO {
                     "-"+dataCorrente.get(Calendar.DAY_OF_MONTH));
              rs = stmt.executeQuery();
 
-                datiPrenotazioni = "10000_";//DATO FITTIZIO PER SPEZZARE L'ARRAY
-		while (rs.next()) {
+                while (rs.next()) {
                     datiPrenotazioni=datiPrenotazioni+rs.getString("anno")+"_";
                     datiPrenotazioni=datiPrenotazioni+rs.getString("mese")+"_";
                     datiPrenotazioni=datiPrenotazioni+rs.getString("num")+"_";
                 }
-                
+            }//end if    
+            
             } catch(Exception e){
                 e.printStackTrace();
             } finally {
@@ -595,14 +602,15 @@ public class OperazioneDAO {
 /**
      * Permette di estrarre il numero di biglietti venduti per ogni spettacolo in programmazione oppure no
      * dell'anno prima
-     * @return stringa che rappresenta numero di biglietti venduti per ogni spettacolo
+     * @param minAffluenza che rappresenta il minimo numero di biglietti venduti per ogni film  
+     * @return stringa  rappresenta numero di biglietti venduti per ogni spettacolo
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized String analyticsGetDatiAffluenzeSpettacolo() throws SQLException, ParseException, NamingException {
-      
-    PreparedStatement stmt=null;
+   public synchronized String analyticsGetDatiAffluenzeSpettacolo(String minAffluenza) throws SQLException, ParseException, NamingException {
+   
+       PreparedStatement stmt=null;
        String datiAffluenze =  "";
        int maxAffluenza=0;
        int numeroFilm=0;
@@ -610,7 +618,8 @@ public class OperazioneDAO {
             stmt = (PreparedStatement) connection.prepareStatement("SELECT Spettacolo.titolo, "
                     + " COUNT(Operazione.id_Operazione) as num FROM evo_cinema.Spettacolo INNER JOIN "
                     + " evo_cinema.Operazione ON Spettacolo.idSpettacolo=Operazione.idSpettacolo "+
-            " group by Spettacolo.titolo; ");
+            " group by Spettacolo.titolo having num>?; ");
+            stmt.setString(1,minAffluenza);
             ResultSet rs = stmt.executeQuery();
                 
 		while (rs.next()) {
@@ -638,12 +647,13 @@ public class OperazioneDAO {
 /**
      * Permette di estrarre il guadagno mensile per ogni biglietto acquistato 
      * dell'anno prima
+     * @param sceltaMinIncassi rappresenta il minimo incasso per ogni mese 
      * @return stringa che rappresenta data, mese e utile guadagnato
      * @throws SQLException
      * @throws ParseException
      * @throws NamingException 
      */
-   public synchronized String analyticsGetDatiIncassi() throws SQLException, ParseException, NamingException {
+   public synchronized String analyticsGetDatiIncassi(String sceltaMinIncassi) throws SQLException, ParseException, NamingException {
       
     PreparedStatement stmt=null;
        String datiIncassi =  "";
@@ -653,8 +663,10 @@ public class OperazioneDAO {
                     " SELECT YEAR(Operazione.data) as anno, MONTH(Operazione.data) as mese, "+ 
                     " SUM(Operazione.prezzo_finale) as utile "+
                     " FROM evo_cinema.Operazione where Operazione.data>'2017-02-02' "+
-                    " AND Operazione.acquistato='true' group by YEAR(Operazione.data), MONTH(Operazione.data); "
+                    " AND Operazione.acquistato='true' group by YEAR(Operazione.data), MONTH(Operazione.data)"
+                            + "having utile>?; "
                     );
+            stmt.setString(1,sceltaMinIncassi);
             ResultSet rs = stmt.executeQuery();
                 
 		while (rs.next()) {
