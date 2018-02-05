@@ -27,6 +27,7 @@ import model.Operazione;
 import model.Sala;
 import model.Sconto;
 import model.Sconto.tipo;
+import model.Spettacolo;
 import model.UtenteBase;
 import model.UtenteRegistrato;
 
@@ -62,14 +63,17 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             SpettacoloDAO spettDAO = new SpettacoloDAO();
             String PostiSconti = request.getParameter("stringaPostiESconti");
             int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
-            int offset = 1; //DA FARE
+            Spettacolo spettacolo = spettDAO.foundByID(idSpettacolo);
+            String MatricePosti = spettacolo.getMatricePosti();
             Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+            int offset = Integer.parseInt(s.getAttribute("offset").toString()) / sala.getNumeroPosti();
             Operazione.prenotato prenotato = null;
             Operazione.acquistato acquistato = null;
             float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
             float prezzoFinale = 0; //DA FARE
             Calendar data = Calendar.getInstance();
             ScontoDAO scontoDAO = new ScontoDAO(); //DA FARE
+            char [] ArrayPosti = MatricePosti.toCharArray();
             while(!PostiSconti.equals("")){
                 int posto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
                 PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
@@ -91,8 +95,16 @@ public class AcquistoBigliettoCNT extends HttpServlet {
                 Acquisto crea = new Acquisto (email, idSpettacolo,posto,offset,sala,prenotato.FALSE, acquistato.TRUE, prezzoFinale, data, sconto);
                 OperazioneDAO opDAO = new OperazioneDAO();
                 opDAO.createOperazione(crea);
+                
+                int daCambiare = ( offset * sala.getNumeroPosti() ) + posto ; 
+                ArrayPosti[daCambiare] = 'o';
             }
-            
+            String newPosti = "";
+            for(int i=0; i<ArrayPosti.length; i++){
+                newPosti += (ArrayPosti[i]);
+            }
+            spettacolo.setMatricePosti(newPosti);
+            spettDAO.updateSpettacolo(spettacolo);
             response.sendRedirect("VisualizzazioneProgrammazione.jsp");
             
         }else{  //Pagamento dall'account utente
@@ -108,15 +120,17 @@ public class AcquistoBigliettoCNT extends HttpServlet {
             SpettacoloDAO spettDAO = new SpettacoloDAO();
             String PostiSconti = request.getParameter("stringaPostiESconti");
             int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
-            int offset = 1; //DA FARE
+            Spettacolo spettacolo = spettDAO.foundByID(idSpettacolo);
+            String MatricePosti = spettacolo.getMatricePosti();
             Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+            int offset = Integer.parseInt(s.getAttribute("offset").toString()) / sala.getNumeroPosti();
             Operazione.prenotato prenotato = null;
             Operazione.acquistato acquistato = null;
             float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();
             float prezzoFinale = 0; //DA FARE
             Calendar data = Calendar.getInstance();
             ScontoDAO scontoDAO = new ScontoDAO(); //DA FARE
-
+            char [] ArrayPosti = MatricePosti.toCharArray();
             while(!PostiSconti.equals("")){
                 int posto = Integer.parseInt(PostiSconti.substring(0, PostiSconti.indexOf("-")));
                 PostiSconti = PostiSconti.substring(PostiSconti.indexOf("-")+1);
@@ -148,8 +162,16 @@ public class AcquistoBigliettoCNT extends HttpServlet {
                 s.removeAttribute("user");
                 s.setAttribute("user", utbase);
                 //Aggiornare lo stao del posto
+                
+                int daCambiare = ( offset * sala.getNumeroPosti() ) + posto ; 
+                ArrayPosti[daCambiare] = 'o';
             }
-
+            String newPosti = "";
+            for(int i=0; i<ArrayPosti.length; i++){
+                newPosti += (ArrayPosti[i]);
+            }
+            spettacolo.setMatricePosti(newPosti);
+            spettDAO.updateSpettacolo(spettacolo);
             response.sendRedirect("VisualizzaAcquisti.jsp");
         }
         

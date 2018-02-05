@@ -14,7 +14,7 @@ import model.Spettacolo;
  * @author luca
  */
 public class StampaSpettacolo {
-    public static void prepare(Spettacolo s, Film f){
+    public static void prepare(Spettacolo s, Film f, int offsetGiorno){
         str =  "<div class=\"row\">"
                         + "<div class=\"col-3\">"
                         +  "<img class=\"img-fluid\" src=\""+ f.getLocandina() +"\" />\n"
@@ -42,12 +42,12 @@ public class StampaSpettacolo {
                         +   "<div data-label class=\"col\">Spettacoli:<br />&nbsp;</div>"
                         + "</div>"
                         + "<div id=\"orari\" class=\"row\">"
-                        +    "<form method=\"POST\" action=\"VisualizzazioneDettagliSpettacolo.jsp\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" hidden><button class=\"btn btn-primary\" type=\"submit\">"+ sdf.format(s.getOraInizio().getTime()) +"</button></form>";
+                        +    "<form method=\"POST\" action=\"VisualizzazioneDettagliSpettacolo.jsp\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" type=\"hidden\"><input type=\"hidden\" name=\"offset-giorno\" value=\"" + offsetGiorno + "\" /><button class=\"btn btn-primary\" type=\"submit\">"+ sdf.format(s.getOraInizio().getTime()) +"</button></form>";
 
     }
     
-    public static void aggiungiSpettacolo(Spettacolo s){
-        str = str + "<form method=\"POST\" action=\"VisualizzazioneDettagliSpettacolo.jsp\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" hidden><button class=\"btn btn-primary\" type=\"submit\">"+ sdf.format(s.getOraInizio().getTime())  +"</button></form>";
+    public static void aggiungiSpettacolo(Spettacolo s, int offsetGiorno){
+        str = str + "<form method=\"POST\" action=\"VisualizzazioneDettagliSpettacolo.jsp\" data-label class=\"col\"><input name=\"idSpettacolo\" value=\""+ s.getIdSpettacolo() +"\" type=\"hidden\"><input type=\"hidden\" name=\"offset-giorno\" value=\"" + offsetGiorno + "\" /><button class=\"btn btn-primary\" type=\"submit\">"+ sdf.format(s.getOraInizio().getTime())  +"</button></form>";
     }
     
     public static String getResult(){
