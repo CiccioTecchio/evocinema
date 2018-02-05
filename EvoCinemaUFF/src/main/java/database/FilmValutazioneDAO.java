@@ -31,6 +31,15 @@ public class FilmValutazioneDAO {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
     
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public FilmValutazioneDAO(Connection conn) throws NamingException, SQLException{
+        connection = conn;
+    }
+    
     /*
      * Metodo che restituisce la connessione di tipo {@link Connection}.
      * @return oggetto connessione di tipo {@link Connection}
