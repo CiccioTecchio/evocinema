@@ -27,6 +27,8 @@
                 <label> Biglietti venduti maggiori di</label>
                 <input type="number" min="0" value="0" id="sceltaAffluenzaFilm" 
                        style=" width: 5%" onchange="prelevaDatiAffluenzaFilm()">
+                <label class="ml-2">Tutti</label>
+                <input type="checkbox" id="tuttiBiglietti" checked="checked" onchange="  if( $('#tuttiBiglietti').prop('checked')) { $('#sceltaAffluenzaFilm').val('0'); $('#tuttiBiglietti').attr('checked','checked'); $('#sceltaAffluenzaFilm').change(); } " >
     </div>
 
 </div>    
@@ -38,6 +40,8 @@
                 <label> Visualizza mesi con incassi maggiori di</label>
                 <input type="number" min="0" value="0" id="sceltaMinIncassi" 
                        style=" width: 5%" onchange="prelevaDatiIncassi()">
+                <label class="ml-2">Tutti</label>
+                <input type="checkbox" id="tuttiIncassi" checked="checked" onchange=" if( $('#tuttiIncassi').prop('checked')) { $('#sceltaMinIncassi').val('0'); $('#tuttiIncassi').attr('checked','checked'); $('#sceltaMinIncassi').change(); } " >
     </div>
 </div>    
 
@@ -88,7 +92,7 @@ function insertEta(){
     
     var scelta = $('#selectUtentiEta').val();
     
-    aggiornaGraficoUtenti(scelta , passa);
+    if (! isNotNumber($('#utentiEta'))){ alert('passa'); aggiornaGraficoUtenti(scelta , passa);}
     
 };
 
@@ -285,6 +289,8 @@ $.getJSON(
     
     prelevaDatiAffluenzaFilm();
     function prelevaDatiAffluenzaFilm() {
+        if( ! isNotNumber($('#sceltaAffluenzaFilm'))){
+            if($('#sceltaAffluenzaFilm').val() !== '0') { $('#tuttiBiglietti').removeAttr('checked');  $('#tuttiBiglietti').prop("checked", false); }
         $.ajax({
             url: "${pageContext.request.contextPath}/AnalyticsFilmCNT?numMinAffluenza="+
                     document.getElementById("sceltaAffluenzaFilm").value,
@@ -304,7 +310,7 @@ $.getJSON(
             }
             
             });
-   }
+   }}
     
     
     function creaGraficoAffluenzaSpettacoli(){
@@ -377,7 +383,11 @@ $.getJSON(
     prelevaDatiIncassi();
     function prelevaDatiIncassi() {
       
-        $.ajax({
+        if( ! isNotNumber($('#sceltaMinIncassi'))){
+        if($('#sceltaMinIncassi').val() !== '0') { $('#tuttiIncassi').removeAttr('checked');  $('#tuttiIncassi').prop("checked", false); };
+            $.ajax({
+           
+            
             url: "${pageContext.request.contextPath}/AnalyticsIncasiCNT?sceltaMinIncassi="+
                     document.getElementById("sceltaMinIncassi").value,
             success: function(result){
@@ -395,7 +405,7 @@ $.getJSON(
             }
             
             });
-   }
+   }};
     
     function creaGraficoIncassi(){
     Highcharts.chart('container2', {
@@ -513,7 +523,46 @@ function creaGraficoSconti(){
         }] //fine serie
     });
 
-}
+}; 
+
+
+// inizio utility 
+ function isNotNumber( x ){
+	
+        var regExp =  /^[0-9]+$/;
+	var value = x.val(); 
+	
+	
+	if(  value === '' || ! value.match(regExp)  ){ if (! isNotFloatNumber(x)) return false; 
+                                                                    else{
+                                                                    x.css("background-color","#ff4d4d");   return true;}} 
+	
+	else{ 
+            
+           
+           x.css("background-color","white");
+            
+            return false;} 
+	
+};
+
+function isNotFloatNumber( x ){
+	
+        var regExp = '[-+]?([0-9]*.[0-9]+|[0-9]+)';
+	var value = x.val(); 
+	
+	
+	if(  value === '' || ! value.match(regExp)  ){ x.css("background-color","#ff4d4d");   return true;} 
+	
+	else{ 
+            
+           
+           x.css("background-color","white");
+            
+            return false;} 
+	
+};
+// fine utility
 
 </script>
 
