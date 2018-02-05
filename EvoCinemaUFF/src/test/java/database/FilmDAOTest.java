@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
+import javax.naming.NamingException;
 import model.Film;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -53,7 +54,7 @@ public class FilmDAOTest {
     }
     
     @BeforeClass
-    public static void setUpClass() throws SQLException{
+    public static void setUpClass() throws SQLException, NamingException{
         connection = getTestConnection();
         connection.setAutoCommit(false);
         filmDAO = new FilmDAO((Connection) connection);

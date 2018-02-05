@@ -53,7 +53,7 @@ public class SpettacoloDAOTest {
     }
     
     @BeforeClass
-    public static void setUpClass() throws SQLException{
+    public static void setUpClass() throws SQLException, NamingException{
         connection = getTestConnection();
         connection.setAutoCommit(false);
         spettacoloDAO = new SpettacoloDAO((com.mysql.jdbc.Connection) connection);
