@@ -15,7 +15,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="VisualizzazioneDettagliSpettacoloCNT" />
 <jsp:include page="Header.jsp" />
-
+Cristo Santo
 <%  
     Spettacolo spettacolo = (Spettacolo) request.getAttribute("spettacolo");
     Film film = (Film) request.getAttribute("film");
