@@ -15,7 +15,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="VisualizzazioneDettagliSpettacoloCNT" />
 <jsp:include page="Header.jsp" />
-Cristo Santo
+
 <%  
     Spettacolo spettacolo = (Spettacolo) request.getAttribute("spettacolo");
     Film film = (Film) request.getAttribute("film");
@@ -75,7 +75,7 @@ Cristo Santo
                 <div class="col">
                     <div class="card">
                         <h5 class="card-header">Legenda</h5>
-                        <div data-table class="card-body">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-3">
                                     <img src="images/poltrona_disponibile_v2.png"/>
