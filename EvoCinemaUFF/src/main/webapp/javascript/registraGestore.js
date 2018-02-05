@@ -160,7 +160,7 @@
                      $.ajax({
                          
                               type: "POST",
-                              url:"/RegistrazioneGestoreCNT",
+                              url:"RegistrazioneGestoreCNT",
                               data:{"nomeRegistrazione":nome, "cognomeRegistrazione":cognome, "ruoloRegistrazione":ruolo,
                               "emailRegistrazione":email, "indirizzoRegistrazione":indirizzo,
                               "cittaRegistrazione":citta, "passwordRegistrazione":password, "password1Registrazione":password2, "cellulareRegistrazione":cellulare,
