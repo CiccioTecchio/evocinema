@@ -33,7 +33,7 @@
         <a data-toggle="tab" class="nav-link" href="#domani"><%= giorni[day.get(Calendar.DAY_OF_WEEK) % 7]%></a>
       </li>
       <li class="nav-item">
-        <a data-toggle="tab" class="nav-link" href="#bo"><%= giorni[(day.get(Calendar.DAY_OF_WEEK) + 1) % 7]%></a>
+        <a data-toggle="tab" class="nav-link" href="#dopodomani"><%= giorni[(day.get(Calendar.DAY_OF_WEEK) + 1) % 7]%></a>
       </li>
     </ul>
   </div>
@@ -46,14 +46,14 @@
                 Iterator iF = film.iterator();
                 Film f = (Film) iF.next();
                 Spettacolo s = (Spettacolo) iS.next();
-                StampaSpettacolo.prepare(s, f);
+                StampaSpettacolo.prepare(s, f, 0);
                 while(iS.hasNext()){
                     if(f.getIdFilm() == (s = (Spettacolo) iS.next()).getIdFilm())
-                        StampaSpettacolo.aggiungiSpettacolo(s);
+                        StampaSpettacolo.aggiungiSpettacolo(s, 0);
                     else {
                         out.print(StampaSpettacolo.getResult());
                         f = (Film) iF.next();
-                        StampaSpettacolo.prepare(s, f);
+                        StampaSpettacolo.prepare(s, f, 0);
                     }       
                 }
 %>
@@ -66,14 +66,14 @@
                 iF = ((Collection<Film>) request.getAttribute("film2")).iterator();
                 f = (Film) iF.next();
                 s = (Spettacolo) iS.next();
-                StampaSpettacolo.prepare(s, f);
+                StampaSpettacolo.prepare(s, f, 1);
                 while(iS.hasNext()){
                     if(f.getIdFilm() == (s = (Spettacolo) iS.next()).getIdFilm())
-                        StampaSpettacolo.aggiungiSpettacolo(s);
+                        StampaSpettacolo.aggiungiSpettacolo(s, 1);
                     else {
                         out.print(StampaSpettacolo.getResult());
                         f = (Film) iF.next();
-                        StampaSpettacolo.prepare(s, f);
+                        StampaSpettacolo.prepare(s, f, 1);
                     }       
                 }
 %>
@@ -85,14 +85,14 @@
                 iF = ((Collection<Film>) request.getAttribute("film3")).iterator();
                 f = (Film) iF.next();
                 s = (Spettacolo) iS.next();
-                StampaSpettacolo.prepare(s, f);
+                StampaSpettacolo.prepare(s, f, 2);
                 while(iS.hasNext()){
                     if(f.getIdFilm() == (s = (Spettacolo) iS.next()).getIdFilm())
-                        StampaSpettacolo.aggiungiSpettacolo(s);
+                        StampaSpettacolo.aggiungiSpettacolo(s, 2);
                     else {
                         out.print(StampaSpettacolo.getResult());
                         f = (Film) iF.next();
-                        StampaSpettacolo.prepare(s, f);
+                        StampaSpettacolo.prepare(s, f, 2);
                     }       
                 }
 %>
