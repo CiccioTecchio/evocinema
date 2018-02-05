@@ -15,7 +15,7 @@ import model.Spettacolo;
  */
 public class StampaSpettacolo {
     public static void prepare(Spettacolo s, Film f, int offsetGiorno){
-        str =  "<div class=\"row\">"
+        str =  "<div id='"+f.getIdFilm()+"'class=\"row mt-2\">"
                         + "<div class=\"col-3\">"
                         +  "<img class=\"img-fluid\" src=\""+ f.getLocandina() +"\" />\n"
                         + "</div>"
