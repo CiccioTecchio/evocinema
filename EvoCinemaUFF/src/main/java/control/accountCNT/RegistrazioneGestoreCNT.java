@@ -30,6 +30,7 @@ import model.UtenteRegistrato;
  *
  * @author Michele
  */
+@WebServlet(name="RegistrazioneGestoreCNT", urlPatterns={"/gestore/RegistrazioneGestoreCNT"})
 public class RegistrazioneGestoreCNT extends HttpServlet {
     
     private static final long serialVersionUID = 1L;
@@ -140,9 +141,12 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
+                if(aggiunto!=true){
+                    aggiunto=false;
+                }
                 s.setAttribute("accountRegistrato", aggiunto);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("../gestore/AggiungiOperatore.jsp");
-                dispatcher.forward(request, response);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiungiOperatore.jsp");
+                
 
                 
     }
