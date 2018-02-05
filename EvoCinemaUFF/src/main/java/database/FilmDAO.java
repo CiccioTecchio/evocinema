@@ -40,7 +40,7 @@ public class FilmDAO {
      * @throws NamingException
      * @throws SQLException 
      */
-    public FilmDAO(Connection conn) {
+    public FilmDAO(Connection conn) throws NamingException, SQLException{
         connection = conn;
     }
 

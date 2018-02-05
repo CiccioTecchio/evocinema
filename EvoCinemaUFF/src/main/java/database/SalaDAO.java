@@ -36,6 +36,15 @@ public class SalaDAO {
     public SalaDAO() throws NamingException, SQLException {
         connection=(com.mysql.jdbc.Connection) SingletonDBConnection.getInstance().getConnInst();
     }
+    
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public SalaDAO(com.mysql.jdbc.Connection conn) throws NamingException, SQLException{
+        connection = conn;
+    }
    
     /**
      * Metodo di prelievo della connessione attuale.
@@ -170,7 +179,7 @@ public class SalaDAO {
        PreparedStatement stmt=null;
        boolean delete= false;       
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.sala WHERE ( id_sala= ? );");
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Sala WHERE ( id_sala= ? );");
             stmt.setInt(1, idSala);
             stmt.executeUpdate();
             delete = true;

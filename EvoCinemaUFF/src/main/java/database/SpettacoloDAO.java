@@ -41,7 +41,7 @@ public class SpettacoloDAO {
      * @throws NamingException
      * @throws SQLException 
      */
-    public SpettacoloDAO(Connection conn){
+    public SpettacoloDAO(Connection conn) throws NamingException, SQLException{
         connection = conn;
     }
    

@@ -35,6 +35,15 @@ public class ScontoDAO {
     }
    
     /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public ScontoDAO(Connection conn) throws NamingException, SQLException{
+        connection = conn;
+    }
+    
+    /**
      * Metodo per il prelievo della connessione attuale.
      * @return la connessione attuale.
      */

@@ -33,6 +33,16 @@ public class PostoDAO {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
     
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public PostoDAO(Connection conn) throws NamingException, SQLException{
+        connection = conn;
+        salaDAO = new SalaDAO(conn);
+    }
+    
     /*
      * Metodo che restituisce la connessione di tipo {@link Connection}.
      * @return oggetto connessione di tipo {@link Connection}

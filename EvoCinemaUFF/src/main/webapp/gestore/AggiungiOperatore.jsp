@@ -24,18 +24,18 @@
             
             Boolean aggiunto=null;
             aggiunto=(Boolean) s.getAttribute("accountRegistrato");
-            s.removeAttribute("accountRegistrato");
+            s.setAttribute("accountRegistrato",null);
             String a="";
             String b="";
             if(aggiunto==null){
                 a="";b="";
             }else{
                 if(aggiunto.equals(true)){
-                    a+="Account registrato.";
+                    a+="Registrazione avvenuta con successo.";
                     b+="green";
                 }else{
                     if(aggiunto.equals(false)){
-                        a+="Impossibile registrare.";
+                        a+="Impossibile registrare. Email o username già utilizzati.";
                         b+="red";
                     }
                 }} 
@@ -46,7 +46,7 @@
             }else{    
         %>    
         
-        <h1><font color="<%=b%>"><%=a%></font></h1>
+    <center><h1><font color="<%=b%>"><%=a%></font></h1></center>
         <div class="container">
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">Registra un nuovo account</div>
