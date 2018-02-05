@@ -34,18 +34,17 @@ public class OperazioneDAOTest {
     private static final int IDSPETTACOLO = 54;
     private static final int POSTO = 16;
     private static final int OFFSET = 3;
-//    private static final int IDSALA = 100;
-//    private static final int NUMEROPOSTI = 82;
-//    private static final String CONFIGPOSTI = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111111111111100000000000000001111111111111100000000000000001111111111111100000000000000000000000000000000000000000011101111111111111101110000000011101111111111111101110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     private static  Sala SALA;
     private static final float PREZZOFINALE = 5.0f;
-    private static  Sconto SCONTO; // = new Sconto(57, "mioSconto", 20, 0.0f, "SATURDAY", Sconto.verificabile.FALSE, Sconto.tipo.PERCENTUALE, Sconto.disponibile.TRUE, Sconto.tipologia.GIORNO_SETTIMANA);
+    private static  Sconto SCONTO; 
     
     
     private static java.sql.Connection connection;
     private static OperazioneDAO operazioneDAO;
     private static ScontoDAO scontoDAO;
     private static SalaDAO salaDAO;
+    public static Operazione o;
+    public static Acquisto mioAcquisto;
     
     public OperazioneDAOTest() {
     }
@@ -63,10 +62,26 @@ public class OperazioneDAOTest {
         SALA = salaDAO.foundByID(6);
         scontoDAO = new ScontoDAO((Connection) connection);
         SCONTO = scontoDAO.foundByID(41);
+        Calendar data = Calendar.getInstance();
+        data.set(2018, 02, 05);
+        o = new Acquisto(EMAIL, IDSPETTACOLO, POSTO, OFFSET, SALA, Operazione.prenotato.FALSE, Operazione.acquistato.TRUE, PREZZOFINALE, data, SCONTO);
+        operazioneDAO.createOperazione(o);  
+        
+        //Per ricavare l'id reale dell'acquisto creato
+        List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
+        mioAcquisto = null;
+        for(Acquisto a: listaAcquisti){
+            if(a.getIdSpettacolo() == IDSPETTACOLO && 
+               a.getSala().getIdSala() == SALA.getIdSala() &&
+               a.getPosto() == POSTO){
+                mioAcquisto = a;
+            }
+        }
     }
     
     @AfterClass
     public static void tearDownClass() throws SQLException, ParseException, NamingException {
+        operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());
         connection.rollback();
         connection.close();
     }
@@ -166,25 +181,10 @@ public class OperazioneDAOTest {
      */
     @Test
     public void testFoundByID() throws Exception {
-        System.out.println("foundByID");
-        Calendar data = Calendar.getInstance();
-        data.set(2018, 02, 05);
-        Operazione o = new Acquisto(EMAIL, IDSPETTACOLO, POSTO, OFFSET, SALA, Operazione.prenotato.FALSE, Operazione.acquistato.TRUE, PREZZOFINALE, data, SCONTO);
-        operazioneDAO.createOperazione(o);
-        //adesso devo trovare l'id reale del mio acquisto
-        List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
-        Acquisto mioAcquisto = null;
-        for(Acquisto a: listaAcquisti){
-            if(a.getIdSpettacolo() == IDSPETTACOLO && 
-               a.getSala().getIdSala() == SALA.getIdSala() &&
-               a.getPosto() == POSTO){
-                mioAcquisto = a;
-            }
-        }
+        System.out.println("foundByID");      
         int expResult = mioAcquisto.getIdOperazione();
         int result = operazioneDAO.foundByID(expResult).getIdOperazione();
-        assertEquals(expResult, result);
-        operazioneDAO.deleteOperazione(result);
+        assertEquals(expResult, result);        
     }
 
     /**
@@ -193,14 +193,12 @@ public class OperazioneDAOTest {
     @Test
     public void testCreateOperazione() throws Exception {
         System.out.println("createOperazione");
-        Calendar data = Calendar.getInstance();
-        data.set(2018, 02, 05);
-        Operazione o = new Acquisto(EMAIL, IDSPETTACOLO, POSTO, OFFSET, SALA, Operazione.prenotato.FALSE, Operazione.acquistato.TRUE, PREZZOFINALE, data, SCONTO);
+        operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());
         boolean expResult = true;
         assertEquals(expResult, operazioneDAO.createOperazione(o));
-        //adesso devo trovare l'id reale del mio acquisto
+        //Per ricavare l'id reale dell'acquisto creato
         List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
-        Acquisto mioAcquisto = null;
+        mioAcquisto = null;
         for(Acquisto a: listaAcquisti){
             if(a.getIdSpettacolo() == IDSPETTACOLO && 
                a.getSala().getIdSala() == SALA.getIdSala() &&
@@ -208,7 +206,6 @@ public class OperazioneDAOTest {
                 mioAcquisto = a;
             }
         }
-        operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());
     }
 
     /**
@@ -217,26 +214,11 @@ public class OperazioneDAOTest {
     @Test
     public void testUpdateOperazione() throws Exception {
         System.out.println("updateOperazione");
-        Calendar data = Calendar.getInstance();
-        data.set(2018, 02, 05);
-        Operazione o = new Acquisto(EMAIL, IDSPETTACOLO, POSTO, OFFSET, SALA, Operazione.prenotato.FALSE, Operazione.acquistato.TRUE, PREZZOFINALE, data, SCONTO);
-        operazioneDAO.createOperazione(o);
         int newPosto = 17;
         boolean expResult = true;
         o.setPosto(newPosto);
         boolean result = operazioneDAO.updateOperazione(o);
         assertEquals(expResult, result);
-        //adesso devo trovare l'id reale del mio acquisto
-        List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
-        Acquisto mioAcquisto = null;
-        for(Acquisto a: listaAcquisti){
-            if(a.getIdSpettacolo() == IDSPETTACOLO && 
-               a.getSala().getIdSala() == SALA.getIdSala() &&
-               a.getPosto() == POSTO){
-                mioAcquisto = a;
-            }
-        }
-        operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());        
     }
 
     /**
@@ -245,14 +227,13 @@ public class OperazioneDAOTest {
     @Test
     public void testDeleteOperazione() throws Exception {
         System.out.println("deleteOperazione");
-        Calendar data = Calendar.getInstance();
-        data.set(2018, 02, 05);
-        Operazione o = new Acquisto(EMAIL, IDSPETTACOLO, POSTO, OFFSET, SALA, Operazione.prenotato.FALSE, Operazione.acquistato.TRUE, PREZZOFINALE, data, SCONTO);
-        operazioneDAO.createOperazione(o);
         boolean expResult = true;
-        //adesso devo trovare l'id reale del mio acquisto
+        assertEquals(expResult, operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione()));
+        operazioneDAO.createOperazione(o);
+        
+        //Per ricavare l'id reale dell'acquisto creato
         List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
-        Acquisto mioAcquisto = null;
+        mioAcquisto = null;
         for(Acquisto a: listaAcquisti){
             if(a.getIdSpettacolo() == IDSPETTACOLO && 
                a.getSala().getIdSala() == SALA.getIdSala() &&
@@ -260,7 +241,6 @@ public class OperazioneDAOTest {
                 mioAcquisto = a;
             }
         }
-        assertEquals(expResult, operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione()));
     }
 
     /**
