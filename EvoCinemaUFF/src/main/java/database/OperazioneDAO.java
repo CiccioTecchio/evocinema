@@ -44,6 +44,15 @@ public class OperazioneDAO {
     public OperazioneDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
+    
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public OperazioneDAO(Connection conn) throws NamingException, SQLException {
+        connection = conn;
+    }
    
     /*
      * Metodo che restituisce la connessione di tipo {@link Connection}.
