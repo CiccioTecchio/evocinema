@@ -29,8 +29,8 @@ import model.Sconto;
 public class OperazioneDAO {
    
    private static Logger logger= Logger.getLogger("global");
-   private SalaDAO salaDAO = new SalaDAO();
-   private ScontoDAO scontoDAO = new ScontoDAO();
+   private SalaDAO salaDAO;
+   private ScontoDAO scontoDAO;
    
    private Connection connection;
    private PreparedStatement stmt=null;
@@ -43,6 +43,8 @@ public class OperazioneDAO {
      */
     public OperazioneDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+        salaDAO = new SalaDAO();
+        scontoDAO = new ScontoDAO();
     }
     
     /**
@@ -52,6 +54,8 @@ public class OperazioneDAO {
      */
     public OperazioneDAO(Connection conn) throws NamingException, SQLException {
         connection = conn;
+        salaDAO = new SalaDAO(conn);
+        scontoDAO = new ScontoDAO(conn);
     }
    
     /*
