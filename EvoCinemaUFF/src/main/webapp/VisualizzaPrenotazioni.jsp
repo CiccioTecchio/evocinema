@@ -58,7 +58,7 @@
                 <tr>
                     <th>Locandina</th>
                     <th>Titolo</th>
-                    <th>Data</th>   
+                    <th>Data spettacolo</th>   
                     <th>Ora inizio</th>
                     <th>Posto</th>
                     <th>Sala</th>
@@ -86,6 +86,8 @@
                     <td><%= titolo %></td>
                     <%
                         cal = x.getDataInizio();
+                        int offset = prenotazioni.get(i).getOffset();
+                        cal.add(Calendar.DAY_OF_MONTH, offset);
                         String data = cal.get(Calendar.YEAR) + "-";
                         int mese = cal.get(Calendar.MONTH);
                         if ((mese >= 0) && (mese < 9)) {
@@ -93,7 +95,7 @@
                         } else {
                             data = data + (mese + 1);
                         }
-                        data = data + "-" + cal.get(Calendar.DAY_OF_MONTH);
+                        data = data + "-" + cal.get(Calendar.YEAR);
                     %>
                     <td><%= data %></td>
                     <%
