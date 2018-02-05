@@ -13,6 +13,7 @@
 <%@page import="model.Spettacolo"%>
 <%@page import="model.Sala"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--<%// request.setAttribute("offsetGiorno", request.getAttribute("offset-giorno")); %>-->
 <jsp:include page="VisualizzazioneDettagliSpettacoloCNT" />
 <jsp:include page="Header.jsp" />
 

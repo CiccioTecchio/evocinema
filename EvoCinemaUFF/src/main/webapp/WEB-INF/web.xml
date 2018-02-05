@@ -17,10 +17,6 @@
         <servlet-class>control.accountCNT.VisualizzaGestoriCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RegistrazioneGestoreCNT</servlet-name>
-        <servlet-class>control.accountCNT.RegistrazioneGestoreCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RicaricaSaldoOperatoreCNT</servlet-name>
         <servlet-class>control.accountCNT.RicaricaSaldoOperatoreCNT</servlet-class>
     </servlet>
@@ -147,11 +143,6 @@
     <servlet-mapping>
         <servlet-name>VisualizzaGestoriCNT</servlet-name>
         <url-pattern>/VisualizzaGestoriCNT</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>RegistrazioneGestoreCNT</servlet-name>
-        <url-pattern>/RegistrazioneGestoreCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RicaricaSaldoOperatoreCNT</servlet-name>
