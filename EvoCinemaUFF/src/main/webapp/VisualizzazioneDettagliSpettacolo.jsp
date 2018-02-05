@@ -27,7 +27,7 @@
     int endColonna = rs.getEndColonna();
     char[][] matSala = rs.getMatSala();
     char[] matricePostiSpettacolo = rs.getMatricePostiSpettacolo();
-    UtenteRegistrato utente = (UtenteRegistrato) request.getSession().getAttribute("utente");
+    UtenteRegistrato utente = (UtenteRegistrato) request.getSession().getAttribute("user");
 %>
         <div class="container-fluid">
             <div class="row">
@@ -35,11 +35,9 @@
                     <div class="card">
                         <div class="card-header" ><h5>Dettagli Spettacolo</h5>
                         <%//if((utente != null) && (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE)) { 
-                            if(utente instanceof Gestore){ 
-                                out.print("<a href=\"/gestore/ModificaSpettacolo?idSpettacolo=\"");
-                                out.print(spettacolo.getIdSpettacolo() + "\"><button class=\"btn btn-primary\">Modifica Spettacolo</button></a>");
-                            }
-                        %>
+                            if(utente instanceof Gestore){ %>
+                                <a href="/gestore/ModificaSpettacolo.jsp?idSpettacolo=<%= spettacolo.getIdSpettacolo() %>"><button class="btn btn-primary">Modifica Spettacolo</button></a>
+                        <%  } %>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -191,4 +189,5 @@
             </div>
         </div>
 <script src="javascript/visualizzazione_dettagli_spettacolo.js"></script>
+<% request.getSession().setAttribute("offset", offset); %>
 <jsp:include page="Footer.jsp" />
