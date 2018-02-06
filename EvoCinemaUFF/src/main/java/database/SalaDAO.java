@@ -42,7 +42,7 @@ public class SalaDAO {
      * @throws NamingException
      * @throws SQLException 
      */
-    public SalaDAO(com.mysql.jdbc.Connection conn) {
+    public SalaDAO(com.mysql.jdbc.Connection conn) throws NamingException, SQLException{
         connection = conn;
     }
    

@@ -3,6 +3,8 @@
     Created on : 18-gen-2018, 11.18.43
     Author     : pietr
 --%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Sconto.tipologia"%>
 <%@page import="model.Sconto.verificabile"%>
 <%@page import="com.sun.istack.internal.logging.Logger"%>
 <%@page import="model.UtenteRegistrato.ruolo"%>
@@ -118,8 +120,11 @@
                 } else {
                     data = data + (mese + 1);
                 }
-                data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
-
+                int giorno=cal.get(Calendar.DAY_OF_MONTH);
+                if((giorno>0)&&(giorno<10))
+                    data = data + "/" + "0" + cal.get(Calendar.DAY_OF_MONTH);
+                else data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
+        
                 cal = spettacoloSelezionato.getDataFine();
                 String data2 = cal.get(Calendar.YEAR) + "/";
                 mese = cal.get(Calendar.MONTH);
@@ -128,8 +133,11 @@
                 } else {
                     data2 = data2 + (mese + 1);
                 }
-                data2 = data2 + "/" + cal.get(Calendar.DAY_OF_MONTH);
-    
+                giorno=cal.get(Calendar.DAY_OF_MONTH);
+                if((giorno>0)&&(giorno<10))
+                    data2 = data2 + "/" + "0" + cal.get(Calendar.DAY_OF_MONTH);
+                else data2 = data2 + "/" + cal.get(Calendar.DAY_OF_MONTH);
+        
             %>
             
             <div class="m-4">
@@ -162,15 +170,18 @@
                     orario += ":" + cal.get(Calendar.MINUTE);
                 }
 
-                 data = cal.get(Calendar.YEAR) + "/";
-                 mese = cal.get(Calendar.MONTH);
+                 data="";
+                mese = cal.get(Calendar.MONTH);
                 if ((mese >= 0) && (mese < 9)) {
                     data = data + "0" + (mese + 1);
                 } else {
                     data = data + (mese + 1);
                 }
-                data = data + "/" + cal.get(Calendar.DAY_OF_MONTH);
-
+                giorno=cal.get(Calendar.DAY_OF_MONTH);
+                if((giorno>0)&&(giorno<10))
+                    data = data + "/" + "0"+cal.get(Calendar.DAY_OF_MONTH);
+                else data = data + "/" +cal.get(Calendar.DAY_OF_MONTH);
+                data += "/"+cal.get(Calendar.YEAR);
             %>
             <div class="m-4">
                 <lable>Orario corrente: </lable>
@@ -221,16 +232,58 @@
                     <td class="classeSconti">
                         <select onchange="calcolaPrezzoTotale()">
                             <option value="41" selected >Nessuno</option>
-                            <%for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
+                            <%   Calendar dataOggi = Calendar.getInstance();
+                                    
+                                 String giornoOggi="";
+                                 switch(dataOggi.get(Calendar.DAY_OF_WEEK))
+                                 {
+                                    case 1:
+                                        giornoOggi="sunday";
+                                         break;
+                                    case 2:
+                                        giornoOggi="monday";
+                                         break;
+                                    case 3:
+                                        giornoOggi="TUESDAY";
+                                         break;
+                                    case 4:
+                                        giornoOggi="wednesday";
+                                         break;
+                                    case 5:
+                                        giornoOggi="thursday";
+                                         break;
+                                    case 6:
+                                        giornoOggi="friday";
+                                         break;
+                                    case 7:
+                                        giornoOggi="SATURDAY";
+                                         break;    
+                                 }
+                                 
+                                for(Sconto s: (List<Sconto>) request.getAttribute("SCONTI"))
                                 {
                                     if( (s.getDisponibile()==disponibile.TRUE) && (s.getIdSconto()!=41))
-                                    {
-                                        if(((s.getVerificabile()==verificabile.FALSE)&&
-                                                (user.getRuolo()==ruolo.OPERATORE))||(
-                                                (s.getVerificabile()==verificabile.TRUE)&&
-                                                ((user.getRuolo()==ruolo.UTENTE)||
-                                                (user.getRuolo()==ruolo.OPERATORE))))
+                                    {   //SE E' UN OPERATORE
+                                        if((((s.getVerificabile()==verificabile.FALSE)||
+                                                (s.getVerificabile()==verificabile.TRUE))
+                                                &&(user.getRuolo()==ruolo.OPERATORE))
+                                        //SE E' UN UTENTE BASE
+                                            ||(((s.getVerificabile()==verificabile.TRUE)&&
+                                                (user.getRuolo()==ruolo.UTENTE))
+                                                &&(//CONDIZIONI TIPOLOGIA
+                                                ((s.getTipologia()==tipologia.GIORNO_SETTIMANA)&&
+                                                (giornoOggi.equalsIgnoreCase(s.getParametroTipologia())))||
+                                                ((s.getTipologia()==tipologia.DATA)&&(data.equals(s.getParametroTipologia())))||
+                                                ((s.getTipologia()==tipologia.FILM)&&(s.getParametroTipologia().equalsIgnoreCase(spettacoloSelezionato.getTitolo())))||
+                                                ((s.getTipologia()==tipologia.SPETTACOLO)&&(spettacoloSelezionato.getIdSpettacolo()==Integer.parseInt(s.getParametroTipologia())))
+                                                )// FINE CONDIZIONI TIPOLOGIA
+                                                )) //FINE SE E' UN UTENTE BASE
+                                                
+                                                
                                         {
+                                            
+                                     //SCONTI VISUALIZZABILI DALL'UTENTE GIORNO DELLA SETTIMANA,
+                                            //FILM, SPETTACOLO?
                                 %>
                                 <option value="<%=s.getIdSconto()%>">
                                     <%=s.getNome()%>

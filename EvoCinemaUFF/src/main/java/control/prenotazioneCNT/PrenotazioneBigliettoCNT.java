@@ -64,12 +64,8 @@ public class PrenotazioneBigliettoCNT extends HttpServlet {
         int idSpettacolo = Integer.parseInt( request.getParameter("spettacoloScelto") );
         Spettacolo spettacolo = spettDAO.foundByID(idSpettacolo);
         String MatricePosti = spettacolo.getMatricePosti();
-        Calendar start = spettacolo.getDataInizio();
-        Calendar now = Calendar.getInstance();
-        now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
-        int offset = (int) ((now.getTimeInMillis() - start.getTimeInMillis()) / (1000*60*60*24));
-        System.out.println("Offset:"+offset);
         Sala sala = salaDAO.foundByID( Integer.parseInt( request.getParameter("idSala") ) );
+        int offset = Integer.parseInt(s.getAttribute("offset").toString()) / sala.getNumeroPosti();
         Operazione.prenotato prenotato = null;
         Operazione.acquistato acquistato = null;
         float prezzoSpettacolo = spettDAO.foundByID(idSpettacolo).getPrezzo();

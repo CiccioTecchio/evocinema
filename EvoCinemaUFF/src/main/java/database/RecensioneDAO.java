@@ -35,6 +35,17 @@ public class RecensioneDAO {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
     }
     
+    /**
+     * Usato prevalentemente per i JUNIT
+     * @throws NamingException
+     * @throws SQLException 
+     */
+    public RecensioneDAO(com.mysql.jdbc.Connection conn) throws NamingException, SQLException, ParseException{
+        connection = conn;
+        filmDAO = new FilmDAO(conn);
+    }
+    
+    
     /*
      * Metodo che restituisce la connessione di tipo {@link Connection}.
      * @return oggetto connessione di tipo {@link Connection}

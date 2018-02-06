@@ -17,7 +17,7 @@
       
                     %>
                     
-                    <div class="swiper-slide" ><img src="<%=f.getLocandina()%>" height="300px" width="250px" alt=""/></div>
+                    <div class="swiper-slide" ><img src="<%=f.getLocandina()%>" height="300px" onclick="window.location.href='VisualizzazioneProgrammazione.jsp#<%= f.getIdFilm() %>'" width="250px" alt=""/></div>
                     <%
                      }%>
                 </div>  
