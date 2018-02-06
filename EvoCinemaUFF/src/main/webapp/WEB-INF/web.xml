@@ -279,7 +279,6 @@
         <filter-name>FiltroGestore</filter-name>
         <url-pattern>/gestore/*</url-pattern>
     </filter-mapping>
-    <!--
     <filter>
         <filter-name>FiltroOperatore</filter-name>
         <filter-class>control.accountCNT.FiltroOperatore</filter-class>
@@ -299,7 +298,7 @@
     
     <error-page>
         <location>/Errore.jsp</location>
-    </error-page>-->
+    </error-page>
     <resource-ref>
         <description>JNDI reference to a data source</description>
         <res-ref-name>jdbc/evo_cinema</res-ref-name>

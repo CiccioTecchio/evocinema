@@ -1,4 +1,3 @@
-
 <%@page import="java.util.List"%>
 <%@page import="model.Film"%>
 <%@page import="java.util.Collection"%>
@@ -6,8 +5,7 @@
 <jsp:include page="Header.jsp" />
 <jsp:include page="VisualizzazioneProgrammazioneCNT" /> 
 
-
-        <header>
+            
          <% List<Film> array=(List<Film>)request.getAttribute("film1");
                 
                        %>    
@@ -17,13 +15,13 @@
       
                     %>
                     
-                    <div class="swiper-slide" ><img src="<%=f.getLocandina()%>" height="300px" onclick="window.location.href='VisualizzazioneProgrammazione.jsp#<%= f.getIdFilm() %>'" width="250px" alt=""/></div>
+                    <div class="swiper-slide" ><img src="<%=f.getLocandina()%>" height="300px" width="250px" alt=""/></div>
                     <%
                      }%>
                 </div>  
                     
             </div>
-        </header>
+        <!--
         <div id="date">
             <div align="center">
                 <strong><label for="from" >Dal</label></strong>
@@ -35,8 +33,6 @@
                
             </div>
         </div>
-        
+        -->
         
 <jsp:include page="Footer.jsp" />
-       
-

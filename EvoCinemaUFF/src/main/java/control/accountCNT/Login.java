@@ -97,22 +97,8 @@ public class Login extends HttpServlet {
         } else {
             s.setAttribute("user", utente);
             
-            if (null == utente.getRuolo()) {
-                response.getWriter().write("index.jsp");
-            } else switch (utente.getRuolo()) {
-                case GESTORE:
-                    response.getWriter().write("gestore/index.jsp");
-                    break;
-                case OPERATORE:
-                    response.getWriter().write("operatore/index.jsp");
-                    break;
-                case UTENTE:
-                    response.getWriter().write("utente/index.jsp");
-                    break;
-                default:
-                    response.getWriter().write("index.jsp");
-                    break;
-            }
+            response.getWriter().write("index.jsp");
+            
         }
     }
 

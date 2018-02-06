@@ -1,11 +1,10 @@
-
 <%@page import="model.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html"%>
 <!DOCTYPE html>
 
 <html lang="it">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-16">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -15,20 +14,19 @@
 
 
         <%
-            HttpSession r = request.getSession();
-            UtenteRegistrato u = (UtenteRegistrato) r.getAttribute("user");
+            UtenteRegistrato u = (UtenteRegistrato) (request.getSession()).getAttribute("user");
         %>
 
 
         <!-- Bootstrap core CSS -->
-         <!-- Bootstrap core CSS -->
+        <!-- Bootstrap core CSS -->
         <link href="../HomeSlider/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="../HomeSlider/css/swiper.min.css" rel="stylesheet">
         <link href="../HomeSlider/css/datepicker.css" rel="stylesheet">
         <link href="../HomeSlider/css/datepicker.less" rel="stylesheet/less">
-        
-        
+
+
         <link href="../HomeSlider/css/mycss.css" rel="stylesheet">
         <link href="../HomeSlider/css/errorPage.css" rel="stylesheet">
         <link rel="stylesheet" href="../visualizzazione_dettagli_spettacolo.css">
@@ -43,11 +41,11 @@
         <!-- Page level plugin CSS-->
         <link href="../Template%20Sb%20Admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
         <!-- Custom styles for this template-->
-        
+
         <link rel="icon" href="../images/logoGIF.gif" type="image/gif" sizes="160x160">
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-         <link href="../Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
+        <link href="../Template%20Sb%20Admin/css/sb-admin.css" rel="stylesheet">
         <script src="../HomeSlider/vendor/jquery/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="../Template%20Sb%20Admin/js/sb-admin.min.js"></script>
@@ -71,9 +69,7 @@
 
 
         <script src="../HomeSlider/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="../javascript/swiper.js"></script> 
-      
-
+        <script src="../javascript/swiper.js"></script>
 
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " id="mainNav">
@@ -82,132 +78,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                    <!-- inizio menù laterale -->
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
-                        <a class="nav-link" href="index.jsp">
-                            <i class="fa fa-fw fa-home"></i>
-                            <span class="nav-link-text">Home</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Analytics">
-                        <a class="nav-link" href="Analytics.jsp">
-                            <i class="fa fa-fw fa-area-chart"></i>
-                            <span class="nav-link-text">Analytics</span>
-                        </a>
-                    </li>                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione programmazione">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-calendar"></i>
-                            <span class="nav-link-text">Gestione programmazione</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents" >
- 
-                            <li>
-                                <a href="../VisualizzazioneProgrammazione.jsp">Visualizzazione programmazione</a>
-                            </li>
-                            <li>
-                                <a href="AggiungiSpettacolo.jsp">Inserisci spettacolo in programmazione</a>
-                            </li>
 
-                        </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione libreria">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-film"></i>
-                            <span class="nav-link-text">Gestione libreria film</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents1" >
-                            <li>
-                                <a href="VisualizzaLibreria.jsp">Visualizza libreria</a>
-                            </li>
-                            <li>
-                                <a href="inserisciFilmLibreria.jsp">Inserisci un film in libreria</a>
-                            </li>
-                            <li>
-                                <a href="ModificaLibreria.jsp">Modifica libreria</a>
-                            </li>
-
-                        </ul>
-                    </li>
-                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Gestione sconti">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-bars"></i>
-                            <span class="nav-link-text">Sconti</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents2">
-                            <li>
-                                <a href="VisualizzaSconti.jsp">Visualizza sconti</a>
-                            </li>
-                            <li><a href="InserisciSconto.jsp">Inserisci sconto</a>
-
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="OperatoriEGestori">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents3" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-child"></i>
-                            <span class="nav-link-text">Operatori e Gestori</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents3">
-                            <li>
-                                <a href="AggiungiOperatore.jsp">Registra nuovo Operatore o Gestore</a>
-                            </li>
-                            <li>
-                                <a href="../VisualizzaOperatoriCNT">Operatori</a>
-                            </li>
-                            <li><a href="../VisualizzaGestoriCNT">Gestori</a>
-
-                            </li>
-
-                        </ul>
-                    </li>
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="GestioneSala">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents4" data-parent="#exampleAccordion">
-                            <i class="fa fa-fw fa-building"></i>
-                            <span class="nav-link-text">Gestione Sala</span>
-                        </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents4">
-                            <li>
-                                <a href="ModificaSala.jsp?id=1">Sala 1</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=2">Sala 2</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=3">Sala 3</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=4">Sala 4</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=5">Sala 5</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=6">Sala 6</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=7">Sala 7</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=8">Sala 8</a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-
-                    <!-- fine menù laterale -->       
-                </ul>
-
-
-                <ul class="navbar-nav sidenav-toggler">
-                    <li class="nav-item">
-                        <a class="nav-link text-center" id="sidenavToggler">
-                            <i class="fa fa-fw fa-angle-left"></i>
-                        </a>
-                    </li>
-                </ul>
+                <jsp:include page="NavGestore.html" />    
+                
                 <ul class="navbar-nav ml-auto">
 
                     <%
@@ -219,7 +92,7 @@
                     </li>
                     <%
                     } else {
-                    %> 
+                    %>
 
                     <li class="nav-item dropdown mr-3" data-placement="right">
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
@@ -235,7 +108,7 @@
                                 </span>
                             </a>
                         </div>
-                        <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <a class="nav-link dropdown-toggle mr-3" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <i class="fa fa-user-circle fa-lg"></i> &nbsp; <%= u.getNomeUtente()%>
                         </a>
                     </li>
@@ -257,4 +130,3 @@
 
         <div class="content-wrapper">
             <div class="container-fluid">
-
