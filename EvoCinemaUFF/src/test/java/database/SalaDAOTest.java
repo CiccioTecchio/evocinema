@@ -81,17 +81,24 @@ public class SalaDAOTest {
     @Test
     public void testFoundByID() throws Exception {
         System.out.println("foundByID");
-        Sala s = new Sala(IDSALA, NUMEROPOSTI, CONFIGPOSTI);
-        salaDAO.createSala(s);        
-        int expResult = IDSALA;
-        Sala mySala = salaDAO.foundByID(IDSALA);
-        if(mySala instanceof Sala){
-            int result = mySala.getIdSala();
-            assertEquals(expResult, result);
-        }        
-        salaDAO.deleteSale(IDSALA);
-        
-        
+        Sala s = new Sala();
+        s.setConfigPosti(CONFIGPOSTI);
+        s.setNumeroPosti(NUMEROPOSTI);
+        salaDAO.createSala(s);  
+        //devo ricavare l'id reale
+        List<Sala> listaSale = salaDAO.getAllSale();
+        int def = 0;
+        int curr = 0;
+        for(Sala sala: listaSale){
+            curr = sala.getIdSala();
+            if( curr > def){
+                def = curr;
+            }
+        }
+        int expResult = def;
+        int result = salaDAO.foundByID(def).getIdSala();
+        assertEquals(expResult, result);
+        salaDAO.deleteSale(result);        
     }
 
     /**
@@ -100,10 +107,23 @@ public class SalaDAOTest {
     @Test
     public void testCreateSala() throws Exception {
         System.out.println("createSala");
-        Sala s = new Sala(IDSALA, NUMEROPOSTI, CONFIGPOSTI);
+        Sala s = new Sala();
+        s.setConfigPosti(CONFIGPOSTI);
+        s.setNumeroPosti(NUMEROPOSTI);
         boolean expResult = true;
         assertEquals(expResult, salaDAO.createSala(s));
-        salaDAO.deleteSale(IDSALA);
+         //devo ricavare l'id reale
+        List<Sala> listaSale = salaDAO.getAllSale();
+        int def = 0;
+        int curr = 0;
+        for(Sala sala: listaSale){
+            curr = sala.getIdSala();
+            if( curr > def){
+                def = curr;
+            }
+        }
+        salaDAO.deleteSale(def);
+        
     }
 
     /**
@@ -112,14 +132,26 @@ public class SalaDAOTest {
     @Test
     public void testUpdateSala() throws Exception {
         System.out.println("updateSala");
-        Sala s = new Sala(IDSALA, NUMEROPOSTI, CONFIGPOSTI);
+        Sala s = new Sala();
+        s.setConfigPosti(CONFIGPOSTI);
+        s.setNumeroPosti(NUMEROPOSTI);
         salaDAO.createSala(s);
         int newPosti = 80;
         boolean expResult = true;
         s.setNumeroPosti(newPosti);
         boolean result = salaDAO.updateSala(s);
         assertEquals(expResult, result);
-        salaDAO.deleteSale(IDSALA);
+         //devo ricavare l'id reale
+        List<Sala> listaSale = salaDAO.getAllSale();
+        int def = 0;
+        int curr = 0;
+        for(Sala sala: listaSale){
+            curr = sala.getIdSala();
+            if( curr > def){
+                def = curr;
+            }
+        }
+        salaDAO.deleteSale(def);
     }
 
     /**
@@ -128,10 +160,22 @@ public class SalaDAOTest {
     @Test
     public void testDeleteSale() throws Exception {
         System.out.println("deleteSale");
-        Sala s = new Sala(IDSALA, NUMEROPOSTI, CONFIGPOSTI);
+        Sala s = new Sala();
+        s.setConfigPosti(CONFIGPOSTI);
+        s.setNumeroPosti(NUMEROPOSTI);
         salaDAO.createSala(s);
         boolean expResult = true;
-        boolean result = salaDAO.deleteSale(IDSALA);
+         //devo ricavare l'id reale
+        List<Sala> listaSale = salaDAO.getAllSale();
+        int def = 0;
+        int curr = 0;
+        for(Sala sala: listaSale){
+            curr = sala.getIdSala();
+            if( curr > def){
+                def = curr;
+            }
+        }
+        boolean result = salaDAO.deleteSale(def);
         assertEquals(expResult, result);
     }
     
