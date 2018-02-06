@@ -36,7 +36,7 @@
                         <div class="card-header" ><h5>Dettagli Spettacolo</h5>
                         <%//if((utente != null) && (utente.getRuolo() == UtenteRegistrato.ruolo.GESTORE)) { 
                             if(utente instanceof Gestore){ %>
-                                <a href="/gestore/ModificaSpettacolo.jsp?idSpettacolo=<%= spettacolo.getIdSpettacolo() %>"><button class="btn btn-primary">Modifica Spettacolo</button></a>
+                                <a href="gestore/ModificaSpettacolo.jsp?idSpettacolo=<%= spettacolo.getIdSpettacolo() %>"><button class="btn btn-primary">Modifica Spettacolo</button></a>
                         <%  } %>
                         </div>
                         <div class="card-body">

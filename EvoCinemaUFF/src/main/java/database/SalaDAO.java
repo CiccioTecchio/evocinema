@@ -122,10 +122,9 @@ public class SalaDAO {
         boolean inserita= false;
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sala (id_sala, numero_posti, configurazione_posti) VALUES ( ? , ? , ? )");
-            stmt.setInt(1, s.getIdSala());
-            stmt.setInt(2, s.getNumeroPosti());
-            stmt.setString(3, s.getConfigPosti());
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Sala (numero_posti, configurazione_posti) VALUES (? , ? )");
+            stmt.setInt(1, s.getNumeroPosti());
+            stmt.setString(2, s.getConfigPosti());
             stmt.executeUpdate();
             inserita = true;
         } 

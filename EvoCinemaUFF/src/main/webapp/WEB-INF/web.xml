@@ -33,10 +33,6 @@
         <url-pattern>/CancellazioneAccountCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AggiuntaSalaCNT</servlet-name>
-        <url-pattern>/AggiuntaSalaCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PrenotazioneSalaCNT</servlet-name>
         <url-pattern>/PrenotazioneSalaCNT</url-pattern>
     </servlet-mapping>
@@ -112,7 +108,7 @@
         <servlet-name>PrenotazioneCNT</servlet-name>
         <url-pattern>/PrenotazioneCNT</url-pattern>
     </servlet-mapping>
-       <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AnalyticsFilmCNT</servlet-name>
         <url-pattern>/AnalyticsFilmCNT</url-pattern>
     </servlet-mapping>
@@ -166,10 +162,6 @@
     <servlet>
         <servlet-name>CancellazioneAccountCNT</servlet-name>
         <servlet-class>control.accountCNT.CancellazioneAccountCNT</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AggiuntaSalaCNT</servlet-name>
-        <servlet-class>control.salaCNT.AggiuntaSalaCNT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PrenotazioneSalaCNT</servlet-name>
@@ -259,7 +251,7 @@
         <servlet-name>PrenotazioneCNT</servlet-name>
         <servlet-class>control.acquistoCNT.PrenotazioneCNT</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>AnalyticsFilmCNT</servlet-name>
         <servlet-class>control.analyticsCNT.AnalyticsFilmCNT</servlet-class>
     </servlet>
