@@ -9,6 +9,7 @@ import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 import javax.naming.NamingException;
@@ -44,6 +45,8 @@ public class FilmDAOTest {
     private static final String TRAILER = "https://www.youtube.com/watch?v=8c3HGPz6BI4";
     private static java.sql.Connection connection;
     private static FilmDAO filmDAO;
+    private static Film film, myFilm;
+    private static int idFilm;
     
     public FilmDAOTest() {
         
@@ -54,14 +57,28 @@ public class FilmDAOTest {
     }
     
     @BeforeClass
-    public static void setUpClass() throws SQLException, NamingException{
+    public static void setUpClass() throws SQLException, NamingException, ParseException{
         connection = getTestConnection();
         connection.setAutoCommit(false);
         filmDAO = new FilmDAO((Connection) connection);
+        Calendar dataUscita = Calendar.getInstance();
+        dataUscita.set(2006, 3, 17);
+        film = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
+        filmDAO.createFilm(film);
+         //cerco il film per ricavarne l'ID autogenerato
+        List<Film> listaFilm = filmDAO.getAllFilm();
+        myFilm = null;
+        for(Film f: listaFilm){
+            if(f.getTitolo().equals(TITOLO)){
+                myFilm = f;
+            }
+        }
+        idFilm = myFilm.getIdFilm();
     }
     
     @AfterClass
-    public static void tearDownClass() throws SQLException {
+    public static void tearDownClass() throws SQLException, ParseException, NamingException {
+        filmDAO.deleteFilm(idFilm);
         connection.rollback();
         connection.close();
     }
@@ -148,22 +165,9 @@ public class FilmDAOTest {
     @Test
     public void testFoundByID() throws Exception {
         System.out.println("foundByID");
-        Calendar dataUscita = Calendar.getInstance();
-        dataUscita.set(2006, 3, 17);
-        Film v = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
-        filmDAO.createFilm(v);
-        //cerco il film per ricavarne l'ID autogenerato
-        List<Film> listaFilm = filmDAO.getAllFilm();
-        Film myFilm = null;
-        for(Film f: listaFilm){
-            if(f.getTitolo().equals(TITOLO)){
-                myFilm = f;
-            }
-        }
-        int expResult = myFilm.getIdFilm();
-        int result = filmDAO.foundByID(myFilm.getIdFilm()).getIdFilm();
+        int expResult = idFilm;
+        int result = filmDAO.foundByID(idFilm).getIdFilm();
         assertEquals(expResult, result);
-        filmDAO.deleteFilm(myFilm.getIdFilm());
     }
 
     /**
@@ -172,21 +176,8 @@ public class FilmDAOTest {
     @Test
     public void testIsExistByTitolo() throws Exception {
         System.out.println("isExistByTitolo");
-        Calendar dataUscita = Calendar.getInstance();
-        dataUscita.set(2006, 3, 17);
-        Film v = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
-        filmDAO.createFilm(v);
         boolean expResult = true;
-        assertEquals(expResult, filmDAO.isExistByTitolo(v.getTitolo()));
-        //cerco il film per ricavarne l'ID autogenerato
-        List<Film> listaFilm = filmDAO.getAllFilm();
-        Film myFilm = null;
-        for(Film f: listaFilm){
-            if(f.getTitolo().equals(TITOLO)){
-                myFilm = f;
-            }
-        }
-        filmDAO.deleteFilm(myFilm.getIdFilm());
+        assertEquals(expResult, filmDAO.isExistByTitolo(film.getTitolo()));
     }
 
     /**
@@ -195,20 +186,18 @@ public class FilmDAOTest {
     @Test
     public void testCreateFilm() throws Exception {
         System.out.println("createFilm");
-        Calendar dataUscita = Calendar.getInstance();
-        dataUscita.set(2006, 3, 17);
-        Film v = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
+        filmDAO.deleteFilm(idFilm);
         boolean expResult = true;
-        assertEquals(expResult, filmDAO.createFilm(v));
+        assertEquals(expResult, filmDAO.createFilm(film));
         //cerco il film per ricavarne l'ID autogenerato
         List<Film> listaFilm = filmDAO.getAllFilm();
-        Film myFilm = null;
+        myFilm = null;
         for(Film f: listaFilm){
             if(f.getTitolo().equals(TITOLO)){
                 myFilm = f;
             }
         }
-        filmDAO.deleteFilm(myFilm.getIdFilm());            
+        idFilm = myFilm.getIdFilm();               
     }
 
     /**
@@ -217,24 +206,11 @@ public class FilmDAOTest {
     @Test
     public void testUpdateFilm() throws Exception {
         System.out.println("updateFilm");
-        Calendar dataUscita = Calendar.getInstance();
-        dataUscita.set(2006, 3, 17);
-        Film v = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
-        filmDAO.createFilm(v);
         String newRegia = "Wakowsky brothers";
         boolean expResult = true;
-        v.setRegia(newRegia);
-        boolean result = filmDAO.updateFilm(v);
+        film.setRegia(newRegia);
+        boolean result = filmDAO.updateFilm(film);
         assertEquals(expResult, result);
-        //cerco il film per ricavarne l'ID autogenerato
-        List<Film> listaFilm = filmDAO.getAllFilm();
-        Film myFilm = null;
-        for(Film f: listaFilm){
-            if(f.getTitolo().equals(TITOLO)){
-                myFilm = f;
-            }
-        }
-        filmDAO.deleteFilm(myFilm.getIdFilm());
     }
 
     /**
@@ -243,20 +219,9 @@ public class FilmDAOTest {
     @Test
     public void testDeleteFilm() throws Exception {
         System.out.println("deleteFilm");
-        Calendar dataUscita = Calendar.getInstance();
-        dataUscita.set(2006, 3, 17);
-        Film v = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
-        filmDAO.createFilm(v);
         boolean expResult = true;
-        List<Film> listaFilm = filmDAO.getAllFilm();
-        Film myFilm = null;
-        for(Film f: listaFilm){
-            if(f.getTitolo().equals(TITOLO)){
-                myFilm = f;
-            }
-        }
         assertEquals(expResult, filmDAO.deleteFilm(myFilm.getIdFilm()));
-       
+        filmDAO.createFilm(film);       
     }
     
 }

@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.Calendar;
-import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,14 +9,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Test della classe model Spettacolo
  *
  * @author Giuseppe
  */
 public class SpettacoloTest {
-    
+
     public SpettacoloTest() {
     }
-    
+
+    /*
+    * Test dei metodi GET e SET
+     */
     @Test
     public void getterSetterTest() {
         Spettacolo u = new Spettacolo();
@@ -44,8 +42,10 @@ public class SpettacoloTest {
         oraFine.set(2000, 1, 20, 12, 0);
         u.setOraFine(oraFine);
     }
-    
-    
+
+    /*
+    * Variabili utilizzate per il test
+     */
     private int idSpettacolo;
     private int idSala;
     private Integer idFilm;
@@ -55,29 +55,8 @@ public class SpettacoloTest {
     private float prezzo;
     private Calendar oraInizio;
     private Calendar oraFine;
-    
+
     private static final String TITOLO = "titoloProva";
     private static final float PREZZO = 5.5f;
-        
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

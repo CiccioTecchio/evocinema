@@ -17,13 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.UtenteRegistrato;
 
 /**
- *
+ * Servlet che gestisce la visualizzazione in caso di Login di un UtenteBase
  * @author Angelo
  */
 public class FiltroUtente implements Filter {
-    
-    
-    
+
     public FiltroUtente() {
     }    
 
@@ -34,6 +32,14 @@ public class FiltroUtente implements Filter {
                 
     }
 
+    /**
+     * Metodo che controlla il ruolo dell'utente loggato e mostra la pagina in base ad esso
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
      
@@ -51,9 +57,7 @@ public class FiltroUtente implements Filter {
     }
 
     @Override
-    public void destroy() {
-       
-        
+    public void destroy() {   
     }
     
 }

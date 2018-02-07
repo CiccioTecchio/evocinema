@@ -10,14 +10,18 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Test della classe model Gestore
  *
  * @author Giuseppe
  */
 public class GestoreTest {
-    
+
     public GestoreTest() {
     }
 
+    /*
+    * Test dei metodi GET e SET
+     */
     @Test
     public void getterSetterTest() {
         Gestore u = new Gestore();
@@ -45,9 +49,12 @@ public class GestoreTest {
         u.setCittà(CITTA);
         u.setIndirizzo(INDIRIZZO);
         assertEquals(INDIRIZZO, u.getIndirizzo());
-        
+
     }
-            
+
+    /*
+    * Varianbili utilizzate per il test
+     */
     private static final String EMAIL = "email@email.it";
     private static final String NOMEUTENTE = "nomeUtente";
     private static final String PASSWORD = "password";
@@ -58,9 +65,3 @@ public class GestoreTest {
     private static final String INDIRIZZO = "via Roma 7";
 
 }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}

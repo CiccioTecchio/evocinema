@@ -8,6 +8,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import javax.naming.NamingException;
 import model.Sala;
@@ -24,12 +25,13 @@ import static org.junit.Assert.*;
  */
 public class SalaDAOTest {
     
-    private static final int IDSALA = 100;
     private static final int NUMEROPOSTI = 82;
     private static final String CONFIGPOSTI = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111111111111100000000000000001111111111111100000000000000001111111111111100000000000000000000000000000000000000000011101111111111111101110000000011101111111111111101110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     
     private static java.sql.Connection connection;
     private static SalaDAO salaDAO;
+    private static Sala sala;
+    private static int idReale;
     
     public SalaDAOTest() {
     }
@@ -39,14 +41,29 @@ public class SalaDAOTest {
     }
     
     @BeforeClass
-    public static void setUpClass() throws SQLException, NamingException {
+    public static void setUpClass() throws SQLException, NamingException, ParseException {
         connection = getTestConnection();
         connection.setAutoCommit(false);
         salaDAO = new SalaDAO((com.mysql.jdbc.Connection) connection);
+        sala = new Sala();
+        sala.setConfigPosti(CONFIGPOSTI);
+        sala.setNumeroPosti(NUMEROPOSTI);
+        salaDAO.createSala(sala);
+         //devo ricavare l'id reale
+        List<Sala> listaSale = salaDAO.getAllSale();
+        idReale = 0;
+        int curr = 0;
+        for(Sala sala: listaSale){
+            curr = sala.getIdSala();
+            if( curr > idReale){
+                idReale = curr;
+            }
+        }
     }
     
     @AfterClass
-    public static void tearDownClass() throws SQLException {
+    public static void tearDownClass() throws SQLException, ParseException, NamingException {
+        salaDAO.deleteSale(idReale);   
         connection.rollback();
         connection.close();
     }
@@ -80,25 +97,11 @@ public class SalaDAOTest {
      */
     @Test
     public void testFoundByID() throws Exception {
-        System.out.println("foundByID");
-        Sala s = new Sala();
-        s.setConfigPosti(CONFIGPOSTI);
-        s.setNumeroPosti(NUMEROPOSTI);
-        salaDAO.createSala(s);  
+        System.out.println("foundByID"); 
         //devo ricavare l'id reale
-        List<Sala> listaSale = salaDAO.getAllSale();
-        int def = 0;
-        int curr = 0;
-        for(Sala sala: listaSale){
-            curr = sala.getIdSala();
-            if( curr > def){
-                def = curr;
-            }
-        }
-        int expResult = def;
-        int result = salaDAO.foundByID(def).getIdSala();
-        assertEquals(expResult, result);
-        salaDAO.deleteSale(result);        
+        int expResult = idReale;
+        int result = salaDAO.foundByID(idReale).getIdSala();
+        assertEquals(expResult, result);             
     }
 
     /**
@@ -107,23 +110,19 @@ public class SalaDAOTest {
     @Test
     public void testCreateSala() throws Exception {
         System.out.println("createSala");
-        Sala s = new Sala();
-        s.setConfigPosti(CONFIGPOSTI);
-        s.setNumeroPosti(NUMEROPOSTI);
+        salaDAO.deleteSale(idReale);
         boolean expResult = true;
-        assertEquals(expResult, salaDAO.createSala(s));
+        assertEquals(expResult, salaDAO.createSala(sala));
          //devo ricavare l'id reale
         List<Sala> listaSale = salaDAO.getAllSale();
-        int def = 0;
+        idReale = 0;
         int curr = 0;
         for(Sala sala: listaSale){
             curr = sala.getIdSala();
-            if( curr > def){
-                def = curr;
+            if( curr > idReale){
+                idReale = curr;
             }
-        }
-        salaDAO.deleteSale(def);
-        
+        }       
     }
 
     /**
@@ -132,26 +131,11 @@ public class SalaDAOTest {
     @Test
     public void testUpdateSala() throws Exception {
         System.out.println("updateSala");
-        Sala s = new Sala();
-        s.setConfigPosti(CONFIGPOSTI);
-        s.setNumeroPosti(NUMEROPOSTI);
-        salaDAO.createSala(s);
         int newPosti = 80;
         boolean expResult = true;
-        s.setNumeroPosti(newPosti);
-        boolean result = salaDAO.updateSala(s);
+        sala.setNumeroPosti(newPosti);
+        boolean result = salaDAO.updateSala(sala);
         assertEquals(expResult, result);
-         //devo ricavare l'id reale
-        List<Sala> listaSale = salaDAO.getAllSale();
-        int def = 0;
-        int curr = 0;
-        for(Sala sala: listaSale){
-            curr = sala.getIdSala();
-            if( curr > def){
-                def = curr;
-            }
-        }
-        salaDAO.deleteSale(def);
     }
 
     /**
@@ -160,23 +144,20 @@ public class SalaDAOTest {
     @Test
     public void testDeleteSale() throws Exception {
         System.out.println("deleteSale");
-        Sala s = new Sala();
-        s.setConfigPosti(CONFIGPOSTI);
-        s.setNumeroPosti(NUMEROPOSTI);
-        salaDAO.createSala(s);
         boolean expResult = true;
-         //devo ricavare l'id reale
+        boolean result = salaDAO.deleteSale(idReale);
+        assertEquals(expResult, result);
+        salaDAO.createSala(sala);
+        //devo ricavare l'id reale
         List<Sala> listaSale = salaDAO.getAllSale();
-        int def = 0;
+        idReale = 0;
         int curr = 0;
         for(Sala sala: listaSale){
             curr = sala.getIdSala();
-            if( curr > def){
-                def = curr;
+            if( curr > idReale){
+                idReale = curr;
             }
-        }
-        boolean result = salaDAO.deleteSale(def);
-        assertEquals(expResult, result);
+        }       
     }
     
 }

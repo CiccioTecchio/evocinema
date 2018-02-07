@@ -2,95 +2,95 @@ use evo_cinema;
 -- -- -- -- -- -- -- 
 # TABELLA UTENTI   #
 -- -- -- -- -- -- -- 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('LuisaBoni@gmail.com', 'Watut1959', 'Beish6veivee', 'UTENTE', 'Luisa', 'Boni', '1959-06-14', 'F', '3485615574', 'Catania', 'Viale delle Province, 103', 12);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('LuisaBoni@gmail.com', 'Watut1959', 'Beish6veivee', 'UTENTE', 'Luisa', 'Boni', '1959-06-14', 'F', '3485615574', 'Catania', 'Viale delle Province, 103', 12, '2018-01-01');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('BernardoBuccho@gmail.com', 'Theys1951', 'cheeLaip6Ee', 'UTENTE', 'Bernardo', 'Bucco', '1951-09-18', 'M', '3369675983', 'Rovigo', 'Via Valpantena, 126', 20);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('BernardoBuccho@gmail.com', 'Theys1951', 'cheeLaip6Ee', 'UTENTE', 'Bernardo', 'Bucco', '1951-09-18', 'M', '3369675983', 'Rovigo', 'Via Valpantena, 126', 20, '2018-01-03');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('AlighieroMilanesi@libero.it', 'Thadfur', 'pheeS9huk', 'UTENTE', 'Alighiero', 'Milanesi', '1989-03-01', 'M', '3601381287', 'Varese', 'Via Corio, 82', 2);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('AlighieroMilanesi@libero.it', 'Thadfur', 'pheeS9huk', 'UTENTE', 'Alighiero', 'Milanesi', '1989-03-01', 'M', '3601381287', 'Varese', 'Via Corio, 82', 2, '2018-01-05');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('CleliaPiazza@rhyta.com', 'Thavorn', 'Rach9ook', 'UTENTE', 'Clelia', 'Piazza', '1987-02-19', 'F', '3173636283', 'Foggia', 'Via Nuova Agnano, 80', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('CleliaPiazza@rhyta.com', 'Thavorn', 'Rach9ook', 'UTENTE', 'Clelia', 'Piazza', '1987-02-19', 'F', '3173636283', 'Foggia', 'Via Nuova Agnano, 80', 0, '2018-01-07');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('TarquiniaLorenzo@rhyta.com', 'Hatelme', 'AePh8eeXee', 'UTENTE', 'Tarquinia', 'Lorenzo', '1991-01-18', 'F', '3699950389', 'Verolanuova', 'Via del Mascherone, 1', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('TarquiniaLorenzo@rhyta.com', 'Hatelme', 'AePh8eeXee', 'UTENTE', 'Tarquinia', 'Lorenzo', '1991-01-18', 'F', '3699950389', 'Verolanuova', 'Via del Mascherone, 1', 0, '2018-01-12');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('GTrevisani@libero.it', 'Stabothe', 'eiSh6ree', 'UTENTE', 'Gioacchino', 'Trevisani', '1999-06-14', 'M', '3624481218', 'Fontana Di Montella', 'Via Licola Patria, 132', 10);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('GTrevisani@libero.it', 'Stabothe', 'eiSh6ree', 'UTENTE', 'Gioacchino', 'Trevisani', '1999-06-14', 'M', '3624481218', 'Fontana Di Montella', 'Via Licola Patria, 132', 10, '2018-01-13');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('LinaLongo@jourrapide.com', 'Hillitich', 'Sho5thoh4', 'UTENTE', 'Lina', 'Longo', '1987-03-21', 'F', '3893527376', 'Gatteo', 'Via Foria, 73', 20);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('LinaLongo@jourrapide.com', 'Hillitich', 'Sho5thoh4', 'UTENTE', 'Lina', 'Longo', '1987-03-21', 'F', '3893527376', 'Gatteo', 'Via Foria, 73', 20, '2018-01-14');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('PatrizFerrari@gmail.com', 'Hichercy', 'Zuguf0gu', 'UTENTE', 'Patrizia', 'Ferrari', '1988-03-01', 'F', '3244779546', 'Laste Di Rocca Pietore', 'Via Nicolai, 115', 22);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('PatrizFerrari@gmail.com', 'Hichercy', 'Zuguf0gu', 'UTENTE', 'Patrizia', 'Ferrari', '1988-03-01', 'F', '3244779546', 'Laste Di Rocca Pietore', 'Via Nicolai, 115', 22, '2018-01-15');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('AgneseRicci@rhyta.com', 'Este1979', 'uK7Quahfe', 'UTENTE', 'Agnese', 'Ricci', '1979-08-13', 'F', '3483073591', 'Lucca', 'Piazza Garibaldi, 72', 18);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('AgneseRicci@rhyta.com', 'Este1979', 'uK7Quahfe', 'UTENTE', 'Agnese', 'Ricci', '1979-08-13', 'F', '3483073591', 'Lucca', 'Piazza Garibaldi, 72', 18, '2018-01-16');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('AdeliaCattaneo@alice.it', 'Shomence', 'reaY1qui1if', 'UTENTE', 'Adelia', 'Cattaneo', '1994-12-14', 'F', '3587739927', 'Pesaro', 'Discesa Gaiola, 18', 40);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('AdeliaCattaneo@alice.it', 'Shomence', 'reaY1qui1if', 'UTENTE', 'Adelia', 'Cattaneo', '1994-12-14', 'F', '3587739927', 'Pesaro', 'Discesa Gaiola, 18', 40, '2018-01-16');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('ELombar@alice.it', 'Opme95', 'wah4eYuc', 'UTENTE', 'Edoardo', 'Lombardi', '1988-05-09', 'M', '3375198340', 'Reggio Calabria', 'Via Giulio Camuzzoni, 149', 12);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('ELombar@alice.it', 'Opme95', 'wah4eYuc', 'UTENTE', 'Edoardo', 'Lombardi', '1988-05-09', 'M', '3375198340', 'Reggio Calabria', 'Via Giulio Camuzzoni, 149', 12, '2018-01-18');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('ABergamaschi@gmail.com ', 'Scove1991', 'aishiem6Ph', 'UTENTE', 'Antonia', 'Bergamaschi', '1986-02-24', 'F', '3778775342', 'Trento', 'Via San Domenico Soriano, 93', 30);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('ABergamaschi@gmail.com ', 'Scove1991', 'aishiem6Ph', 'UTENTE', 'Antonia', 'Bergamaschi', '1986-02-24', 'F', '3778775342', 'Trento', 'Via San Domenico Soriano, 93', 30, '2018-01-21');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('EdgaFerr@yahoo.com', 'Scoged91', 'ohk7thahD', 'UTENTE', 'Edgardo', 'Ferrari', '1992-09-24', 'M', '3870722994', 'Aquila', 'Via Raffaele Conforti, 10', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('EdgaFerr@yahoo.com', 'Scoged91', 'ohk7thahD', 'UTENTE', 'Edgardo', 'Ferrari', '1992-09-24', 'M', '3870722994', 'Aquila', 'Via Raffaele Conforti, 10', 0, '2018-01-22');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('APisani@mail.com', 'Sheing', 'She9oeix', 'UTENTE', 'Anita', 'Pisani', '1992-09-04', 'F', '3268461575', 'Bologna', 'Via Lombardi, 85', 16);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('APisani@mail.com', 'Sheing', 'She9oeix', 'UTENTE', 'Anita', 'Pisani', '1992-09-04', 'F', '3268461575', 'Bologna', 'Via Lombardi, 85', 16, '2018-01-25');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('GvraTren2@outlook.it', 'Trome1978', 'chau6eoPh', 'UTENTE', 'Ginevra', 'Trentini', '1980-03-30', 'F', '3458963965', 'Napoli', 'Via Santa Lucia, 39', 5);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('GvraTren2@outlook.it', 'Trome1978', 'chau6eoPh', 'UTENTE', 'Ginevra', 'Trentini', '1980-03-30', 'F', '3458963965', 'Napoli', 'Via Santa Lucia, 39', 5, '2018-01-26');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('IsaMazzi@mail.com', 'Exuld1998', 'ieHah7op', 'UTENTE', 'Isa', 'Mazzi', '1977-01-01', 'F', '3677127686', 'Caserta', 'Via Varrone, 91', 14);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('IsaMazzi@mail.com', 'Exuld1998', 'ieHah7op', 'UTENTE', 'Isa', 'Mazzi', '1977-01-01', 'F', '3677127686', 'Caserta', 'Via Varrone, 91', 14, '2018-01-26');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('Daespo44@gmail.com', 'Ding1980', 'AhkOopa', 'UTENTE', 'Damiano', 'Esposito', '1999-06-14', 'M', '3891679103', 'Napoli', 'Via Alessandro Scarlatti, 11', 3);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('Daespo44@gmail.com', 'Ding1980', 'AhkOopa', 'UTENTE', 'Damiano', 'Esposito', '1999-06-14', 'M', '3891679103', 'Napoli', 'Via Alessandro Scarlatti, 11', 3, '2018-01-27');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('AdolfoLett@gmail.com ', 'Youriaget', 'aeiP5hoo', 'UTENTE', 'Adolfo', 'Lettiere', '1990-02-15', 'M', '3228450705', 'Torino', 'Via Enrico Fermi, 126', 8);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('AdolfoLett@gmail.com ', 'Youriaget', 'aeiP5hoo', 'UTENTE', 'Adolfo', 'Lettiere', '1990-02-15', 'M', '3228450705', 'Torino', 'Via Enrico Fermi, 126', 8, '2018-02-03');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)
- values ('LivioDL@gmail.com ', 'Shouseedee', 'Uh1Bei8', 'UTENTE', 'Livio', 'De Luca', '1989-12-29', 'M', '3954722755', 'Genova', 'Corso Porta Borsari, 8', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione)
+ values ('LivioDL@gmail.com ', 'Shouseedee', 'Uh1Bei8', 'UTENTE', 'Livio', 'De Luca', '1989-12-29', 'M', '3954722755', 'Genova', 'Corso Porta Borsari, 8', 0, '2018-02-05');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('Ro.Lettieri@teleworm.us', 'Mostan', 'ShojuBah', 'UTENTE', 'Roberta', 'Lettiere', '1963-04-27', 'F', '3613931694', 'Treviso', 'Vicolo Tre Marchetti, 134', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('Ro.Lettieri@teleworm.us', 'Mostan', 'ShojuBah', 'UTENTE', 'Roberta', 'Lettiere', '1963-04-27', 'F', '3613931694', 'Treviso', 'Vicolo Tre Marchetti, 134', 0, '2018-01-30');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('AMonaldo@libero.it', 'Houuch1990', 'EiChueb4', 'OPERATORE', 'Achille', 'Monaldo', '1990-03-13', 'M', '3416161106', 'Udine', 'Via Paolo Gaidano, 11', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('AMonaldo@libero.it', 'Houuch1990', 'EiChueb4', 'OPERATORE', 'Achille', 'Monaldo', '1990-03-13', 'M', '3416161106', 'Udine', 'Via Paolo Gaidano, 11', 0, '2018-01-22');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('RaulRicci@rhyta.com', 'Namushe', 'UCec6ph', 'OPERATORE', 'Raul', 'Ricci', '1979-08-03', 'M', '3709073954', 'Perugia', 'Via Silvio Spaventa, 47', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('RaulRicci@rhyta.com', 'Namushe', 'UCec6ph', 'OPERATORE', 'Raul', 'Ricci', '1979-08-03', 'M', '3709073954', 'Perugia', 'Via Silvio Spaventa, 47', 0, '2018-01-23');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('NicolettaBeneventi@gmail.com', 'Hispen', 'yeif2Oob', 'OPERATORE', 'Nicoletta', 'Beneventi', '1996-07-13', 'F', '3595217617', 'Firenze', 'Via della Spiga, 85', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('NicolettaBeneventi@gmail.com', 'Hispen', 'yeif2Oob', 'OPERATORE', 'Nicoletta', 'Beneventi', '1996-07-13', 'F', '3595217617', 'Firenze', 'Via della Spiga, 85', 0, '2018-01-02');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('FrancaIadanza@yahoo.com ', 'Nectur83', 'eek0Phie', 'OPERATORE', 'Franca', 'Iadanza', '1993-10-25', 'F', '3986287684', 'Padova', 'Via Alessandro Manzoni, 15', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('FrancaIadanza@yahoo.com ', 'Nectur83', 'eek0Phie', 'OPERATORE', 'Franca', 'Iadanza', '1993-10-25', 'F', '3986287684', 'Padova', 'Via Alessandro Manzoni, 15', 0, '2018-01-04');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('NinoConti@outlook.it ', 'Goves1980', 'ahSo8eeg1ch', 'OPERATORE', 'Nino', 'Conti', '1974-01-31', 'M', '3265989110', 'Cesena', 'Via Roma, 36', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('NinoConti@outlook.it ', 'Goves1980', 'ahSo8eeg1ch', 'OPERATORE', 'Nino', 'Conti', '1974-01-31', 'M', '3265989110', 'Cesena', 'Via Roma, 36', 0, '2018-01-06');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('AlfredinoTrevis@gmail.com', 'Rultat', 'eef7deChoo', 'OPERATORE', 'Alfredino', 'Trevisan', '1983-05-19', 'M', '3229591964', 'Lodi', 'Via Bologna, 33', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('AlfredinoTrevis@gmail.com', 'Rultat', 'eef7deChoo', 'OPERATORE', 'Alfredino', 'Trevisan', '1983-05-19', 'M', '3229591964', 'Lodi', 'Via Bologna, 33', 0, '2018-01-08');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('LeoAngelo@rhyta.com', 'Frompands', 'Iequeh5ohph', 'OPERATORE', 'Leo', 'Angelo', '1969-06-28', 'M', '3579775201', 'Rimini', 'Via Domenico Morelli, 87', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('LeoAngelo@rhyta.com', 'Frompands', 'Iequeh5ohph', 'OPERATORE', 'Leo', 'Angelo', '1969-06-28', 'M', '3579775201', 'Rimini', 'Via Domenico Morelli, 87', 0, '2018-01-10');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('RiccardoLongo@gmail.com', 'Equesions', 'peeXa4wahz', 'GESTORE', 'Riccardo', 'Longo', '1989-04-17', 'M', '3522141651', 'Salerno', 'Lungodora Napoli, 118', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('RiccardoLongo@gmail.com', 'Equesions', 'peeXa4wahz', 'GESTORE', 'Riccardo', 'Longo', '1989-04-17', 'M', '3522141651', 'Salerno', 'Lungodora Napoli, 118', 0, '2017-01-10');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo) 
-values ('MTPadovano@gmail.com', 'Manciong91', 'Aj4aithiB', 'GESTORE', 'Maria Teresa', 'Padovano', '1990-06-16', 'F', '3602153792', 'Roma', 'Via Nuova Agnano, 145', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione) 
+values ('MTPadovano@gmail.com', 'Manciong91', 'Aj4aithiB', 'GESTORE', 'Maria Teresa', 'Padovano', '1990-06-16', 'F', '3602153792', 'Roma', 'Via Nuova Agnano, 145', 0, '2017-01-10');
 
-insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo)
-values ('FaustoGenovese@outlook.it', 'Sied08', 'Aem7muzaWuu', 'GESTORE', 'Fausto', 'Genovese', '1978-12-16', 'M', '3245231687', 'Cagliari', 'Via Zannoni, 61', 0);
+insert into evo_cinema.Utente (email, nome_utente, password, ruolo, nome, cognome, data_nascita, sesso, cellulare, città, indirizzo, saldo, dataIscrizione)
+values ('FaustoGenovese@outlook.it', 'Sied08', 'Aem7muzaWuu', 'GESTORE', 'Fausto', 'Genovese', '1978-12-16', 'M', '3245231687', 'Cagliari', 'Via Zannoni, 61', 0, '2017-01-10');
 
 -- -- -- -- -- -- -- 
 # TABELLA OPERA    #
@@ -284,154 +284,6 @@ VALUES ('Sconto Anziani Over 65', 'PERCENTUALE', '25', 'TRUE', 'TRUE', 'CAT_PERS
 
 INSERT INTO `evo_cinema`.`Sconto` (`nome`, `tipo`, `prezzo`, `verificabile`, `disponibile`, `tipologia`, `parametro_tipologia`) 
 VALUES ('Sconto del Mercoledì ', 'FISSO', '6', 'FALSE', 'TRUE', 'GIORNO_SETTIMANA', 'Wednesday');
-
--- -- -- -- -- -- -- -- -- --
-# TABELLA APPLICABILE     #
--- -- -- -- -- -- -- -- -- --
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 5);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 6);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 10);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 11);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 12);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 13);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (1, 14);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 1);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 2);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 3);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 4);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 5);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 6);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 7);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 8);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 9);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 10);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 11);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 12);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 13);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 14);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 15);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 16);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 17);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 18);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 19);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 20);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 21);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 22);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 23);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 24);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 25);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 26);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 27);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 28);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 29);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (2, 30);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (2, 31);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (3, 2);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (3, 7);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (3, 8);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (3, 14);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (3, 16);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (3, 20);
- 
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (3, 21);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (3, 24);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo)
-values (3, 25);
-
-insert into evo_cinema.Applicabile (idSconto, idSpettacolo) 
-values (3, 30);
 
 -- -- -- -- -- -- -- -- 
 # TABELLA RECENSIONI  #

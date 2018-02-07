@@ -23,77 +23,73 @@ import model.Recensione;
 import model.UtenteBase;
 
 /**
+ * Servlet che gestisce la visualizzazione delle recensioni di un UtenteBase.
  *
  * @author Michele
  */
 public class VisualizzaRecensioniCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Gestisce i metodi HTTP <code>GET</code> e HTTP <code>POST</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Gestisce il metodo HTTP <code>GET</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         HttpSession s = request.getSession();
         UtenteBase u = (UtenteBase) s.getAttribute("user");
-        
-        if(u!=null){
+
+        if (u != null) {
 
             try {
                 RecensioneDAO model = new RecensioneDAO();
                 List<Recensione> recensioni = model.foundByEmail(u.getEmail());
-                
+
                 s.setAttribute("recensioni", recensioni);
 
-                
             } catch (NamingException | SQLException | ParseException ex) {
                 Logger.getLogger(VisualizzaRecensioniCNT.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         response.sendRedirect("AccountVisualizzazioneRecensioni.jsp");
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestisce il metodo HTTP <code>POST</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
+
     }
-   
 
     /**
      * Returns a short description of the servlet.

@@ -8,6 +8,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 import javax.naming.NamingException;
@@ -36,16 +37,10 @@ public class SpettacoloDAOTest {
     private static final String   MATRICEPOSTI = "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
     private static java.sql.Connection connection;
     private static SpettacoloDAO spettacoloDAO;
+    private static Spettacolo spettacolo, mySpett;
+    private static int idSpettacolo;
     
     public SpettacoloDAOTest() {
-        DATAINIZIO = Calendar.getInstance();
-        DATAINIZIO.set(2018, 02, 04);
-        DATAFINE = Calendar.getInstance();
-        DATAFINE.set(2018, 10, 05);
-        ORAINIZIO = Calendar.getInstance();
-        ORAINIZIO.set(0, 0, 0, 17, 30);
-        ORAFINE = Calendar.getInstance();
-        ORAFINE.set(0, 0, 0, 19, 16);
     }
     
     private static java.sql.Connection getTestConnection() throws SQLException {
@@ -53,14 +48,14 @@ public class SpettacoloDAOTest {
     }
     
     @BeforeClass
-    public static void setUpClass() throws SQLException, NamingException{
-        connection = getTestConnection();
-        connection.setAutoCommit(false);
-        spettacoloDAO = new SpettacoloDAO((com.mysql.jdbc.Connection) connection);
+    public static void setUpClass() throws SQLException, NamingException, ParseException{
+        setMySpettacolo();
+        setIdReale();
     }
     
     @AfterClass
-    public static void tearDownClass() throws SQLException {
+    public static void tearDownClass() throws SQLException, ParseException, NamingException {
+        spettacoloDAO.deleteSpettacolo(idSpettacolo);
         connection.rollback();
         connection.close();
     }
@@ -71,6 +66,34 @@ public class SpettacoloDAOTest {
     
     @After
     public void tearDown() {
+    }
+    
+    private static void setMySpettacolo() throws SQLException, ParseException, NamingException{
+        connection = getTestConnection();
+        connection.setAutoCommit(false);
+        spettacoloDAO = new SpettacoloDAO((com.mysql.jdbc.Connection) connection);
+        DATAINIZIO = Calendar.getInstance();
+        DATAINIZIO.set(2018, 02, 04);
+        DATAFINE = Calendar.getInstance();
+        DATAFINE.set(2018, 10, 05);
+        ORAINIZIO = Calendar.getInstance();
+        ORAINIZIO.set(0, 0, 0, 17, 30);
+        ORAFINE = Calendar.getInstance();
+        ORAFINE.set(0, 0, 0, 19, 16);
+        spettacolo = new Spettacolo(IDSALA, IDFILM, TITOLO, DATAINIZIO, DATAFINE, PREZZO, ORAINIZIO, ORAFINE, MATRICEPOSTI);
+        spettacoloDAO.createSpettacolo(spettacolo);
+    }
+    
+    private static void setIdReale() throws SQLException, ParseException, NamingException{
+        //cerco lo spettacolo per ricavarne l'ID autogenerato
+        List<Spettacolo> listaSpettacoli = spettacoloDAO.getAllSpettacoli();
+        mySpett = null;
+        for(Spettacolo s: listaSpettacoli){
+            if(s.getTitolo().equals(TITOLO)){
+                mySpett = s;
+            }
+        }
+        idSpettacolo = mySpett.getIdSpettacolo();
     }
 
     /**
@@ -95,20 +118,9 @@ public class SpettacoloDAOTest {
     @Test
     public void testFoundByID() throws Exception {
         System.out.println("foundByID");
-        Spettacolo spett = new Spettacolo(IDSALA, IDFILM, TITOLO, DATAINIZIO, DATAFINE, PREZZO, ORAINIZIO, ORAFINE, MATRICEPOSTI);
-        spettacoloDAO.createSpettacolo(spett);
-        //cerco il film per ricavarne l'ID autogenerato
-        List<Spettacolo> listaSpettacoli = spettacoloDAO.getAllSpettacoli();
-        Spettacolo mySpett = null;
-        for(Spettacolo s: listaSpettacoli){
-            if(s.getTitolo().equals(TITOLO)){
-                mySpett = s;
-            }
-        }
-        int expResult = mySpett.getIdSpettacolo();
-        int result = spettacoloDAO.foundByID(mySpett.getIdSpettacolo()).getIdSpettacolo();
+        int expResult = idSpettacolo;
+        int result = spettacoloDAO.foundByID(idSpettacolo).getIdSpettacolo();
         assertEquals(expResult, result);
-        spettacoloDAO.deleteSpettacolo(mySpett.getIdSpettacolo());
     }
 
     /**
@@ -166,18 +178,10 @@ public class SpettacoloDAOTest {
     @Test
     public void testCreateSpettacolo() throws Exception {
         System.out.println("createSpettacolo");
-        Spettacolo spett = new Spettacolo(IDSALA, IDFILM, TITOLO, DATAINIZIO, DATAFINE, PREZZO, ORAINIZIO, ORAFINE, MATRICEPOSTI);
+        spettacoloDAO.deleteSpettacolo(idSpettacolo);
         boolean expResult = true;
-        assertEquals(expResult, spettacoloDAO.createSpettacolo(spett));
-        //cerco il film per ricavarne l'ID autogenerato
-        List<Spettacolo> listaSpettacoli = spettacoloDAO.getAllSpettacoli();
-        Spettacolo mySpett = null;
-        for(Spettacolo s: listaSpettacoli){
-            if(s.getTitolo().equals(TITOLO)){
-                mySpett = s;
-            }
-        }
-        spettacoloDAO.deleteSpettacolo(mySpett.getIdSpettacolo());
+        assertEquals(expResult, spettacoloDAO.createSpettacolo(spettacolo));
+        setIdReale();
     }
 
     /**
@@ -186,22 +190,11 @@ public class SpettacoloDAOTest {
     @Test
     public void testUpdateSpettacolo() throws Exception {
         System.out.println("updateSpettacolo");
-        Spettacolo spett = new Spettacolo(IDSALA, IDFILM, TITOLO, DATAINIZIO, DATAFINE, PREZZO, ORAINIZIO, ORAFINE, MATRICEPOSTI);
-        spettacoloDAO.createSpettacolo(spett);
         int newIdSala = 7;
         boolean expResult = true;
-        spett.setIdSala(newIdSala);
-        boolean result = spettacoloDAO.updateSpettacolo(spett);
+        spettacolo.setIdSala(newIdSala);
+        boolean result = spettacoloDAO.updateSpettacolo(spettacolo);
         assertEquals(expResult, result);
-         //cerco il film per ricavarne l'ID autogenerato
-        List<Spettacolo> listaSpettacoli = spettacoloDAO.getAllSpettacoli();
-        Spettacolo mySpett = null;
-        for(Spettacolo s: listaSpettacoli){
-            if(s.getTitolo().equals(TITOLO)){
-                mySpett = s;
-            }
-        }
-        spettacoloDAO.deleteSpettacolo(mySpett.getIdSpettacolo());
     }
 
     /**
@@ -210,18 +203,10 @@ public class SpettacoloDAOTest {
     @Test
     public void testDeleteSpettacolo() throws Exception {
         System.out.println("deleteSpettacolo");
-        Spettacolo spett = new Spettacolo(IDSALA, IDFILM, TITOLO, DATAINIZIO, DATAFINE, PREZZO, ORAINIZIO, ORAFINE, MATRICEPOSTI);
-        spettacoloDAO.createSpettacolo(spett);
         boolean expResult = true;
-         //cerco il film per ricavarne l'ID autogenerato
-        List<Spettacolo> listaSpettacoli = spettacoloDAO.getAllSpettacoli();
-        Spettacolo mySpett = null;
-        for(Spettacolo s: listaSpettacoli){
-            if(s.getTitolo().equals(TITOLO)){
-                mySpett = s;
-            }
-        }
-        assertEquals(expResult, spettacoloDAO.deleteSpettacolo(mySpett.getIdSpettacolo()));
+        assertEquals(expResult, spettacoloDAO.deleteSpettacolo(idSpettacolo));
+        setMySpettacolo();
+        setIdReale();
     }
     
 }

@@ -29,70 +29,70 @@ import model.UtenteBase;
 import model.UtenteRegistrato;
 
 /**
+ * Servlet che gestisce la registrazione di un nuovo UtenteBase.
  *
  * @author Antonio
  */
 @WebServlet(name = "RegistrazioneCNT", urlPatterns = {"/RegistrazioneCNT"})
 public class RegistrazioneCNT extends HttpServlet {
-    
-    private static final long serialVersionUID = 1L;
-    
-    UtenteRegistratoDAO model = null;
-    
-     public RegistrazioneCNT() {
-         super();
-     }
-    
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    private static final long serialVersionUID = 1L;
+
+    UtenteRegistratoDAO model = null;
+
+    public RegistrazioneCNT() {
+        super();
+    }
+
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Gestisce il metodo HTTP <code>GET</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestisce il metodo HTTP <code>POST</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
-      
+            throws ServletException, IOException {
 
-            try {
-                model = new UtenteRegistratoDAO();
-            } catch (NamingException | SQLException ex) {
-                Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            model = new UtenteRegistratoDAO();
+        } catch (NamingException | SQLException ex) {
+            Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            HttpSession s = request.getSession();
+        HttpSession s = request.getSession();
 
-            String username = (String) request.getParameter("userRegistrazione");
+        String username = (String) request.getParameter("userRegistrazione");
 
-            Boolean flag = null;
-            try {
-                flag = model.controllaUtente(username);
-            } catch (SQLException ex) {
-                Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            if (flag) {
-                s.setAttribute("registrazioneImpossibile", true);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
-                dispatcher.forward(request, response);
+        Boolean flag = null;
+        try {
+            flag = model.controllaUtente(username);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (flag) {
+            s.setAttribute("registrazioneImpossibile", true);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
+            dispatcher.forward(request, response);
+        
+//<<<<<<< HEAD
             } else {
                 s.removeAttribute("registrazioneImpossibile");
                 UtenteBase u = new UtenteBase();
@@ -104,7 +104,7 @@ public class RegistrazioneCNT extends HttpServlet {
                 
                 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Calendar cal = Calendar.getInstance();
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
                 
 
                 u.setCellulare((String) request.getParameter("cellulareRegistrazione"));
@@ -133,7 +133,7 @@ public class RegistrazioneCNT extends HttpServlet {
                     dispatcher.forward(request, response);
                 }               
 
-                s.setAttribute("user", u);
+                
                 
                 try {
                     
@@ -143,18 +143,18 @@ public class RegistrazioneCNT extends HttpServlet {
                    
                     u.setDataNascita(cal);
                     model.createUtenteRegistrato(u);
+                    
+                    s.setAttribute("user", u);
+                    
                 } catch (SQLException | ParseException | NamingException ex) {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 response.getWriter().write("index.jsp"); 
+//=======
+//>>>>>>> f57dc95c8fc3bb1fa1a04d33727cf997d88d5f9f
             }
 
-        }
-
-        
-
     }
-       
-    
 
+}
