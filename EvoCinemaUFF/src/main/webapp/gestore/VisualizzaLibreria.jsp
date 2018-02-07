@@ -207,6 +207,6 @@
         <% }}  %>
      
     
-       <jsp:include page= "/Footer.jsp"/>
+       <jsp:include page= "Footer.jsp"/>
       
    

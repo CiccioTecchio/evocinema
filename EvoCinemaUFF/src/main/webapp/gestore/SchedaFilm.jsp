@@ -99,8 +99,11 @@
     <span class="card-header">Trailer</span>
 
     <div class="card-body text-center " >
-        
-        <iframe  style=" height: 320px" class="col-sm-6" src="<%= film.getTrailer()%> " frameborder="0" allowfullscreen></iframe
+         <% 
+        String databaseLink = film.getTrailer();
+        String url = databaseLink.substring(databaseLink.lastIndexOf("=")+1);
+        %>
+        <iframe  style=" height: 320px" class="col-sm-6" src="https://www.youtube.com/embed/<%= url %>" frameborder="0" allowfullscreen></iframe>
     </div>
 </div>
         <%
