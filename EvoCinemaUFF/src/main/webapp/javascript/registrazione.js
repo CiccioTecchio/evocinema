@@ -14,7 +14,8 @@
                     $('#errorMatch').hide();
                     
                     $("#registrazione").click(function(e) {   
-                  
+                    var regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;;
+                    var regExpCal = /\d{4}\-(0?[1-9]|1[012])\-[0-3][0-9]/;
                      e.preventDefault();
                      
                      var nome =  $('#nomeRegistrazione').val();
@@ -23,140 +24,102 @@
                      var indirizzo = $('#indirizzoRegistrazione').val();
                      var citta =  $('#cittaRegistrazione').val();
                      var cellulare = $('#cellulareRegistrazione').val();
-                     var dataNascita =  $('#datepicker').val();
+                     var dataNascita =  $('#dateForm').val();
                      var sesso =  $('#sessoRegistrazione').val();
                      var username =  $('#userRegistrazione').val();
                      var password = $('#passwordRegistrazione').val();
                      var password2 = $('#passwordRegistrazione2').val();
-                     var bool=true;
+                     var bool=0;
                      
                      if(nome.length<2){
                          $('#errorNome').show(); 
-                         bool=false;
+                        
                      }
                      else{
                          $('#errorNome').hide();
-                         bool=true;
+                         bool++;
                      }
                      
                      if(cognome.length<2){
                       
                          $('#errorCognome').show();
-                         bool=false;
+                         
                      }
                      else{
                          $('#errorCognome').hide();   
-                         bool=true;
+                        bool++;
                      }
                      
                      if(indirizzo.length<2){
                          $('#errorIndirizzo').show();
-                         bool=false;   
+                           
                      }
                      else{
                          $('#errorIndirizzo').hide();
-                         bool=true;
+                         bool++;
                      }
                      if(cellulare.length<9){
                          $('#errorCellulare').show();
-                         bool=false;
+                         
                      }
                      else{
                          $('#errorCellulare').hide();
-                         bool=true;
-                     }
-                     if(email.length<5){
-                         $('#errorEmail2').show();
-                         bool=false;
+                         bool++;
                      }
                      
-                     else{
-                         $('#errorEmail2').hide();
-                         bool=true;
-                         var str = email.split('@');
-
-                            if((!($('#emailRegistrazione').val().indexOf('@') >= 0))) {
-                                
-                                $('#errorEmail3').show();
-                                bool=false;
-                            }
-                            else{
-                                $('#errorEmail3').hide();
-                                bool=true;
-                            }
-                            if(str[1].length<1){
-                            
-                                $('#errorEmail3').show();
-                                bool=false;
-                            }
-                            else{
-                                $('#errorEmail3').hide();
-                                bool=true;
-                            }
-                            
-                            if((!($('#emailRegistrazione').val().indexOf('.') >= 0))) {
-                                
-                                $('#errorEmail3').show();
-                                bool=false;
-                            }
-                            else{
-                                $('#errorEmail3').hide();
-                                bool=true;
-                            }
-                            var str2= email.split(".");
-                            if(str2[1].length<1){
-                                 $('#errorEmail3').show();
-                                 bool=false;
-                            }
-                            else{
-                                $('#errorEmail3').hide();
-                                bool=true;
-                            }
-                     }
+                         
+                         if( email.match(regExp)){ $('#errorEmail3').hide(); bool++; }
+                         else $('#errorEmail3').show();
+                        
+                        if( dataNascita.match(regExpCal)) { $('#errorDataNascita').hide(); bool++; }
+                        else{ $('#errorDataNascita').show(); };
+                        
                      if(password.length<8){
                          $('#errorPassword').show();  
-                         bool=false;
+
                      }
                      else{
                          $('#errorPassword').hide();
-                         bool=true;
+                        bool++;
                      }
                      if(password2.length<8){
                          $('#errorPassword2').show();
-                         bool=false;
+                         
                      }
                      else{
                          $('#errorPassword2').hide();
-                         bool=true;
+                         bool++;
                      }
                      if(username.length<5){
                          $('#errorUsername').show();
-                         bool=false;
+                         
                      }
                      else{
                          $('#errorUsername').hide();
-                         bool=true;
+                         bool++;
                      }
                      if(citta.length<2){
                          $('#errorCitta').show(); 
-                         bool=false;
+                         
                      }
                      else{
                          $('#errorCitta').hide();
-                         bool=true;
+                         bool++;
                      }
                      if((password.length>=8)&&(password2.length>=8)){
                         if(password!==password2){
                             $('#errorMatch').show(); 
-                            bool=false;
+                            
                         }
                          else{
                          $('#errorMatch').hide();
-                         bool=true;
+                         bool++;
                      }
                      }
-                     if(bool===true){
-                     $.ajax({
+                  
+                     if( bool === 11 ){
+                   
+                            $.ajax({
                          
                               type: "POST",
                               url:"RegistrazioneCNT",
@@ -172,7 +135,7 @@
                                  
                            
                             });
-                     }       
+                     };       
     });
 });
 

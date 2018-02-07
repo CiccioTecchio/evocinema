@@ -5,11 +5,14 @@
  */
 package control.accountCNT;
 
+import database.FilmDAO;
 import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -99,13 +102,10 @@ public class RegistrazioneCNT extends HttpServlet {
 
                 String myData = request.getParameter("dataRegistrazione");
                 
-                int giorno = Integer.parseInt(myData.substring(3, 5));
-                int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
-                int anno = Integer.parseInt(myData.substring(6, 10));
-                Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-                data.set(anno, mese, giorno);                
-
-                u.setDataNascita(data);
+                
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Calendar cal = Calendar.getInstance();
+                
 
                 u.setCellulare((String) request.getParameter("cellulareRegistrazione"));
                 u.setCittà((String) request.getParameter("cittaRegistrazione"));
@@ -136,6 +136,12 @@ public class RegistrazioneCNT extends HttpServlet {
                 s.setAttribute("user", u);
                 
                 try {
+                    
+                    Date date = sdf.parse(myData);
+                    
+                    cal.setTime(date);
+                   
+                    u.setDataNascita(cal);
                     model.createUtenteRegistrato(u);
                 } catch (SQLException | ParseException | NamingException ex) {
                     Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
