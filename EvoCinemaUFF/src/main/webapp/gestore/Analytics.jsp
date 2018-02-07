@@ -74,6 +74,8 @@
                 <input type="number" min="1" disabled="true" onchange="insertEta()" style=" width: 5%" id="utentiEta" >
      </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
 <script>
     
 // inizio script iscrizioni utenti
@@ -112,7 +114,12 @@ function cambioSelectUtenti(){
 };
 
 function aggiornaGraficoUtenti(scelta , parametro){
-   
+ Highcharts.setOptions({
+            time: {
+                     timezone: 'Europe/Oslo'
+                             }
+                });  
+  
 
 $.getJSON(
     "${pageContext.request.contextPath}/gestore/IscrizioniUtenti?scelta="+scelta+parametro,

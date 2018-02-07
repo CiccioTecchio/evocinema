@@ -93,7 +93,7 @@ public class AnalyticsIscrizioniCNT extends HttpServlet {
                 date= (Date) array.get(i);
                 i++;
                 occorrenze = (int) array.get(i); 
-                
+               
                 json=json+"[\n"+date.getTime()+",\n";
                 json=json+occorrenze+"\n],\n";
                 i++; 
