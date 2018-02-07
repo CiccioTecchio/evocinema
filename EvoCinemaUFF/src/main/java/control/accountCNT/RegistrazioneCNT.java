@@ -26,129 +26,121 @@ import model.UtenteBase;
 import model.UtenteRegistrato;
 
 /**
+ * Servlet che gestisce la registrazione di un nuovo UtenteBase.
  *
  * @author Antonio
  */
 @WebServlet(name = "RegistrazioneCNT", urlPatterns = {"/RegistrazioneCNT"})
 public class RegistrazioneCNT extends HttpServlet {
-    
-    private static final long serialVersionUID = 1L;
-    
-    UtenteRegistratoDAO model = null;
-    
-     public RegistrazioneCNT() {
-         super();
-     }
-    
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    private static final long serialVersionUID = 1L;
+
+    UtenteRegistratoDAO model = null;
+
+    public RegistrazioneCNT() {
+        super();
+    }
+
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Gestisce il metodo HTTP <code>GET</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestisce il metodo HTTP <code>POST</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {  
-      
+            throws ServletException, IOException {
 
-            try {
-                model = new UtenteRegistratoDAO();
-            } catch (NamingException | SQLException ex) {
-                Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            HttpSession s = request.getSession();
-
-            String username = (String) request.getParameter("userRegistrazione");
-
-            Boolean flag = null;
-            try {
-                flag = model.controllaUtente(username);
-            } catch (SQLException ex) {
-                Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            if (flag) {
-                s.setAttribute("registrazioneImpossibile", true);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                s.removeAttribute("registrazioneImpossibile");
-                UtenteBase u = new UtenteBase();
-
-                u.setNome((String) request.getParameter("nomeRegistrazione"));
-                u.setCognome((String) request.getParameter("cognomeRegistrazione"));
-
-                String myData = request.getParameter("dataRegistrazione");
-                
-                int giorno = Integer.parseInt(myData.substring(3, 5));
-                int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
-                int anno = Integer.parseInt(myData.substring(6, 10));
-                Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-                data.set(anno, mese, giorno);                
-
-                u.setDataNascita(data);
-
-                u.setCellulare((String) request.getParameter("cellulareRegistrazione"));
-                u.setCittà((String) request.getParameter("cittaRegistrazione"));
-                u.setEmail((String) request.getParameter("emailRegistrazione"));
-                u.setIndirizzo((String) request.getParameter("indirizzoRegistrazione"));
-                u.setSaldo(0);
-
-
-                String sesso = request.getParameter("sessoRegistrazione");
-                if(sesso.equalsIgnoreCase("maschio")){
-                    u.setSesso(UtenteRegistrato.sesso.M);
-                }else if(sesso.equalsIgnoreCase("femmina")){
-                    u.setSesso(UtenteRegistrato.sesso.F);
-                }
-                
-                u.setRuolo(UtenteRegistrato.ruolo.UTENTE);
-
-                u.setNomeUtente((String) request.getParameter("userRegistrazione"));
-                String password = (String) request.getParameter("passwordRegistrazione");
-                String password1 = (String) request.getParameter("password1Registrazione");
-                if(password.equals(password1)){
-                    u.setPassword(password);                    
-                } else {
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
-                    dispatcher.forward(request, response);
-                }               
-
-                s.setAttribute("user", u);
-                
-                try {
-                    model.createUtenteRegistrato(u);
-                } catch (SQLException | ParseException | NamingException ex) {
-                    Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                response.getWriter().write("index.jsp"); 
-            }
-
+        try {
+            model = new UtenteRegistratoDAO();
+        } catch (NamingException | SQLException ex) {
+            Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+        HttpSession s = request.getSession();
+
+        String username = (String) request.getParameter("userRegistrazione");
+
+        Boolean flag = null;
+        try {
+            flag = model.controllaUtente(username);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (flag) {
+            s.setAttribute("registrazioneImpossibile", true);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            s.removeAttribute("registrazioneImpossibile");
+            UtenteBase u = new UtenteBase();
+
+            u.setNome((String) request.getParameter("nomeRegistrazione"));
+            u.setCognome((String) request.getParameter("cognomeRegistrazione"));
+
+            String myData = request.getParameter("dataRegistrazione");
+
+            int giorno = Integer.parseInt(myData.substring(3, 5));
+            int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
+            int anno = Integer.parseInt(myData.substring(6, 10));
+            Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
+            data.set(anno, mese, giorno);
+
+            u.setDataNascita(data);
+
+            u.setCellulare((String) request.getParameter("cellulareRegistrazione"));
+            u.setCittà((String) request.getParameter("cittaRegistrazione"));
+            u.setEmail((String) request.getParameter("emailRegistrazione"));
+            u.setIndirizzo((String) request.getParameter("indirizzoRegistrazione"));
+            u.setSaldo(0);
+
+            String sesso = request.getParameter("sessoRegistrazione");
+            if (sesso.equalsIgnoreCase("maschio")) {
+                u.setSesso(UtenteRegistrato.sesso.M);
+            } else if (sesso.equalsIgnoreCase("femmina")) {
+                u.setSesso(UtenteRegistrato.sesso.F);
+            }
+
+            u.setRuolo(UtenteRegistrato.ruolo.UTENTE);
+
+            u.setNomeUtente((String) request.getParameter("userRegistrazione"));
+            String password = (String) request.getParameter("passwordRegistrazione");
+            String password1 = (String) request.getParameter("password1Registrazione");
+            if (password.equals(password1)) {
+                u.setPassword(password);
+            } else {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
+                dispatcher.forward(request, response);
+            }
+
+            s.setAttribute("user", u);
+
+            try {
+                model.createUtenteRegistrato(u);
+            } catch (SQLException | ParseException | NamingException ex) {
+                Logger.getLogger(RegistrazioneCNT.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            response.getWriter().write("index.jsp");
+        }
 
     }
-       
-    
 
+}

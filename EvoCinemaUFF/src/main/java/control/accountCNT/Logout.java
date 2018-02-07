@@ -6,6 +6,7 @@
 package control.accountCNT;
 
 /**
+ * Servelt che gestisce il logout di un utente eliminandolo dalla sessione.
  *
  * @author Giuseppe
  */
@@ -32,6 +33,14 @@ public class Logout extends HttpServlet {
         super();
     }
 
+    /**
+     * Gestisce il metodo HTTP <code>GET</code>.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession s = request.getSession();
@@ -41,6 +50,14 @@ public class Logout extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Gestisce il metodo HTTP <code>POST</code>.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);

@@ -21,43 +21,42 @@ import javax.servlet.http.HttpSession;
 import model.UtenteRegistrato;
 
 /**
+ * Servlet che gestisce la visualizzazione di tutti i Gestori.
  *
  * @author Michele
  */
 public class VisualizzaGestoriCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Gestisce i metodi HTTP <code>GET</code> e HTTP <code>POST</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Gestisce il metodo HTTP <code>GET</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-         HttpSession s = request.getSession();
+
+        HttpSession s = request.getSession();
         UtenteRegistrato u = (UtenteRegistrato) s.getAttribute("user");
-        
-        if(u!=null){
+
+        if (u != null) {
 
             try {
                 UtenteRegistratoDAO model = new UtenteRegistratoDAO();
@@ -65,38 +64,27 @@ public class VisualizzaGestoriCNT extends HttpServlet {
 
                 s.setAttribute("gestori", gestori);
 
-                
             } catch (NamingException | SQLException | ParseException ex) {
                 Logger.getLogger(VisualizzaRecensioniCNT.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
+
         response.sendRedirect("gestore/Gestori.jsp");
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Gestisce il metodo HTTP <code>POST</code>.
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

@@ -6,6 +6,8 @@
 package control.accountCNT;
 
 /**
+ * Servlet che gestisce il Login al sito mettendo in sessione la tipologia di
+ * utente loggato.
  *
  * @author Giuseppe
  */
@@ -36,6 +38,12 @@ public class Login extends HttpServlet {
         super();
     }
 
+    /**
+     * Metodo di filtro dei caratteri inseriti nella form del login.
+     *
+     * @param input
+     * @return
+     */
     public static String filter(String input) {
         StringBuffer filtered = new StringBuffer(input.length());
         char c;
@@ -62,6 +70,14 @@ public class Login extends HttpServlet {
         return (filtered.toString());
     }
 
+    /**
+     * Gestisce il metodo HTTP <code>GET</code>.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,6 +85,14 @@ public class Login extends HttpServlet {
 
     }
 
+    /**
+     * Gestisce il metodo HTTP <code>POST</code>.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException in caso di errori specifici della Servlet
+     * @throws IOException in caso di errori di I/O
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -82,7 +106,7 @@ public class Login extends HttpServlet {
         try {
             model = new UtenteRegistratoDAO();
             utente = model.controllaLogin(email, password);
-            
+
             if (utente == null) {
                 utenteIsNull = false;
                 s.setAttribute("user", utente);
@@ -93,12 +117,12 @@ public class Login extends HttpServlet {
 
         if (!utenteIsNull) {
             response.getWriter().write("loginErrato");
-            
+
         } else {
             s.setAttribute("user", utente);
-            
+
             response.getWriter().write("index.jsp");
-            
+
         }
     }
 

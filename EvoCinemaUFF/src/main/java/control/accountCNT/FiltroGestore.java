@@ -12,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import model.UtenteRegistrato;
 
 /**
- *
+ * Servlet che gestisce la visualizzazione del sito in caso di login di un Gestore
  * @author GiuseppeDelGaudio
  */
 public class FiltroGestore implements Filter {
     
-    
-    
+    /**
+     * Costruttore vuoto
+     */
     public FiltroGestore() {
     }    
 
@@ -29,6 +30,14 @@ public class FiltroGestore implements Filter {
                 
     }
 
+    /**
+     * Metodo che controlla il ruolo dell'utente loggato e mostra la pagina in base ad esso
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
      
@@ -42,18 +51,11 @@ public class FiltroGestore implements Filter {
                else ((HttpServletResponse)response).sendRedirect("../index.jsp");
             
            }else  ((HttpServletResponse)response).sendRedirect("../Login.jsp");
-       
-            
-            
-            
-       
         
     }
 
     @Override
-    public void destroy() {
-       
-        
+    public void destroy() {       
     }
     
 }
