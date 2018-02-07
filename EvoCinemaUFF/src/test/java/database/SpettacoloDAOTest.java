@@ -49,19 +49,6 @@ public class SpettacoloDAOTest {
     
     @BeforeClass
     public static void setUpClass() throws SQLException, NamingException, ParseException{
-//        connection = getTestConnection();
-//        connection.setAutoCommit(false);
-//        spettacoloDAO = new SpettacoloDAO((com.mysql.jdbc.Connection) connection);
-//        DATAINIZIO = Calendar.getInstance();
-//        DATAINIZIO.set(2018, 02, 04);
-//        DATAFINE = Calendar.getInstance();
-//        DATAFINE.set(2018, 10, 05);
-//        ORAINIZIO = Calendar.getInstance();
-//        ORAINIZIO.set(0, 0, 0, 17, 30);
-//        ORAFINE = Calendar.getInstance();
-//        ORAFINE.set(0, 0, 0, 19, 16);
-//        spettacolo = new Spettacolo(IDSALA, IDFILM, TITOLO, DATAINIZIO, DATAFINE, PREZZO, ORAINIZIO, ORAFINE, MATRICEPOSTI);
-//        spettacoloDAO.createSpettacolo(spettacolo);
         setMySpettacolo();
         setIdReale();
     }

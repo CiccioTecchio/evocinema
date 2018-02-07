@@ -23,7 +23,7 @@ import model.Recensione;
 public class RecensioneDAO {
     
     private static Logger logger= Logger.getLogger("global");
-    private FilmDAO filmDAO = new FilmDAO();
+    private FilmDAO filmDAO;
     private Connection connection;
     
     /*
@@ -33,6 +33,7 @@ public class RecensioneDAO {
      */
     public RecensioneDAO() throws NamingException, SQLException {
         connection=(Connection) SingletonDBConnection.getInstance().getConnInst();
+        filmDAO = new FilmDAO();
     }
     
     /**
@@ -218,7 +219,7 @@ public class RecensioneDAO {
        boolean update= false;
        Date date = new Date(System.currentTimeMillis()); 
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Recensioni SET valutazione= ?, testo= ? , data_recensione= ? WHERE ( email= ? AND id_opera= ? ");
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Recensioni SET valutazione= ?, testo= ? , data_recensione= ? WHERE ( email= ? AND id_opera= ? )");
             stmt.setFloat(1, r.getValutazione() );
             stmt.setString( 2 , r.getTesto());
             stmt.setDate( 3 , date );

@@ -57,8 +57,7 @@ public class RecensioneDAOTest {
         dataRec.set(2018, 02, 06);
         recensione = new Recensione(EMAIL, FILM, VALUTAZIONE, TESTO, dataRec);
         recensioneDAO.createRecensione(recensione);
-        System.out.println("Ho istanziato e creato sia film che recensione");
-        
+        System.out.println("Ho istanziato e creato sia film che recensione");        
     }
     
     @AfterClass
