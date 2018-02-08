@@ -86,6 +86,7 @@
                 for (int i = 0; i < array.size(); i++) {
 
                     sc = (Sconto) array.get(i);
+                    if(sc.getIdSconto()!=41){
 
                     if (sc.getTipo().equals(Sconto.tipo.FISSO)) {
                         t = sc.getPrezzo();
@@ -142,7 +143,7 @@
 
             </tr>
 
-            <% }  %>
+            <% } else{}} %>
 
         </tbody>
 
