@@ -125,8 +125,8 @@ public class RecensioneDAO {
                     Calendar data = Calendar.getInstance();
                     data.setTime(rs.getDate("data_recensione"));
                     r.setDataImmissione(data);
+                    if( film.getTitolo() != null ) recensioni.add(r);
                     
-                    recensioni.add(r);
                     }
 		} finally {
 				if (stmt != null)

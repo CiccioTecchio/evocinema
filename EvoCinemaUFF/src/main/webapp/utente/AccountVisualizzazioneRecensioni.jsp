@@ -10,7 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="model.UtenteBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page= "/VisualizzaRecensioniCNT"/>
+<jsp:include page= "VisualizzaRecensioniCNT"/>
 <%
     HttpSession s = request.getSession();
     UtenteBase utente = (UtenteBase) s.getAttribute("user");
