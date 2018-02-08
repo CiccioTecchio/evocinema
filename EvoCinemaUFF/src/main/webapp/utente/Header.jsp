@@ -109,7 +109,8 @@
                             </a>
                         </div>
                         <a class="nav-link dropdown-toggle mr-3" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <i class="fa fa-user-circle fa-lg"></i> &nbsp; <%= u.getNomeUtente()%>
+                            <% UtenteBase uBase = (UtenteBase) u; %>
+                            <i class="fa fa-user-circle fa-lg"></i> &nbsp; <%= u.getNomeUtente()%> &nbsp; Saldo : <%= uBase.getSaldo() %>
                         </a>
                     </li>
 

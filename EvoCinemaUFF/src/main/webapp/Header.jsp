@@ -1,3 +1,4 @@
+<%@page import="model.UtenteRegistrato.ruolo"%>
 <%@page import="model.*"%>
 <%@page contentType="text/html"%>
 <!DOCTYPE html>
@@ -124,7 +125,17 @@
                             </a>
                         </div>
                         <a class="nav-link dropdown-toggle mr-3" id="alertsDropdown"  href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <i class="fa fa-user-circle fa-lg"></i> &nbsp; <%= u.getNomeUtente()%>
+                            <%
+                                String saldo ="";
+                                if( u.getRuolo() == ruolo.UTENTE ){
+                                
+                                    UtenteBase uBase = (UtenteBase) u; 
+                                
+                                    saldo= "&nbsp; Saldo : "+ uBase.getSaldo(); 
+                                }
+
+                            %>
+                            <i class="fa fa-user-circle fa-lg"></i> &nbsp; <%= u.getNomeUtente()%> <%= saldo %>
                         </a>
                     </li>
 
