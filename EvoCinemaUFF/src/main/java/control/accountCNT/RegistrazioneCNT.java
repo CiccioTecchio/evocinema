@@ -5,7 +5,6 @@
  */
 package control.accountCNT;
 
-import database.FilmDAO;
 import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,7 +90,7 @@ public class RegistrazioneCNT extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Registrazione.jsp");
             dispatcher.forward(request, response);
         
-//<<<<<<< HEAD
+
             } else {
                 s.removeAttribute("registrazioneImpossibile");
                 UtenteBase u = new UtenteBase();
@@ -151,8 +149,7 @@ public class RegistrazioneCNT extends HttpServlet {
                 }
 
                 response.getWriter().write("index.jsp"); 
-//=======
-//>>>>>>> f57dc95c8fc3bb1fa1a04d33727cf997d88d5f9f
+
             }
 
     }

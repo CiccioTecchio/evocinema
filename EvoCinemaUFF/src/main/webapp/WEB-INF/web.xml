@@ -41,28 +41,12 @@
         <url-pattern>/RimozioneSalaCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FiltraFilmCNT</servlet-name>
-        <url-pattern>/FiltraFilmCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RicercaCNT</servlet-name>
-        <url-pattern>/RicercaCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VisualizzazioneFilmCNT</servlet-name>
-        <url-pattern>/VisualizzazioneFilmCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>InserisciFilmCNT</servlet-name>
         <url-pattern>/admin/InserisciFilmCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RimozioneFilmCNT</servlet-name>
         <url-pattern>/RimozioneFilmCNT</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AggiungiProgrammazioneCNT</servlet-name>
-        <url-pattern>/AggiungiProgrammazioneCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VisualizzazioneProgrammazioneCNT</servlet-name>
@@ -172,14 +156,6 @@
         <servlet-class>control.salaCNT.RimozioneSalaCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FiltraFilmCNT</servlet-name>
-        <servlet-class>control.libreriaCNT.FiltraFilmCNT</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RicercaCNT</servlet-name>
-        <servlet-class>control.libreriaCNT.RicercaCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ValutazioniCNT</servlet-name>
         <servlet-class>control.libreriaCNT.ValutazioniCNT</servlet-class>
     </servlet>
@@ -188,20 +164,12 @@
         <servlet-class>control.libreriaCNT.RecensioniCNT</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>VisualizzazioneFilmCNT</servlet-name>
-        <servlet-class>control.libreriaCNT.VisualizzazioneFilmCNT</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>InserisciFilmCNT</servlet-name>
         <servlet-class>control.libreriaCNT.InserisciFilmCNT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RimozioneFilmCNT</servlet-name>
         <servlet-class>control.libreriaCNT.RimozioneFilmCNT</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AggiungiProgrammazioneCNT</servlet-name>
-        <servlet-class>control.libreriaCNT.AggiungiProgrammazioneCNT</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VisualizzazioneProgrammazioneCNT</servlet-name>
@@ -295,7 +263,6 @@
         <filter-name>FiltroUtente</filter-name>
         <url-pattern>/utente/*</url-pattern>
     </filter-mapping>
-    
     <error-page>
         <location>/Errore.jsp</location>
     </error-page>

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.FilmConValutazioneMedia;
 
 /**
- *
+ * La classe definisce la logica che permette il caricamento di una {@link Collection} di tipo {@link FilmConValutazioneMedia}
  * @author GiuseppeDelGaudio
  */
 @WebServlet(name = "visualizzaValutazioni", urlPatterns = {"/visualizzaValutazioni"})
@@ -33,7 +33,8 @@ public class VisualizzaValutazioniCNT extends HttpServlet {
    
     /**
      * Gestione metodo HTTP <code>GET</code>
-     * il metodo esegue il forward verso la pagina libreria.jsp e carica nella request una Collection di {@link FilmConValutazioneMedia}
+     * viene caricata nella request un attributo "listaFilmValutazione" che rappresenta 
+     * una {@link Collection} di {@link FilmConValutazioneMedia}
      *
      * @param request servlet request
      * @param response servlet response

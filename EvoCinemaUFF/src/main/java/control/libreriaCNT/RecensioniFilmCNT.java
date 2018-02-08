@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Recensione;
 
 /**
- *
+ * La classe definisce la logica che permette il caricamento di una {@link Collection} di {@link Recensione}
  * @author GiuseppeDelGaudio
  */
 @WebServlet(name = "recensioniFilm", urlPatterns = {"/recensioniFilm"})
@@ -30,7 +30,7 @@ public class RecensioniFilmCNT extends HttpServlet {
 
     /**
      * Gestione metodo HTTP <code>GET</code> il metodo esegue il forward verso
-     * la pagina dettaglioFilm.jsp e carica nella request una Collection di {@link Recensione
+     * la pagina dettaglioFilm.jsp e carica nella request una {@link Collection} di {@link Recensione
      * }
      *
      * @param request servlet request
@@ -43,12 +43,8 @@ public class RecensioniFilmCNT extends HttpServlet {
             throws ServletException, IOException {
 
         int film = Integer.parseInt((String) request.getAttribute("idFilm"));
-        /*String order = request.getParameter("order");
 
-        //if (order == null) {
-            order = "data_recensione";
-        }
-*/
+        
         Collection<Recensione> recensioni = null;
 
         

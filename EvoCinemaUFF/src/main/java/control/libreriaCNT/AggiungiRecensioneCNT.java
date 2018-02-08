@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * La classe definisce la logica che permette l'aggiunta di un oggetto di tipo {@link Recensione}
  * @author GiuseppeDelGaudio
  */
 @WebServlet(name = "AggiungiRecensioneCNT", urlPatterns = {"/AggiungiRecensioneCNT"})

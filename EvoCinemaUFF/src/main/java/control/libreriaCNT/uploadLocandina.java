@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 
 /**
- *
+ * La classe definisce la logica che permette l'upload di una locandina sul Server
  * @author GiuseppeDelGaudio
  */
 @WebServlet( name ="uploadLocandina" , 
@@ -33,7 +33,14 @@ import org.json.JSONObject;
 public class uploadLocandina extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-
+        /**
+     * Gestione metodo HTTP <code>GET</code>
+     * 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException se la servlet lancia errori generici
+     * @throws IOException se vengono lanciati errori IO
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		PrintWriter out = response.getWriter(); 
@@ -43,13 +50,26 @@ public class uploadLocandina extends HttpServlet {
 		out.close(); 
 	}
 
+        /**
+     * Gestione metodo HTTP <code>POST</code>
+     * 
+     * Viene effettuato l'upload della locandina sul server, 
+     * successivamente viene restituito un JSON che all'indice "nomeFile" contiene il nome 
+     * della locandina caricata. Le locandine sono caricate in ../images/locandine.
+     * 
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException se la servlet lancia errori generici
+     * @throws IOException se vengono lanciati errori IO
+     * 
+     */
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 String browserType = request.getHeader("User-Agent");
             
 		response.setContentType("application/json");
 		String pathServer = request.getServletContext().getRealPath("")+"images"+File.separator+"locandine"; 
-                System.out.println("path server-->"+pathServer);
 		File fileSave = new File(pathServer);
 		String nameFile="vuoto"; 
                 

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package control.libreriaCNT;
 
 import database.FilmDAO;
@@ -27,17 +23,15 @@ import model.Film;
 import model.FilmConValutazioneMedia;
 
 /**
- *
- * @author user
+ * La classe definisce la logica che permette la modifica di un oggetto di tipo {@link Film}
+ * @author GiuseppeDelGaudio
  */
 @WebServlet(name = "ModificaLibreriaCNT", urlPatterns = {"/gestore/modificaLibreria"})
 public class ModificaLibreriaCNT extends HttpServlet {
 
     
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Gestisce una richiesta HTTP GET
      *
      * @param request servlet request
      * @param response servlet response
@@ -52,7 +46,12 @@ public class ModificaLibreriaCNT extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
-     *Prende come parametri tutti i dati del film e modifica i valori nel DB
+     * 
+     * Gestisce una richiesta HTTP POST . Questo metodo modifcia un film
+     * all'interno della libreria acquisendo i vari parametri dalla Request per
+     * poi effettuare il forward ModificaFilm.jsp e restituisce un attributo 
+     * "messaggioUpdate" con lo stato dell'inserimento .
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -62,8 +61,7 @@ public class ModificaLibreriaCNT extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String goBack = request.getHeader("referer"); 
-        String rh = goBack.substring(goBack.lastIndexOf("EvoCinemaUFF")+12);
+        
         String tipo = request.getParameter("tipo");
         String titolo = request.getParameter("titolo"); 
         String durata = request.getParameter("durata"); 

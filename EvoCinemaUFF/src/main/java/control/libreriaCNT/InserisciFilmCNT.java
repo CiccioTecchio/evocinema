@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package control.libreriaCNT;
 
 import database.FilmDAO;
@@ -28,7 +24,7 @@ import javax.naming.NamingException;
 import model.FilmConValutazioneMedia;
 
 /**
- *
+ *La classe definisce la logica che permette l'aggiunta di un oggetto di tipo {@link Film}
  * @author GiuseppeDelGaudio
  *
  */
@@ -52,10 +48,10 @@ public class InserisciFilmCNT extends HttpServlet {
     }
 
     /**
-     * Gestisce una richiesta HTTP GET Questo metodo inserisce un film
+     * Gestisce una richiesta HTTP POST. Questo metodo inserisce un film
      * all'interno della libreria acquisendo i vari parametri dalla Request per
-     * poi effettuare il forward al chiamante e restituire un messaggio con lo
-     * stato dell'inserimento.
+     * poi effettuare il forward a inserisciFilmLibreria.jsp e restituisce un attributo 
+     * "messageInsert" con lo stato dell'inserimento .
      *
      * @param request servlet request
      * @param response servlet response
@@ -118,7 +114,7 @@ public class InserisciFilmCNT extends HttpServlet {
         } catch (ParseException ex) {
             Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {
-            // Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InserisciFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             messageInsert = "Elemento già esistente";
             ex.printStackTrace();

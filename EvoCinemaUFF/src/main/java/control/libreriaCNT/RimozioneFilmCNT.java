@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Film; 
 
 /**
- *
+ * La classe definisce la logica che permette la rimozione di un oggetto di tipo {@link Film}
  * @author GiuseppeDelGaudio
  */
 
@@ -35,7 +35,7 @@ public class RimozioneFilmCNT extends HttpServlet {
     /**
      * Gestisce le richieste HTTP inviate con <code>GET</code>.
      *
-     * Recupera dalla sessione un array di {@link Film} e prelevando il parametro position recupera l'elemento da eliminare sul DB 
+     * Recupera dalla sessione un array di {@link Film} e prelevando il parametro position recupera l'elemento da eliminare utilizzando la classe {@link FilmDAO} 
      * 
      * @param request servlet request
      * @param response servlet response
@@ -77,7 +77,7 @@ public class RimozioneFilmCNT extends HttpServlet {
             
             messageDelete = "Errore durante l'eliminazione NamingException ";
             
-            Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (SQLException ex) {
             messageDelete="Errore durante l'eliminazione SQLException";
             Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex);

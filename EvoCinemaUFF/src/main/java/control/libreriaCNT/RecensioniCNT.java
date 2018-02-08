@@ -26,9 +26,10 @@ import model.Recensione;
 import model.UtenteRegistrato;
 
 /**
- *
+ * La classe definisce la logica che permette l'aggiunta di un oggetto di tipo {@link Recensione}
  * @author GiuseppeDelGaudio
  */
+
 @WebServlet(name = "RecensioniCNT", urlPatterns = {"/insertRecensioniFilm"})
 public class RecensioniCNT extends HttpServlet {
 
