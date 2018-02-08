@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -90,14 +92,20 @@ public class RegistrazioneGestoreCNT extends HttpServlet {
         u.setCognome((String) request.getParameter("cognomeRegistrazione"));
 
         String myData = request.getParameter("dataRegistrazione");
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"));
+        
+        try {
+           Date date = sdf.parse(myData);
+           cal.setTime(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(RegistrazioneGestoreCNT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
 
-        int giorno = Integer.parseInt(myData.substring(3, 5));
-        int mese = Integer.parseInt(myData.substring(0, 2)) - 1;
-        int anno = Integer.parseInt(myData.substring(6, 10));
-        Calendar data = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
-        data.set(anno, mese, giorno);
-
-        u.setDataNascita(data);
+        u.setDataNascita(cal);
 
         u.setCellulare((String) request.getParameter("cellulareRegistrazione"));
         u.setCittà((String) request.getParameter("cittaRegistrazione"));
