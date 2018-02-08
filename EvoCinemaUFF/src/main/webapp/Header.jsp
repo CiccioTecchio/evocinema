@@ -86,7 +86,7 @@
                 <% } else if (u.getRuolo().equals(UtenteRegistrato.ruolo.GESTORE)) {
                     account="gestore/";
                 %>
-                <jsp:include page="NavGestore.html" />    
+                <jsp:include page="NavGestore.jsp" />    
                 <% } else if (u.getRuolo().equals(UtenteRegistrato.ruolo.OPERATORE)) {
                     account="operatore/";
                 %>
