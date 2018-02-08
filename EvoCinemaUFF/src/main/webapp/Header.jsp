@@ -77,17 +77,21 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <%
+                <%  
+                    String account="";
                     if (u==null){
                 %>
                 <jsp:include page="NavOspite.html" />    
-                <% } else if (u.getRuolo().equals(UtenteRegistrato.ruolo.GESTORE)) {                            
+                <% } else if (u.getRuolo().equals(UtenteRegistrato.ruolo.GESTORE)) {
+                    account="gestore/";
                 %>
                 <jsp:include page="NavGestore.html" />    
                 <% } else if (u.getRuolo().equals(UtenteRegistrato.ruolo.OPERATORE)) {
+                    account="operatore/";
                 %>
                 <jsp:include page="NavOperatore.html" />
                 <% } else if (u.getRuolo().equals(UtenteRegistrato.ruolo.UTENTE)) {
+                    account="utente/";
                 %>
                 <jsp:include page="NavUtente.html" />
                 <% }
@@ -107,7 +111,7 @@
 
                     <li class="nav-item dropdown mr-3" data-placement="right">
                         <div class="dropdown-menu " id="showtogglemenu" aria-labelledby="alertsDropdown">
-                            <a class="dropdown-item" href="AccountVisualizzazioneAccount.jsp">
+                            <a class="dropdown-item" href="<%=account%>AccountVisualizzazioneAccount.jsp">
                                 <span class="text-success">
                                     <i class="fa fa-user-circle"></i> Profilo
                                 </span>
