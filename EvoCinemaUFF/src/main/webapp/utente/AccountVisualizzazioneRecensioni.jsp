@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page import="model.UtenteBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:include page= "/VisualizzaRecensioniCNT"/>
 <%
     HttpSession s = request.getSession();
     UtenteBase utente = (UtenteBase) s.getAttribute("user");
@@ -88,7 +89,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <a href="#">
-                                <img class="card-img-top img-fluid thumbnail ml-3" style="max-width: 150px ; max-height: 200px" src="<%=r.getFilm().getLocandina()%>" >
+                                <img class="card-img-top img-fluid thumbnail ml-3" style="max-width: 150px ; max-height: 200px" src="../<%=r.getFilm().getLocandina()%>" >
                             </a>
                             <div class="card-body">
                                 <h6 class="card-title mb-1" >
