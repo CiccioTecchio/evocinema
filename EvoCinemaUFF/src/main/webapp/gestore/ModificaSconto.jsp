@@ -49,7 +49,7 @@
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong> <%= messaggio%> </strong>
             <button class="close" aria-label="Close" type="button" data-dismiss="alert">
-                <span aria-hidden="true">�</span>
+                <span aria-hidden="true"> </span>
             </button>
         </div>
 
@@ -98,7 +98,7 @@
                         &nbsp;&nbsp;
                         <label class="radio-inline"><input type="radio" id="checkData" name="optTipologia" value="data" <%if (sconto.getTipologia() == Sconto.tipologia.DATA) { %> checked <%}%> />  Data  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio" id="checkEta" name="optTipologia" value="eta" <%if (sconto.getTipologia() == Sconto.tipologia.ETA) { %> checked <%}%> />  Eta'  </label>
+                        <label class="radio-inline"><input type="radio" id="checkEta" name="optTipologia" value="eta" <%if (sconto.getTipologia() == Sconto.tipologia.ETA) { %> checked <%}%> />  Et&#224;  </label>
                         &nbsp;&nbsp;
                         <label class="radio-inline"><input type="radio" id="checkSesso" name="optTipologia" value="sesso" <%if (sconto.getTipologia() == Sconto.tipologia.SESSO) { %> checked <%}%> />  Sesso  </label>
                         &nbsp;&nbsp;
@@ -122,11 +122,11 @@
                     <strong>Giorno della settimana: </strong>
                     <select id="giornoDellaSettimana" name="giornoDellaSettimana" >
 
-                        <option value="MONDAY" <% if (sconto.getParametroTipologia().compareTo("MONDAY") == 0) { %>selected<%}%> >  Luned�  </option>
-                        <option value="TUESDAY" <% if (sconto.getParametroTipologia().compareTo("TUESDAY") == 0) { %>selected<%}%> >  Marted�  </option>
-                        <option value="WEDNESDAY" <% if (sconto.getParametroTipologia().compareTo("WEDNESDAY") == 0) { %>selected<%}%> >  Mercoled�  </option>
-                        <option value="THURSDAY" <% if (sconto.getParametroTipologia().compareTo("THURSDAY") == 0) { %>selected<%}%> > Gioved�  </option>
-                        <option value="FRIDAY" <% if (sconto.getParametroTipologia().compareTo("FRIDAY") == 0) { %>selected<%}%> >  Venerd�  </option>
+                        <option value="MONDAY" <% if (sconto.getParametroTipologia().compareTo("MONDAY") == 0) { %>selected<%}%> >  Luned&#236;  </option>
+                        <option value="TUESDAY" <% if (sconto.getParametroTipologia().compareTo("TUESDAY") == 0) { %>selected<%}%> >  Marted&#236;  </option>
+                        <option value="WEDNESDAY" <% if (sconto.getParametroTipologia().compareTo("WEDNESDAY") == 0) { %>selected<%}%> >  Mercoled&#236;  </option>
+                        <option value="THURSDAY" <% if (sconto.getParametroTipologia().compareTo("THURSDAY") == 0) { %>selected<%}%> > Gioved&#236;  </option>
+                        <option value="FRIDAY" <% if (sconto.getParametroTipologia().compareTo("FRIDAY") == 0) { %>selected<%}%> >  Venerd&#236;  </option>
                         <option value="SATURDAY" <% if (sconto.getParametroTipologia().compareTo("SATURDAY") == 0) { %>selected<%}%> > Sabato  </option>
                         <option value="SUNDAY" <% if (sconto.getParametroTipologia().compareTo("SUNDAY") == 0) { %>selected<%}%>>  Domenica  </option>
 
@@ -188,7 +188,7 @@
                        
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
-                        <strong> Sconta se l'et� �:&nbsp;&nbsp; </strong>
+                        <strong> Sconta se l'et&#224; &#232;:&nbsp;&nbsp; </strong>
                         <select name="eta">
 
                             <option value="<" <% if (sconto.getParametroTipologia().charAt(0) == '<') {%>selected<% } %> >  minore di  </option>

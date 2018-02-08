@@ -8,7 +8,7 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 import javax.naming.NamingException;
@@ -22,11 +22,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Classe che testa tutti i metodi della classe UtenteRegistratoDAO
  * @author Antonio
  */
 public class UtenteRegistratoDAOTest {
     
+    /**
+     * Variabili che utilizziamo per istanziare l'oggetto UtenteBase per i Test.
+     */
     private static final float    SALDO = 0f;
     private static final String   EMAIL = "emai222@email.it";
     private static final String   NOMEUTENTE = "nomeUtente23";
@@ -39,45 +42,81 @@ public class UtenteRegistratoDAOTest {
     private static final String   INDIRIZZO = "via Roma 7";
     private static Connection connection;
     private static UtenteRegistratoDAO utenteRegistratoDAO;
+    private static UtenteBase utente;
     
     /**
      * Connessione temporanea al DB.
-     * @return
+     * @return La connessione al DB
      * @throws SQLException 
      */
-
     private static Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
     
+    /**
+     * Costruttore
+     */
     public UtenteRegistratoDAOTest() {
-        DATANASCITA = Calendar.getInstance();
-        DATANASCITA.set(1996, 01, 29);
     }
     
+    /**
+     * Metodo che inizializza la connessione, imposta l'autocommit a false per non sporcare il database e 
+     * inizializza l'oggetto UtenteRegistrato che utilizzeremo per i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException
+     */
     @BeforeClass
-    public static void setUpClass() throws NamingException, SQLException {
+    public static void setUpClass() throws NamingException, SQLException, ParseException {
         connection = getTestConnection();
         connection.setAutoCommit(false);
-        utenteRegistratoDAO = new UtenteRegistratoDAO(connection);
+        setMyUtente();
     }
     
+    /**
+     * Metodo che elimina dal DB il nostro UtenteRegistrato e chiude la connessione.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     @AfterClass
-    public static void tearDownClass() throws SQLException {
+    public static void tearDownClass() throws SQLException, ParseException, NamingException {
+        utenteRegistratoDAO.deleteUtenteRegistrato(utente.getEmail());
         connection.rollback();
         connection.close();
     }
     
+    /**
+     * Metodo che istanzia l'oggetto UtenteBase che utilizzeremo per effettuare i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setMyUtente() throws NamingException, SQLException, ParseException{
+        utenteRegistratoDAO = new UtenteRegistratoDAO(connection);
+        DATANASCITA = Calendar.getInstance();
+        DATANASCITA.set(1996, 01, 29);
+        utente = new UtenteBase(SALDO, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, DATANASCITA, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
+        utenteRegistratoDAO.createUtenteRegistrato(utente);
+    }
+    
+    /**
+     * Metodo che viene eseguito prima di ogni metodo Test
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     * Metodo che viene eseguito dopo ogni metodo Test
+     */
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getUtentiByRuolo method, of class UtenteRegistratoDAO.
+     * Test del metodo getUtenteByRuolo, della classe UtenteRegistratoDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetUtentiByRuolo() throws Exception {
@@ -114,70 +153,67 @@ public class UtenteRegistratoDAOTest {
         }
     }
 
+    /**
+     * Test del metodo foundUtenteByEmail, della classe UtenteRegistratoDAO.
+     * @throws Exception
+     */
     @Test
     public void testFoundUtenteBaseByEmail() throws Exception {
         System.out.println("foundUtenteBaseByEmail");
-        UtenteBase u = new UtenteBase(SALDO, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, DATANASCITA, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
-        utenteRegistratoDAO.createUtenteRegistrato(u);
         String expResult = EMAIL;
-        String result = utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL).getEmail();
+        String result = utenteRegistratoDAO.foundUtenteBaseByEmail(utente.getEmail()).getEmail();
         assertEquals(expResult, result);
-        utenteRegistratoDAO.deleteUtenteRegistrato(utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL).getEmail());
     }
 
     /**
-     * Test of updateUtenteRegistrato method, of class UtenteRegistratoDAO.
+     * Test del metodo updateUtenteRegistrato, della classe UtenteRegistratoDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateUtenteRegistrato() throws Exception {
         System.out.println("updateUtenteRegistrato");
-        UtenteBase u = new UtenteBase(SALDO, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, DATANASCITA, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
-        utenteRegistratoDAO.createUtenteRegistrato(u);
         String newNomeUtente = "BNose";
         boolean expResult = true;
-        u.setNomeUtente(newNomeUtente);
-        boolean result = utenteRegistratoDAO.updateUtenteRegistrato(u);
-        assertEquals(expResult, result);
-        utenteRegistratoDAO.deleteUtenteRegistrato(utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL).getEmail());        
+        utente.setNomeUtente(newNomeUtente);
+        boolean result = utenteRegistratoDAO.updateUtenteRegistrato(utente);
+        assertEquals(expResult, result);      
     }
 
     /**
-     * Test of updateUtenteBase method, of class UtenteRegistratoDAO.
+     * Test del metodo updateUtenteBase, della classe UtenteRegistratoDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateUtenteBase() throws Exception {
         System.out.println("updateUtenteBase");
-        UtenteBase u = new UtenteBase(SALDO, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, DATANASCITA, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
-        utenteRegistratoDAO.createUtenteRegistrato(u);
         String newNomeUtente = "BNose";
         boolean expResult = true;
-        u.setNomeUtente(newNomeUtente);
-        boolean result = utenteRegistratoDAO.updateUtenteBase(u);
-        assertEquals(expResult, result);
-        utenteRegistratoDAO.deleteUtenteRegistrato(utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL).getEmail());      
+        utente.setNomeUtente(newNomeUtente);
+        boolean result = utenteRegistratoDAO.updateUtenteBase(utente);
+        assertEquals(expResult, result);      
     }
 
     /**
-     * Test of createUtenteRegistrato method, of class UtenteRegistratoDAO.
+     * Test del metodo createUtenteRegistrato, della classe UtenteRegistratoDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCreateUtenteRegistrato() throws Exception {
         System.out.println("createUtenteRegistrato");
-        UtenteBase u = new UtenteBase(SALDO, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, DATANASCITA, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
+        utenteRegistratoDAO.deleteUtenteRegistrato(utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL).getEmail());    
         boolean expResult = true;
-        assertEquals(expResult, utenteRegistratoDAO.createUtenteRegistrato(u));
-        utenteRegistratoDAO.deleteUtenteRegistrato(utenteRegistratoDAO.foundUtenteBaseByEmail(EMAIL).getEmail());      
+        assertEquals(expResult, utenteRegistratoDAO.createUtenteRegistrato(utente));
     }
 
     /**
-     * Test of deleteUtenteRegistrato method, of class UtenteRegistratoDAO.
+     * Test del metodo deleteUtenteRegistrato, della classe UtenteRegistratoDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteUtenteRegistrato() throws Exception {
         System.out.println("deleteUtenteRegistrato");
-        UtenteBase u = new UtenteBase(SALDO, EMAIL, NOMEUTENTE, PASSWORD, UtenteRegistrato.ruolo.UTENTE, NOME, COGNOME, DATANASCITA, UtenteRegistrato.sesso.M, CELLULARE, CITTA, INDIRIZZO);
-        utenteRegistratoDAO.createUtenteRegistrato(u);
         boolean expResult = true;
-        assertEquals(expResult, utenteRegistratoDAO.deleteUtenteRegistrato(EMAIL));
+        assertEquals(expResult, utenteRegistratoDAO.deleteUtenteRegistrato(utente.getEmail()));
+        setMyUtente();
     }
 }

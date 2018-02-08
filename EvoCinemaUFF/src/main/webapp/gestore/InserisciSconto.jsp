@@ -30,7 +30,7 @@
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong> <%= messaggio%> </strong>
             <button class="close" aria-label="Close" type="button" data-dismiss="alert">
-                <span aria-hidden="true">�</span>
+                <span aria-hidden="true"> </span>
             </button>
         </div>
 
@@ -78,7 +78,7 @@
                         &nbsp;&nbsp;
                         <label class="radio-inline"><input type="radio" id="checkData" name="optTipologia" value="data" />  Data  </label>
                         &nbsp;&nbsp;
-                        <label class="radio-inline"><input type="radio"  id="checkEta" name="optTipologia" value="eta" />  Eta'  </label>
+                        <label class="radio-inline"><input type="radio"  id="checkEta" name="optTipologia" value="eta" />  Et&#224;  </label>
                         &nbsp;&nbsp;
                         <label class="radio-inline"><input type="radio" id="checkSesso" name="optTipologia" value="sesso" />  Sesso  </label>
                         &nbsp;&nbsp;
@@ -103,11 +103,11 @@
                     <strong>Giorno della settimana: </strong>
                     <select name="giornoDellaSettimana">
 
-                        <option value="MONDAY" selected>  Luned�  </option>
-                        <option value="TUESDAY">  Marted�  </option>
-                        <option value="WEDNESDAY">  Mercoled�  </option>
-                        <option value="THURSDAY"> Gioved�  </option>
-                        <option value="FRIDAY">  Venerd�  </option>
+                        <option value="MONDAY" selected>  Luned&#236; </option>
+                        <option value="TUESDAY">  Marted&#236;  </option>
+                        <option value="WEDNESDAY">  Mercoled&#236;  </option>
+                        <option value="THURSDAY"> Gioved&#236;  </option>
+                        <option value="FRIDAY">  Venerd&#236;  </option>
                         <option value="SATURDAY">  Sabato  </option>
                         <option value="SUNDAY">  Domenica  </option>
 
@@ -171,7 +171,7 @@
          
                 <div id="divEta" class="form-group text-center mt-5 mb-5">
                     <p>
-                        <strong> Sconta se l'et� �:&nbsp;&nbsp; </strong>
+                        <strong> Sconta se l'et&#224; &#232;:&nbsp;&nbsp; </strong>
                         <select name="eta">
 
                             <option value="<" selected>  minore di  </option>

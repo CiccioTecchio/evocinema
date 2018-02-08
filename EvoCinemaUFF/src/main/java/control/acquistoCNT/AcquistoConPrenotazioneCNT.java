@@ -6,6 +6,7 @@
 package control.acquistoCNT;
 
 import database.OperazioneDAO;
+import database.SpettacoloDAO;
 import database.UtenteRegistratoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Operazione;
+import model.Sala;
+import model.Spettacolo;
 import model.UtenteBase;
 import model.UtenteRegistrato;
 import model.UtenteRegistrato.ruolo;
@@ -62,6 +65,24 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
             if(responso){
                 operazione.setAcquistato(Operazione.acquistato.TRUE);
                 opDAO.updateOperazione(operazione);
+                
+                int posto = operazione.getPosto();
+                int offset = operazione.getOffset();
+                Sala sala = operazione.getSala();
+                int idspettacolo = operazione.getIdSpettacolo();
+                SpettacoloDAO spettDAO = new SpettacoloDAO();
+                Spettacolo spettacolo = spettDAO.foundByID(idspettacolo);
+                String MatricePosti = spettacolo.getMatricePosti();
+                char [] ArrayPosti = MatricePosti.toCharArray();
+                int daCambiare = ( offset * sala.getNumeroPosti() ) + posto ; 
+                ArrayPosti[daCambiare] = 'o';
+                String newPosti = "";
+                for(int i=0; i<ArrayPosti.length; i++){
+                    newPosti += (ArrayPosti[i]);
+                }
+                spettacolo.setMatricePosti(newPosti);
+                spettDAO.updateSpettacolo(spettacolo);
+                
                 response.sendRedirect("ResocontoAcquisto.jsp");
             }else{
                 response.sendRedirect("VisualizzaPrenotazioni.jsp");
@@ -75,6 +96,23 @@ public class AcquistoConPrenotazioneCNT extends HttpServlet {
         
             operazione.setAcquistato(Operazione.acquistato.TRUE);
             opDAO.updateOperazione(operazione);
+            int posto = operazione.getPosto();
+            int offset = operazione.getOffset();
+            Sala sala = operazione.getSala();
+            int idspettacolo = operazione.getIdSpettacolo();
+            SpettacoloDAO spettDAO = new SpettacoloDAO();
+            Spettacolo spettacolo = spettDAO.foundByID(idspettacolo);
+            String MatricePosti = spettacolo.getMatricePosti();
+            char [] ArrayPosti = MatricePosti.toCharArray();
+            int daCambiare = ( offset * sala.getNumeroPosti() ) + posto ; 
+            ArrayPosti[daCambiare] = 'o';
+            String newPosti = "";
+            for(int i=0; i<ArrayPosti.length; i++){
+                newPosti += (ArrayPosti[i]);
+            }
+            spettacolo.setMatricePosti(newPosti);
+            spettDAO.updateSpettacolo(spettacolo);
+                
             response.sendRedirect("ResocontoAcquisto.jsp");
         }
  

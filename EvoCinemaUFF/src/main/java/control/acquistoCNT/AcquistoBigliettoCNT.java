@@ -33,18 +33,25 @@ import model.UtenteRegistrato;
 
 /**
  *
- * @author Michele
+ * @author giuseppeapuzzo
+ * La classe definisce la logica che permette l'aggiunta di un oggetto di tipo {@link Acquisto}
  */
 public class AcquistoBigliettoCNT extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     *il metodo preleva dalla sessione l'email dell'utente e dalla richiesta preleva il radio button per la scelta del pagamento
+     * se si tratta di un operatore si può scegliere anche di incassare in contanti quindi il pagamento va gestito 
+     * una volta aggiornati tutti i dati all'interno del database la servlet rimanda alla visualizzazione della programmazione se si tratta di un operatore, o alla visualizzazione degli acquisti se si tratta di un utente.
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws javax.naming.NamingException
+     * @throws java.sql.SQLException
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NamingException, SQLException, ParseException {

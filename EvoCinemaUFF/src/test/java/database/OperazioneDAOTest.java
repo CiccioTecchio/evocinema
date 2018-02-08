@@ -25,11 +25,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Classe che testa tutti i metodi della classe OperazioneDAO
  * @author Antonio
  */
 public class OperazioneDAOTest {
     
+    /**
+     * Variabili che utilizziamo per istanziare l'oggetto Acquisto per i Test.
+     */
     private static final String EMAIL = "ABergamaschi@gmail.com ";
     private static final int IDSPETTACOLO = 54;
     private static final int POSTO = 16;
@@ -43,20 +46,74 @@ public class OperazioneDAOTest {
     private static OperazioneDAO operazioneDAO;
     private static ScontoDAO scontoDAO;
     private static SalaDAO salaDAO;
+
     public static Operazione o;
     public static Acquisto mioAcquisto;
     
+    /**
+     * Costruttore.
+     */
     public OperazioneDAOTest() {
     }
     
+    /**
+     * Connessione temporanea al DB.
+     * @return La connessione al DB
+     * @throws SQLException 
+     */
     private static java.sql.Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");        
     }
     
+    /**
+     * Metodo che inizializza la connessione, imposta l'autocommit a false per non sporcare il database,
+     * inizializza l'oggetto Acquisto che utilizzeremo per i test e ne ricava l'id autogenerato dal DB.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException
+     */
     @BeforeClass
     public static void setUpClass() throws NamingException, SQLException, ParseException {
         connection = getTestConnection();
         connection.setAutoCommit(false);
+        setMyOperazione();
+        setIdReale();
+    }
+    
+   /**
+     * Metodo che elimina dal DB il nostro Acquisto e chiude la connessione.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
+    @AfterClass
+    public static void tearDownClass() throws SQLException, ParseException, NamingException {
+        operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());
+        connection.rollback();
+        connection.close();
+    }
+    
+    /**
+     * Metodo che viene eseguito prima di ogni metodo Test.
+     */
+    @Before
+    public void setUp() {
+    }
+    
+    /**
+     * Metodo che viene eseguito dopo di ogni metodo Test.
+     */
+    @After
+    public void tearDown() {
+    }
+    
+    /**
+     * Metodo che istanzia l'oggetto Acquisto che utilizzeremo per effettuare i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setMyOperazione() throws SQLException, NamingException, ParseException{
         operazioneDAO = new OperazioneDAO((Connection) connection);
         salaDAO = new SalaDAO((Connection) connection);
         SALA = salaDAO.foundByID(6);
@@ -66,7 +123,15 @@ public class OperazioneDAOTest {
         data.set(2018, 02, 05);
         o = new Acquisto(EMAIL, IDSPETTACOLO, POSTO, OFFSET, SALA, Operazione.prenotato.FALSE, Operazione.acquistato.TRUE, PREZZOFINALE, data, SCONTO);
         operazioneDAO.createOperazione(o);  
-        
+    }
+    
+    /**
+     * Metodo che ricava l'id autogenerato dal DB quando inseriamo l'oggetto Acquisto.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setIdReale() throws SQLException, ParseException, NamingException{
         //Per ricavare l'id reale dell'acquisto creato
         List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
         mioAcquisto = null;
@@ -78,24 +143,9 @@ public class OperazioneDAOTest {
             }
         }
     }
-    
-    @AfterClass
-    public static void tearDownClass() throws SQLException, ParseException, NamingException {
-        operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());
-        connection.rollback();
-        connection.close();
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
-     * Test of getAllOperazioni method, of class OperazioneDAO.
+     * Test del metodo getAllOperazioni, della classe OperazioneDAO.
      */
     @Test
     public void testGetAllOperazioni() throws Exception {
@@ -111,7 +161,7 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of getPrenotazioni method, of class OperazioneDAO.
+     * Test del metodo getPrenotazioni, della classe OperazioneDAO.
      */
     @Test
     public void testGetPrenotazioni() throws Exception {
@@ -128,7 +178,7 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of getPrenotazioniUtente method, of class OperazioneDAO.
+     * Test del metodo getPrenotazioniUtente, della classe OperazioneDAO.
      */
     @Test
     public void testGetPrenotazioniUtente() throws Exception {
@@ -144,7 +194,7 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of getAcquisti method, of class OperazioneDAO.
+     * Test del metodo getAcquisti, della classe OperazioneDAO.
      */
     @Test
     public void testGetAcquisti() throws Exception {
@@ -160,7 +210,7 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of getAcquistiUtente method, of class OperazioneDAO.
+     * Test del metodo getAcquistiUtente, della classe OperazioneDAO.
      */
     @Test
     public void testGetAcquistiUtente() throws Exception {
@@ -177,7 +227,8 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of foundByID method, of class OperazioneDAO.
+     * Test del metodo foundByID, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByID() throws Exception {
@@ -188,7 +239,8 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of createOperazione method, of class OperazioneDAO.
+     * Test del metodo createOperazione, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCreateOperazione() throws Exception {
@@ -196,20 +248,12 @@ public class OperazioneDAOTest {
         operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione());
         boolean expResult = true;
         assertEquals(expResult, operazioneDAO.createOperazione(o));
-        //Per ricavare l'id reale dell'acquisto creato
-        List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
-        mioAcquisto = null;
-        for(Acquisto a: listaAcquisti){
-            if(a.getIdSpettacolo() == IDSPETTACOLO && 
-               a.getSala().getIdSala() == SALA.getIdSala() &&
-               a.getPosto() == POSTO){
-                mioAcquisto = a;
-            }
-        }
+        setIdReale();
     }
 
     /**
-     * Test of updateOperazione method, of class OperazioneDAO.
+     * Test del metodo updateOperazione, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateOperazione() throws Exception {
@@ -222,29 +266,21 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of deleteOperazione method, of class OperazioneDAO.
+     * Test del metodo deleteOperazione, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteOperazione() throws Exception {
         System.out.println("deleteOperazione");
         boolean expResult = true;
         assertEquals(expResult, operazioneDAO.deleteOperazione(mioAcquisto.getIdOperazione()));
-        operazioneDAO.createOperazione(o);
-        
-        //Per ricavare l'id reale dell'acquisto creato
-        List<Acquisto> listaAcquisti = operazioneDAO.getAcquistiUtente(EMAIL);
-        mioAcquisto = null;
-        for(Acquisto a: listaAcquisti){
-            if(a.getIdSpettacolo() == IDSPETTACOLO && 
-               a.getSala().getIdSala() == SALA.getIdSala() &&
-               a.getPosto() == POSTO){
-                mioAcquisto = a;
-            }
-        }
+        setMyOperazione();
+        setIdReale();
     }
 
     /**
-     * Test of analyticsGetDatiOperazioni method, of class OperazioneDAO.
+     * Test del metodo analyticsGetDatiOperazioni, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAnalyticsGetDatiOperazioni() throws Exception {
@@ -260,7 +296,8 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of analyticsGetDatiAffluenzeSpettacolo method, of class OperazioneDAO.
+     * Test del metodo analyticsGetDatiAffluenzeSpettacolo, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAnalyticsGetDatiAffluenzeSpettacolo() throws Exception {
@@ -276,7 +313,8 @@ public class OperazioneDAOTest {
     }
 
     /**
-     * Test of analyticsGetDatiIncassi method, of class OperazioneDAO.
+     * Test del metodo analyticsGetDatiIncassi, della classe OperazioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testAnalyticsGetDatiIncassi() throws Exception {

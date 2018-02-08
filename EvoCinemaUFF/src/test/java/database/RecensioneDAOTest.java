@@ -5,10 +5,8 @@
  */
 package database;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
@@ -23,11 +21,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Classe che testa tutti i metodi della classe RecensioneDAO
  * @author Antonio
  */
 public class RecensioneDAOTest {
     
+    /**
+     * Variabili che utilizziamo per istanziare l'oggetto Recensione per i Test.
+     */
     private static final String EMAIL = "antonio.giulio96@gmail.com";
     private static Film FILM;
     private static final float VALUTAZIONE = 3.5f;
@@ -39,27 +40,41 @@ public class RecensioneDAOTest {
     private static FilmDAO filmDAO;
     private static Recensione recensione;
     
+    /**
+     * Costruttore.
+     */
     public RecensioneDAOTest() {
     }
     
+    /**
+     * Connessione temporanea al DB.
+     * @return La connessione al DB
+     * @throws SQLException 
+     */
     private static java.sql.Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
     
+    /**
+     * Metodo che inizializza la connessione, imposta l'autocommit a false per non sporcare il database e
+     * inizializza l'oggetto Recensione che utilizzeremo per i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException
+     */
     @BeforeClass
     public static void setUpClass() throws NamingException, SQLException, ParseException {
         connection = getTestConnection();
         connection.setAutoCommit(false);
-        recensioneDAO = new RecensioneDAO((com.mysql.jdbc.Connection) connection);  
-        filmDAO = new FilmDAO((com.mysql.jdbc.Connection) connection);
-        FILM = filmDAO.foundByID(1);
-        Calendar dataRec = Calendar.getInstance();
-        dataRec.set(2018, 02, 06);
-        recensione = new Recensione(EMAIL, FILM, VALUTAZIONE, TESTO, dataRec);
-        recensioneDAO.createRecensione(recensione);
-        System.out.println("Ho istanziato e creato sia film che recensione");        
+        setMyRecensione();
     }
     
+   /**
+     * Metodo che elimina dal DB la nostra Recensione e chiude la connessione.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     @AfterClass
     public static void tearDownClass() throws SQLException, ParseException, NamingException {
         recensioneDAO.deleteRecensione(recensione);
@@ -67,17 +82,40 @@ public class RecensioneDAOTest {
         connection.close();
     }
     
+    /**
+     * Metodo che viene eseguito prima di ogni metodo Test.
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     * Metodo che viene eseguito dopo di ogni metodo Test.
+     */
     @After
     public void tearDown() {
+    }
+    
+    /**
+     * Metodo che istanzia l'oggetto recensione che utilizzeremo per effettuare i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setMyRecensione() throws NamingException, SQLException, ParseException{
+        recensioneDAO = new RecensioneDAO((com.mysql.jdbc.Connection) connection);  
+        filmDAO = new FilmDAO((com.mysql.jdbc.Connection) connection);
+        FILM = filmDAO.foundByID(1);
+        Calendar dataRec = Calendar.getInstance();
+        dataRec.set(2018, 02, 06);
+        recensione = new Recensione(EMAIL, FILM, VALUTAZIONE, TESTO, dataRec);
+        recensioneDAO.createRecensione(recensione);   
     }
 
 
     /**
-     * Test of getAllRecensioni method, of class RecensioneDAO.
+     * Test del metodo getAllRecensioni, della classe RecensioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetAllRecensioni() throws Exception {
@@ -93,7 +131,8 @@ public class RecensioneDAOTest {
     }
 
     /**
-     * Test of foundByEmail method, of class RecensioneDAO.
+     * Test del metodo foundByEmail, della classe RecensioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByEmail() throws Exception {
@@ -109,7 +148,8 @@ public class RecensioneDAOTest {
     }
 
     /**
-     * Test of foundByFilm method, of class RecensioneDAO.
+     * Test del metodo foundByFilm, della classe RecensioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByFilm() throws Exception {
@@ -125,7 +165,8 @@ public class RecensioneDAOTest {
     }
 
     /**
-     * Test of createRecensione method, of class RecensioneDAO.
+     * Test del metodo createRecensione, della classe RecensioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCreateRecensione() throws Exception {
@@ -136,7 +177,8 @@ public class RecensioneDAOTest {
     }
 
     /**
-     * Test of updateRecensione method, of class RecensioneDAO.
+     * Test del metodo updateRecensione, della classe RecensioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateRecensione() throws Exception {
@@ -148,14 +190,15 @@ public class RecensioneDAOTest {
     }
 
     /**
-     * Test of deleteRecensione method, of class RecensioneDAO.
+     * Test del metodo eleteRecensione, della classe RecensioneDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteRecensione() throws Exception {
         System.out.println("deleteRecensione");
         boolean expResult = true;
         assertEquals(expResult, recensioneDAO.deleteRecensione(recensione));
-        recensioneDAO.createRecensione(recensione);
+        setMyRecensione();
     }
     
 }
