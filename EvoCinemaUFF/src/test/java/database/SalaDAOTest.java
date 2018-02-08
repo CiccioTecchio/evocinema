@@ -5,7 +5,6 @@
  */
 package database;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -20,11 +19,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Classe che testa tutti i metodi della classe SalaDAO
  * @author Antonio
  */
 public class SalaDAOTest {
     
+    /**
+     * Variabili che utilizziamo per istanziare l'oggetto Sala per i Test.
+     */
     private static final int NUMEROPOSTI = 82;
     private static final String CONFIGPOSTI = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001111111111111100000000000000001111111111111100000000000000001111111111111100000000000000000000000000000000000000000011101111111111111101110000000011101111111111111101110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     
@@ -33,34 +35,74 @@ public class SalaDAOTest {
     private static Sala sala;
     private static int idReale;
     
+    /**
+     * Costruttore.
+     */
     public SalaDAOTest() {
     }
     
+    /**
+     * Connessione temporanea al DB.
+     * @return La connessione al DB
+     * @throws SQLException 
+     */
     private static java.sql.Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
     
+    /**
+     * Metodo che inizializza la connessione, imposta l'autocommit a false per non sporcare il database,
+     * inizializza l'oggetto Sala che utilizzeremo per i test e ne ricava l'id autogenerato dal DB.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException
+     */
     @BeforeClass
     public static void setUpClass() throws SQLException, NamingException, ParseException {
         connection = getTestConnection();
         connection.setAutoCommit(false);
+        setMySala();
+        setIdReale();
+    }
+    
+    /**
+     * Metodo che istanzia l'oggetto Sala che utilizzeremo per effettuare i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setMySala() throws SQLException, NamingException, ParseException{
         salaDAO = new SalaDAO((com.mysql.jdbc.Connection) connection);
         sala = new Sala();
         sala.setConfigPosti(CONFIGPOSTI);
         sala.setNumeroPosti(NUMEROPOSTI);
         salaDAO.createSala(sala);
-         //devo ricavare l'id reale
+    }
+    
+     /**
+     * Metodo che ricava l'id autogenerato dal DB quando inseriamo l'oggetto Sala.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setIdReale() throws SQLException, ParseException, NamingException{
         List<Sala> listaSale = salaDAO.getAllSale();
         idReale = 0;
         int curr = 0;
-        for(Sala sala: listaSale){
-            curr = sala.getIdSala();
+        for(Sala s: listaSale){
+            curr = s.getIdSala();
             if( curr > idReale){
                 idReale = curr;
             }
         }
     }
     
+   /**
+     * Metodo che elimina dal DB la nostra Sala e chiude la connessione.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     @AfterClass
     public static void tearDownClass() throws SQLException, ParseException, NamingException {
         salaDAO.deleteSale(idReale);   
@@ -68,16 +110,23 @@ public class SalaDAOTest {
         connection.close();
     }
     
+    /**
+     * Metodo che viene eseguito prima di ogni metodo Test.
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     * Metodo che viene eseguito dopo di ogni metodo Test.
+     */
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getAllSale method, of class SalaDAO.
+     * Test del metodo getAllSale, della classe SalaDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetAllSale() throws Exception {
@@ -93,7 +142,8 @@ public class SalaDAOTest {
     }
 
     /**
-     * Test of foundByID method, of class SalaDAO.
+     * Test del metodo foundByID, della classe SalaDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByID() throws Exception {
@@ -105,7 +155,8 @@ public class SalaDAOTest {
     }
 
     /**
-     * Test of createSala method, of class SalaDAO.
+     * Test del metodo createSala, della classe SalaDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCreateSala() throws Exception {
@@ -113,20 +164,12 @@ public class SalaDAOTest {
         salaDAO.deleteSale(idReale);
         boolean expResult = true;
         assertEquals(expResult, salaDAO.createSala(sala));
-         //devo ricavare l'id reale
-        List<Sala> listaSale = salaDAO.getAllSale();
-        idReale = 0;
-        int curr = 0;
-        for(Sala sala: listaSale){
-            curr = sala.getIdSala();
-            if( curr > idReale){
-                idReale = curr;
-            }
-        }       
+        setIdReale();
     }
 
     /**
-     * Test of updateSala method, of class SalaDAO.
+     * Test del metodo updateSala, della classe SalaDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateSala() throws Exception {
@@ -139,7 +182,8 @@ public class SalaDAOTest {
     }
 
     /**
-     * Test of deleteSale method, of class SalaDAO.
+     * Test del metodo deleteSale, della classe SalaDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteSale() throws Exception {
@@ -147,17 +191,7 @@ public class SalaDAOTest {
         boolean expResult = true;
         boolean result = salaDAO.deleteSale(idReale);
         assertEquals(expResult, result);
-        salaDAO.createSala(sala);
-        //devo ricavare l'id reale
-        List<Sala> listaSale = salaDAO.getAllSale();
-        idReale = 0;
-        int curr = 0;
-        for(Sala sala: listaSale){
-            curr = sala.getIdSala();
-            if( curr > idReale){
-                idReale = curr;
-            }
-        }       
-    }
-    
+        setMySala();
+        setIdReale();        
+    }    
 }
