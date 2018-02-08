@@ -35,14 +35,18 @@ import model.UtenteRegistrato;
 
 /**
  *
- * @author Michele
+ * @author giuseppeapuzzo
+ * La classe definisce la logica che permette l'aggiunta di un oggetto di tipo {@link Prenotazione}
  */
 public class PrenotazioneBigliettoCNT extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     * il metodo preleva dalla sessione l'email dell'utente e la coppia posto-sconto selezionati nella pagina precedente
+     * crea una Prenotazione con i dati del form precedente e la rende persistente sul database.
+     * Reindirizza l'utente alla visualizzazione delle prenotazioni effettuate dal suo account
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
