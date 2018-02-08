@@ -83,29 +83,14 @@
                             <span class="nav-link-text">Gestione Sale</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents4">
+                            <%  //request.getSession().getAttribute("sale");
+                                for(int i=0;i<8;i++){ %>
                             <li>
-                                <a href="ModificaSala.jsp?id=1">Sala 1</a>
+                                <a href="ModificaSala.jsp?id=<%=i%>">Sala <%=i%></a>
                             </li>
+                            <% } %>
                             <li>
-                                <a href="ModificaSala.jsp?id=2">Sala 2</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=3">Sala 3</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=4">Sala 4</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=5">Sala 5</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=6">Sala 6</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=7">Sala 7</a>
-                            </li>
-                            <li>
-                                <a href="ModificaSala.jsp?id=8">Sala 8</a>
+                                <a href="AggiuntaSala.jsp">Aggiungi nuova sala</a>
                             </li>
                         </ul>
                     </li>
