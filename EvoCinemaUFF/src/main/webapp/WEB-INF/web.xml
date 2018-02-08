@@ -114,7 +114,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VisualizzaRecensioniCNT</servlet-name>
-        <url-pattern>/VisualizzaRecensioniCNT</url-pattern>
+        <url-pattern>/utente/VisualizzaRecensioniCNT</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VisualizzaOperatoriCNT</servlet-name>

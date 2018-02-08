@@ -55,16 +55,17 @@ public class RimozioneFilmCNT extends HttpServlet {
         Film film = array.get(position);
         
         String messageDelete = ""; 
-        
+         FilmDAO dao = null;
+         
         try { 
             
-            FilmDAO dao = new FilmDAO();
+            dao = new FilmDAO();
             
             dao.deleteFilm(film.getIdFilm()); 
             String locandina = film.getLocandina();
             String namefile = locandina.substring(locandina.lastIndexOf("/")+1);
             String path =  request.getServletContext().getRealPath("")+"images"+File.separator+"locandine"+File.separator+namefile;
-            System.out.println("la path del file è -->"+path);
+           
             File file = new File(path); 
             
             if( ! file.delete()) { messageDelete="Problemi nell'eliminazione della locandina";  } 
@@ -79,8 +80,24 @@ public class RimozioneFilmCNT extends HttpServlet {
             
             
         } catch (SQLException ex) {
-            messageDelete="Errore durante l'eliminazione SQLException";
-            Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex);
+             
+            try {
+                System.out.println("Lanciata");
+                 messageDelete="Eliminato con successo";
+                dao.changeEliminato(film.getIdFilm());
+            } catch (SQLException ex1) {
+                 messageDelete="Errore durante l'eliminazione SQLException";
+                Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (ParseException ex1) {
+                messageDelete="Errore durante l'eliminazione ParseException";
+                Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (NamingException ex1) {
+                 messageDelete = "Errore durante l'eliminazione NamingException ";
+                Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            
+           
+            
         } catch (ParseException ex) {
              messageDelete="Errore durante l'eliminazione ParseException";
             Logger.getLogger(RimozioneFilmCNT.class.getName()).log(Level.SEVERE, null, ex);

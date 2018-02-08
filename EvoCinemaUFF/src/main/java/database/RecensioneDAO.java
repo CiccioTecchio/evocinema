@@ -109,7 +109,7 @@ public class RecensioneDAO {
        List<Recensione> recensioni = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= ? AND data_recensione IS NOT NULL AND testo IS NOT NULL");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= ? AND  data_recensione IS NOT NULL AND testo IS NOT NULL");
             stmt.setString(1, emailUtente);
             ResultSet rs = stmt.executeQuery();
             
