@@ -500,12 +500,37 @@ public class UtenteRegistratoDAO {
                 flag = true;
             }
             
-            return flag;
+            
         }finally{
             if (stmt != null){
                 stmt.close();
             }
         }
+        return flag;
+        
+    }
+    
+    public synchronized Boolean controllaEmailUtente(String email) throws SQLException {
+        
+        PreparedStatement stmt = null;
+        Boolean flag = false;
+        
+        try{
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Utente WHERE"
+                    + " email = '" + email + "' ");
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                flag = true;
+            }
+            
+            
+        }finally{
+            if (stmt != null){
+                stmt.close();
+            }
+        }
+        return flag;
         
     }
     
