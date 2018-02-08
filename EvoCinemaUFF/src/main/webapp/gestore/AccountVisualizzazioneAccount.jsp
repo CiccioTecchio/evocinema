@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Nome</label>
                             <div class="col-lg-10">
-                                <input class="form-control" type="text" id="nomeRegistrazioneVisualizza" name="nomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getNome()%>" >
+                                <input class="form-control" type="text" id="nomeRegistrazioneVisualizza" name="nomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getNome()%>" disabled="true">
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorNomeVisualizza">
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Cognome</label>
                             <div class="col-lg-10">
-                                <input class="form-control" type="text" id="cognomeRegistrazioneVisualizza" name="cognomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getCognome()%>" >
+                                <input class="form-control" type="text" id="cognomeRegistrazioneVisualizza" name="cognomeRegistrazioneVisualizza" maxlength="50"  value="<%=utente.getCognome()%>" disabled="true">
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorCognomeVisualizza">
@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Data di nascita</label>
                             <div class="col-lg-10">
-                                <input class="form-control" name="dataRegistrazioneVisualizza" type="text" id="datepicker" value="<%=dataN%>">
+                                <input class="form-control" name="dataRegistrazioneVisualizza" type="text" id="datepicker" value="<%=dataN%>" disabled="true">
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorDataNascitaVisualizza">
@@ -109,7 +109,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Indirizzo</label>
                             <div class="col-lg-10">
-                                <input class="form-control" type="text" id="indirizzoRegistrazioneVisualizza" name="indirizzoRegistrazioneVisualizza" maxlength="50"value="<%=utente.getIndirizzo()%>" >
+                                <input class="form-control" type="text" id="indirizzoRegistrazioneVisualizza" name="indirizzoRegistrazioneVisualizza" maxlength="50"value="<%=utente.getIndirizzo()%>" disabled="true">
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorIndirizzoVisualizza">
@@ -120,7 +120,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Città</label>
                             <div class="col-lg-10">
-                                <input class="form-control" type="text" id="cittaRegistrazioneVisualizza" name="cittaRegistrazioneVisualizza" maxlength="50" value="<%=utente.getCittà()%>" >
+                                <input class="form-control" type="text" id="cittaRegistrazioneVisualizza" name="cittaRegistrazioneVisualizza" maxlength="50" value="<%=utente.getCittà()%>" disabled="true">
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorCittaVisualizza">
@@ -131,7 +131,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Cellulare</label>
                             <div class="col-lg-10">
-                                <input class="form-control" type="text" id="cellulareRegistrazioneVisualizza" name="cellulareRegistrazioneVisualizza" value="<%=utente.getCellulare()%>" maxlength="10" onkeypress="onlyNumbers(event)" >
+                                <input class="form-control" type="text" id="cellulareRegistrazioneVisualizza" name="cellulareRegistrazioneVisualizza" value="<%=utente.getCellulare()%>" maxlength="10" onkeypress="onlyNumbers(event)" disabled="true">
                             </div>
                         </div>
                         <div class="form-input-validation is-error" id ="errorCellulareVisualizza">
@@ -160,7 +160,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Password</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" id="passwordRegistrazioneVisualizza" name="passwordRegistrazioneVisualizza" maxlength="50">
+                                <input class="form-control" type="password" id="passwordRegistrazioneVisualizza" name="passwordRegistrazioneVisualizza" maxlength="50" disabled="true" >
                             </div>
                         </div>
 
@@ -172,18 +172,24 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">Conferma password</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="password" id="passwordRegistrazione2Visualizza" name="passwordRegistrazione2Visualizza" maxlength="50" >
+                                <input class="form-control" type="password" id="passwordRegistrazione2Visualizza" name="passwordRegistrazione2Visualizza" maxlength="50" disabled="true"
                             </div>
                         </div>
+                </div>
                         <div class="form-input-validation is-error" id ="errorPassword2Visualizza">
                             <span>
                                 <p class="error-pswVisualizza">Questo campo non può contenere meno di 8 caratteri!</p>
                             </span>
                         </div>
+                        <div class="form-input-validation is-error" id ="errorPasswordMatchVisualizza">
+                            <span>
+                                <p class="error-pswVisualizza">Le password non corrispondono!</p>
+                            </span>
+                        </div>
                         <div class="form-group">
                              <div class="col-md-10">
                             <label for="exampleInputName">Sesso</label>
-                                    <select id= "sessoRegistrazioneVisualizza" name="sessoRegistrazioneVisualizza" class="form-control">
+                                    <select id= "sessoRegistrazioneVisualizza" name="sessoRegistrazioneVisualizza" class="form-control" disabled="true">
                                         <option value="maschio" <%=a%> >Maschio</option>
                                         <option value="femmina" <%=b%> >Femmina</option>
                                     </select>
@@ -191,12 +197,29 @@
                         </div>
                         
                         <br> 
-                        <div class="form-group">
-
-                            <div class="col-md-10">
-                                <button id="dettagliUtente" class="btn btn-primary btn-block" type="submit">Salva</button>
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-lg-6">
+ 
+                                    <div class="form-group">
+ 
+ 
+                                        <input type="button" id="modifica" value="Abilita/Disabilita Modifche" class="btn btn-primary btn-block"/> 
+ 
+                                    </div>
+                                </div>
+ 
+                                <div class="col-lg-6">
+ 
+                                    <div class="form-group">
+ 
+ 
+                                        <button  id="dettagliUtente" class="btn btn-primary btn-block" type="submit">Salva</button>
+ 
+ 
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </form>
 
@@ -246,3 +269,16 @@
     $("#datepicker").datepicker(){ minDate: - 20, maxDate: "+1M +10D" };
     });
 </script>
+<script>
+    $("#modifica").click(function() {
+        $("#nomeRegistrazioneVisualizza").attr('disabled', !$("#nomeRegistrazioneVisualizza").attr('disabled'));
+        $("#cognomeRegistrazioneVisualizza").attr('disabled', !$("#cognomeRegistrazioneVisualizza").attr('disabled'));
+        $("#datepicker").attr('disabled', !$("#datepicker").attr('disabled'));
+        $("#indirizzoRegistrazioneVisualizza").attr('disabled', !$("#indirizzoRegistrazioneVisualizza").attr('disabled'));
+        $("#cittaRegistrazioneVisualizza").attr('disabled', !$("#cittaRegistrazioneVisualizza").attr('disabled'));
+        $("#cellulareRegistrazioneVisualizza").attr('disabled', !$("#cellulareRegistrazioneVisualizza").attr('disabled'));
+        $("#passwordRegistrazioneVisualizza").attr('disabled', !$("#passwordRegistrazioneVisualizza").attr('disabled'));
+        $("#passwordRegistrazione2Visualizza").attr('disabled', !$("#passwordRegistrazione2Visualizza").attr('disabled'));
+        $("#sessoRegistrazioneVisualizza").attr('disabled', !$("#sessoRegistrazioneVisualizza").attr('disabled'));
+    });
+    </script>
