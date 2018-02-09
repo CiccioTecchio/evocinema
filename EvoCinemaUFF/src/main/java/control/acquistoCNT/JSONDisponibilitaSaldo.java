@@ -48,13 +48,11 @@ public class JSONDisponibilitaSaldo extends HttpServlet {
         String emailAcquirente=request.getParameter("emailAcquirente");
         UtenteRegistratoDAO urd = new UtenteRegistratoDAO();
         JSONObject jsonObject=new JSONObject();
-        System.out.println("emailAcquirente "+emailAcquirente);
         UtenteBase acquirente = urd.foundUtenteBaseByEmail(emailAcquirente);/*
         if(acquirente.getRuolo()==UtenteRegistrato.ruolo.UTENTE){
             //SE E' UN UTENTE BASE
             UtenteBase utenteb = (UtenteBase)urd.foundUtenteBaseByEmail(user.getEmail());*/
         
-        System.out.println("importoTotale"+request.getParameter("importoTotale"));
             if((Float.parseFloat((String)request.getParameter("importoTotale")))>acquirente.getSaldo())
                 //SE HA IL CREDITO INSUFFICIENTE
                 jsonObject.put("Saldo insufficiente", 0);
@@ -65,7 +63,6 @@ public class JSONDisponibilitaSaldo extends HttpServlet {
         //SE E' UN OPERATORE UTILIZZERA' PAGAMENTO IN CONTANTI
         //else  jsonObject.put("Ok", 0);
         
-        System.out.println("messaggio json"+jsonObject.toString());
         
         response.getWriter().write(jsonObject.toString());
 

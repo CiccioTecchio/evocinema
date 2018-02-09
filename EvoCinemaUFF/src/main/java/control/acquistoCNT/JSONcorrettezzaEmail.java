@@ -49,7 +49,6 @@ public class JSONcorrettezzaEmail extends HttpServlet {
         String emailAcquirente=request.getParameter("emailAcquirente");
         UtenteRegistratoDAO urd = new UtenteRegistratoDAO();
         JSONObject jsonObject=new JSONObject();
-        System.out.println("emailAcquirente "+emailAcquirente);
         UtenteBase acquirente = urd.foundUtenteBaseByEmail(emailAcquirente);
         
         
@@ -58,7 +57,6 @@ public class JSONcorrettezzaEmail extends HttpServlet {
         else jsonObject.put("Email non corretta", 0);
         
         
-        System.out.println("messaggio json"+jsonObject.toString());
         
         response.getWriter().write(jsonObject.toString());
 
