@@ -20,10 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
+
 /**
- *
- * @author Michele
+ * La classe restituisce un oggetto json che permette la rappresentazione del grafico Analytics operazioni
+ * @author PietroDell'Isola
  */
+
 public class AnalyticsOperazioniCNT extends HttpServlet {
 
     /**
