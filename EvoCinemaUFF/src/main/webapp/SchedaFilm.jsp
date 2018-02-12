@@ -74,6 +74,10 @@
                         <td class="text-right pr-3"><H5><strong> Titolo :</strong></H5></td><td> <H2> <%= film.getTitolo()%></H2></td></tr>
                     <tr>
                         <td class="text-right pr-3"><H5><strong> Genere :</strong></H5></td><td><H5> <%= film.getGenere()%></H5></td></tr>
+                    <tr><% SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        String format = sdf.format(film.getDataUscita().getTime());
+                        %>
+                        <td class="text-right pr-3"><strong> Data Uscita :</strong></td><td> <%= format %></td></tr>
                     <tr>
                         <td class="text-right pr-3"><strong> Durata :</strong></td><td> <%= film.getDurata()%></td></tr>
                     <tr>
