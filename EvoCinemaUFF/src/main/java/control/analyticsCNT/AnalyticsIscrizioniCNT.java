@@ -88,6 +88,7 @@ public class AnalyticsIscrizioniCNT extends HttpServlet {
             
             int i= 0; 
             
+            if(!(array.isEmpty())){
             while( i < array.size()-2){
             
                 date= (Date) array.get(i);
@@ -99,13 +100,14 @@ public class AnalyticsIscrizioniCNT extends HttpServlet {
                 i++; 
             }
             
+            
             date= (Date) array.get(i);
                 i++;
                 occorrenze = (int) array.get(i); 
                 
                 json=json+"[\n" +date.getTime()+",\n";
                 json=json+occorrenze+"\n]\n";
-            
+            }
         } catch (NamingException ex) {
             Logger.getLogger(AnalyticsIscrizioniCNT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
