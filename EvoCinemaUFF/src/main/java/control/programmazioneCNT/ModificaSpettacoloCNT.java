@@ -27,13 +27,13 @@ import model.Spettacolo;
 public class ModificaSpettacoloCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Riceve i campi inseriti dal gestore nella pagina di modifica di uno spettacolo, ne effettua la convalida
+     * e reindirizza alla pagina di modifica avvenuta con successo in caso siano tutti corretti, a quella di fallimento altrimenti.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

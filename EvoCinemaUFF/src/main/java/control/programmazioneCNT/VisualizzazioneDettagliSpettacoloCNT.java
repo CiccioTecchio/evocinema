@@ -31,24 +31,26 @@ import model.Spettacolo;
 public class VisualizzazioneDettagliSpettacoloCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Preleva dal database lo spettacolo di cui visualizzare i dettagli e la sala in cui è proiettato,
+     * Prima di terminare setta gli attributi sulla richiesta per permettere alle pagine che includono questa servlet
+     * di recuperare i dati elaborati.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Logger logger = Logger.getLogger("global");
         try {
             int id = Integer.parseInt(request.getParameter("idSpettacolo"));
             SpettacoloDAO spettacoloDao = new SpettacoloDAO();
             SalaDAO salaDao = new SalaDAO();
             Spettacolo spettacolo = spettacoloDao.foundByID(id);
             Sala sala = salaDao.foundByID(spettacolo.getIdSala());
+            //prelevo la data odierna e calcolo l'offset per ottenere il giorno esatto di cui
+            //rappresentare i dati
             Calendar now = new GregorianCalendar();
             now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
             Calendar start = spettacolo.getDataInizio();

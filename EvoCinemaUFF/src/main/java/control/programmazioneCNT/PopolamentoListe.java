@@ -31,13 +31,14 @@ import model.Spettacolo;
 public class PopolamentoListe extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Preleva dal database le sale e i film tra cui il gestore potrà scegliere nel momento in cui inserisce un nuovo spettacolo.
+     * Prima di terminare setta gli attributi sulla richiesta per permettere alle pagine che includono questa servlet
+     * di recuperare i dati elaborati.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

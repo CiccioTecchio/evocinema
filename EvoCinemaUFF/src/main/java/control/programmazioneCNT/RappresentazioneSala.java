@@ -9,7 +9,7 @@ import model.Sala;
 import model.Spettacolo;
 
 /**
- *
+ *Una classe per effettuare sulla stringa dei posti di una sala le elaborazioni necessarie alla rappresentazione 
  * @author luca
  */
 public class RappresentazioneSala {
@@ -20,6 +20,10 @@ public class RappresentazioneSala {
         execute();
     }
     
+    /**
+     * Calcola gli indici di prima ed ultima riga e prima ed ultima colonna da stampare a video per rappresentare
+     * l'intera sala.
+     */
     private void execute(){
         char[] matricePostiSala = (sala.getConfigPosti()).toCharArray();
         matricePostiSpettacolo = (spettacolo.getMatricePosti()).toCharArray();
@@ -79,26 +83,50 @@ public class RappresentazioneSala {
         }
     }
 
+    /**
+     * Restituisce la matrice dei posti dello spettacolo
+     * @return String rappresentante la matrice dei posti dello spettacolo
+     */
     public char[] getMatricePostiSpettacolo() {
         return matricePostiSpettacolo;
     }
 
+    /**
+     * Restituisce la matrice dei posti della sala.
+     * @return un array bidimensionale
+     */
     public char[][] getMatSala() {
         return matSala;
     }
 
+    /**
+     * Restituisce l'indice della prima riga da stampare
+     * @return un int
+     */
     public int getBeginRiga() {
         return beginRiga;
     }
 
+    /**
+     * Restituisce l'indice dell'ultima riga da stampare
+     * @return un int
+     */    
     public int getEndRiga() {
         return endRiga;
     }
-
+    
+    /**
+     * Restituisce l'indice della prima colonna da stampare
+     * @return un int
+     */
     public int getBeginColonna() {
         return beginColonna;
     }
-
+    
+    /**
+     * Restituisce l'indice dell'ultima colonna da stampare
+     * @return un int
+     */
     public int getEndColonna() {
         return endColonna;
     }
