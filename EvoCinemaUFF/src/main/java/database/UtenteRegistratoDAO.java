@@ -573,6 +573,17 @@ public class UtenteRegistratoDAO {
         return array;
     }
     
+    
+     /**
+     * Metodo per la raccolta di Analytics inerenti il numero di iscrizioni utenti con età maggiore di 'anni'
+     * 
+     *
+     * @param anni query eseguita con anno corrente - questo parametro
+     * @return restituisce una {@link ArrayList} con la data e il numero di occorrenze in quel giorno. 
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     public synchronized ArrayList getIscrizioniAnalyticsMaggioredi( int anni ) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
@@ -585,7 +596,7 @@ public class UtenteRegistratoDAO {
         try {
 
             stmt = (PreparedStatement) connection.prepareStatement("select count(email) as occorrenze , dataIscrizione from Utente "
-                                            + "WHERE ruolo = 'UTENTE' AND data_nascita >= ? group by dataIscrizione order by dataIscrizione");
+                                            + "WHERE ruolo = 'UTENTE' AND data_nascita <= ? group by dataIscrizione order by dataIscrizione");
            
             stmt.setDate(1, date);
             
@@ -608,7 +619,16 @@ public class UtenteRegistratoDAO {
         return array;
     }
     
-    
+    /**
+     * Metodo per la raccolta di Analytics inerenti il numero di iscrizioni utenti con età minore di 'anni'
+     * 
+     *
+     * @param anni query eseguita con anno corrente - questo parametro
+     * @return restituisce una {@link ArrayList} con la data e il numero di occorrenze in quel giorno. 
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     public synchronized ArrayList getIscrizioniAnalyticsMinoredi( int anni ) throws SQLException, ParseException, NamingException {
 
         PreparedStatement stmt = null;
@@ -621,7 +641,7 @@ public class UtenteRegistratoDAO {
         try {
 
             stmt = (PreparedStatement) connection.prepareStatement("select count(email) as occorrenze , dataIscrizione from Utente "
-                                            + "WHERE ruolo = 'UTENTE' AND data_nascita <= ? group by dataIscrizione order by dataIscrizione");
+                                            + "WHERE ruolo = 'UTENTE' AND data_nascita >= ? group by dataIscrizione order by dataIscrizione");
            
             stmt.setDate(1, date);
             

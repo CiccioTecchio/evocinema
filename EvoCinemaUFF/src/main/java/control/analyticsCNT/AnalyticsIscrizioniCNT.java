@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 /**
- *
+ * La classe restituisce un oggetto json che permette la rappresentazione del grafico Analytics iscrizioni
  * @author GiuseppeDelGaudio
  */
 @WebServlet( name = "AnalyticsIscrizioniCNT" , urlPatterns = {  "/gestore/IscrizioniUtenti"  } )

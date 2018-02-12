@@ -21,10 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Sconto;
 import org.json.JSONObject;
-
 /**
- *
- * @author pietr
+ * La classe restituisce un oggetto json che rappresenta il prezzo totale dei biglietti selezionati
+ * tenendo conto se sono stati acquistati o prenotati
+ * @author PietroDell'Isola
  */
 @WebServlet(name = "JSONCalcoloPrezzoTotale", urlPatterns = {"/JSONCalcoloPrezzoTotale"})
 public class JSONCalcoloPrezzoTotale extends HttpServlet {

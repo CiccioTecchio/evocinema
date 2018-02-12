@@ -94,7 +94,8 @@ function insertEta(){
     
     var scelta = $('#selectUtentiEta').val();
     
-    if (! isNotNumber($('#utentiEta'))){ alert('passa'); aggiornaGraficoUtenti(scelta , passa);}
+    if (! isNotNumber($('#utentiEta'))){ //alert('passa'); 
+        aggiornaGraficoUtenti(scelta , passa);}
     
 };
 

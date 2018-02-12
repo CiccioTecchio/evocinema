@@ -22,9 +22,11 @@ import model.UtenteBase;
 import model.UtenteRegistrato;
 import org.json.JSONObject;
 
+
 /**
- *
- * @author pietr
+ * La classe restituisce un oggetto json che rappresenta un esito positivo se l'email dell'utente è
+ * corretta esito negativo altrimenti 
+ * @author PietroDell'Isola
  */
 @WebServlet(name = "JSONcorrettezzaEmail", urlPatterns = {"/JSONcorrettezzaEmail"})
 public class JSONcorrettezzaEmail extends HttpServlet {

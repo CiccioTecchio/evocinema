@@ -22,9 +22,11 @@ import model.UtenteBase;
 import model.UtenteRegistrato;
 import org.json.JSONObject;
 
+
 /**
- *
- * @author pietr
+ * La classe restituisce un oggetto json che rappresenta un esito positivo se l'utente è in grado di effettuare 
+ * l'acquisto/prenotazione, un esito negativo altrimenti
+ * @author PietroDell'Isola
  */
 @WebServlet(name = "JSONDisponibilitaSaldo", urlPatterns = {"/JSONDisponibilitaSaldo"})
 public class JSONDisponibilitaSaldo extends HttpServlet {
