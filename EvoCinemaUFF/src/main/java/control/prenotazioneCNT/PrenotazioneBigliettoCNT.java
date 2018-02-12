@@ -55,7 +55,6 @@ public class PrenotazioneBigliettoCNT extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, NamingException, SQLException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("Servlet prenotazioni cnt");
         HttpSession s = request.getSession();
         UtenteRegistrato user =(UtenteRegistrato) s.getAttribute("user");
         UtenteRegistratoDAO utDAO = new UtenteRegistratoDAO();

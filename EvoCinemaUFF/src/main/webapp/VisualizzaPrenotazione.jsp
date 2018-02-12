@@ -33,7 +33,6 @@
     OperazioneDAO opDAO = new OperazioneDAO();
     SpettacoloDAO spettDAO = new SpettacoloDAO();
     Operazione x = opDAO.foundByID(IdPrenotazione);
-    System.out.println("Operazione:"+x.toString());
     Spettacolo spett = spettDAO.foundByID(x.getIdSpettacolo());
     session.setAttribute("operazione", x);
     UtenteRegistratoDAO utDAO = new UtenteRegistratoDAO();
@@ -57,7 +56,7 @@
                         Calendar cal = spett.getDataInizio();
                         int offset = x.getOffset();
                         cal.add(Calendar.DAY_OF_MONTH, offset);
-                        String data = cal.get(Calendar.YEAR) + "-";
+                        String data = cal.get(Calendar.DAY_OF_MONTH) + "-";
                         int mese = cal.get(Calendar.MONTH);
                         if ((mese >= 0) && (mese < 9)) {
                             data = data + "0" + (mese + 1);

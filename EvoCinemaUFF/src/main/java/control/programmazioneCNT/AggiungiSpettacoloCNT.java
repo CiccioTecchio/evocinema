@@ -29,13 +29,14 @@ import model.Spettacolo;
 public class AggiungiSpettacoloCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Riceve i campi inseriti dal gestore nella pagina di inserimento di uno spettacolo, ne effettua la convalida, e nel caso
+     * siano tutti corretti inserisce il nuovo spettacolo nel database e reindirizza alla pagina di inserimento 
+     * avvenuto con successo. Rimanda a quella di fallimento se uno o più dati sono scorretti.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

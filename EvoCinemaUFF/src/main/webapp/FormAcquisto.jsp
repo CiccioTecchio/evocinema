@@ -32,7 +32,6 @@
     <div class="card">
         
         <%  UtenteRegistrato user=(UtenteRegistrato)session.getAttribute("user");
-            //System.out.println("ruolo "+user.getRuolo().toString());
             if (utente!=null){
                 if(user.getRuolo()==UtenteRegistrato.ruolo.OPERATORE){
                 %>

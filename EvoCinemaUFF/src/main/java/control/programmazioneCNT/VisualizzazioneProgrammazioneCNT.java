@@ -31,18 +31,20 @@ import model.Film;
 public class VisualizzazioneProgrammazioneCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Invoca le classi DAO per ottenere dal database i dati degli spettacoli e dei relativi film in 
+     * programmazione oggi e nei due giorni a seguire, poi setta gli attributi "spettacoli" e "film"
+     * sulla richiesta per permettere alle pagine che includono questa servlet di recuperare i dati elaborati.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            //recupero la data odierna
             Calendar now = new GregorianCalendar();
             now = new GregorianCalendar(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
             now.add(Calendar.DAY_OF_MONTH, -1);
@@ -54,11 +56,11 @@ public class VisualizzazioneProgrammazioneCNT extends HttpServlet {
                 now.add(Calendar.DAY_OF_MONTH, 1);
                 spettacoli = spettacoloDao.foundByDate(now);
                 film = new LinkedList<Film>();
-                //scarto gli spettacoli che non rappresentano alcun opera
+                //scarto gli spettacoli che non rappresentano alcuna opera
                 spettacoli = spettacoli.stream().filter((s) -> s.getIdFilm() != null).collect(Collectors.toList());
                 //ordinamento degli spettacoli in base all'id dell'opera
                 spettacoli = spettacoli.stream().sorted((s1, s2) -> Integer.compare(s1.getIdFilm(), s2.getIdFilm())).collect(Collectors.toList());
-                //prelevo dal db le opere che mi servono
+                //prelevo dal db le opere relative agli spettacoli precedentemente selezionati
                 int newId, id = spettacoli.stream().findFirst().get().getIdFilm();
                 film.add(filmDao.foundByID(id));
                 for(Spettacolo s : spettacoli){

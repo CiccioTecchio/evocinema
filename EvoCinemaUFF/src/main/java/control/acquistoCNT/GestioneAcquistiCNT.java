@@ -24,8 +24,9 @@ import model.Sconto;
 import model.Spettacolo;
 
 /**
- *
- * @author pietr
+ * La classe definisce la logica che permette il caricamento di due {@link List} di tipo {@link 
+ * Spettacolo} e {@link Sconto}
+ * @author PietroDell'Isola
  */
 @WebServlet(name = "GestioneAcquistiCNT", urlPatterns = {"/GestioneAcquistiCNT"})
 public class GestioneAcquistiCNT extends HttpServlet {

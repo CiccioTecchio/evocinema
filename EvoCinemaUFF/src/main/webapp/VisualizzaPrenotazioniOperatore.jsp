@@ -94,7 +94,7 @@
                         cal = x.getDataInizio();
                         int offset = prenotazioni.get(i).getOffset();
                         cal.add(Calendar.DAY_OF_MONTH, offset);
-                        String data = cal.get(Calendar.YEAR) + "-";
+                        String data = cal.get(Calendar.DAY_OF_MONTH) + "-";
                         int mese = cal.get(Calendar.MONTH);
                         if ((mese >= 0) && (mese < 9)) {
                             data = data + "0" + (mese + 1);
