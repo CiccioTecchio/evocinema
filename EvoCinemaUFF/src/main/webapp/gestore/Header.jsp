@@ -79,7 +79,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
 
-                <jsp:include page="NavGestore.html" />    
+                <jsp:include page="NavGestore.jsp" />    
                 
                 <ul class="navbar-nav ml-auto">
 

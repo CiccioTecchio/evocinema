@@ -5,7 +5,6 @@
  */
 package database;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -21,11 +20,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Classe che testa tutti i metodi della classe SpettacoloDAO
  * @author Antonio
  */
 public class SpettacoloDAOTest {
     
+    /**
+     * Variabili che utilizziamo per istanziare l'oggetto Spettacolo per i Test.
+     */
     private static final int      IDSALA = 8;
     private static final Integer  IDFILM = 11;
     private static final String   TITOLO = "Tre uomini e una gamba";
@@ -35,24 +37,48 @@ public class SpettacoloDAOTest {
     private static       Calendar ORAINIZIO;
     private static       Calendar ORAFINE;
     private static final String   MATRICEPOSTI = "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+    
     private static java.sql.Connection connection;
     private static SpettacoloDAO spettacoloDAO;
     private static Spettacolo spettacolo, mySpett;
     private static int idSpettacolo;
     
+    /**
+     * Costruttore.
+     */
     public SpettacoloDAOTest() {
     }
     
+    /**
+     * Connessione temporanea al DB.
+     * @return La connessione al DB
+     * @throws SQLException 
+     */
     private static java.sql.Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
     
+     /**
+     * Metodo che inizializza la connessione, imposta l'autocommit a false per non sporcare il database,
+     * inizializza l'oggetto Spettacolo che utilizzeremo per i test e ne ricava l'id autogenerato dal DB.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException
+     */
     @BeforeClass
     public static void setUpClass() throws SQLException, NamingException, ParseException{
+        connection = getTestConnection();
+        connection.setAutoCommit(false);
         setMySpettacolo();
         setIdReale();
     }
     
+    /**
+     * Metodo che elimina dal DB il nostro Spettacolo e chiude la connessione.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     @AfterClass
     public static void tearDownClass() throws SQLException, ParseException, NamingException {
         spettacoloDAO.deleteSpettacolo(idSpettacolo);
@@ -60,17 +86,27 @@ public class SpettacoloDAOTest {
         connection.close();
     }
     
+    /**
+     * Metodo che viene eseguito prima di ogni metodo Test.
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     * Metodo che viene eseguito dopo di ogni metodo Test.
+     */
     @After
     public void tearDown() {
     }
     
+    /**
+     * Metodo che istanzia l'oggetto Spettacolo che utilizzeremo per effettuare i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
     private static void setMySpettacolo() throws SQLException, ParseException, NamingException{
-        connection = getTestConnection();
-        connection.setAutoCommit(false);
         spettacoloDAO = new SpettacoloDAO((com.mysql.jdbc.Connection) connection);
         DATAINIZIO = Calendar.getInstance();
         DATAINIZIO.set(2018, 02, 04);
@@ -84,6 +120,12 @@ public class SpettacoloDAOTest {
         spettacoloDAO.createSpettacolo(spettacolo);
     }
     
+    /**
+     * Metodo che ricava l'id autogenerato dal DB quando inseriamo l'oggetto Spettacolo.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
     private static void setIdReale() throws SQLException, ParseException, NamingException{
         //cerco lo spettacolo per ricavarne l'ID autogenerato
         List<Spettacolo> listaSpettacoli = spettacoloDAO.getAllSpettacoli();
@@ -97,7 +139,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of getAllSpettacoli method, of class SpettacoloDAO.
+     * Test del metodo getAllSpettacoli, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetAllSpettacoli() throws Exception {
@@ -113,7 +156,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of foundByID method, of class SpettacoloDAO.
+     * Test del metodo foundByID, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByID() throws Exception {
@@ -124,7 +168,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of foundBySala method, of class SpettacoloDAO.
+     * Test del metodo foundBySala, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundBySala() throws Exception {
@@ -141,7 +186,8 @@ public class SpettacoloDAOTest {
     
 
     /**
-     * Test of foundByDate method, of class SpettacoloDAO.
+     * Test del metodo foundByDate, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByDate() throws Exception {
@@ -157,7 +203,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of foundByOpera method, of class SpettacoloDAO.
+     * Test del metodo foundByOpera, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByOpera() throws Exception {
@@ -173,7 +220,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of createSpettacolo method, of class SpettacoloDAO.
+     * Test del metodo createSpettacolo, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCreateSpettacolo() throws Exception {
@@ -185,7 +233,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of updateSpettacolo method, of class SpettacoloDAO.
+     * Test del metodo updateSpettacolo, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateSpettacolo() throws Exception {
@@ -198,7 +247,8 @@ public class SpettacoloDAOTest {
     }
 
     /**
-     * Test of deleteSpettacolo method, of class SpettacoloDAO.
+     * Test del metodo deleteSpettacolo, della classe SpettacoloDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteSpettacolo() throws Exception {

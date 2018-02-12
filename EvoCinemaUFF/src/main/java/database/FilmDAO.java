@@ -66,7 +66,7 @@ public class FilmDAO {
         List<Film> film = new LinkedList<>();
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE eliminato = 'FALSE'" );
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -113,7 +113,7 @@ public class FilmDAO {
         List<Film> film = new LinkedList<>();
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE tipo= 'FILM' AND eliminato = 'FALSE' ");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -153,7 +153,7 @@ public class FilmDAO {
     List<Film> film = new LinkedList<>();
 
     try {
-        stmt = (PreparedStatement) connection.prepareStatement("SELECT idOpera, titolo, data_uscita FROM evo_cinema.Opera WHERE tipo= 'FILM' ");
+        stmt = (PreparedStatement) connection.prepareStatement("SELECT idOpera, titolo, data_uscita FROM evo_cinema.Opera WHERE tipo= 'FILM' AND eliminato = 'FALSE' ");
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
@@ -190,7 +190,7 @@ public class FilmDAO {
         List<Film> film = new LinkedList<>();
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera where tipo= 'TEATRO' ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera where tipo= 'TEATRO' AND eliminato = 'FALSE' ");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -238,7 +238,7 @@ public class FilmDAO {
         Film f = new Film();
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE idOpera= ? ");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Opera WHERE idOpera= ? AND eliminato = 'FALSE' ");
 
             stmt.setInt(1, idFilm);
             ResultSet rs = stmt.executeQuery();
@@ -287,7 +287,7 @@ public class FilmDAO {
         
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("select titolo from Opera where titolo = ? "); 
+            stmt = (PreparedStatement) connection.prepareStatement("select titolo from Opera where titolo = ? AND eliminato = 'FALSE'  "); 
 
             stmt.setString(1, s);
             
@@ -322,7 +322,7 @@ public class FilmDAO {
         
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Opera (tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer) VALUES ( ? ,? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
+            stmt = (PreparedStatement) connection.prepareStatement("INSERT INTO evo_cinema.Opera (tipo, titolo, locandina, regia, cast, genere, durata, data_uscita, visto_censura, distribuzione, produzione, trama, trailer , eliminato ) VALUES ( ? ,? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )");
 
             stmt.setString(1, f.getTipo().toString());
             stmt.setString(2, f.getTitolo());
@@ -338,7 +338,7 @@ public class FilmDAO {
             stmt.setString(11, f.getProduzione());
             stmt.setString(12, f.getTrama());
             stmt.setString(13, f.getTrailer());
-            
+            stmt.setString( 14 , "FALSE" );
            
             
             stmt.executeUpdate();
@@ -414,7 +414,36 @@ public class FilmDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Opera WHERE (idOpera= ? );");
+            
+            stmt = (PreparedStatement) connection.prepareStatement("DELETE FROM evo_cinema.Opera WHERE idOpera= ? ;");
+            System.out.println("Eliminato delete filme");
+            stmt.setInt(1, idOpera);
+            stmt.executeUpdate();
+            eliminato = true;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+        }
+        return eliminato;
+    }; 
+    
+    
+    /**
+     * 
+     * Cambia il parametro di eliminazione presente sul DB
+     * 
+     * @param idOpera viene passato come parametro l'id dell'Opera da eliminare
+     * @return restituisce la buona riuscita dell'operazione
+    **/
+    public synchronized boolean changeEliminato(int idOpera) throws SQLException, ParseException, NamingException {
+
+        boolean eliminato = false;
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = (PreparedStatement) connection.prepareStatement("UPDATE evo_cinema.Opera SET eliminato='TRUE' WHERE idOpera= ? ;");
+            System.out.println("Eliminato update filme");
             stmt.setInt(1, idOpera);
             stmt.executeUpdate();
             eliminato = true;

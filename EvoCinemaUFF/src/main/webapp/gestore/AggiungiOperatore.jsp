@@ -118,7 +118,7 @@
                                 
                                 <div class="col-md-6">
                                     <label for="exampleInputLastName">Data di nascita</label>
-                                    <input class="form-control" name="dataRegistrazione" type="text" id="datepicker">
+                                    <input class="form-control" name="dataRegistrazione" type="date" id="dateForm" max="2000-12-31">
                                    <!-- <input  id="dataNascitaRegistrazione" type="date"  >-->
                                     <div class="form-input-validation is-error" id ="errorDataNascita">
                                         <span>

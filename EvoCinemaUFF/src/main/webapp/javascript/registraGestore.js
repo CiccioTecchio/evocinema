@@ -24,7 +24,7 @@
                      var indirizzo = $('#indirizzoRegistrazione').val();
                      var citta =  $('#cittaRegistrazione').val();
                      var cellulare = $('#cellulareRegistrazione').val();
-                     var dataNascita =  $('#datepicker').val();
+                     var dataNascita =  $('#dateForm').val();
                      var sesso =  $('#sessoRegistrazione').val();
                      var username =  $('#userRegistrazione').val();
                      var password = $('#passwordRegistrazione').val();

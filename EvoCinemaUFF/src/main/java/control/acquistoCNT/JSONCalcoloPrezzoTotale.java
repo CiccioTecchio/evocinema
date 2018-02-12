@@ -58,7 +58,6 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
         Sconto sc = new Sconto();
         
         if(operazione.equals("Acquista")){
-            System.out.println("Acquisto");
         while(!idSconti.equals("")){
             idScontoAttuale = Integer.parseInt(idSconti.substring(0,idSconti.indexOf('-')));
             idSconti=idSconti.substring(idSconti.indexOf('-')+1);
@@ -77,7 +76,6 @@ public class JSONCalcoloPrezzoTotale extends HttpServlet {
         }
         }
         else{
-            System.out.println("Prenotazione");
             while(!idSconti.equals("")){
             idSconti=idSconti.substring(idSconti.indexOf('-')+1);
             prezzoTotale+=2;

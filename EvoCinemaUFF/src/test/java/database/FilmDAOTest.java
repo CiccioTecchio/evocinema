@@ -27,6 +27,9 @@ import static org.junit.Assert.*;
  */
 public class FilmDAOTest {
     
+    /**
+     * Variabili che utilizziamo per istanziare l'oggetto Spettacolo per i Test.
+     */
     private static final String TITOLO = "V per Vendetta";
     private static final String LOCANDINA = "C:\\Users\\Antonio\\Desktop\\VForV.jpg";
     private static final String REGIA = "James McTeigue";
@@ -48,24 +51,59 @@ public class FilmDAOTest {
     private static Film film, myFilm;
     private static int idFilm;
     
+    /**
+     * Costruttore.
+     */
     public FilmDAOTest() {
         
     }
     
+    /**
+     * Connessione temporanea al DB.
+     * @return La connessione al DB
+     * @throws SQLException 
+     */
     private static java.sql.Connection getTestConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://evocinema.cddgmzg8k9r4.us-west-2.rds.amazonaws.com:3306/evo_cinema?user=user&password=pippofranco");
     }
     
+    /**
+     * Metodo che inizializza la connessione, imposta l'autocommit a false per non sporcare il database,
+     * inizializza l'oggetto Film che utilizzeremo per i test e ne ricava l'id autogenerato dal DB.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException
+     */
     @BeforeClass
     public static void setUpClass() throws SQLException, NamingException, ParseException{
         connection = getTestConnection();
         connection.setAutoCommit(false);
+        setMyFilm();
+        setIdReale();
+    }
+    
+    /**
+     * Metodo che istanzia l'oggetto Film che utilizzeremo per effettuare i test.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setMyFilm() throws SQLException, NamingException, ParseException{
         filmDAO = new FilmDAO((Connection) connection);
         Calendar dataUscita = Calendar.getInstance();
         dataUscita.set(2006, 3, 17);
         film = new Film(Film.tipo.FILM, TITOLO, LOCANDINA, REGIA, CAST, GENERE, DURATA, dataUscita, Film.vistoCensura.VM14, DISTRIBUZIONE, PRODUZIONE, TRAMA, TRAILER);        
         filmDAO.createFilm(film);
-         //cerco il film per ricavarne l'ID autogenerato
+    }
+    
+    /**
+     * Metodo che ricava l'id autogenerato dal DB quando inseriamo l'oggetto Film.
+     * @throws NamingException
+     * @throws SQLException
+     * @throws ParseException 
+     */
+    private static void setIdReale() throws SQLException, ParseException, NamingException{
+        //cerco il film per ricavarne l'ID autogenerato
         List<Film> listaFilm = filmDAO.getAllFilm();
         myFilm = null;
         for(Film f: listaFilm){
@@ -76,6 +114,12 @@ public class FilmDAOTest {
         idFilm = myFilm.getIdFilm();
     }
     
+    /**
+     * Metodo che elimina dal DB il nostro Film e chiude la connessione.
+     * @throws SQLException
+     * @throws ParseException
+     * @throws NamingException
+     */
     @AfterClass
     public static void tearDownClass() throws SQLException, ParseException, NamingException {
         filmDAO.deleteFilm(idFilm);
@@ -83,16 +127,23 @@ public class FilmDAOTest {
         connection.close();
     }
     
+    /**
+     * Metodo che viene eseguito prima di ogni metodo Test.
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     * Metodo che viene eseguito dopo di ogni metodo Test.
+     */
     @After
     public void tearDown() {
     }
 
     /**
-     * Test of getAllOpere method, of class FilmDAO.
+     * Test del metodo getAllOpere, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetAllOpere() throws Exception {
@@ -108,7 +159,8 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of getAllFilm method, of class FilmDAO.
+     * Test del metodo getAllFilm, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetAllFilm() throws Exception {
@@ -126,7 +178,8 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of getFilmNameAndDate method, of class FilmDAO.
+     * Test del metodo getFilmNameAndDate, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetFilmNameAndDate() throws Exception {
@@ -142,7 +195,8 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of getAllTeatro method, of class FilmDAO.
+     * Test del metodo getAllTeatro, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testGetAllTeatro() throws Exception {
@@ -160,7 +214,8 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of foundByID method, of class FilmDAO.
+     * Test del metodo foundByID, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testFoundByID() throws Exception {
@@ -171,7 +226,8 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of isExistByTitolo method, of class FilmDAO.
+     * Test del metodo isExistByTitolo, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testIsExistByTitolo() throws Exception {
@@ -181,7 +237,8 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of createFilm method, of class FilmDAO.
+     * Test del metodo createFilm, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testCreateFilm() throws Exception {
@@ -189,19 +246,12 @@ public class FilmDAOTest {
         filmDAO.deleteFilm(idFilm);
         boolean expResult = true;
         assertEquals(expResult, filmDAO.createFilm(film));
-        //cerco il film per ricavarne l'ID autogenerato
-        List<Film> listaFilm = filmDAO.getAllFilm();
-        myFilm = null;
-        for(Film f: listaFilm){
-            if(f.getTitolo().equals(TITOLO)){
-                myFilm = f;
-            }
-        }
-        idFilm = myFilm.getIdFilm();               
+        setIdReale();           
     }
 
     /**
-     * Test of updateFilm method, of class FilmDAO.
+     * Test del metodo updateFilm, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testUpdateFilm() throws Exception {
@@ -214,14 +264,16 @@ public class FilmDAOTest {
     }
 
     /**
-     * Test of deleteFilm method, of class FilmDAO.
+     * Test del metodo deleteFilm, della classe FilmDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDeleteFilm() throws Exception {
         System.out.println("deleteFilm");
         boolean expResult = true;
         assertEquals(expResult, filmDAO.deleteFilm(myFilm.getIdFilm()));
-        filmDAO.createFilm(film);       
+        setMyFilm();
+        setIdReale();
     }
     
 }

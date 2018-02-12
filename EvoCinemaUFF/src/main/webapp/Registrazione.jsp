@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    request.setAttribute("title", "Registrazione");
+%>
 <%@ include file="Header.jsp"%>
 
 <html>
@@ -24,18 +27,36 @@
 
             UtenteRegistrato utente = (UtenteRegistrato) s.getAttribute("user");
 
-            Boolean registrazioneImpossibile = (Boolean) s.getAttribute("registrazioneImpossibile");
+            Boolean userInvalido = null;
+            userInvalido = (Boolean) s.getAttribute("userInvalido");
+            s.setAttribute("userInvalido", null);
+            String user="";
+            
+            Boolean emailInvalida = null;
+            emailInvalida = (Boolean) s.getAttribute("emailInvalida");
+            s.setAttribute("emailInvalida", null);
+            String email="";
+            
+            
+                if (emailInvalida==null){
+                    email="";
+                }
+                else{   
+                    if(emailInvalida.equals(true)){
+                        email+="Email già utilizzata. Inseriscine una valida.";
+                    }
+                }    
+                if(userInvalido==null){
+                    user="";
+                }else{ 
+                    if(userInvalido.equals(true)){
+                        user+="Username non disponibile. Inseriscine uno valido.";
+                    }
+                }
+            
             if (utente == null) {
-                if (registrazioneImpossibile != null) {
         %>
 
-        <%
-        } else {
-        %>
-
-        <%
-            }
-        %>
 
         <div class="container">
             <div class="card card-register mx-auto mt-5">
@@ -72,6 +93,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input class="form-control" type="text" id="emailRegistrazione" name="emailRegistrazione" maxlength="50">
+                            <font color="red"><%=email%></font>
                             <div class="form-input-validation is-error" id ="errorEmail2">
                                 <span>
                                     <p class="error-psw">Questo campo non può contenere meno di 5 caratteri!</p>
@@ -95,7 +117,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleInputLastName">Data di nascita</label>
-                                    <input class="form-control" name="dataRegistrazione" type="date" id="dateForm">
+                                    <input class="form-control" name="dataRegistrazione" type="date" id="dateForm" max="2000-12-31">
                                    <!-- <input  id="dataNascitaRegistrazione" type="date"  >-->
                                     <div class="form-input-validation is-error" id ="errorDataNascita">
                                         <span>
@@ -142,6 +164,7 @@
                         <div class="form-group">
                             <label for="exampleInputName">Username</Label>
                             <input class="form-control" type="text" id="userRegistrazione" name="userRegistrazione" maxlength="50">
+                            <font color="red"><%=user%></font>
                             <div class="form-input-validation is-error" id ="errorUsername">
                                 <span>
                                     <p class="error-psw">Questo campo non può contenere meno di 5 caratteri.</p>

@@ -109,7 +109,7 @@ public class RecensioneDAO {
        List<Recensione> recensioni = new LinkedList<>();
        
        try {
-            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= ? AND data_recensione IS NOT NULL AND testo IS NOT NULL");
+            stmt = (PreparedStatement) connection.prepareStatement("SELECT * FROM evo_cinema.Recensioni WHERE email= ? AND  data_recensione IS NOT NULL AND testo IS NOT NULL");
             stmt.setString(1, emailUtente);
             ResultSet rs = stmt.executeQuery();
             
@@ -125,8 +125,8 @@ public class RecensioneDAO {
                     Calendar data = Calendar.getInstance();
                     data.setTime(rs.getDate("data_recensione"));
                     r.setDataImmissione(data);
+                    if( film.getTitolo() != null ) recensioni.add(r);
                     
-                    recensioni.add(r);
                     }
 		} finally {
 				if (stmt != null)

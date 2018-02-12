@@ -14,7 +14,7 @@
                     $('#errorMatch').hide();
                     
                     $("#registrazione").click(function(e) {   
-                    var regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;;
+                    var regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
                     var regExpCal = /\d{4}\-(0?[1-9]|1[012])\-[0-3][0-9]/;
                      e.preventDefault();
                      
@@ -122,13 +122,16 @@
                             $.ajax({
                          
                               type: "POST",
-                              url:"RegistrazioneCNT",
+                              url:"./RegistrazioneCNT",
                               data:{"nomeRegistrazione":nome,"cognomeRegistrazione":cognome,
                               "emailRegistrazione":email,"indirizzoRegistrazione":indirizzo,
                           "cittaRegistrazione":citta,"passwordRegistrazione":password,"password1Registrazione":password2,"cellulareRegistrazione":cellulare,
                       "userRegistrazione":username,"dataRegistrazione":dataNascita,"sessoRegistrazione":sesso},
                               success: function (data) { 
                                      window.location.href = data.toString();
+                                 },error: function(){
+                                     alert("Impossibile registrare.");
+                                     location.reload();
                                  }
                                  
                                  
