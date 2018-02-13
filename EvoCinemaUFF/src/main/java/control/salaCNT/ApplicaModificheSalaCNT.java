@@ -29,13 +29,13 @@ import model.Sala;
 public class ApplicaModificheSalaCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Riceve la configurazione della sala così come modificata dal gestore, calcola i campi da essa derivanti
+     * e modifica la sala nel database. In caso di successo rimanda alla stessa pagina mostrando un messaggio di avvenuta con successo.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

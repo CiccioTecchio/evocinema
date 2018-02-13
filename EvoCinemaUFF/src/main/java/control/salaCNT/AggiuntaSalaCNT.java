@@ -29,13 +29,13 @@ import model.Sala;
 public class AggiuntaSalaCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Riceve la configurazione di una nuova sala così come inserita dal gestore, calcola i campi da essa derivanti
+     * e inserisce la nuova sala. In caso di successo rimanda alla stessa pagina mostrando un messaggio di avvenuto con successo.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,7 +52,7 @@ public class AggiuntaSalaCNT extends HttpServlet {
             request.setAttribute("inserito", true);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiuntaSala.jsp");
             dispatcher.forward(request, response);
-            request.getServletContext().setAttribute("flagSala", true);
+            request.getServletContext().setAttribute("flagSala", new Boolean(true));
 
         } catch (NamingException ex) {
             Logger.getLogger(AggiuntaSalaCNT.class.getName()).log(Level.SEVERE, null, ex);
