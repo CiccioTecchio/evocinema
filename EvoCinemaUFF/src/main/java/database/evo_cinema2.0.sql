@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `evo_cinema`.`Opera` (
   `produzione` VARCHAR(255) NULL DEFAULT NULL,
   `trama` TEXT NULL DEFAULT NULL,
   `trailer` VARCHAR(400) NULL DEFAULT NULL,
+  `eliminato` ENUM('TRUE', 'FALSE') DEFAULT 'FALSE',
   PRIMARY KEY (`idOpera`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
