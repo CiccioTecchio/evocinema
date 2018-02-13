@@ -132,12 +132,12 @@
                 
                 <div id="divSpettacolo" class="form-group text-center mt-5 mb-5">
                 <strong> Spettacolo </strong>
-                    <select class="js-example-basic-single" name="spettacolo">
+                <select id="spettacoloNum" class="js-example-basic-single" name="spettacolo">
                        
                          <option value="0" >Nessuno</option>
                     <% for (Spettacolo s : spettacoli) {
                           %>
-                          <option value="<%=s.getIdFilm() %>">
+                          <option value="<%=s.getIdSpettacolo() %>">
                               <%=s.getTitolo() %> Orario: <%=sdf.format(s.getOraInizio().getTime())%> 
                                 </option>
                                <% }%>

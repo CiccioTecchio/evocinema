@@ -273,7 +273,7 @@
                                                 ((s.getTipologia()==tipologia.GIORNO_SETTIMANA)&&
                                                 (giornoOggi.equalsIgnoreCase(s.getParametroTipologia())))||
                                                 ((s.getTipologia()==tipologia.DATA)&&(data.equals(s.getParametroTipologia())))||
-                                                ((s.getTipologia()==tipologia.FILM)&&(s.getParametroTipologia().equalsIgnoreCase(spettacoloSelezionato.getTitolo())))||
+                                                ((s.getTipologia()==tipologia.FILM)&&( Integer.parseInt(s.getParametroTipologia()) == spettacoloSelezionato.getIdFilm() ))||
                                                 ((s.getTipologia()==tipologia.SPETTACOLO)&&(spettacoloSelezionato.getIdSpettacolo()==Integer.parseInt(s.getParametroTipologia())))
                                                 )// FINE CONDIZIONI TIPOLOGIA
                                                 )) //FINE SE E' UN UTENTE BASE
