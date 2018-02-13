@@ -30,8 +30,10 @@ public class AggiuntaSalaCNT extends HttpServlet {
 
     /**
      * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
-     * Riceve la configurazione di una nuova sala così come inserita dal gestore, calcola i campi da essa derivanti
-     * e inserisce la nuova sala. In caso di successo rimanda alla stessa pagina mostrando un messaggio di avvenuto con successo.
+     * Riceve la configurazione di una nuova sala così come inserita dal gestore, calcola i campi 
+     * da essa derivanti e inserisce la nuova sala nel database.
+     * In caso di successo reindirizza alla stessa pagina mostrando un messaggio di inserimento
+     * avvenuto con successo.
      * 
      * @param request servlet request
      * @param response servlet response

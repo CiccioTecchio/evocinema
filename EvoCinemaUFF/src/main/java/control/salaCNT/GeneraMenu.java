@@ -15,10 +15,14 @@ import javax.naming.NamingException;
 import model.Sala;
 
 /**
- *
+ *Una classe per la generazione del menù dinamico di gestione sala lato gestore.
  * @author luca
  */
 public class GeneraMenu {
+    /**
+     * Restituisce una List contenente tutte le sale presenti nel database
+     * @return 
+     */
     public static List<Sala> getSale(){
         try {
             SalaDAO salaDao = new SalaDAO();

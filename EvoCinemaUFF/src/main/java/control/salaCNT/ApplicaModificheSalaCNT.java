@@ -31,7 +31,8 @@ public class ApplicaModificheSalaCNT extends HttpServlet {
     /**
      * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
      * Riceve la configurazione della sala così come modificata dal gestore, calcola i campi da essa derivanti
-     * e modifica la sala nel database. In caso di successo rimanda alla stessa pagina mostrando un messaggio di avvenuta con successo.
+     * e modifica la sala nel database. In caso di successo rimanda alla stessa pagina mostrando un messaggio
+     * di modifica avvenuta con successo.
      * 
      * @param request servlet request
      * @param response servlet response

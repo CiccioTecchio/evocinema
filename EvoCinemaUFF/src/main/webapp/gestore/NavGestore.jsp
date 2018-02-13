@@ -86,13 +86,13 @@
                             <span class="nav-link-text">Gestione Sale</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents4">
-                            <%  Boolean flag = (Boolean) request.getServletContext().getAttribute("salaFlag");
-                                List<Sala> sale = (List<Sala>) request.getServletContext().getAttribute("salaList");
-                                if(flag == null || flag == true){
+                            <%  //Boolean flag = (Boolean) request.getServletContext().getAttribute("salaFlag");
+                                List<Sala> sale;// = (List<Sala>) request.getServletContext().getAttribute("salaList");
+                                //if(flag == null || flag == true){
                                     sale = GeneraMenu.getSale();
-                                    request.getServletContext().setAttribute("salaList", sale);
-                                    request.getServletContext().setAttribute("salaFlag", false);
-                                }
+                                /*    request.getServletContext().setAttribute("salaList", sale);
+                                    request.getServletContext().setAttribute("salaFlag", new Boolean(false));
+                                }*/
                                 for(Sala s : sale){ %>
                             <li>
                                 <a href="ModificaSala.jsp?id=<%=s.getIdSala()%>">Sala <%=s.getIdSala()%></a>

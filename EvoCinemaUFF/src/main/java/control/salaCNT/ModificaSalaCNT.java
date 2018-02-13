@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,20 +30,29 @@ import model.Sala;
 public class ModificaSalaCNT extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+     * Processa le richieste sia per il metodo HTTP <code>GET</code> che per quello <code>POST</code>.
+     * Recupera dal database i dati della sala che il gestore ha intenzione di modificare.
+     * Esegue su di essi le elaborazioni per renderli fruibili alla jsp e setta i risultati
+     * negli attributi sulla richiesta in modo che questa possa recuperarli.
+     * Stampa un messaggio di errore se fallisce nel recuperare l'id dalla richiesta http.
+     * 
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @throws ServletException se si verifica un errore specifico delle servlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
+        try{
+            int id = 0;
             SalaDAO salaDao = new SalaDAO();
-            int id = Integer.parseInt(request.getParameter("id"));
+            try {
+                id = Integer.parseInt(request.getParameter("id"));
+            } catch(NumberFormatException e){
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiuntaFallimento.jsp");
+                request.setAttribute("messaggio", "ID della sala da modificare non pervenuto.");
+                dispatcher.forward(request,response);
+            }
             Sala sala = salaDao.foundByID(id);
             char[] matPosti = sala.getConfigPosti().toCharArray();
             //Conversione dell'array in una matrice
