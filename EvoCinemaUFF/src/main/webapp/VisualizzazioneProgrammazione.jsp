@@ -56,6 +56,7 @@
                         StampaSpettacolo.prepare(s, f, 0);
                     }       
                 }
+                out.print(StampaSpettacolo.getResult());
 %>
               </div>
           </div>
@@ -76,6 +77,7 @@
                         StampaSpettacolo.prepare(s, f, 1);
                     }       
                 }
+                out.print(StampaSpettacolo.getResult());
 %>
               </div>
           </div>
@@ -95,6 +97,7 @@
                         StampaSpettacolo.prepare(s, f, 2);
                     }       
                 }
+                out.print(StampaSpettacolo.getResult());
 %>
               </div>              
           </div>
