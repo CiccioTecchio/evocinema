@@ -22,7 +22,7 @@ import model.Sconto;
 import org.json.JSONObject;
 
 /**
- *
+ * La classe definisce la logica che permette di abilitare e disabilitare un oggetto di tipo {@link Sconto}
  * @author Michele
  */
 @WebServlet(name = "abilitaSconto", urlPatterns = {"/gestore/abilitaSconto"})

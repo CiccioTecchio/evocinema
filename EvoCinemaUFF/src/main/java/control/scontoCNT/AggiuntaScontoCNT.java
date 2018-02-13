@@ -20,7 +20,8 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 
 /**
- *
+ * La classe definisce la logica che permette l'aggiunta di un oggetto di tipo {@link Sconto}
+ * 
  * @author francescodefeo
  */
 @WebServlet( name = "AggiuntaSconto" , urlPatterns = { "/gestore/aggiuntaSconto" } )
@@ -30,7 +31,10 @@ public class AggiuntaScontoCNT extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
+     * Questo metodo crea e aggiunge un nuovo sconto acquisendo i vari parametri dalla Request
+     * e restituisce un attributo "messaggio" con un messaggio mostrabile all'utento sia in
+     * caso di successo che in caso di insuccesso.
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
