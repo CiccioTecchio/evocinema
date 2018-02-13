@@ -1,4 +1,7 @@
- <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+ <%@page import="control.salaCNT.GeneraMenu"%>
+<%@page import="model.Sala"%>
+<%@page import="java.util.List"%>
+<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
                         <a class="nav-link" href="index.jsp">
                             <i class="fa fa-fw fa-home"></i>
@@ -82,29 +85,20 @@
                             <span class="nav-link-text">Gestione Sale</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents4">
+                            <%  Boolean flag = (Boolean) request.getServletContext().getAttribute("salaFlag");
+                                List<Sala> sale = (List<Sala>) request.getServletContext().getAttribute("salaList");
+                                if(flag == null || flag == true){
+                                    sale = GeneraMenu.getSale();
+                                    request.getServletContext().setAttribute("salaList", sale);
+                                    request.getServletContext().setAttribute("salaFlag", false);
+                                }
+                                for(Sala s : sale){ %>
                             <li>
-                                <a href="gestore/ModificaSala.jsp?id=1">Sala 1</a>
+                                <a href="gestore/ModificaSala.jsp?id=<%=s.getIdSala()%>">Sala <%=s.getIdSala()%></a>
                             </li>
+                            <% } %>
                             <li>
-                                <a href="gestore/ModificaSala.jsp?id=2">Sala 2</a>
-                            </li>
-                            <li>
-                                <a href="gestore/ModificaSala.jsp?id=3">Sala 3</a>
-                            </li>
-                            <li>
-                                <a href="gestore/ModificaSala.jsp?id=4">Sala 4</a>
-                            </li>
-                            <li>
-                                <a href="gestore/ModificaSala.jsp?id=5">Sala 5</a>
-                            </li>
-                            <li>
-                                <a href="gestore/ModificaSala.jsp?id=6">Sala 6</a>
-                            </li>
-                            <li>
-                                <a href="gestore/ModificaSala.jsp?id=7">Sala 7</a>
-                            </li>
-                            <li>
-                                <a href="gestore/ModificaSala.jsp?id=8">Sala 8</a>
+                                <a href="gestore/AggiuntaSala.jsp">Aggiungi nuova sala</a>
                             </li>
                         </ul>
                     </li>
