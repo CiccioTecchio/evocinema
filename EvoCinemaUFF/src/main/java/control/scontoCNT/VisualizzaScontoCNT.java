@@ -21,8 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Sconto;
 
 /**
- *
- * @author francescodefeo
+ * La classe definisce la logica che permette di visualizzare gli oggetti di tipo {@link Sconto} 
  */
 @WebServlet(name = "visualizzaSconto", urlPatterns = {"/visualizzaSconto"})
 public class VisualizzaScontoCNT extends HttpServlet {

@@ -20,8 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Sconto;
 
 /**
- *
- * @author Michele
+ * La classe definisce la logica che permette la modifica di un oggetto di tipo {@link Sconto}
  */
 @WebServlet( name = "ModificaSconto" , urlPatterns = { "/gestore/modificaSconto" } )
 
