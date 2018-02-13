@@ -1,4 +1,7 @@
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+<%@page import="control.salaCNT.GeneraMenu"%>
+<%@page import="model.Sala"%>
+<%@page import="java.util.List"%>
+<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
                         <a class="nav-link" href="../index.jsp">
                             <i class="fa fa-fw fa-home"></i>
@@ -83,10 +86,16 @@
                             <span class="nav-link-text">Gestione Sale</span>
                         </a>
                         <ul class="sidenav-second-level collapse" id="collapseComponents4">
-                            <%  //request.getSession().getAttribute("sale");
-                                for(int i=0;i<8;i++){ %>
+                            <%  Boolean flag = (Boolean) request.getServletContext().getAttribute("salaFlag");
+                                List<Sala> sale = (List<Sala>) request.getServletContext().getAttribute("salaList");
+                                if(flag == null || flag == true){
+                                    sale = GeneraMenu.getSale();
+                                    request.getServletContext().setAttribute("salaList", sale);
+                                    request.getServletContext().setAttribute("salaFlag", false);
+                                }
+                                for(Sala s : sale){ %>
                             <li>
-                                <a href="ModificaSala.jsp?id=<%=i%>">Sala <%=i%></a>
+                                <a href="ModificaSala.jsp?id=<%=s.getIdSala()%>">Sala <%=s.getIdSala()%></a>
                             </li>
                             <% } %>
                             <li>

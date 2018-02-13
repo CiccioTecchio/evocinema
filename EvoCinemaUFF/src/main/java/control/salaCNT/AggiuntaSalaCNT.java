@@ -52,6 +52,7 @@ public class AggiuntaSalaCNT extends HttpServlet {
             request.setAttribute("inserito", true);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/gestore/AggiuntaSala.jsp");
             dispatcher.forward(request, response);
+            request.getServletContext().setAttribute("flagSala", true);
 
         } catch (NamingException ex) {
             Logger.getLogger(AggiuntaSalaCNT.class.getName()).log(Level.SEVERE, null, ex);
